@@ -1,0 +1,44 @@
+﻿@{
+    ViewBag.Title = "Sejarah";
+}
+<div class="layer">
+    <h1>
+        Sejarah</h1>
+    @(Html.Telerik().Grid<Proyek_Informatika.Models.Table_2>()
+        .HtmlAttributes(new { style = "width:100%" })
+        .Name("Topik")
+        .DataKeys(keys =>
+        {
+            keys.Add(p => p.a);
+        })
+        
+            .DataBinding(dataBinding =>
+            {
+                dataBinding.Ajax()
+                    .Select("_SelectAjaxEditing", "User")
+                    .Delete("_DeleteAjaxEditing", "User");
+            })
+        .Columns(columns =>
+        {
+            columns.Bound(o => o.a).Width(100).Title("Mata Kuliah");
+            columns.Bound(o => o.ab).Width(100).Title("Tahun");
+            columns.Bound(o => o.abc).Width(100).Title("Semester");
+            columns.Bound(o => o.a).Width(100).Title("NPM");
+            columns.Bound(o => o.ab).Width(150).Title("Nama Mahasiswa");
+            columns.Bound(o => o.abc).Width(250).Title("Topik");
+            columns.Bound(o => o.abc).Width(100).Title("Keterangan");
+
+        })
+            //.ClientEvents(
+            //    events => events
+            //        .OnComplete("OnComplete") --> popup window
+            //)
+        .Pageable(p => p.PageSize(15))
+        .Sortable()
+        .Filterable()
+            //.Editable(editing => editing.Mode(GridEditMode.PopUp))
+        .Scrollable(c => c.Enabled(true))
+        .Selectable()
+        .Groupable()
+)
+</div>

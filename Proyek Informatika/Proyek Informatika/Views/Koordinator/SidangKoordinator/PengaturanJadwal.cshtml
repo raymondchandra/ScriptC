@@ -1,0 +1,93 @@
+﻿<script src="../../../Scripts/schedular/dhtmlxscheduler.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../Scripts/schedular/ext/dhtmlxscheduler_editors.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../Scripts/schedular/ext/dhtmlxscheduler_minical.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../Scripts/schedular/ext/dhtmlxscheduler_readonly.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../Scripts/schedular/ext/dhtmlxscheduler_dhx_terrace.js" type="text/javascript" charset="utf-8"></script>
+<link rel="stylesheet" href="../../../Scripts/schedular/dhtmlxscheduler_dhx_terrace.css" type="text/css" media="screen" title="no title" charset="utf-8">
+<style>
+    .dhx_cal_event.high div, .dhx_cal_event_line.high{
+        background-color:red !important; 
+        color:white !important;
+    }
+    .dhx_cal_event.low div, .dhx_cal_event_line.low{
+        background-color: #BBBBBB !important; 
+        color:white !important;
+    }
+</style>
+<script type="text/javascript" charset="utf-8">
+
+
+    function init() {
+        scheduler.config.multi_day = true;
+        scheduler.config.fix_tab_position = false; // tabs are positioned correctly, no need to fix it
+        scheduler.config.minicalendar.mark_events = false; // events won't be marked on minicalendar
+        scheduler.config.full_day = true;
+        scheduler.config.xml_date = "%Y-%m-%d %H:%i";
+        //label
+        scheduler.locale.labels.section_text = 'Title';
+        scheduler.locale.labels.section_description = 'Description';
+        scheduler.locale.labels.section_mahasiswa = 'Mahasiswa';
+        scheduler.locale.labels.section_pembimbing = 'Pembimbing';
+        scheduler.locale.labels.section_penguji1 = 'Penguji 1';
+        scheduler.locale.labels.section_penguji2 = 'Penguji 2';
+        scheduler.locale.labels.section_place = 'Tempat';
+
+        scheduler.attachEvent("onBeforeLightbox", function (event_id) {
+            var configLb = [
+			            { name: "text", height: 30, map_to: "text", type: "textarea", focus: true },
+                        { name: "mahasiswa", height: 30, map_to: "mahasiswa", type: "textarea" },
+                        { name: "pembimbing", height: 30, map_to: "pembimbing", type: "template" },
+                        { name: "penguji1", height: 30, map_to: "penguji1", type: "combo" },
+                        { name: "penguji2", height: 30, map_to: "penguji2", type: "combo" },
+                        { name: "place", height: 30, map_to: "place", type: "combo" },
+                        { name: "description", height: 75, map_to: "description", type: "textarea" },
+                        { name: "time", height: 72, type: "calendar_time", map_to: "auto" }
+		            ];
+            scheduler.config.lightbox.sections = configLb;
+            scheduler.resetLightbox(); // resetting lightbox to apply new section label
+            return true; // lightbox will be displayed
+        });
+
+
+        scheduler.init('scheduler_here', new Date(), "week");
+        //        $.post("Kalendar/Data", "", function (data) {
+        //            scheduler.parse(JSON.stringify(data), "json");
+        //        });
+
+        //        var dp = new dataProcessor("/Kalendar/Save");
+
+        //        dp.setTransactionMode("POST", false);
+        //        dp.enableDataNames(true);
+        //        dp.init(scheduler);
+    }
+
+
+    $(document).ready(function () {
+        init();
+
+    });
+
+
+</script>
+
+@{
+    ViewBag.Title = "Pengaturan Jadwal";
+}
+
+<div class="layer">
+    <h1>Pengaturan Jadwal</h1>
+    <div id="scheduler_here" class="dhx_cal_container" style='padding-top=10px; height:500px;'>
+	    <div class="dhx_cal_navline">
+		    <div class="dhx_cal_prev_button">&nbsp;</div>
+		    <div class="dhx_cal_next_button">&nbsp;</div>
+		    <!--<div class="dhx_cal_today_button"></div>-->
+		    <div class="dhx_cal_date"></div>
+		    <div class="dhx_cal_tab" name="week_tab" style="left:14px;"></div>
+	    </div>
+	    <div class="dhx_cal_header">
+	    </div>
+	    <div class="dhx_cal_data">
+        </div>
+    </div>
+    
+</div>

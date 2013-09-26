@@ -1,0 +1,100 @@
+﻿body
+{
+    font-family: Calibri, sans-serif;
+}
+#title
+{
+    text-align: center;
+}
+#header h1
+{
+    font-variant: small-caps;
+    font-family: Cambria, serif;
+    letter-spacing: 2px;
+}
+#title div
+{
+    font-size: 12px;
+}
+#footer
+{
+    text-align: center;
+    font-size: 12px;
+}
+
+#navigator
+{
+    text-align: center;
+}
+
+#navigator ul li
+{
+    text-align: left;
+}
+#content
+{
+    font-size: 14px;
+}
+#content h1, #content h2, #content h3, #content h4, #content h5, #content h6
+{
+    font-family: Cambria, serif;
+    font-weight: bold;
+}
+
+#content h1
+{
+    font-size: 22px;
+    text-transform: uppercase;
+}
+#content h2
+{
+    font-size: 20px;
+}
+#content h3
+{
+    font-size: 18px;
+}
+#content h4
+{
+    font-size: 17px;
+}
+#content h5
+{
+    font-size: 16px;
+}
+#content h6
+{
+    font-size: 15px;
+}
+
+a
+{
+    text-decoration: none;
+    font-weight: bold;
+}
+a:hover
+{
+    text-decoration: underline;
+}
+
+.input
+{
+    font-family: "Eras Medium ITC" , sans-serif;
+}
+
+.blokpengumuman p
+{
+    text-indent: 50px;
+    text-align: justify;
+}
+
+.blokpengumuman .penulis, .blokpengumuman .tanggal
+{
+    text-align: right;   
+}
+ 
+.blokpengumuman .penulis span
+{
+    font-weight:bold;   
+}
+ 

@@ -1,0 +1,75 @@
+﻿@{
+    ViewBag.Title = "Penilaian Sidang";
+}
+<div class="layer">
+<h1>Penilaian Sidang</h1>
+
+@{
+    var role = ViewBag.role;
+    if(role=="pembimbing"){
+            <text>
+            
+            <table>
+                <tr>
+                    <td>Nama :</td>
+                    <td>Albertus Alvin</td>
+                </tr>
+                <tr>
+                    <td>Pembimbing :</td>
+                    <td>Lionov</td>
+                </tr>
+                <tr>
+                    <td>Penguji 1:</td>
+                    <td>Oerip S Santoso</td>
+                </tr>
+                <tr>
+                    <td>Penguji 2 :</td>
+                    <td>-</td>
+                </tr>
+            </table>
+            </text>
+    }else if(role=="penguji 1"){
+
+    }
+    else if (role == "penguji 2")
+    {
+        
+    }
+}
+    <table border="1">
+        <tr>
+            <th>Komponen Penilaian</th>
+            <th>Nilai</th>
+            <th>Bobot</th>
+            <th>Hasil</th>
+        </tr>
+        <tr>
+            <td>Tata Tulis Laporan</td>
+            <td><input type="text"></td>
+            <td> 20</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Kelengkapan Materi</td>
+            <td><input type="text"></td>
+            <td>20</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Penguasaan Materi</td>
+            <td><input type="text"></td>
+            <td>30</td>
+            <td></td>
+        </tr>
+        <tr>
+            <th>Total</th>
+            
+        </tr>
+    </table>
+
+
+
+    <input type="button" value="Submit"/>
+    <input type="button" value="Back" />
+</div>
+

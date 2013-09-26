@@ -1,0 +1,38 @@
+﻿
+<div class="layer">
+    <h1>Rekap Bimbingan</h1>
+    <div id="content">
+    @(Html.Telerik().Grid<Proyek_Informatika.Models.KoordinatorBimbingan>()
+        .HtmlAttributes(new { style = "width:695px" })
+        .Name("Topik")
+        .DataKeys(keys =>
+        {
+            keys.Add(p => p.nikDosen);
+        })
+                .DataBinding(dataBinding =>
+                {
+                    dataBinding.Ajax()
+                        .Select("_SelectAjaxEditing", "User")
+                        .Delete("_DeleteAjaxEditing", "User");
+                })
+        .Columns(columns =>
+        {
+            columns.Bound(o => o.periode).Width(150).Title("Periode");
+            columns.Bound(o => o.tipe).Width(150).Title("Tipe");              
+            columns.Bound(o => o.nikDosen).Width(150).Title("NIK Dosen");
+            columns.Bound(o => o.namaDosen).Width(150).Title("Nama Dosen");
+            columns.Bound(o => o.npmMahasiswa).Width(150).Title("NPM Mahasiswa");
+            columns.Bound(o => o.namaMahasiswa).Width(150).Title("Nama Mahasiswa");
+            columns.Bound(o => o.namaMahasiswa).Width(150).Title("Judul");
+            columns.Bound(o => o.jumlahBimbingan).Width(150).Title("Jumlah Bimbingan");
+            
+        })
+        .Pageable(p => p.PageSize(15))
+        .Sortable()
+        .Filterable()
+        //.Editable(editing => editing.Mode(GridEditMode.PopUp))
+        .Scrollable(c => c.Enabled(true))
+        .Selectable()
+        .Groupable())
+    </div>
+</div>

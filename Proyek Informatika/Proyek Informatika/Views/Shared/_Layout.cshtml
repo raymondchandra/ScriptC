@@ -1,0 +1,203 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+    <!-----------------------------------------------------------------Icon------------------------------------------------------------------>
+    <link href="../../../Content/images/favicon.ico" type="image/x-icon" rel="icon" />
+    <link href="../../../Content/images/favicon.ico" type="image/x-icon" rel="shortcut icon" />
+    <!------------------------------------------------------------------Style------------------------------------------------------------------>
+    <link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/Color.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/Text.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/jquery-ui.css")" rel="stylesheet" type="text/css" />
+    <!------------------------------------------------------------------Script------------------------------------------------------------------>
+    <script src="@Url.Content("~/Scripts/jquery-1.9.1.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery-ui.js")" type="text/javascript"></script>
+    @(Html.Telerik().StyleSheetRegistrar()
+        .DefaultGroup(group => group.Add("telerik.common.css")
+                                    .Add("telerik.office2007.css"))
+        )
+    <script type="text/css">
+			$(function() {
+				$( "#tabs" ).tabs({
+					event: "mouseover"
+				});
+			});       
+ 
+    </script>
+</head>
+<body>
+    <div id="page">
+        <div id="header">
+            <div id="title">
+                <h1>
+                    Script C</h1>
+                <div>
+                    Dari Mahasiswa, Oleh Mahasiswa, Untuk Semua</div>
+            </div>
+            <div id="logindisplay">
+                @Html.Partial("_LogOnPartial")
+            </div>
+        </div>
+        <div id="main">
+            <div id="navigator">
+                @{
+                    var login = "dosen";
+                    if (login == "mahasiswa")
+                    {               //login mahasiswa
+                    <text>
+                    @(Html.Telerik().Menu()
+                                .Name("MahasiswaMenu")
+                                .ClientEvents(events => events.OnSelect("onSelectMenuMahasiswa"))
+                                .Items(menu =>
+                                {
+                                    menu.Add().Text("Pengumuman");
+                                    menu.Add().Text("Profil").Items(menu2 =>
+                                    {
+                                        menu2.Add().Text("Biodata");
+                                        menu2.Add().Text("Sejarah");
+                                        menu2.Add().Text("Pengaturan");
+                                    });
+                                    menu.Add().Text("Bimbingan").Items(menu2 =>
+                                    {
+                                        menu2.Add().Text("Jadwal Bimbingan");
+                                        menu2.Add().Text("Kartu Bimbingan");
+                                    });
+                                    menu.Add().Text("Pengumpulan");
+                                    menu.Add().Text("Sidang").Items(menu2 =>
+                                    {
+                                        menu2.Add().Text("Pengumpulan Jadwal");
+                                        menu2.Add().Text("Lihat Jadwal");
+                                    });
+                                    menu.Add().Text("Kalender");
+                                })
+                            )
+                    </text>
+                    }
+                    else if (login == "dosen")
+                    {          //login dosen
+                    <text>
+                    @(Html.Telerik().Menu()
+                                .Name("DosenMenu")
+                                .ClientEvents(events => events.OnSelect("onSelectMenuDosen"))
+                                .Items(menu =>
+                                {
+                                    menu.Add().Text("Pengumuman").Items(menu2 =>
+                                    {
+                                        menu2.Add().Text("Buat Pengumuman");
+                                        menu2.Add().Text("Edit Pengumuman");
+                                    });
+                                    menu.Add().Text("Profil").Items(menu2 =>
+                                    {
+                                        menu2.Add().Text("Biodata");
+                                        menu2.Add().Text("Sejarah");
+                                        menu2.Add().Text("Pengaturan");
+                                    });
+                                    menu.Add().Text("Pendaftaran").Items(menu2 =>
+                                    {
+                                        menu2.Add().Text("Daftar Topik");
+                                        menu2.Add().Text("Registrasi Mahasiswa");
+                                    });
+                                    menu.Add().Text("Bimbingan").Items(menu2 =>
+                                    {
+                                        menu2.Add().Text("Daftar Mahasiswa").Items(menu3 =>
+                                        {
+                                            menu3.Add().Text("Kartu Bimbingan");
+                                            menu3.Add().Text("Pengumpulan");
+                                        });
+                                        menu2.Add().Text("Jadwal Bimbingan");
+                                    });
+                                    menu.Add().Text("Sidang").Items(menu2 =>
+                                    {
+                                        menu2.Add().Text("Pengumpulan Jadwal");
+                                        menu2.Add().Text("Lihat Jadwal");
+                                        menu2.Add().Text("Penilaian");
+                                    });
+                                })
+                            )
+                    </text>
+                    }
+                    else if (login == "koordinator")
+                    {         //login koordinator
+                    <text>
+                    @(Html.Telerik().Menu()
+                                .Name("KoordinatorMenu")
+                                .ClientEvents(events => events.OnSelect("onSelectMenuKoordinator"))
+                                .Items(menu =>
+                                {
+                                    menu.Add().Text("Pengumuman").Items(menu2 =>
+                                    {
+                                        menu2.Add().Text("Buat Pengumuman");
+                                        menu2.Add().Text("Edit Pengumuman");
+                                    });
+
+                                    menu.Add().Text("Pengaturan").Items(menu2 =>
+                                    {
+                                        menu2.Add().Text("Pengaturan Jadwal Semester");
+                                        menu2.Add().Text("Daftar Mahasiswa");
+                                        menu2.Add().Text("Daftar Dosen");
+                                        menu2.Add().Text("Daftar Akun");
+                                    });
+                                    menu.Add().Text("Laporan").Items(menu2 =>
+                                    {
+                                        menu2.Add().Text("Bimbingan");
+                                        menu2.Add().Text("Pengumpulan");
+                                        menu2.Add().Text("Nilai");
+                                    });
+                                    menu.Add().Text("Sidang").Items(menu2 =>
+                                    {
+                                        menu2.Add().Text("Pengaturan Jadwal");
+                                        menu2.Add().Text("Lihat Jadwal");
+                                        menu2.Add().Text("Pengaturan Sidang");
+                                    });
+                                })
+                            )
+                    </text>
+                    }
+                    else
+                    {
+
+                    <text>
+                    @(Html.Telerik().Menu()
+                                .Name("MainMenu")
+                                .ClientEvents(events => events.OnSelect("onSelectMenuLayout"))
+                                .Items(menu =>
+                                {
+                                    menu.Add().Text("Home");
+                                    menu.Add().Text("Topik");
+                                    menu.Add().Text("About");
+                                })
+                            )
+                    </text>
+                    }
+                }
+            </div>
+            <div id="content">
+                @RenderBody()
+            </div>
+        </div>
+        <div id="footer">
+            copyright © 2013 Teknik Informatika UNPAR
+            <br>
+            developed by ______________
+            <br>
+            powered by Telerik Extensions for ASP.NET MVC 3
+            <br>
+            best view using Google Chrome or Mozilla Firefox with resolution 1366x768
+        </div>
+    </div>
+    @{
+        Html.Telerik().ScriptRegistrar()
+            .Scripts(scripts =>
+                scripts.AddGroup("LayoutGroup", group =>
+                         group.Add("~/Scripts/layout.js")
+                         .Add("~/Scripts/telerik.extensions.js")
+                         .Add("~/Scripts/jquery.speedo.js")
+                         .Add("~/Scripts/jquery.form.js")
+                )
+            );
+                
+    }
+    @(Html.Telerik().ScriptRegistrar())
+</body>
+</html>

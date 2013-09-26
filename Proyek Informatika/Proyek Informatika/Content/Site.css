@@ -1,0 +1,73 @@
+﻿#page
+{
+    margin: 0 10% 0 10%;
+    min-width: 750px;
+    width: 80%;
+}
+
+#header, #footer
+{
+    padding: 5px 20px 5px 20px;
+}
+#title div
+{
+    margin: -20px auto 15px auto;
+}
+#logindisplay
+{
+    position: absolute;
+    top: 20px;
+    right: 15%;
+}
+
+#content
+{
+    padding: 3%;
+    min-height: 100%;
+    overflow: auto;
+}
+
+.layer
+{
+    border-radius: 25px;
+    padding: 25px 3% 25px 3%;
+    width: 94%;
+}
+
+#pengumuman
+{
+    float: left;
+    width: 65%;
+}
+
+#filesharing
+{
+    float: right;
+    width: 20%;
+}
+
+#filesharing a
+{
+    display: block;
+}
+
+.button, .input
+{
+    border-radius: 5px;
+    padding: 5px;
+}
+ul
+{
+    padding: 5px;
+}
+
+.avatar
+{
+    width: 120px;
+    height: 120px;
+}
+
+.profile td
+{
+    vertical-align: top;
+}

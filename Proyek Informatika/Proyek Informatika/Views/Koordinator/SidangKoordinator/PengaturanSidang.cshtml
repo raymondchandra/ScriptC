@@ -1,0 +1,128 @@
+﻿@model Proyek_Informatika.Models.GradeCategory
+@{
+    ViewBag.Title = "Pengaturan Sidang";
+}
+
+<div class="layer">
+<h1>Pengaturan Sidang</h1>
+    <div style="overflow:hidden">
+        
+        <div style="float:left;">
+            Bobot Pembimbing : <input type="text" />
+            @(Html.Telerik().Grid<Proyek_Informatika.Models.GradeCategory>()
+                .HtmlAttributes(new { style = "width:400px" })
+                .Name("KategoriPembimbing")
+                .DataKeys(keys =>
+                {
+                    keys.Add(p => p.id);
+                })
+                .ToolBar(commands => commands.Insert().ButtonType(GridButtonType.Text).ImageHtmlAttributes(new { style = "margin-left:0" }))
+                .DataBinding(dataBinding =>
+                {
+                    dataBinding.Ajax()
+                        .Select("_SelectPembimbing", "SidangKoordinator")
+                        .Insert("_InsertPembimbing", "SidangKoordinator")
+                        .Update("_SavePembimbing", "SidangKoordinator")
+                        .Delete("_DeletePembimbing", "SidangKoordinator");
+                })
+                .Columns(columns =>
+                {
+                    columns.Bound(o => o.kategori).Title("Kategori");
+                    columns.Bound(o => o.bobot).Title("Bobot");
+                    columns.Command(commands =>
+                    {
+                        commands.Edit().ButtonType(GridButtonType.Text);
+                        commands.Delete().ButtonType(GridButtonType.Text);
+                    }).Width(180).Title("Commands");
+                })
+                .Pageable()
+                .Scrollable()
+                .Sortable()
+                .Editable(editing => editing.Mode(GridEditMode.InLine)
+                )
+            )
+        </div>
+        <div style="float:left; margin-left:10px;">
+        Bobot Penguji <input type="text" />
+            @(Html.Telerik().Grid<Proyek_Informatika.Models.GradeCategory>()
+                .HtmlAttributes(new { style = "width:400px" })
+                .Name("KategoriPenguji")
+                .DataKeys(keys =>
+                {
+                    keys.Add(p => p.id);
+                })
+                .ToolBar(commands => commands.Insert().ButtonType(GridButtonType.Text).ImageHtmlAttributes(new { style = "margin-left:0" }))
+                .DataBinding(dataBinding =>
+                {
+                    dataBinding.Ajax()
+                        .Select("_SelectPenguji", "SidangKoordinator")
+                        .Insert("_InsertPenguji", "SidangKoordinator")
+                        .Update("_SavePenguji", "SidangKoordinator")
+                        .Delete("_DeletePenguji", "SidangKoordinator");
+                })
+                .Columns(columns =>
+                {
+                    columns.Bound(o => o.kategori).Title("Kategori");
+                    columns.Bound(o => o.bobot).Title("Bobot");
+                    columns.Command(commands =>
+                    {
+                        commands.Edit().ButtonType(GridButtonType.Text);
+                        commands.Delete().ButtonType(GridButtonType.Text);
+                    }).Width(180).Title("Commands");
+                })
+                .Pageable()
+                .Scrollable()
+                .Sortable()
+                .Editable(editing => editing.Mode(GridEditMode.InLine)
+                )
+            )
+        </div>
+    </div>
+    
+    
+    <div>
+    
+    
+    Ruang Sidang
+    @(Html.Telerik().Grid<Proyek_Informatika.Models.account>()
+        .HtmlAttributes(new { style = "width:695px" })
+        .Name("Topik")
+        .DataKeys(keys =>
+        {
+            keys.Add(p => p.active);
+        })
+        //.ToolBar(commands => commands
+        //    .Custom()
+        //    .HtmlAttributes(new { id = "addUser" })
+        //    .Text("Add User")
+        //    .Ajax(true)
+        //    .Action("addUser", "User")
+        //)
+            .DataBinding(dataBinding =>
+            {
+                dataBinding.Ajax()
+                    .Select("_SelectAjaxEditing", "User")
+                    .Delete("_DeleteAjaxEditing", "User");
+            })
+        .Columns(columns =>
+        {
+            columns.Bound(o => o.active).Width(150).Title("No");
+            columns.Bound(o => o.active).Width(150).Title("Ruang");
+
+            
+
+        })
+        //.ClientEvents(
+        //    events => events
+        //        .OnComplete("OnComplete") --> popup window
+        //)
+        .Pageable(p => p.PageSize(15))
+        .Sortable()
+        .Filterable()
+        //.Editable(editing => editing.Mode(GridEditMode.PopUp))
+        .Scrollable(c => c.Enabled(true))
+        .Selectable()
+        .Groupable()
+    )
+    </div>
+</div>

@@ -1,0 +1,40 @@
+﻿
+<div class="layer">
+    <h1>Kartu Bimbingan</h1>
+
+<div id="listJadwal">
+@(Html.Telerik().Grid<Proyek_Informatika.Models.MahasiswaKartuBimbingan>()
+        .HtmlAttributes(new { style = "width:695px" })
+        .Name("Topik")
+        .DataKeys(keys =>
+        {
+            keys.Add(p => p.tanggal);
+        })    
+            .DataBinding(dataBinding =>
+            {
+                dataBinding.Ajax()
+                    .Select("_SelectAjaxEditing", "User")
+                    .Delete("_DeleteAjaxEditing", "User");
+            })
+            
+        
+        .Columns(columns =>
+        {
+            columns.Bound(o => o.tanggal).Width(150).Title("Tanggal");
+            columns.Bound(o => o.namaDosen).Width(150).Title("Dosen");
+            columns.Bound(o => o.bahasan).Width(150).Title("Pokok Bahasan");
+        })
+        //.ClientEvents(
+        //    events => events
+        //        .OnComplete("OnComplete") --> popup window
+        //)
+        .Pageable(p => p.PageSize(15))
+        .Sortable()
+        .Filterable()
+        //.Editable(editing => editing.Mode(GridEditMode.PopUp))
+        .Scrollable(c => c.Enabled(true))
+        .Selectable()
+        .Groupable()
+)
+</div>
+</div>

@@ -1,0 +1,423 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="skripsi_automationModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+  <EntityContainer Name="skripsi_automationEntities1" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="accounts" EntityType="skripsi_automationModel.account" />
+    <EntitySet Name="bimbingans" EntityType="skripsi_automationModel.bimbingan" />
+    <EntitySet Name="calendar_event" EntityType="skripsi_automationModel.calendar_event" />
+    <EntitySet Name="dosens" EntityType="skripsi_automationModel.dosen" />
+    <EntitySet Name="jadwal_kosong" EntityType="skripsi_automationModel.jadwal_kosong" />
+    <EntitySet Name="laporans" EntityType="skripsi_automationModel.laporan" />
+    <EntitySet Name="mahasiswas" EntityType="skripsi_automationModel.mahasiswa" />
+    <EntitySet Name="nilais" EntityType="skripsi_automationModel.nilai" />
+    <EntitySet Name="pengumumen" EntityType="skripsi_automationModel.pengumuman" />
+    <EntitySet Name="pesanan_bimbingan" EntityType="skripsi_automationModel.pesanan_bimbingan" />
+    <EntitySet Name="revisis" EntityType="skripsi_automationModel.revisi" />
+    <EntitySet Name="sidangs" EntityType="skripsi_automationModel.sidang" />
+    <EntitySet Name="skripsis" EntityType="skripsi_automationModel.skripsi" />
+    <AssociationSet Name="calendar_event_fk_username" Association="skripsi_automationModel.calendar_event_fk_username">
+      <End Role="account" EntitySet="accounts" />
+      <End Role="calendar_event" EntitySet="calendar_event" />
+    </AssociationSet>
+    <AssociationSet Name="dosen_fk" Association="skripsi_automationModel.dosen_fk">
+      <End Role="account" EntitySet="accounts" />
+      <End Role="dosen" EntitySet="dosens" />
+    </AssociationSet>
+    <AssociationSet Name="mahasiswa_fk" Association="skripsi_automationModel.mahasiswa_fk">
+      <End Role="account" EntitySet="accounts" />
+      <End Role="mahasiswa" EntitySet="mahasiswas" />
+    </AssociationSet>
+    <AssociationSet Name="bimbingan_fk" Association="skripsi_automationModel.bimbingan_fk">
+      <End Role="skripsi" EntitySet="skripsis" />
+      <End Role="bimbingan" EntitySet="bimbingans" />
+    </AssociationSet>
+    <AssociationSet Name="fk_dosen" Association="skripsi_automationModel.fk_dosen">
+      <End Role="dosen" EntitySet="dosens" />
+      <End Role="pesanan_bimbingan" EntitySet="pesanan_bimbingan" />
+    </AssociationSet>
+    <AssociationSet Name="jadwal_kosong_fk_NIK" Association="skripsi_automationModel.jadwal_kosong_fk_NIK">
+      <End Role="dosen" EntitySet="dosens" />
+      <End Role="jadwal_kosong" EntitySet="jadwal_kosong" />
+    </AssociationSet>
+    <AssociationSet Name="nilai_fk_NIK_pengisi" Association="skripsi_automationModel.nilai_fk_NIK_pengisi">
+      <End Role="dosen" EntitySet="dosens" />
+      <End Role="nilai" EntitySet="nilais" />
+    </AssociationSet>
+    <AssociationSet Name="skripsi_fk" Association="skripsi_automationModel.skripsi_fk">
+      <End Role="dosen" EntitySet="dosens" />
+      <End Role="skripsi" EntitySet="skripsis" />
+    </AssociationSet>
+    <AssociationSet Name="jadwal_kosong_fk_NPM" Association="skripsi_automationModel.jadwal_kosong_fk_NPM">
+      <End Role="mahasiswa" EntitySet="mahasiswas" />
+      <End Role="jadwal_kosong" EntitySet="jadwal_kosong" />
+    </AssociationSet>
+    <AssociationSet Name="laporan_fk" Association="skripsi_automationModel.laporan_fk">
+      <End Role="skripsi" EntitySet="skripsis" />
+      <End Role="laporan" EntitySet="laporans" />
+    </AssociationSet>
+    <AssociationSet Name="fk_mahasiswa" Association="skripsi_automationModel.fk_mahasiswa">
+      <End Role="mahasiswa" EntitySet="mahasiswas" />
+      <End Role="pesanan_bimbingan" EntitySet="pesanan_bimbingan" />
+    </AssociationSet>
+    <AssociationSet Name="skripsi_fk2" Association="skripsi_automationModel.skripsi_fk2">
+      <End Role="mahasiswa" EntitySet="mahasiswas" />
+      <End Role="skripsi" EntitySet="skripsis" />
+    </AssociationSet>
+    <AssociationSet Name="nilai_fk_id_skripsi" Association="skripsi_automationModel.nilai_fk_id_skripsi">
+      <End Role="skripsi" EntitySet="skripsis" />
+      <End Role="nilai" EntitySet="nilais" />
+    </AssociationSet>
+    <AssociationSet Name="FK_revisi_sidang" Association="skripsi_automationModel.FK_revisi_sidang">
+      <End Role="sidang" EntitySet="sidangs" />
+      <End Role="revisi" EntitySet="revisis" />
+    </AssociationSet>
+    <AssociationSet Name="sidang_fk_id_skripsi" Association="skripsi_automationModel.sidang_fk_id_skripsi">
+      <End Role="skripsi" EntitySet="skripsis" />
+      <End Role="sidang" EntitySet="sidangs" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="account">
+    <Key>
+      <PropertyRef Name="username" />
+    </Key>
+    <Property Type="String" Name="username" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="password" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Type="Byte" Name="active" Nullable="false" />
+    <Property Type="DateTime" Name="last_login" />
+    <NavigationProperty Name="calendar_event" Relationship="skripsi_automationModel.calendar_event_fk_username" FromRole="account" ToRole="calendar_event" />
+    <NavigationProperty Name="dosens" Relationship="skripsi_automationModel.dosen_fk" FromRole="account" ToRole="dosen" />
+    <NavigationProperty Name="mahasiswas" Relationship="skripsi_automationModel.mahasiswa_fk" FromRole="account" ToRole="mahasiswa" />
+  </EntityType>
+  <EntityType Name="bimbingan">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="String" Name="isi" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="tanggal" Nullable="false" />
+    <Property Type="Time" Name="jam_mulai" Nullable="false" />
+    <Property Type="Time" Name="jam_selesai" />
+    <Property Type="Int32" Name="id_skripsi" Nullable="false" />
+    <NavigationProperty Name="skripsi" Relationship="skripsi_automationModel.bimbingan_fk" FromRole="bimbingan" ToRole="skripsi" />
+  </EntityType>
+  <EntityType Name="calendar_event">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="String" Name="text" MaxLength="1000" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="description" MaxLength="1000" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="start_date" Nullable="false" />
+    <Property Type="DateTime" Name="end_date" />
+    <Property Type="String" Name="username" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="account" Relationship="skripsi_automationModel.calendar_event_fk_username" FromRole="calendar_event" ToRole="account" />
+  </EntityType>
+  <EntityType Name="dosen">
+    <Key>
+      <PropertyRef Name="NIK" />
+    </Key>
+    <Property Type="String" Name="NIK" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="nama" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="username" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="account" Relationship="skripsi_automationModel.dosen_fk" FromRole="dosen" ToRole="account" />
+    <NavigationProperty Name="pesanan_bimbingan" Relationship="skripsi_automationModel.fk_dosen" FromRole="dosen" ToRole="pesanan_bimbingan" />
+    <NavigationProperty Name="jadwal_kosong" Relationship="skripsi_automationModel.jadwal_kosong_fk_NIK" FromRole="dosen" ToRole="jadwal_kosong" />
+    <NavigationProperty Name="nilais" Relationship="skripsi_automationModel.nilai_fk_NIK_pengisi" FromRole="dosen" ToRole="nilai" />
+    <NavigationProperty Name="skripsis" Relationship="skripsi_automationModel.skripsi_fk" FromRole="dosen" ToRole="skripsi" />
+  </EntityType>
+  <EntityType Name="jadwal_kosong">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="String" Name="hari" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Type="Time" Name="jam_mulai" Nullable="false" />
+    <Property Type="Time" Name="jam_selesai" />
+    <Property Type="String" Name="NIK_dosen" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="NPM_mahasiswa" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="dosen" Relationship="skripsi_automationModel.jadwal_kosong_fk_NIK" FromRole="jadwal_kosong" ToRole="dosen" />
+    <NavigationProperty Name="mahasiswa" Relationship="skripsi_automationModel.jadwal_kosong_fk_NPM" FromRole="jadwal_kosong" ToRole="mahasiswa" />
+  </EntityType>
+  <EntityType Name="laporan">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="String" Name="jenis" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="tanggal_pengumpulan" Nullable="false" />
+    <Property Type="Int32" Name="id_skripsi" Nullable="false" />
+    <NavigationProperty Name="skripsi" Relationship="skripsi_automationModel.laporan_fk" FromRole="laporan" ToRole="skripsi" />
+  </EntityType>
+  <EntityType Name="mahasiswa">
+    <Key>
+      <PropertyRef Name="NPM" />
+    </Key>
+    <Property Type="String" Name="NPM" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="nama" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="email" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="nomor_telepon" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="foto" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="username" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="account" Relationship="skripsi_automationModel.mahasiswa_fk" FromRole="mahasiswa" ToRole="account" />
+    <NavigationProperty Name="jadwal_kosong" Relationship="skripsi_automationModel.jadwal_kosong_fk_NPM" FromRole="mahasiswa" ToRole="jadwal_kosong" />
+    <NavigationProperty Name="pesanan_bimbingan" Relationship="skripsi_automationModel.fk_mahasiswa" FromRole="mahasiswa" ToRole="pesanan_bimbingan" />
+    <NavigationProperty Name="skripsis" Relationship="skripsi_automationModel.skripsi_fk2" FromRole="mahasiswa" ToRole="skripsi" />
+  </EntityType>
+  <EntityType Name="nilai">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="Int32" Name="id_skripsi" Nullable="false" />
+    <Property Type="String" Name="jenis" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Type="Double" Name="nilai1" Nullable="false" />
+    <Property Type="Double" Name="bobot" />
+    <Property Type="String" Name="NIK_pengisi" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="dosen" Relationship="skripsi_automationModel.nilai_fk_NIK_pengisi" FromRole="nilai" ToRole="dosen" />
+    <NavigationProperty Name="skripsi" Relationship="skripsi_automationModel.nilai_fk_id_skripsi" FromRole="nilai" ToRole="skripsi" />
+  </EntityType>
+  <EntityType Name="pengumuman">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="DateTime" Name="tanggal" Nullable="false" />
+    <Property Type="String" Name="isi" Nullable="false" MaxLength="5000" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="target" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="pesanan_bimbingan">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="DateTime" Name="tanggal" Nullable="false" />
+    <Property Type="Time" Name="jam_mulai" Nullable="false" />
+    <Property Type="Time" Name="jam_selesai" />
+    <Property Type="Int32" Name="setuju" />
+    <Property Type="String" Name="NIK_dosen" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="NPM_mahasiswa" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="dosen" Relationship="skripsi_automationModel.fk_dosen" FromRole="pesanan_bimbingan" ToRole="dosen" />
+    <NavigationProperty Name="mahasiswa" Relationship="skripsi_automationModel.fk_mahasiswa" FromRole="pesanan_bimbingan" ToRole="mahasiswa" />
+  </EntityType>
+  <EntityType Name="revisi">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="String" Name="isi" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="id_sidang" Nullable="false" />
+    <NavigationProperty Name="sidang" Relationship="skripsi_automationModel.FK_revisi_sidang" FromRole="revisi" ToRole="sidang" />
+  </EntityType>
+  <EntityType Name="sidang">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="DateTime" Name="tanggal" Nullable="false" />
+    <Property Type="Time" Name="jam" Nullable="false" />
+    <Property Type="String" Name="ruang" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="id_skripsi" Nullable="false" />
+    <Property Type="String" Name="NIK_penguji1" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="NIK_penguji2" MaxLength="15" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="revisis" Relationship="skripsi_automationModel.FK_revisi_sidang" FromRole="sidang" ToRole="revisi" />
+    <NavigationProperty Name="skripsi" Relationship="skripsi_automationModel.sidang_fk_id_skripsi" FromRole="sidang" ToRole="skripsi" />
+  </EntityType>
+  <EntityType Name="skripsi">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="String" Name="jenis" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="topik" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="semester_pengambilan" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="tahun_pengambilan" Nullable="false" />
+    <Property Type="Int32" Name="pengambilan_ke" Nullable="false" />
+    <Property Type="String" Name="NIK_dosen_pembimbing" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="NPM_mahasiswa" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="bimbingans" Relationship="skripsi_automationModel.bimbingan_fk" FromRole="skripsi" ToRole="bimbingan" />
+    <NavigationProperty Name="dosen" Relationship="skripsi_automationModel.skripsi_fk" FromRole="skripsi" ToRole="dosen" />
+    <NavigationProperty Name="laporans" Relationship="skripsi_automationModel.laporan_fk" FromRole="skripsi" ToRole="laporan" />
+    <NavigationProperty Name="mahasiswa" Relationship="skripsi_automationModel.skripsi_fk2" FromRole="skripsi" ToRole="mahasiswa" />
+    <NavigationProperty Name="nilais" Relationship="skripsi_automationModel.nilai_fk_id_skripsi" FromRole="skripsi" ToRole="nilai" />
+    <NavigationProperty Name="sidangs" Relationship="skripsi_automationModel.sidang_fk_id_skripsi" FromRole="skripsi" ToRole="sidang" />
+  </EntityType>
+  <Association Name="calendar_event_fk_username">
+    <End Type="skripsi_automationModel.account" Role="account" Multiplicity="1" />
+    <End Type="skripsi_automationModel.calendar_event" Role="calendar_event" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="account">
+        <PropertyRef Name="username" />
+      </Principal>
+      <Dependent Role="calendar_event">
+        <PropertyRef Name="username" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="dosen_fk">
+    <End Type="skripsi_automationModel.account" Role="account" Multiplicity="1" />
+    <End Type="skripsi_automationModel.dosen" Role="dosen" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="account">
+        <PropertyRef Name="username" />
+      </Principal>
+      <Dependent Role="dosen">
+        <PropertyRef Name="username" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="mahasiswa_fk">
+    <End Type="skripsi_automationModel.account" Role="account" Multiplicity="1" />
+    <End Type="skripsi_automationModel.mahasiswa" Role="mahasiswa" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="account">
+        <PropertyRef Name="username" />
+      </Principal>
+      <Dependent Role="mahasiswa">
+        <PropertyRef Name="username" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="bimbingan_fk">
+    <End Type="skripsi_automationModel.skripsi" Role="skripsi" Multiplicity="1" />
+    <End Type="skripsi_automationModel.bimbingan" Role="bimbingan" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="skripsi">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="bimbingan">
+        <PropertyRef Name="id_skripsi" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_dosen">
+    <End Type="skripsi_automationModel.dosen" Role="dosen" Multiplicity="1" />
+    <End Type="skripsi_automationModel.pesanan_bimbingan" Role="pesanan_bimbingan" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="dosen">
+        <PropertyRef Name="NIK" />
+      </Principal>
+      <Dependent Role="pesanan_bimbingan">
+        <PropertyRef Name="NIK_dosen" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="jadwal_kosong_fk_NIK">
+    <End Type="skripsi_automationModel.dosen" Role="dosen" Multiplicity="1" />
+    <End Type="skripsi_automationModel.jadwal_kosong" Role="jadwal_kosong" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="dosen">
+        <PropertyRef Name="NIK" />
+      </Principal>
+      <Dependent Role="jadwal_kosong">
+        <PropertyRef Name="NIK_dosen" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="nilai_fk_NIK_pengisi">
+    <End Type="skripsi_automationModel.dosen" Role="dosen" Multiplicity="1" />
+    <End Type="skripsi_automationModel.nilai" Role="nilai" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="dosen">
+        <PropertyRef Name="NIK" />
+      </Principal>
+      <Dependent Role="nilai">
+        <PropertyRef Name="NIK_pengisi" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="skripsi_fk">
+    <End Type="skripsi_automationModel.dosen" Role="dosen" Multiplicity="1" />
+    <End Type="skripsi_automationModel.skripsi" Role="skripsi" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="dosen">
+        <PropertyRef Name="NIK" />
+      </Principal>
+      <Dependent Role="skripsi">
+        <PropertyRef Name="NIK_dosen_pembimbing" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="jadwal_kosong_fk_NPM">
+    <End Type="skripsi_automationModel.mahasiswa" Role="mahasiswa" Multiplicity="1" />
+    <End Type="skripsi_automationModel.jadwal_kosong" Role="jadwal_kosong" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="mahasiswa">
+        <PropertyRef Name="NPM" />
+      </Principal>
+      <Dependent Role="jadwal_kosong">
+        <PropertyRef Name="NPM_mahasiswa" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="laporan_fk">
+    <End Type="skripsi_automationModel.skripsi" Role="skripsi" Multiplicity="1" />
+    <End Type="skripsi_automationModel.laporan" Role="laporan" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="skripsi">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="laporan">
+        <PropertyRef Name="id_skripsi" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_mahasiswa">
+    <End Type="skripsi_automationModel.mahasiswa" Role="mahasiswa" Multiplicity="1" />
+    <End Type="skripsi_automationModel.pesanan_bimbingan" Role="pesanan_bimbingan" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="mahasiswa">
+        <PropertyRef Name="NPM" />
+      </Principal>
+      <Dependent Role="pesanan_bimbingan">
+        <PropertyRef Name="NPM_mahasiswa" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="skripsi_fk2">
+    <End Type="skripsi_automationModel.mahasiswa" Role="mahasiswa" Multiplicity="1" />
+    <End Type="skripsi_automationModel.skripsi" Role="skripsi" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="mahasiswa">
+        <PropertyRef Name="NPM" />
+      </Principal>
+      <Dependent Role="skripsi">
+        <PropertyRef Name="NPM_mahasiswa" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="nilai_fk_id_skripsi">
+    <End Type="skripsi_automationModel.skripsi" Role="skripsi" Multiplicity="1" />
+    <End Type="skripsi_automationModel.nilai" Role="nilai" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="skripsi">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="nilai">
+        <PropertyRef Name="id_skripsi" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_revisi_sidang">
+    <End Type="skripsi_automationModel.sidang" Role="sidang" Multiplicity="1" />
+    <End Type="skripsi_automationModel.revisi" Role="revisi" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="sidang">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="revisi">
+        <PropertyRef Name="id_sidang" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="sidang_fk_id_skripsi">
+    <End Type="skripsi_automationModel.skripsi" Role="skripsi" Multiplicity="1" />
+    <End Type="skripsi_automationModel.sidang" Role="sidang" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="skripsi">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="sidang">
+        <PropertyRef Name="id_skripsi" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

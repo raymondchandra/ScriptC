@@ -1,0 +1,91 @@
+﻿    <script src="../../../Scripts/jquery-1.9.1.js" type="text/javascript"></script>
+    <script src="../../../Scripts/jquery-ui.js" type="text/javascript"></script>
+    <script src="../../../Scripts/bimbingan/dosen_kartubimbingan.js" type="text/javascript"></script>
+    <script src="../../../Scripts/jquery_timepicker.js" type="text/javascript"></script>
+
+    <script type="text/javascript">
+        $(function () {
+           
+            $("#date_time").datetimepicker();
+        });
+    </script>
+
+<div class="layer">
+    <h1>Pengumpulan File</h1>
+<table>
+    <tr>
+        <th>NPM</th>
+        <th>Nama</th>
+        <th>Topik</th>
+        <th>Tipe</th>
+        <th>Buka</th>
+    </tr>
+    <tr>
+        <td>2010730020</td>
+        <td>Mawar</td>
+        <td>Pengenalan Pola</td>
+        <td>Skripsi 1</td>
+        <td><input type="button" title="Lihat" value="Lihat" id="btn_buka_file"/></td>
+    </tr>
+    <tr>
+        <td>2010730017</td>
+        <td>Melati</td>
+        <td>Jaringan Nirkabel</td>
+        <td>Skripsi 2</td>
+        <td><input type="button" value="Lihat" title="Lihat" id="btn_buka_file"/></td>
+    </tr>
+
+</table>
+
+<div id="tool_pengumpulanfile">
+    <table>
+        <tr>
+            <td>Dokumen</td>
+            <td>:</td>
+            <td><input type="text" /></td>
+        </tr>
+        <tr>
+            <td>Tanggal Pengumpulan</td>
+            <td>:</td>
+            <td><input type="text" id="date_time"></td>
+        </tr>
+    </table>
+        <input type = "button" value="Tambahkan" />
+    @(Html.Telerik().Grid<Proyek_Informatika.Models.DosenPengumpulanFile>()
+        .HtmlAttributes(new { style = "width:695px" })
+        .Name("Pengumpulan")
+        .DataKeys(keys =>
+        {
+            keys.Add(p => p.dokumen);
+        })
+        
+            
+            .DataBinding(dataBinding =>
+            {
+                dataBinding.Ajax()
+                    .Select("_SelectAjaxEditing", "User")
+                    .Delete("_DeleteAjaxEditing", "User");
+            })
+            
+        
+        .Columns(columns =>
+        {
+            columns.Command(commands => commands.Delete()).Width(40).Title("Unduh");
+            columns.Bound(o => o.dokumen).Width(150).Title("Nama Dokumen");
+            columns.Bound(o => o.waktuKumpul).Width(150).Title("Waktu Pengumpulan");
+            columns.Bound(o => o.batasKumpul).Width(150).Title("Batas Pengumpulan");
+        })
+        //.ClientEvents(
+        //    events => events
+        //        .OnComplete("OnComplete") --> popup window
+        //)
+        .Pageable(p => p.PageSize(15))
+        .Sortable()
+        .Filterable()
+        //.Editable(editing => editing.Mode(GridEditMode.PopUp))
+        .Scrollable(c => c.Enabled(true))
+        .Selectable(c =>c.Enabled(true))
+        .Groupable()
+)
+</div>
+</div>

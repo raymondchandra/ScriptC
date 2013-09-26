@@ -1,0 +1,43 @@
+﻿@{
+    ViewBag.Title = "BuatPengumuman";
+}
+<div class="layer">
+    <h1>
+        Buat Pengumuman</h1>
+        Judul : <input type="text" style="width:50%">
+        <br><br>
+    @{ Html.BeginForm(); }
+    @{ Html.Telerik().Editor()
+           .Name("editor")
+           .HtmlAttributes(new { style = "height:400px" })
+           .Encode(false)
+           .Value(@<text>
+        
+        </text>)
+               .Render();
+    }
+    <p>
+        <input type="checkbox"> Mahasiswa Skripsi 1 &nbsp &nbsp <input type="checkbox"> Mahasiswa Skripsi 2
+        <br><br><button type="submit" class="t-button t-state-default">
+            Tambahkan Pengumuman</button>
+    </p>
+    @{ Html.EndForm(); }
+    @if (ViewData.ContainsKey("value"))
+    { 
+        <h3>
+            Editor Value</h3>
+        <pre class="prettyprint editor-output">@Html.Raw((string)ViewData["value"]) </pre>
+    }
+    @section HeadContent {
+        <style type="text/css">
+            .editor-output
+            {
+                font: normal 1em/1.1em "Consolas" , "Monaco" , "Bitstream Vera Sans Mono" , "Courier New" , Courier, monospace;
+                border: 1px solid #ccc;
+                background: #fff;
+                display: block;
+                padding: 4px 8px 8px;
+            }
+        </style>
+    }
+</div>

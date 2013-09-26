@@ -1,0 +1,44 @@
+﻿<div class="layer">
+    <h1>
+        Manajemen Akun</h1>
+    @(Html.Telerik().Grid<Proyek_Informatika.Models.Table_2>()
+        .HtmlAttributes(new { style = "width:695px" })
+        .Name("Topik")
+        .DataKeys(keys =>
+        {
+            keys.Add(p => p.a);
+        })
+        .ToolBar(commands => commands
+            .Custom()
+            .HtmlAttributes(new { id = "addUser" })
+            .Text("Add User")
+            .Ajax(true)
+            .Action("addUser", "User")
+        )
+            .DataBinding(dataBinding =>
+            {
+                dataBinding.Ajax()
+                    .Select("_SelectAjaxEditing", "User")
+                    .Delete("_DeleteAjaxEditing", "User");
+            })
+        .Columns(columns =>
+        {
+            columns.Bound(o => o.a).Width(150).Title("No");
+            columns.Bound(o => o.ab).Width(150).Title("Topik");
+
+            columns.Bound(o => o.abc).Width(150).Title("Pembimbing");
+
+
+        })
+            //.ClientEvents(
+            //    events => events
+            //        .OnComplete("OnComplete") --> popup window
+            //)
+        .Pageable(p => p.PageSize(15))
+        .Sortable()
+        .Filterable()
+            //.Editable(editing => editing.Mode(GridEditMode.PopUp))
+        .Scrollable(c => c.Enabled(true))
+        .Selectable()
+        .Groupable()
+)</div>

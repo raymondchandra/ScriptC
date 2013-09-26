@@ -1,0 +1,43 @@
+﻿@{
+    ViewBag.Title = "Penilaian Sidang";
+}
+<script>
+    function goToSidang() {
+        $('#content').load('SidangDosen/Sidang?role=pembimbing');
+    }
+</script>
+
+<div class="layer">
+    <h1>Penilaian Sidang</h1>
+    <table id="aksesSidang" border="1">
+        <tr>
+            <th>Nama Mahasiswa</th>
+            <th>NPM</th>
+            <th>Pembimbing</th>
+            <th>Penguji 1</th>
+            <th>Penguji 2</th>
+        </tr>
+        <tr>
+            <td><a onclick="goToSidang()">Albertus Alvin</a></td>
+            <td>2010730089</td>
+            <td>Lionov</td>
+            <td>Oerip S Santoso</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Hans Wirya Halim</td>
+            <td>2010730125</td>
+            <td>Cecilia Nugraheni</td>
+            <td>Lionov</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Ariyandi</td>
+            <td>2011730014</td>
+            <td>Gede Karya</td>
+            <td>Elisati Hulu</td>
+            <td>Lionov</td>
+        </tr>
+    </table>
+</div>
+

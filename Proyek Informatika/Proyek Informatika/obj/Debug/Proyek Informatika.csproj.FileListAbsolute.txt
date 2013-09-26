@@ -1,0 +1,21 @@
+c:\users\asus\documents\visual studio 2010\Projects\Proyek Informatika\Proyek Informatika\bin\Proyek Informatika.dll
+c:\users\asus\documents\visual studio 2010\Projects\Proyek Informatika\Proyek Informatika\bin\Proyek Informatika.pdb
+c:\users\asus\documents\visual studio 2010\Projects\Proyek Informatika\Proyek Informatika\obj\Debug\Proyek Informatika.csprojResolveAssemblyReference.cache
+c:\users\asus\documents\visual studio 2010\Projects\Proyek Informatika\Proyek Informatika\obj\Debug\Proyek Informatika.dll
+c:\users\asus\documents\visual studio 2010\Projects\Proyek Informatika\Proyek Informatika\obj\Debug\Proyek Informatika.pdb
+c:\users\asus\documents\visual studio 2010\Projects\Proyek Informatika\Proyek Informatika\bin\Telerik.Web.Mvc.dll
+C:\Users\ADMIN\Desktop\New folder\Proyek Informatika\Proyek Informatika\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\ADMIN\Desktop\New folder\Proyek Informatika\Proyek Informatika\obj\Debug\Proyek Informatika.dll
+C:\Users\ADMIN\Desktop\New folder\Proyek Informatika\Proyek Informatika\obj\Debug\Proyek Informatika.pdb
+C:\Users\ASUS\Desktop\Proyek Informatika\Proyek Informatika\bin\Proyek Informatika.dll
+C:\Users\ASUS\Desktop\Proyek Informatika\Proyek Informatika\bin\Proyek Informatika.pdb
+C:\Users\ASUS\Desktop\Proyek Informatika\Proyek Informatika\obj\Debug\Proyek Informatika.csprojResolveAssemblyReference.cache
+C:\Users\ASUS\Desktop\Proyek Informatika\Proyek Informatika\obj\Debug\Proyek Informatika.dll
+C:\Users\ASUS\Desktop\Proyek Informatika\Proyek Informatika\obj\Debug\Proyek Informatika.pdb
+C:\Users\ADMIN\Desktop\Proyek Informatika\Proyek Informatika\bin\Proyek Informatika.dll
+C:\Users\ADMIN\Desktop\Proyek Informatika\Proyek Informatika\bin\Proyek Informatika.pdb
+C:\Users\ADMIN\Desktop\Proyek Informatika\Proyek Informatika\bin\EntityFramework.dll
+C:\Users\ADMIN\Desktop\Proyek Informatika\Proyek Informatika\bin\EntityFramework.xml
+C:\Users\ADMIN\Desktop\Proyek Informatika\Proyek Informatika\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\ADMIN\Desktop\Proyek Informatika\Proyek Informatika\obj\Debug\Proyek Informatika.dll
+C:\Users\ADMIN\Desktop\Proyek Informatika\Proyek Informatika\obj\Debug\Proyek Informatika.pdb

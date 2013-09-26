@@ -1,0 +1,79 @@
+﻿@{
+    ViewBag.Title = "Biodata";
+}
+<div class="layer">
+    <h1>
+        Biodata</h1>
+    <table class="profile">
+        <tr>
+            <td rowspan="4" style="width: 130px">
+                <img src="../../Content/images/user.png" class="avatar">
+                @(Html.Telerik().Upload()
+        .Name("attachments")
+        .Multiple(false)
+        .Async(async => async
+            .Save("Save", "Upload")
+            .Remove("Remove", "Upload")
+            .AutoUpload(true)
+        )
+)
+            </td>
+            <td style="width: 75px">
+                Nama
+            </td>
+            <td style="width: 20px">
+                :
+            </td>
+            <td style="width: 250px">
+                xxxxxxxxxxxxxx
+            </td>
+            <td>
+                <a class="t-button t-button-icon t-grid-edit"><span class="t-icon t-edit"></span>
+                </a>
+            </td>
+        </tr>
+        <tr>
+            <td style="height: 26px">
+                NPM
+            </td>
+            <td>
+                :
+            </td>
+            <td>
+                201173xxx
+            </td>
+            <td>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Email
+            </td>
+            <td>
+                :
+            </td>
+            <td>
+                xxxxxxxxx@mail.com
+            </td>
+            <td>
+                <a class="t-button t-button-icon t-grid-edit"><span class="t-icon t-edit"></span>
+                </a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Telepon
+            </td>
+            <td>
+                :
+            </td>
+            <td>
+                022-xxxxxxx
+            </td>
+            <td>
+                <a class="t-button t-button-icon t-grid-edit"><span class="t-icon t-edit"></span>
+                </a>
+            </td>
+        </tr>
+    </table>
+</div>
