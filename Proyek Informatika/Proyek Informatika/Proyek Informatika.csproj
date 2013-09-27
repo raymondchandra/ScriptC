@@ -82,8 +82,8 @@
     <Compile Include="Controllers\Koordinator\SidangKoordinatorController.cs" />
     <Compile Include="Controllers\Mahasiswa\BimbinganController.cs" />
     <Compile Include="Controllers\Mahasiswa\PengumpulanController.cs" />
-    <Compile Include="Controllers\Mahasiswa\PengumumanMahasiswaController.cs" />
-    <Compile Include="Controllers\Mahasiswa\ProfileMahasiswaController.cs" />
+    <Compile Include="Controllers\Mahasiswa\PengumumanController.cs" />
+    <Compile Include="Controllers\Mahasiswa\ProfileController.cs" />
     <Compile Include="Controllers\Mahasiswa\SidangController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
@@ -481,10 +481,10 @@
     <Content Include="Views\Koordinator\PengumumanKoordinator\BuatPengumuman.cshtml" />
     <Content Include="Views\Koordinator\PengumumanKoordinator\EditPengumuman.cshtml" />
     <Content Include="Views\Koordinator\PengumumanKoordinator\Pengumuman.cshtml" />
-    <Content Include="Views\Mahasiswa\PengumumanMahasiswa\Pengumuman.cshtml" />
-    <Content Include="Views\Mahasiswa\ProfileMahasiswa\Biodata.cshtml" />
-    <Content Include="Views\Mahasiswa\ProfileMahasiswa\Pengaturan.cshtml" />
-    <Content Include="Views\Mahasiswa\ProfileMahasiswa\Sejarah.cshtml" />
+    <Content Include="Views\Mahasiswa\Pengumuman\Pengumuman.cshtml" />
+    <Content Include="Views\Mahasiswa\Profile\Biodata.cshtml" />
+    <Content Include="Views\Mahasiswa\Profile\Pengaturan.cshtml" />
+    <Content Include="Views\Mahasiswa\Profile\Sejarah.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

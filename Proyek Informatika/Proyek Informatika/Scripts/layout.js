@@ -14,13 +14,13 @@ function onSelectMenuMahasiswa(e) {
     var item = $(e.item);
     // ======== Home ======= //
     if (item.find('> .t-link').text() == "Pengumuman") {
-        $('#content').load('PengumumanMahasiswa/Pengumuman');
-    } else if (item.find('> .t-link').text() == "Biodata") {
-        $('#content').load('ProfileMahasiswa/Biodata');
+        $('#content').load('Pengumuman/Pengumuman');
+    } else if (item.find('> .t-link').text() == "Biodata") {    
+        $('#content').load('Profile/Biodata');
     } else if (item.find('> .t-link').text() == "Sejarah") {
-        $('#content').load('ProfileMahasiswa/Sejarah');
+        $('#content').load('Profile/Sejarah');
     } else if (item.find('> .t-link').text() == "Pengaturan") {
-        $('#content').load('ProfileMahasiswa/Pengaturan');
+        $('#content').load('Profile/Pengaturan');
     } else if (item.find('> .t-link').text() == "Jadwal Bimbingan") {
         $('#content').load('Bimbingan/PemesananIndex');
     } else if (item.find('> .t-link').text() == "Kartu Bimbingan") {

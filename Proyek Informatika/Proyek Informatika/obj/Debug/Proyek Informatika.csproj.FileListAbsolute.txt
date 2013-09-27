@@ -19,3 +19,9 @@ C:\Users\ADMIN\Desktop\Proyek Informatika\Proyek Informatika\bin\EntityFramework
 C:\Users\ADMIN\Desktop\Proyek Informatika\Proyek Informatika\obj\Debug\ResolveAssemblyReference.cache
 C:\Users\ADMIN\Desktop\Proyek Informatika\Proyek Informatika\obj\Debug\Proyek Informatika.dll
 C:\Users\ADMIN\Desktop\Proyek Informatika\Proyek Informatika\obj\Debug\Proyek Informatika.pdb
+D:\Campus\Proyek Informatika\Github\Proyek Informatika\Proyek Informatika\bin\Proyek Informatika.dll
+D:\Campus\Proyek Informatika\Github\Proyek Informatika\Proyek Informatika\bin\Proyek Informatika.pdb
+D:\Campus\Proyek Informatika\Github\Proyek Informatika\Proyek Informatika\bin\EntityFramework.xml
+D:\Campus\Proyek Informatika\Github\Proyek Informatika\Proyek Informatika\obj\Debug\Proyek Informatika.csprojResolveAssemblyReference.cache
+D:\Campus\Proyek Informatika\Github\Proyek Informatika\Proyek Informatika\obj\Debug\Proyek Informatika.dll
+D:\Campus\Proyek Informatika\Github\Proyek Informatika\Proyek Informatika\obj\Debug\Proyek Informatika.pdb

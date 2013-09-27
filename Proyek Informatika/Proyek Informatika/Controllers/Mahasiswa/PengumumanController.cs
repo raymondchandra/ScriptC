@@ -6,27 +6,16 @@ using System.Web.Mvc;
 
 namespace Proyek_Informatika.Controllers.Mahasiswa
 {
-    public class ProfileMahasiswaController : Controller
+    public class PengumumanController : Controller
     {
         //
-        // GET: /User/
+        // GET: /Pengumuman/
 
         public ActionResult Index()
         {
             return View();
         }
-        public ActionResult Biodata()
-        {
-            return PartialView();
-        }
-
-        public ActionResult Sejarah()
-        {
-            return PartialView();
-        }
-
-
-        public ActionResult Pengaturan()
+        public ActionResult Pengumuman()
         {
             return PartialView();
         }
