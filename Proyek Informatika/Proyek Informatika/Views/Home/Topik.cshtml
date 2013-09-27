@@ -4,31 +4,24 @@
 <div class="layer">
     <h1>
         Topik</h1>
-    @(Html.Telerik().Grid<Proyek_Informatika.Models.Table_2>()
-        .HtmlAttributes(new { style = "width:695px" })
+    @(Html.Telerik().Grid<Proyek_Informatika.Models.Topik>()
+        .HtmlAttributes(new { style = "width:100%" })
         .Name("Topik")
         .DataKeys(keys =>
         {
-            keys.Add(p => p.a);
+            keys.Add(p => p.id);
         })
-        .ToolBar(commands => commands
-            .Custom()
-            .HtmlAttributes(new { id = "addUser" })
-            .Text("Add User")
-            .Ajax(true)
-            .Action("addUser", "User")
-        )
-            .DataBinding(dataBinding =>
-            {
-                dataBinding.Ajax()
-                    .Select("_SelectAjaxEditing", "User")
-                    .Delete("_DeleteAjaxEditing", "User");
-            })
+
+         .DataBinding(dataBinding => dataBinding.Ajax()
+                                            .Select("_SelectTopik", "Home")
+                                            .Insert("_InsertTopik", "Home")
+                                            .Update("_SaveTopik", "Home")
+                                            .Delete("_DeleteTopik", "Home"))
         .Columns(columns =>
         {
-            columns.Bound(o => o.a).Width(150).Title("No");
-            columns.Bound(o => o.ab).Width(150).Title("Topik");
-            columns.Bound(o => o.abc).Width(150).Title("Pembimbing");
+            columns.Bound(o => o.Nama).Width(200).Title("Topik");            
+            columns.Bound(o => o.Pembimbing).Width(100).Title("Pembimbing");
+            columns.Bound(o => o.Keterangan).Width(100).Title("Keterangan");
 
         })
             //.ClientEvents(
@@ -42,4 +35,5 @@
         .Scrollable(c => c.Enabled(true))
         .Selectable()
         .Groupable()
-)</div>
+)
+</div>

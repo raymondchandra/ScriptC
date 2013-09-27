@@ -1,6 +1,6 @@
 ﻿body
 {
-    background: url(images/background.jpg) fixed no-repeat top center; /*background-color:rgba(255,196,115,1);*/
+    background: rgba(15,15,15,1) url(images/background.jpg) fixed no-repeat top center; /*background-color:rgba(255,196,115,1);*/
 }
 
 #header, #footer

@@ -1,47 +1,108 @@
 ﻿@{
     ViewBag.Title = "Topik";
 }
-
-<h2>Topik</h2>
-
-@(Html.Telerik().Grid<Proyek_Informatika.Models.Table_2>()
-        .HtmlAttributes(new { style = "width:695px" })
+<div class="layer">
+    <h1>
+        Topik</h1>
+    <fieldset>
+        <legend>Tambah Topik</legend>
+        <table>
+            <tr>
+                <td>
+                    Topik
+                </td>
+                <td>
+                    :
+                </td>
+                <td>
+                    <input type="text" style="width: 500px" />
+                </td>
+            </tr>
+        </table>
+        <input type="submit" value="Register" class="t-button t-state-default" />
+    </fieldset>
+    <br>
+    @{ 
+        GridEditMode mode = GridEditMode.PopUp;
+        GridButtonType type = GridButtonType.Image;    
+    }
+    @(Html.Telerik().Grid<Proyek_Informatika.Models.Topik>()
         .Name("Topik")
-        .DataKeys(keys =>
-        {
-            keys.Add(p => p.a);
-        })
-        .ToolBar(commands => commands
-            .Custom()
-            .HtmlAttributes(new { id = "addUser" })
-            .Text("Add User")
-            .Ajax(true)
-            .Action("addUser", "User")
-        )
-            .DataBinding(dataBinding =>
-            {
-                dataBinding.Ajax()
-                    .Select("_SelectAjaxEditing", "User")
-                    .Delete("_DeleteAjaxEditing", "User");
-            })
+                .DataKeys(keys =>
+                {
+                    keys.Add(p => p.id);
+                })
+        .DataBinding(dataBinding => dataBinding.Ajax()
+                                    .Select("_SelectTopik", "Home")
+                                            .Insert("_InsertTopik", "Home")
+                                            .Update("_SaveTopik", "Home")
+                                            .Delete("_DeleteTopik", "Home"))
         .Columns(columns =>
         {
-            columns.Bound(o => o.a).Width(150).Title("No");
-            columns.Bound(o => o.ab).Width(150).Title("Topik");
-
-            columns.Bound(o => o.abc).Width(150).Title("Pembimbing");
-            
-
+            columns.Bound(o => o.Nama).Width(450).Title("Topik");
+            columns.Bound(o => o.Pembimbing).Width(200).Title("Pembimbing");
+            columns.Bound(o => o.Keterangan).Width(150).Title("Keterangan");
+            columns.Command(commands =>
+            {
+                commands.Edit().ButtonType(type);
+                commands.Delete().ButtonType(type);
+            }).Width(80).Title("");
         })
-        //.ClientEvents(
-        //    events => events
-        //        .OnComplete("OnComplete") --> popup window
-        //)
-        .Pageable(p => p.PageSize(15))
-        .Sortable()
-        .Filterable()
-        //.Editable(editing => editing.Mode(GridEditMode.PopUp))
-        .Scrollable(c => c.Enabled(true))
-        .Selectable()
-        .Groupable()
+        .Editable(editing => editing.Mode(mode))
+               .Pageable(p => p.PageSize(15))
+                .Sortable()
+                 .Filterable()
+                     .Scrollable(c => c.Enabled(true))
+                .Selectable()
+                .Groupable()
 )
+    @section HeadContent {
+        <style type="text/css">
+    /* validators */
+    .field-validation-error
+    {
+        position: absolute;
+        display: block;
+    }
+    
+    * html .field-validation-error { position: relative; }
+    *+html .field-validation-error { position: relative; }
+    
+    .field-validation-error span
+    {
+        position: absolute;
+        white-space: nowrap;
+        color: red;
+        padding: 17px 5px 3px;
+        background: transparent url('@Url.Content("~/Content/Common/validation-error-message.png") ') no-repeat 0 0;
+    }
+    
+    /* in-form editing */
+    .t-edit-form-container
+    {
+        width: 350px;
+        margin: 1em;
+    }
+    
+    .t-edit-form-container .editor-label,
+    .t-edit-form-container .editor-field
+    {
+        padding-bottom: 1em;
+        float: left;
+    }
+    
+    .t-edit-form-container .editor-label
+    {
+        width: 30%;
+        text-align: right;
+        padding-right: 3%;
+        clear: left;
+    }
+    
+    .t-edit-form-container .editor-field
+    {
+        width: 60%;
+    }
+</style>
+    }
+</div>

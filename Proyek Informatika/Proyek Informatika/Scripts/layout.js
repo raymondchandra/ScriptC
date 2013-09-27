@@ -50,10 +50,10 @@ function onSelectMenuDosen(e) {
         $('#content').load('ProfileDosen/Sejarah');
     } else if (item.find('> .t-link').text() == "Pengaturan") {
         $('#content').load('ProfileDosen/Pengaturan');
-    } else if (item.find('> .t-link').text() == "Daftar Topik") {
+    } else if (item.find('> .t-link').text() == "Registrasi Topik") {
         $('#content').load('Home/TopikAdmin');
     } else if (item.find('> .t-link').text() == "Registrasi Mahasiswa") {
-        $('#content').load('User/Registrasi');
+        $('#content').load('PendaftaranDosen/RegistrasiMahasiswa');
     } else if (item.find('> .t-link').text() == "Daftar Mahasiswa") {
         $('#content').load('User/ListMahasiswa');
     } else if (item.find('> .t-link').text() == "Kartu Bimbingan") {

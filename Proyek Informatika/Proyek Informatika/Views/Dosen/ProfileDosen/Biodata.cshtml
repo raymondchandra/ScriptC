@@ -1,13 +1,27 @@
 ﻿@{
     ViewBag.Title = "Biodata";
 }
+<script type="text/javascript">
+    function editInLine(id) {
+        document.getElementById("editInLine" + id + "a").style.display = "none";
+        document.getElementById("editInLine" + id + "b").style.display = "none";
+        document.getElementById("viewInLine" + id + "a").style.display = "inline";
+        document.getElementById("viewInLine" + id + "b").style.display = "inline";
+    }
+    function viewInLine(id) {
+        document.getElementById("editInLine" + id + "a").style.display = "inline";
+        document.getElementById("editInLine" + id + "b").style.display = "inline";
+        document.getElementById("viewInLine" + id + "a").style.display = "none";
+        document.getElementById("viewInLine" + id + "b").style.display = "none";
+    }
+</script>
 <div class="layer">
     <h1>
         Biodata</h1>
     <table class="profile">
         <tr>
-            <td rowspan="4" style="width:130px">
-                <img src="../../Content/images/user.png" class="avatar">                          
+            <td rowspan="4" style="width: 130px">
+                <img src="../../../Content/images/user.png" class="avatar">
                 @(Html.Telerik().Upload()
         .Name("attachments")
         .Multiple(false)
@@ -16,24 +30,28 @@
             .Remove("Remove", "Upload")
             .AutoUpload(true)
         )
-)                
+)
             </td>
-            <td style="width:75px">
+            <td style="width: 75px; height: 30px;">
                 Nama
             </td>
-            <td style="width:20px">
+            <td style="width: 20px">
                 :
             </td>
-            <td style="width:250px">
-                Verliyantina S.Kom. M.T
+            <td style="width: 250px">
+                <span id="editInLine1a">Verliyantina S.Kom. M.T</span>
+                <input type="text" style="width: 200px; display: none;" id="viewInLine1a" value="Verliyantina S.Kom. M.T" />
             </td>
-            <td>
-                <a class="t-button t-button-icon t-grid-edit"><span class="t-icon t-edit"></span>
-                </a>
+            <td style="width: 100px;">
+                <a class="t-button t-button-icon t-grid-edit" onclick="editInLine(1)" id="editInLine1b">
+                    <span class="t-icon t-edit"></span></a><span id="viewInLine1b" style="display: none;">
+                        <a class="t-button t-button-icon t-grid-edit" onclick="viewInLine(1)"><span class="t-icon t-update">
+                        </span></a>&nbsp<a class="t-button t-button-icon t-grid-edit" onclick="viewInLine(1)"><span
+                            class="t-icon t-cancel"> </span></a></span>
             </td>
         </tr>
         <tr>
-            <td style="height:26px">
+            <td style="height: 26px; height: 30px;">
                 NIK
             </td>
             <td>
@@ -42,37 +60,26 @@
             <td>
                 20100001
             </td>
-            <td>                
+            <td style="width: 80px">
             </td>
         </tr>
         <tr>
-            <td>
+            <td style="height: 30px;">
                 Email
             </td>
             <td>
                 :
             </td>
             <td>
-                verliyantina@gmail.com
+                <span id="editInLine2a">verliyantina@gmail.com</span>
+                <input type="text" style="width: 200px; display: none;" id="viewInLine2a" value="verliyantina@gmail.com" />
             </td>
             <td>
-                <a class="t-button t-button-icon t-grid-edit"><span class="t-icon t-edit"></span>
-                </a>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                Telepon
-            </td>
-            <td>
-                :
-            </td>
-            <td>
-                022-2041964, 022-2042563
-            </td>
-            <td>
-                <a class="t-button t-button-icon t-grid-edit"><span class="t-icon t-edit"></span>
-                </a>
+                <a class="t-button t-button-icon t-grid-edit" onclick="editInLine(2)" id="editInLine2b">
+                    <span class="t-icon t-edit"></span></a><span id="viewInLine2b" style="display: none;">
+                        <a class="t-button t-button-icon t-grid-edit" onclick="viewInLine(2)"><span class="t-icon t-update">
+                        </span></a>&nbsp<a class="t-button t-button-icon t-grid-edit" onclick="viewInLine(2)"><span
+                            class="t-icon t-cancel"> </span></a></span>
             </td>
         </tr>
     </table>

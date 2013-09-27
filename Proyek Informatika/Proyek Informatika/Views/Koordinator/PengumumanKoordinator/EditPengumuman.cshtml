@@ -8,28 +8,28 @@
         GridEditMode mode = GridEditMode.PopUp;
         GridButtonType type = GridButtonType.Image;    
     }
-    @(Html.Telerik().Grid<Proyek_Informatika.Models.Table_2>()
+    @(Html.Telerik().Grid<Proyek_Informatika.Models.PengumumanKoordinator>()
         .Name("Pengumuman")
                 .DataKeys(keys =>
                 {
-                    keys.Add(p => p.a);
+                    keys.Add(p => p.id);
                 })
-        .DataBinding(dataBinding => dataBinding.Server()
-            .Select("EditingServerSide", "Grid", new { mode = mode, type = type })
-            .Insert("Insert", "Grid", new { mode = mode, type = type })
-            .Update("Save", "Grid", new { mode = mode, type = type })
-            .Delete("Delete", "Grid", new { mode = mode, type = type }))
+        .DataBinding(dataBinding => dataBinding.Ajax()
+                                            .Select("_SelectPengumumanKoordinator", "PengumumanKoordinator")
+                                            .Insert("_InsertPengumumanKoordinator", "PengumumanKoordinator")
+                                            .Update("_SavePengumumanKoordinator", "PengumumanKoordinator")
+                                            .Delete("_DeletePengumumanKoordinator", "PengumumanKoordinator"))
         .Columns(columns =>
         {
-            columns.Bound(o => o.a).Width(150).Title("Judul");
-            columns.Bound(o => o.abc).Width(150).Title("Tanggal");
-            columns.Bound(o => o.abc).Width(150).Title("Penulis");
-            columns.Bound(o => o.abc).Width(150).Title("Kategori");
+            columns.Bound(o => o.Judul).Width(220).Title("Judul");
+            columns.Bound(o => o.Tanggal).Width(200).Title("Tanggal");
+            columns.Bound(o => o.Penulis).Width(150).Title("Penulis");
+            columns.Bound(o => o.Target).Width(150).Title("Kategori");
             columns.Command(commands =>
             {
                 commands.Edit().ButtonType(type);
                 commands.Delete().ButtonType(type);
-            }).Width(180).Title("Commands");
+            }).Width(80).Title("");
         })
         .Editable(editing => editing.Mode(mode))
                .Pageable(p => p.PageSize(15))

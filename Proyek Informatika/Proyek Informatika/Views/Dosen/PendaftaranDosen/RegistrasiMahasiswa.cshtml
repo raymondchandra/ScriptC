@@ -1,0 +1,91 @@
+﻿@model Proyek_Informatika.Models.RegisterModel
+@{
+    ViewBag.Title = "Registrasi Mahasiswa";
+}
+<div class="layer">
+    <h1>
+        Registrasi Mahasiswa</h1>
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+    @using (Html.BeginForm())
+    {
+        @Html.ValidationSummary(true, "Account creation was unsuccessful. Please correct the errors and try again.")
+        <div>
+            <fieldset>
+                <legend>Data Mahasiswa</legend>
+                <table>
+                    <tr>
+                        <td>
+                            NPM
+                        </td>
+                        <td>
+                            :
+                        </td>
+                        <td>
+                            <input type="text" style="width:300px"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Topik
+                        </td>
+                        <td>
+                            :
+                        </td>
+                        <td>
+                            <input type="text" style="width:300px"/>
+                        </td>
+                    </tr>
+                </table>
+                <input type="submit" value="Register & Generate Random Password" class="t-button t-state-default" />
+            </fieldset>
+        </div>
+        <br />
+    }
+    @{ 
+        GridEditMode mode = GridEditMode.PopUp;
+        GridButtonType type = GridButtonType.Image;    
+    }
+    @(Html.Telerik().Grid<Proyek_Informatika.Models.TopikMahasiswa>()
+        .HtmlAttributes(new { style = "width:100%;" })
+        .Name("Topik")
+        .DataKeys(keys =>
+        {
+            keys.Add(p => p.NPM);
+        })
+
+            .DataBinding(dataBinding =>
+            {
+                dataBinding.Ajax()
+                    .Select("_SelectTopikMahasiswa", "PendaftaranDosen")
+                  .Insert("_InsertTopikMahasiswa", "PendaftaranDosen")
+                                            .Update("_SaveTopikMahasiswa", "PendaftaranDosen")
+                                            .Delete("_DeleteTopikMahasiswa", "PendaftaranDosen");
+            })
+
+        .Columns(columns =>
+        {
+            columns.Bound(o => o.NPM).Width(100).Title("NPM");
+            columns.Bound(o => o.Nama).Width(150).Title("Nama Mahasiswa");
+            columns.Bound(o => o.Topik).Width(450).Title("Topik");
+
+            columns.Command(commands =>
+                {
+                    commands.Edit().ButtonType(type);
+                    commands.Delete().ButtonType(type);
+                }).Width(80).Title("");
+        })
+        .Editable(editing => editing.Mode(mode))
+            //.ClientEvents(
+            //    events => events
+            //        .OnComplete("OnComplete") --> popup window
+            //)
+        .Pageable(p => p.PageSize(15))
+        .Sortable()
+        .Filterable()
+            //.Editable(editing => editing.Mode(GridEditMode.PopUp))
+        .Scrollable(c => c.Enabled(true))
+        .Selectable()
+        .Groupable()
+)
+</div>
