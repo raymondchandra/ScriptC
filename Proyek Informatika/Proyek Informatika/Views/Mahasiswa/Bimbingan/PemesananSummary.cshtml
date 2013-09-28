@@ -1,53 +1,37 @@
 ﻿
 <div class="layer">
-    <h1>Pemesanan Jadwal</h1>
+	<h1>Pemesanan Jadwal</h1>
 
 @(Html.Telerik().Grid<Proyek_Informatika.Models.MahasiswaJadwalPemesanan>()
-        .HtmlAttributes(new { style = "width:695px" })
-        .Name("Topik")
-        .DataKeys(keys =>
-        {
-            keys.Add(p => p.tanggalPesan);
-        })
-        .ToolBar(commands => commands
-            .Custom()
-            .HtmlAttributes(new { id = "setujui" })
-            .Text("Pesan")
-            .Ajax(true)
-            .Action("addUser", "User")
-        )
-            .ToolBar(commands => commands
-                .Custom()
-                .HtmlAttributes(new { id = "batal" })
-                .Text("Batalkan")
-                .Ajax(true)
-                .Action("addUser", "User")
-            )
-            
-            .DataBinding(dataBinding =>
-            {
-                dataBinding.Ajax()
-                    .Select("_SelectAjaxEditing", "User")
-                    .Delete("_DeleteAjaxEditing", "User");
-            })
-            
-        
-        .Columns(columns =>
-        {
-            columns.Command(commands => commands.Delete()).Width(40).Title("Status");
-            columns.Bound(o => o.tanggalPesan).Width(150).Title("Tanggal");
-            columns.Bound(o => o.waktu).Width(150).Title("Jam");
-            columns.Bound(o => o.namaDosen).Width(150).Title("Dosen");
-        })
-        //.ClientEvents(
-        //    events => events
-        //        .OnComplete("OnComplete") --> popup window
-        //)
-        .Pageable(p => p.PageSize(15))
-        .Sortable()
-        .Filterable()
-        //.Editable(editing => editing.Mode(GridEditMode.PopUp))
-        .Scrollable(c => c.Enabled(true))
-        .Selectable()
-        .Groupable()
+		.HtmlAttributes(new { style = "width:695px" })
+		.Name("Topik")
+		.DataKeys(keys =>
+		{
+			keys.Add(p => p.id);
+		})
+			
+			.DataBinding(dataBinding =>
+			{
+				dataBinding.Ajax()
+					.Select("_SelectJadwal", "Bimbingan")
+					.Delete("_DeleteJadwal", "Bimbingan");
+			})
+			
+		
+		.Columns(columns =>
+		{
+			columns.Command(commands => commands.Delete()).Width(100).Title("Batalkan");
+			columns.Bound(o => o.status).Width(150).Title("Status");
+			columns.Bound(o => o.tanggalPesan).Width(150).Title("Tanggal");
+			columns.Bound(o => o.waktu).Width(150).Title("Jam");
+			columns.Bound(o => o.namaDosen).Width(150).Title("Dosen");
+			
+		})
+		.Pageable(p => p.PageSize(15))
+		.Sortable()
+		.Filterable()
+		//.Editable(editing => editing.Mode(GridEditMode.PopUp))
+		.Scrollable(c => c.Enabled(true))
+		.Selectable()
+		.Groupable()
 )</div>

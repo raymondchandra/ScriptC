@@ -8,13 +8,12 @@
         .Name("Topik")
         .DataKeys(keys =>
         {
-            keys.Add(p => p.tanggal);
+            keys.Add(p => p.id);
         })    
             .DataBinding(dataBinding =>
             {
                 dataBinding.Ajax()
-                    .Select("_SelectAjaxEditing", "User")
-                    .Delete("_DeleteAjaxEditing", "User");
+                    .Select("_SelectKartuBimbingan", "Bimbingan");
             })
             
         

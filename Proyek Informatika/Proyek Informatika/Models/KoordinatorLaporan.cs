@@ -9,6 +9,7 @@ namespace Proyek_Informatika.Models
 {
     public class KoordinatorBimbingan
     {
+        public int id { get; set; }
         [Required]
         [DataType(DataType.Text)]
         [Display(Name = "Periode")]
@@ -33,16 +34,14 @@ namespace Proyek_Informatika.Models
 
         [DataType(DataType.Text)]
         [Display(Name = "Judul Skripsi")]
-        public string judul{ get; set; }
+        public string judul { get; set; }
 
 
         [DataType(DataType.Text)]
         [Display(Name = "Tipe")]
         public string tipe { get; set; }
 
-        [DataType(DataType.Text)]
-        [Display(Name = "Jumlah Bimbingan")]
-        public string jumlahBimbingan { get; set; }
+        public int jumlahBimbingan { get; set; }
     }
     public class KoordinatorKartuBimbingan
     {
@@ -67,6 +66,27 @@ namespace Proyek_Informatika.Models
         [DataType(DataType.DateTime)]
         [Display(Name = "Batas Waktu")]
         public string batasKumpul { get; set; }
+    }
+
+    public class KoordinatorPenilaian
+    {
+        public int id { get; set; }
+        public string npm { get; set; }
+        public string nama { get; set; }
+        public string judul { get; set; }
+        public int nilaiAkhir { get; set; }
+    }
+
+    public class KoordinatorPenilaianSkripsi2
+    {
+        public int id { get; set; }
+        public string penilai { get; set; }
+        public int komponen1 { get; set; }
+        public int komponen2 { get; set; }
+        public int komponen3 { get; set; }
+        public int nilai1 { get; set; }
+        public int nilai2 { get; set; }
+        public int nilai3 { get; set; }
     }
 
 }

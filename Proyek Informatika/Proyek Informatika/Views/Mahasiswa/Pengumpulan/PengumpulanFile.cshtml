@@ -1,31 +1,50 @@
 ﻿
 <div class="layer">
     <h1>Berkas-berkas Skripsi</h1>
-		<table border="1">
-				<tr>
-					<th>Jenis</th>
-					<th>Batas Pengumpulan</th>
-					<th>File</th>
-					<th>Waktu Pengumpulan</th>
-				</tr>
-				<tr>
-					<td>Kontrak Kerja</td>
-					<td>29 September 2012</td>
-					<td><a>Lihat</a> | <a>Unduh</a></td>
-					<td>28 September 2012</td>
-				</tr>	
-				<tr>
-					<td>Laporan 1</td>
-					<td>30 September 2012</td>
-					<td>File belum tersedia</td>
-                    <td><input type="file"></td>
-					
-				</tr>	
-				<tr>
-					<td>Laporan 2</td>
-					<td>31 September 2012</td>
-					<td>File belum tersedia</td>
-					<td><input type="file"></td>
-				</tr>	
-			</table>
-		</div>
+    @(Html.Telerik().Grid<Proyek_Informatika.Models.MahasiswaPengumpulanFile>()
+        .HtmlAttributes(new { style = "width:695px" })
+        .Name("Topik")
+        .DataKeys(keys =>
+        {
+            keys.Add(p => p.id);
+        })    
+            .DataBinding(dataBinding =>
+            {
+                dataBinding.Ajax()
+                    .Select("_SelectPengumpulan", "Pengumpulan");
+            })
+            
+        
+        .Columns(columns =>
+        {
+            columns.Bound(o =>o.waktuKumpul).Title("Tanggal Pengumpulan").Width(140);
+            columns.Bound(o => o.dokumen).Title("Nama Dokumen").Width(200);
+            columns.Command(com => com.Custom("unduh").Text("Unduh File").Ajax(false)).Width(150);
+        })
+        .Pageable(p => p.PageSize(15))
+        .Sortable()
+        .Filterable()
+        //.Editable(editing => editing.Mode(GridEditMode.PopUp))
+        .Scrollable(c => c.Enabled(true))
+        .Selectable()
+        .Groupable()
+)
+    
+
+
+@using (Html.BeginForm("ProcessFile", "Upload",
+                         FormMethod.Post, new { id = "uploadForm", enctype = "multipart/form-data" })) { 
+    @(Html.Telerik().Upload()
+          .Name("attachments")
+    )
+    <p class="note">
+        Ukuran file maksimum : 10 MB
+    </p>
+    <div style="margin: 20px 0 0 0;">
+        <input type="submit" value="Kumpulkan" class="t-button" />
+    </div>
+ }  
+
+
+
+</div>

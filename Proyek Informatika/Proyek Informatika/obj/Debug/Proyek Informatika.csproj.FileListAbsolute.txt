@@ -25,3 +25,5 @@ D:\Campus\Proyek Informatika\Github\Proyek Informatika\Proyek Informatika\bin\En
 D:\Campus\Proyek Informatika\Github\Proyek Informatika\Proyek Informatika\obj\Debug\Proyek Informatika.csprojResolveAssemblyReference.cache
 D:\Campus\Proyek Informatika\Github\Proyek Informatika\Proyek Informatika\obj\Debug\Proyek Informatika.dll
 D:\Campus\Proyek Informatika\Github\Proyek Informatika\Proyek Informatika\obj\Debug\Proyek Informatika.pdb
+D:\Script C\Proyek Informatika\Proyek Informatika\obj\Debug\Proyek Informatika.csprojResolveAssemblyReference.cache
+D:\Script C\Proyek Informatika\Proyek Informatika\obj\Debug\Proyek Informatika.dll

@@ -7,16 +7,16 @@
         .Name("Topik")
         .DataKeys(keys =>
         {
-            keys.Add(p => p.nikDosen);
+            keys.Add(p => p.id);
         })
                 .DataBinding(dataBinding =>
                 {
                     dataBinding.Ajax()
-                        .Select("_SelectAjaxEditing", "User")
-                        .Delete("_DeleteAjaxEditing", "User");
+                        .Select("_SelectBimbingan", "BimbinganKoordinator");
                 })
         .Columns(columns =>
         {
+            columns.Bound(o => o.id).Width(50).Title("id");
             columns.Bound(o => o.periode).Width(150).Title("Periode");
             columns.Bound(o => o.tipe).Width(150).Title("Tipe");              
             columns.Bound(o => o.nikDosen).Width(150).Title("NIK Dosen");
@@ -25,8 +25,13 @@
             columns.Bound(o => o.namaMahasiswa).Width(150).Title("Nama Mahasiswa");
             columns.Bound(o => o.namaMahasiswa).Width(150).Title("Judul");
             columns.Bound(o => o.jumlahBimbingan).Width(150).Title("Jumlah Bimbingan");
+            columns.Command(comm => comm.Custom("detailBimbingan")
+                .Text("View Details")
+                .Ajax(true))
+                .Width(70);
             
         })
+        .ClientEvents(ev => ev.OnCommand("viewKartuBimbingan"))
         .Pageable(p => p.PageSize(15))
         .Sortable()
         .Filterable()

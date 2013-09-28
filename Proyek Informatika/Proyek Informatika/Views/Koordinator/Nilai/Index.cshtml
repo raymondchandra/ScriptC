@@ -1,0 +1,14 @@
+﻿@( Html.Telerik().TabStrip()
+        .Name("TabStrip")
+        .Items(parent => {
+            parent.Add()
+                .Text("Skripsi1")
+                .LoadContentFrom("NilaiSkripsi1", "Nilai")
+                .Selected(true);
+
+            parent.Add()
+                .Text("Skripsi-2")
+                .LoadContentFrom("NilaiSkripsi2", "Nilai");
+            
+        })
+    )

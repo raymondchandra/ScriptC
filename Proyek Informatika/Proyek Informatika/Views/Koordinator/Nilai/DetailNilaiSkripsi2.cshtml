@@ -1,0 +1,36 @@
+﻿<div class="layer">
+    <h1>Detail Nilai Skripsi-2</h1>
+
+    <table>
+        <tr>
+            <td>Nama</td>
+            <td>:</td>
+            <td>Aris Stop Hanes</td>
+        </tr>
+        <tr>
+            <td>NPM</td>
+            <td>:</td>
+            <td>2010730089</td>
+        </tr>
+        <tr>
+            <td>Hasil Akhir</td>
+            <td>:</td>
+            <td>80</td>
+        </tr>
+    </table>
+    @(Html.Telerik().TabStrip()
+.Name("LaporanNilai")
+.Items(parent => 
+{
+    parent.Add()
+        .LoadContentFrom("NilaiPembimbing", "Nilai")
+        .Text("Pembimbing");
+    parent.Add()
+        .LoadContentFrom("NilaiPenguji1", "Nilai")
+        .Text("Penguji-1")
+        .Selected(true);
+    parent.Add()
+        .LoadContentFrom("NilaiPenguji2", "Nilai")
+        .Text("Penguji-2");
+        }))
+</div>
