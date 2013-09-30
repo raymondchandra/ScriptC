@@ -31,6 +31,12 @@ namespace Proyek_Informatika.Controllers.Koordinator
         {
             return PartialView();
         }
+
+        public ActionResult EditPengumumanWindow()
+        {
+            return PartialView();
+        }
+
         protected ViewResult bindingPengumumanKoordinator(int id)
         {
 
