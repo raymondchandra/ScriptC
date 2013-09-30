@@ -23,7 +23,7 @@ namespace Proyek_Informatika.Controllers.Koordinator
         }
 
         [GridAction]
-        public ActionResult _SelectBimbingan()
+        public ActionResult SelectBimbingan()
         {
             return bindingBimbingan(10);
         }
@@ -33,20 +33,28 @@ namespace Proyek_Informatika.Controllers.Koordinator
             List<KoordinatorBimbingan> temp;
 
             temp = new List<KoordinatorBimbingan>();
-            temp.Add(new KoordinatorBimbingan()
-            {
+            temp.Add(new KoordinatorBimbingan() {
                 id = 10,
-                judul = "JST",
-                jumlahBimbingan = 2,
-                namaDosen = "Lionov",
-                namaMahasiswa = "Remon",
-                nikDosen = "1000",
-                npmMahasiswa = "2010730069",
-                periode = "Ganjil 2013/2014",
-                tipe = "Skripsi-1"
+                judul="JST",
+                jumlahBimbingan = 2, 
+                namaDosen= "Lionov",
+                namaMahasiswa ="Remon",
+                nikDosen="1000",
+                npmMahasiswa="2010730069",
+                periode="Ganjil 2013/2014",
+                tipe ="Skripsi-1"
             });
 
-            return View(new GridModel<KoordinatorBimbingan> { Data = temp });
+            return View(new GridModel<KoordinatorBimbingan> { Data = temp});
+        }
+        public ActionResult Skripsi1()
+        {
+            return PartialView();
+        }
+
+        public ActionResult Skripsi2()
+        {
+            return PartialView();
         }
     }
 }
