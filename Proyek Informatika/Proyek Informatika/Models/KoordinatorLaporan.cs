@@ -34,7 +34,7 @@ namespace Proyek_Informatika.Models
 
         [DataType(DataType.Text)]
         [Display(Name = "Judul Skripsi")]
-        public string judul { get; set; }
+        public string judul{ get; set; }
 
 
         [DataType(DataType.Text)]
@@ -55,17 +55,12 @@ namespace Proyek_Informatika.Models
     }
     public class KoordinatorPengumpulanFile
     {
-        [DataType(DataType.Text)]
-        [Display(Name = "File")]
+        public int id { get; set; }
         public string dokumen { get; set; }
-
-        [DataType(DataType.DateTime)]
-        [Display(Name = "Waktu Pengumpulan")]
         public string waktuKumpul { get; set; }
-
-        [DataType(DataType.DateTime)]
-        [Display(Name = "Batas Waktu")]
-        public string batasKumpul { get; set; }
+        public string npmMahasiswa { get; set; }
+        public string namaMahasiswa { get; set; }
+        public string judul { get; set; }
     }
 
     public class KoordinatorPenilaian

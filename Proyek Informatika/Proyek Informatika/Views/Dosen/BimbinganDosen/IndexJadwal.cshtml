@@ -1,0 +1,15 @@
+﻿<div class="layer">
+    <h1>Bimbingan</h1>
+    @( Html.Telerik().TabStrip()
+        .Name("DosenJadwalBimbingan")
+        .Items(parent => {
+            parent.Add()
+                .Text("Pengaturan Jadwal")
+                .LoadContentFrom("PengaturanKalender", "BimbinganDosen")
+                .Selected(true);
+            parent.Add()
+                .Text("Jadwal Terpesan")
+                .LoadContentFrom("JadwalBimbingan", "BimbinganDosen");
+        })
+    )
+    </div>

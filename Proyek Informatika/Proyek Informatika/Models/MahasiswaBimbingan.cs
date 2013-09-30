@@ -24,8 +24,10 @@ namespace Proyek_Informatika.Models
     }
     public class MahasiswaPengumpulanFile
     {
-        public int id { get; set; }
+        public int id{get; set;}
         public string dokumen { get; set; }
+        public string namaFile { get; set; }
+        public string deskripsi { get; set; }
         public string waktuKumpul { get; set; }
     }
 

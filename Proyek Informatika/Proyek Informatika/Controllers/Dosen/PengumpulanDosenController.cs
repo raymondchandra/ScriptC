@@ -21,5 +21,22 @@ namespace Proyek_Informatika.Controllers.Dosen
             return PartialView();
         }
 
+        public ActionResult IndexPengumpulan()
+        {
+            return PartialView();
+        }
+
+        public ActionResult Skripsi1()
+        {
+            return PartialView();
+        }
+        public ActionResult Skripsi2()
+        {
+            return PartialView();
+        }
+        public ActionResult PreviewDocument()
+        {
+            return PartialView();
+        }
     }
 }

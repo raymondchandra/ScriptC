@@ -3,7 +3,7 @@
 	<h1>Pemesanan Jadwal</h1>
 
 @(Html.Telerik().Grid<Proyek_Informatika.Models.MahasiswaJadwalPemesanan>()
-		.HtmlAttributes(new { style = "width:695px" })
+		.HtmlAttributes(new { style = "width:800px" })
 		.Name("Topik")
 		.DataKeys(keys =>
 		{
@@ -20,11 +20,12 @@
 		
 		.Columns(columns =>
 		{
-			columns.Command(commands => commands.Delete()).Width(100).Title("Batalkan");
+			
 			columns.Bound(o => o.status).Width(150).Title("Status");
 			columns.Bound(o => o.tanggalPesan).Width(150).Title("Tanggal");
 			columns.Bound(o => o.waktu).Width(150).Title("Jam");
 			columns.Bound(o => o.namaDosen).Width(150).Title("Dosen");
+			columns.Command(commands => commands.Delete()).Width(100).Title("Batalkan");
 			
 		})
 		.Pageable(p => p.PageSize(15))

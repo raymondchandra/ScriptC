@@ -1,20 +1,19 @@
 ﻿    <script type="text/javascript">
         function actionButton(e) {
-            if (e.name == "viewFile") {
-                var detailWindow = $("#PreviewDoc").data("tWindow");
+            if (e.name == "viewFile1") {
+                var detailWindow = $("#PreviewDoc1").data("tWindow");
                 detailWindow.center().open();
             }
-            else if (e.name == "downFile") {
+            else if (e.name == "downFile1") {
                 alert("Download File...");
             }
 
 
         }
 </script>
-<div class="layer">
-    <h1>Rekap Pengumpulan File</h1>
-@(Html.Telerik().Grid<Proyek_Informatika.Models.KoordinatorPengumpulanFile>()
-        .Name("tabKoorFile")
+ 
+ @(Html.Telerik().Grid<Proyek_Informatika.Models.KoordinatorPengumpulanFile>()
+        .Name("tabDosenFile1")
         .Columns(col =>
         {
             col.Bound(o => o.id).Width(75);
@@ -22,10 +21,10 @@
             col.Bound(o => o.namaMahasiswa).Width(150);
             col.Bound(o => o.waktuKumpul).Width(150);
             col.Bound(o => o.judul).Width(200);
-            col.Command(com => com.Custom("viewFile")
+            col.Command(com => com.Custom("viewFile1")
                 .Text("Lihat File")
                 .Ajax(true)).Width(100);
-            col.Command(com => com.Custom("downFile")
+            col.Command(com => com.Custom("downFile1")
                 .Text("Unduh File")
                 .Ajax(true)).Width(100);
         })
@@ -42,13 +41,12 @@
 
    
 @(Html.Telerik().Window()
-                .Name("PreviewDoc")
+                .Name("PreviewDoc1")
                 .Visible(false)
                 .Title("Preview Document")
                 .Modal(true)
                 .Width(600)
                 .Height(800)
                 .Scrollable(true)
-                .LoadContentFrom("PreviewDocument","PengumpulanKoordinator"))
-</div>
+                .LoadContentFrom("PreviewDocument","PengumpulanDosen"))
 </div>

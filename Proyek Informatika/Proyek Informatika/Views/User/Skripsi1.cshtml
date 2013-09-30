@@ -1,0 +1,40 @@
+﻿<script type="text/javascript">
+    function showKartuBimbingan(e) {
+        if (e.name == "showKartuBimbingan1") {
+            $('#content').load('BimbinganDosen/KartuBimbingan');
+        }
+        else if (e.name == "showPengumpulanFile1") {
+            $('#content').load('PengumpulanDosen/Index');
+        }
+    }
+</script>
+ 
+ @(Html.Telerik().Grid<Proyek_Informatika.Models.ListMahasiswa>()
+                .Name("MuridSkripsi1")
+                .Columns(columns =>
+                {
+                    columns.Bound(o => o.npm).Width(100);
+                    columns.Bound(o => o.namaMahasiswa).Width(150);
+                    columns.Bound(o => o.judul).Width(200);
+                     columns.Command(commands => commands
+                                .Custom("showKartuBimbingan1")
+                                .Text("Lihat Kartu Bimbingan")
+                                .Ajax(true))
+                            .HtmlAttributes(new { style = "text-align: center" })
+                            .Title("Bimbingan")
+                            .Width(150);
+                    
+                    columns.Command(commands => commands
+                                 .Custom("showPengumpulanFile1")
+                                 .Text("Lihat Daftar File")
+                                 .Ajax(true))
+                             .HtmlAttributes(new { style = "text-align: center" })
+                             .Title("Dokumen")
+                             .Width(150);
+                })
+                .ClientEvents(events => events.OnCommand("showKartuBimbingan"))
+                .DataBinding(dataBinding => dataBinding.Ajax().Select("_SelectMahasiswa", "User"))
+                .Pageable()
+                .Sortable()
+                .Filterable()
+            )

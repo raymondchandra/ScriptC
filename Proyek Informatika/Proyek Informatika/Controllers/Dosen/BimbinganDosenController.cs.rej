@@ -1,0 +1,9 @@
+diff a/Proyek Informatika/Proyek Informatika/Controllers/Dosen/BimbinganDosenController.cs b/Proyek Informatika/Proyek Informatika/Controllers/Dosen/BimbinganDosenController.cs	(rejected hunks)
+@@ -14,6 +14,7 @@
+         public ActionResult Index()
+         {
+             return View();
++            return PartialView();
+         }
+ 
+         public ActionResult JadwalBimbingan()

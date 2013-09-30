@@ -1,10 +1,17 @@
-﻿
+﻿<script type = "text/javascript">
+    function detilBimbingan(e) {
+        if (e.name == "detBahasan") {
+            var windowZ = $("#detBimbingan").data("tWindow");
+            windowZ.center().open();
+        }
+    }
+</script>
 <div class="layer">
     <h1>Kartu Bimbingan</h1>
 
 <div id="listJadwal">
 @(Html.Telerik().Grid<Proyek_Informatika.Models.MahasiswaKartuBimbingan>()
-        .HtmlAttributes(new { style = "width:695px" })
+        .HtmlAttributes(new { style = "width:900px" })
         .Name("Topik")
         .DataKeys(keys =>
         {
@@ -22,11 +29,13 @@
             columns.Bound(o => o.tanggal).Width(150).Title("Tanggal");
             columns.Bound(o => o.namaDosen).Width(150).Title("Dosen");
             columns.Bound(o => o.bahasan).Width(150).Title("Pokok Bahasan");
+            columns.Command(o =>o.Custom("detBahasan").Text("Lihat Detil Bahasan").Ajax(true)).Width(100).Title("Detil Bahasan");
         })
         //.ClientEvents(
         //    events => events
         //        .OnComplete("OnComplete") --> popup window
         //)
+        .ClientEvents(ev => ev.OnCommand("detilBimbingan"))
         .Pageable(p => p.PageSize(15))
         .Sortable()
         .Filterable()
@@ -36,4 +45,15 @@
         .Groupable()
 )
 </div>
+
+@(Html.Telerik().Window()
+                .Name("detBimbingan")
+                .Visible(false)
+                .Title("Detil Bimbingan")
+                .Modal(true)
+                .Width(500)
+                .Height(500)
+                .Scrollable(true)
+                .LoadContentFrom("DetilBimbingan","Bimbingan"))
+
 </div>

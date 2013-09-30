@@ -1,0 +1,45 @@
+﻿<script type="text/javascript">
+    function viewKartuBimbingan2(e) {
+        var detailWindow = $("#DetailBimbingan2").data("tWindow");
+        detailWindow.center().open();
+
+    }
+</script>
+@(Html.Telerik().Grid<Proyek_Informatika.Models.KoordinatorBimbingan>()
+        .Name("RekapBimbinganKoordinator2")
+        .DataBinding(bin => bin.Ajax().Select("SelectBimbingan", "BimbinganKoordinator"))       
+        .Columns(columns =>
+        {
+            columns.Bound(o => o.id).Width(50).Title("id");
+            columns.Bound(o => o.periode).Width(100).Title("Periode");            
+            columns.Bound(o => o.nikDosen).Width(100).Title("NIK Dosen");
+            columns.Bound(o => o.namaDosen).Width(150).Title("Nama Dosen");
+            columns.Bound(o => o.npmMahasiswa).Width(150).Title("NPM Mahasiswa");
+            columns.Bound(o => o.namaMahasiswa).Width(150).Title("Nama Mahasiswa");
+            columns.Bound(o => o.namaMahasiswa).Width(150).Title("Judul");
+            columns.Bound(o => o.jumlahBimbingan).Width(150).Title("Jumlah Bimbingan");
+            columns.Command(comm => comm.Custom("detailBimbingan")
+                .Text("Lihat Kartu Bimbingan")
+                .Ajax(true))
+                .Width(150).Title("KartuBimbingan");
+            
+            
+        })
+        .ClientEvents(ev => ev.OnCommand("viewKartuBimbingan2"))
+        .Pageable(p => p.PageSize(15))
+        .Sortable()
+        .Filterable()
+        //.Editable(editing => editing.Mode(GridEditMode.PopUp))
+        .Scrollable(c => c.Enabled(true))
+        .Selectable()
+        .Groupable())
+
+        @(Html.Telerik().Window()
+                .Name("DetailBimbingan2")
+                .Visible(false)
+                .Title("Detail Nilai")
+                .Modal(true)
+                .Width(950)
+                .Height(600)
+                .Scrollable(true)
+                .LoadContentFrom("KartuBimbingan","Bimbingan"))

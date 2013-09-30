@@ -1,42 +1,75 @@
 ﻿
     <script src="../../../Scripts/jquery-ui.js" type="text/javascript"></script>
     <script src="../../../Scripts/bimbingan/dosen_kartubimbingan.js" type="text/javascript"></script>
-
-
+<script type = "text/javascript">
+    $(function () {
+        $("#addBimbingan").click(function () {
+            var windowZ = $("#formBimbingan").data("tWindow");
+            windowZ.center().open();
+        });
+    });
+    function detilBimbingan(e) {
+        if (e.name == "showDetil") {
+            var windowZ = $("#detBimbingan").data("tWindow");
+            windowZ.center().open();
+        }
+        else if (e.name == "editDetil") {
+            var windowZ = $("#formBimbingan").data("tWindow");
+            windowZ.center().open();
+        }
+    }
+</script>
 <div class="layer">
-    <h1>Kartu Bimbingan Mahasiswa</h1>
-<table>
-    <tr>
-        <th>NPM</th>
-        <th>Nama</th>
-        <th>Topik</th>
-        <th>Tipe</th>
-        <th>Buka</th>
-    </tr>
-    <tr>
-        <td>2010730020</td>
-        <td>Mawar</td>
-        <td>Pengenalan Pola</td>
-        <td>Skripsi 1</td>
-        <td><input type="button" title="Lihat" value="Lihat" id="btn_buka"/></td>
-    </tr>
-    <tr>
-        <td>2010730017</td>
-        <td>Melati</td>
-        <td>Jaringan Nirkabel</td>
-        <td>Skripsi 2</td>
-        <td><input type="button" value="Lihat" title="Lihat" id="btn_buka"/></td>
-    </tr>
-
-</table>
-
-<div id="tool_kartubimbingan">
-
-        Pokok Bahasan : <input type="text"  title="Pokok Bahasan"/>
-        <input type = "button" value="Tambahkan" />
-    @(Html.Telerik().Grid<Proyek_Informatika.Models.DosenKartuBimbingan>()
-        .HtmlAttributes(new { style = "width:695px" })
-        .Name("Topik")
+    <h1>Murid Bimbingan</h1>
+        <table>
+            <tr>
+                <td>Nama</td>
+                <td>:</td>
+                <td>Hanzolo</td>
+            </tr>
+            <tr>
+                <td>NPM</td>
+                <td>:</td>
+                <td>2010730125</td>
+            </tr>
+            <tr>
+                <td>Judul</td>
+                <td>:</td>
+                <td>JST</td>
+            </tr>
+            <tr>
+                <td>Jumlah Bimbingan</td>
+                <td>:</td>
+                <td>2</td>
+            </tr>
+            <!--
+            <tr>
+                <td>Judul Bahasan</td>
+                <td>:</td>
+                <td><input type = "text"/></td>
+            </tr>
+            <tr>
+                <td>Detil Bahasan</td>
+                <td>:</td>
+                <td>
+                    @( Html.Telerik().Editor()
+                           .Name("editor")
+                           .HtmlAttributes(new { style = "height:30px" })
+                           .Encode(false)
+                           .Value(@<text> 
+                             </text>)
+                    )
+                </td>
+            </tr>
+            -->
+            <tr>
+                <td colspan ="3"><input type = "button"  id="addBimbingan" value= "Tambahkan" /></td>
+            </tr>
+        </table>
+        
+   @(Html.Telerik().Grid<Proyek_Informatika.Models.DosenKartuBimbingan>()
+        .HtmlAttributes(new { style = "width:900px" })
+        .Name("KartuBimbinganMahasiswa")
         .DataKeys(keys =>
         {
             keys.Add(p => p.tanggal);
@@ -45,11 +78,17 @@
         {
             columns.Bound(o => o.tanggal).Width(75).Title("Tanggal");
             columns.Bound(o => o.bahasan).Width(150).Title("Bahasan");
+            columns.Command(com => com.Custom("editDetil").Ajax(true).Text("Edit")).Width(80).Title("Edit");
+            columns.Command(com => com.Delete()).Width(80).Title("Delete");
+            columns.Command(com => com.Custom("showDetil").Ajax(true).Text("Lihat Detil")).Width(100).Title("Detil");
         })
-        //.ClientEvents(
-        //    events => events
-        //        .OnComplete("OnComplete") --> popup window
-        //)
+               .DataBinding(dat => 
+               { 
+                   dat.Ajax().Select("_SelectDosenKartu", "BimbinganDosen");
+                   dat.Ajax().Update("_SelectDosenKartu", "BimbinganDosen");
+                   dat.Ajax().Delete("_DeleteDosenKartu", "BimbinganDosen");
+               })
+               .ClientEvents(ev => ev.OnCommand("detilBimbingan"))
         .Pageable(p => p.PageSize(15))
         .Sortable()
         .Filterable()
@@ -58,5 +97,42 @@
         .Selectable()
         .Groupable()
 )
-</div>
+@(Html.Telerik().Window()
+                .Name("detBimbingan")
+                .Visible(false)
+                .Title("Detil Bimbingan")
+                .Modal(true)
+                .Width(500)
+                .Height(500)
+                .Scrollable(true)
+                .LoadContentFrom("DetilBimbingan", "Bimbingan"))
+
+@model Proyek_Informatika.Models.DosenKartuBimbingan
+@(  Html.Telerik().Window()
+        .Name("formBimbingan")
+        .Title("Form Bimbingan")
+        .Content(@<text>
+            @using (Html.BeginForm("popupform", "window", FormMethod.Post, new { id = "feedback-form" }))
+            {   
+                @Html.Label("Judul Bahasan : ")
+                @Html.TextBoxFor(model => model.bahasan)
+                @(Html.Telerik().EditorFor(model => model.detil)
+                        .Encode(false)
+                        .Tools(tools => tools
+                            .Clear()
+                            .Bold().Italic().Separator()
+                            .InsertOrderedList().InsertUnorderedList().Separator()
+                            .Indent().Outdent().Separator()
+                            .CreateLink()
+                        ))
+                <div class="form-actions">
+                    <button type="submit" class="t-button t-state-default">Tambahkan</button>
+                </div>
+            }
+            </text>)
+        .Width(400)
+        .Draggable(true)
+        .Modal(true)
+        .Visible(false)
+)
 </div>

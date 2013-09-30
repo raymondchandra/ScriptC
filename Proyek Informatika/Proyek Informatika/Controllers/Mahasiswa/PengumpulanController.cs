@@ -34,33 +34,42 @@ namespace Proyek_Informatika.Controllers.Mahasiswa
 
             temp = new List<MahasiswaPengumpulanFile>();
 
-            temp.Add(new MahasiswaPengumpulanFile()
+            temp.Add(new MahasiswaPengumpulanFile() 
             {
                 id = 1,
                 dokumen = "Kontrak Kerja",
-                waktuKumpul = "30/10/2012"
+                waktuKumpul = "30/10/2012",
+                namaFile = "KontrakKerja.docx",
+                deskripsi = "Kontrak Kerja i10125"
+
             });
 
             temp.Add(new MahasiswaPengumpulanFile()
             {
-                id = 1,
+                id = 2,
                 dokumen = "Kontrak Kerja",
-                waktuKumpul = "2/11/2012"
+                waktuKumpul = "2/11/2012",
+                namaFile = "KontrakKerja.docx",
+                deskripsi = "Kontrak Kerja i10125 revisi 2"
             });
             temp.Add(new MahasiswaPengumpulanFile()
             {
-                id = 1,
+                id = 3,
                 dokumen = "Laporan 1",
-                waktuKumpul = "16/11/2012"
+                waktuKumpul = "16/11/2012",
+                namaFile = "Laporan1.docx",
+                deskripsi = "Lapran 1 i10125"
             });
             temp.Add(new MahasiswaPengumpulanFile()
             {
-                id = 1,
+                id = 4,
                 dokumen = "Laporan 2",
-                waktuKumpul = "5/12/2012"
+                waktuKumpul = "5/12/2012",
+                namaFile = "Laporan2.docx",
+                deskripsi = "Laporan 2 i10125"
             });
 
-            return View(new GridModel<MahasiswaPengumpulanFile> { Data = temp });
+            return View(new GridModel<MahasiswaPengumpulanFile> { Data = temp});
         }
 
         //Pengumpulan file

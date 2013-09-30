@@ -1,9 +1,73 @@
-﻿
+﻿<script type="text/javascript">
+    $(function () {
+        $("#btnUnduh").click(function () {
+            var unduhW = $("#formUnduh").data("tWindow");
+            unduhW.center().open();
+        });
+    });
+    function downDoc(e) {
+        alert("Mengunduh...");
+
+    }
+</script>
 <div class="layer">
     <h1>Berkas-berkas Skripsi</h1>
+    @model Proyek_Informatika.Models.MahasiswaPengumpulanFile
+    @(  Html.Telerik().Window()
+        .Name("formUnduh")
+        .Title("Form Pengunggahan File")
+        .Content(@<text>
+            @using (Html.BeginForm("popupform", "window", FormMethod.Post, new { id = "feedback-form" }))
+            {   
+                @Html.Label("Nama File :")
+                <br />
+                @Html.TextBoxFor(model => model.namaFile)
+                <hr />
+                <br />
+                @Html.Label("File :")
+                @(Html.Telerik().Upload()
+                      .Name("attachments")
+                )
+                <hr />
+                <br/>
+                @Html.Label("Deskripsi :")
+                @(Html.Telerik().EditorFor(model => model.deskripsi)
+                        .Encode(false)
+                        .Tools(tools => tools
+                            .Clear()
+                            .Bold().Italic().Separator()
+                            .InsertOrderedList().InsertUnorderedList().Separator()
+                            .Indent().Outdent().Separator()
+                            .CreateLink()
+                        ))
+                <div class="form-actions">
+                    <button type="submit" class="t-button t-state-default">Unggah</button>
+                </div>
+            }
+            </text>)
+                                        .Width(500)
+                                        .Height(550)
+                                        .Draggable(true)
+                                        .Modal(true)
+                                        .Visible(false)
+                                )
+    @*@using (Html.BeginForm("ProcessFile", "Upload",
+                         FormMethod.Post, new { id = "uploadForm", enctype = "multipart/form-data" }))
+    { 
+    @(Html.Telerik().Upload()
+          .Name("attachments")
+    )
+    <p class="note">
+        Ukuran file maksimum : 10 MB
+    </p>
+    <div style="margin: 20px 0 0 0;">
+        <input type="submit" value="Kumpulkan" class="t-button" />
+    </div>
+    }  *@
+    <input type ="button" id ="btnUnduh" value ="Unggah File" />
     @(Html.Telerik().Grid<Proyek_Informatika.Models.MahasiswaPengumpulanFile>()
-        .HtmlAttributes(new { style = "width:695px" })
-        .Name("Topik")
+        .HtmlAttributes(new { style = "width:900px" })
+        .Name("FileMahasiswa")
         .DataKeys(keys =>
         {
             keys.Add(p => p.id);
@@ -19,8 +83,9 @@
         {
             columns.Bound(o =>o.waktuKumpul).Title("Tanggal Pengumpulan").Width(140);
             columns.Bound(o => o.dokumen).Title("Nama Dokumen").Width(200);
-            columns.Command(com => com.Custom("unduh").Text("Unduh File").Ajax(false)).Width(150);
+            columns.Command(com => com.Custom("unduh").Text("Unduh File").Ajax(true)).Width(150).Title("Unduh File");
         })
+        .ClientEvents(con=>con.OnCommand("downDoc"))
         .Pageable(p => p.PageSize(15))
         .Sortable()
         .Filterable()
@@ -32,18 +97,7 @@
     
 
 
-@using (Html.BeginForm("ProcessFile", "Upload",
-                         FormMethod.Post, new { id = "uploadForm", enctype = "multipart/form-data" })) { 
-    @(Html.Telerik().Upload()
-          .Name("attachments")
-    )
-    <p class="note">
-        Ukuran file maksimum : 10 MB
-    </p>
-    <div style="margin: 20px 0 0 0;">
-        <input type="submit" value="Kumpulkan" class="t-button" />
-    </div>
- }  
+
 
 
 

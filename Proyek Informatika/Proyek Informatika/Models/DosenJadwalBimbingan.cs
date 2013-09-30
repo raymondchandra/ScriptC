@@ -9,43 +9,28 @@ namespace Proyek_Informatika.Models
 {
     public class DosenJadwalTerpesan
     {
-        [Required]
-        [DataType(DataType.Date)]
-        [Display(Name = "Tanggal Pemesanan")]
-        public string TanggalPesan { get; set; }
-
-        [Required]
-        [DataType(DataType.Time)]
-        [Display(Name = "Waktu Pemesanan")]
-        public string Waktu { get; set; }
-
-        [DataType(DataType.Text)]
-        [Display(Name = "NPM")]
-        public string NPM{ get; set; }
+        public int id { get; set; }
+        public string tanggalPesan { get; set; }
+        public string waktu { get; set; }
+        public string npm { get; set; }
+        public string nama { get; set; }
+        public string pesan { get; set; }
+        public string status { get; set; }
     }
     public class DosenKartuBimbingan
     {
-        [DataType(DataType.Date)]
-        [Display(Name="Tanggal")]
-        public string tanggal { get; set;}
+        public int id { get; set; }
+        public string tanggal { get; set; }
+        public string bahasan { get; set; }
+        public string detil { get; set; }
 
-        [DataType(DataType.Text)]
-        [Display(Name = "Bahasan")]
-        public string bahasan{ get; set; }
     }
-    public class DosenPengumpulanFile
+    public class DosenMuridBimbingan
     {
-        [DataType(DataType.Text)]
-        [Display(Name = "File")]
-        public string dokumen {get; set;}
-
-        [DataType(DataType.DateTime)]
-        [Display(Name = "Waktu Pengumpulan")]
-        public string waktuKumpul { get; set; }
-
-        [DataType(DataType.DateTime)]
-        [Display(Name = "Batas Waktu")]
-        public string batasKumpul { get; set; }
+        public int id { get; set; }
+        public string npm { get; set; }
+        public string namaMahasiswa { get; set; }
+        public string judul { get; set; }
+        public int jumlahBimbingan { get; set; }
     }
-
 }

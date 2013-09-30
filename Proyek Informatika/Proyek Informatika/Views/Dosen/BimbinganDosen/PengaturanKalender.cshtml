@@ -1,6 +1,7 @@
 ﻿@{
-	ViewBag.Title = "Pemesanan Jadwal Bimbingan";
+	ViewBag.Title = "Pengaturan Jadwal Dosen";
 }
+
 <script src="../../../Scripts/schedular/dhtmlxscheduler.js" type="text/javascript" charset="utf-8"></script>
 <script src="../../../Scripts/schedular/ext/dhtmlxscheduler_editors.js" type="text/javascript" charset="utf-8"></script>
 <script src="../../../Scripts/schedular/ext/dhtmlxscheduler_minical.js" type="text/javascript" charset="utf-8"></script>
@@ -60,51 +61,21 @@
 		init();
 
 	});
-function actAccept(e) {
-    if (e.name == "setujuBtn") {
-        alert("Pemesanan telah disetujui");
-    }
-	}
 </script>
 
-
-
 <div class="layer">
-	<h1>Jadwal Terpesan</h1>
-    <input type="button" value ="Setujui Semua" />
-    <input type="button" value ="Batalkan Semua" />
-	@(Html.Telerik().Grid<Proyek_Informatika.Models.DosenJadwalTerpesan>()
-			.HtmlAttributes(new { style = "width:800px" })
-			.Name("JadwalTerpesanDosen")
-                            .DataKeys(keys =>
-                            {
-                                keys.Add(p => p.id);
-                            })
-			.Columns(columns =>
-			{
-                columns.Bound(o => o.tanggalPesan)
-                   .ClientTemplate("<input type='checkbox' name='checkedRecords' value='<#= tanggalPesan #>' />")
-                   .Title("")
-                   .Width(36)
-                   .HtmlAttributes(new { style = "text-align:center" });
-				columns.Bound(o => o.tanggalPesan).Width(100).Title("Tanggal");
-				columns.Bound(o => o.waktu).Width(75).Title("Jam");
-				columns.Bound(o => o.npm).Width(100).Title("NPM");
-				columns.Bound(o => o.nama).Width(150).Title("Nama Mahasiswa");
-				columns.Bound(o => o.pesan).Width(200).Title("Keterangan");
-                columns.Bound(o => o.status).Width(120).Title("Status");
-                columns.Command(o => o.Custom("setujuBtn").Text("Setujui").Ajax(true)).Width(110).Title("Setujui");
-                columns.Command(o => o.Custom("batalBtn").Text("Batalkan").Ajax(true)).Title("Batalkan").Width(110).Title("Batalkan");
-			})
-            .ClientEvents(evt => evt.OnCommand("actAccept"))
-			.Pageable(p => p.PageSize(15))
-			.Sortable()
-			.Filterable()
-                    .DataBinding(dat =>
-                    {
-                        dat.Ajax().Select("_SelectJadwal", "BimbinganDosen").Delete("_DeleteJadwal", "BimbinganDosen");
-            })
-			.Scrollable(c => c.Enabled(true))
-			.Selectable()
-	)
+	<h1>Pengaturan Jadwal Konsultasi</h1>
+<div id="scheduler_here" class="dhx_cal_container" style='padding-top=10px; height:500px;'>
+		<div class="dhx_cal_navline">
+			<div class="dhx_cal_prev_button">&nbsp;</div>
+			<div class="dhx_cal_next_button">&nbsp;</div>
+			<!--<div class="dhx_cal_today_button"></div>-->
+			<div class="dhx_cal_date"></div>
+			<div class="dhx_cal_tab" name="week_tab" style="left:14px;"></div>
+		</div>
+		<div class="dhx_cal_header">
+		</div>
+		<div class="dhx_cal_data">
+		</div>
+	</div>
 </div>

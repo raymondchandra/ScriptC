@@ -37,7 +37,10 @@ namespace Proyek_Informatika.Controllers.Mahasiswa
             return PartialView();
         }
 
-
+        public ActionResult DetilBimbingan()
+        {
+            return PartialView();
+        }
 
         //Pemesanan Jadwal
         [GridAction]
@@ -97,11 +100,10 @@ namespace Proyek_Informatika.Controllers.Mahasiswa
 
             temp = new List<MahasiswaKartuBimbingan>();
 
-            temp.Add(new MahasiswaKartuBimbingan()
-            {
+            temp.Add(new MahasiswaKartuBimbingan() {
                 id = 1,
                 bahasan = "BAB 2",
-                namaDosen = "Lionov",
+                namaDosen ="Lionov",
                 tanggal = "21/12/2013"
             });
             temp.Add(new MahasiswaKartuBimbingan()
@@ -112,7 +114,7 @@ namespace Proyek_Informatika.Controllers.Mahasiswa
                 tanggal = "31/12/2013"
             });
 
-            return View(new GridModel<MahasiswaKartuBimbingan> { Data = temp });
+            return View(new GridModel<MahasiswaKartuBimbingan>{ Data = temp});
         }
     }
 }
