@@ -31,6 +31,12 @@ namespace Proyek_Informatika.Controllers.Dosen
         {
             return PartialView();
         }
+
+        public ActionResult EditPengumumanWindow()
+        {
+            return PartialView();
+        }
+
         protected ViewResult bindingPengumumanDosen(int id)
         {
 
@@ -46,7 +52,7 @@ namespace Proyek_Informatika.Controllers.Dosen
                 Target = "Mahasiswa Skripsi 2",
             };
             temp.Add(x);
-            
+
             return View(new GridModel<PengumumanDosen>
             {
                 Data = temp

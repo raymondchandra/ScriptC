@@ -39,7 +39,7 @@ namespace Proyek_Informatika.Controllers.Dosen
 
             SejarahDosen x = new SejarahDosen()
             {
-                id = 0,
+                no = 1,
                 MataKuliah = "Skripsi 2",
                 Tahun = 2004,
                 Semester = "ganjil",
@@ -51,7 +51,7 @@ namespace Proyek_Informatika.Controllers.Dosen
 
             x = new SejarahDosen()
             {
-                id = 1,
+                no = 2,
                 MataKuliah = "Skripsi 1",
                 Tahun = 2003,
                 Semester = "genap",
@@ -63,7 +63,7 @@ namespace Proyek_Informatika.Controllers.Dosen
 
             x = new SejarahDosen()
             {
-                id = 2,
+                no = 3,
                 MataKuliah = "Skripsi 2",
                 Tahun = 2003,
                 Semester = "ganjil",
@@ -76,7 +76,7 @@ namespace Proyek_Informatika.Controllers.Dosen
 
             x = new SejarahDosen()
             {
-                id = 3,
+                no = 4,
                 MataKuliah = "Skripsi 1",
                 Tahun = 2003,
                 Semester = "genap",

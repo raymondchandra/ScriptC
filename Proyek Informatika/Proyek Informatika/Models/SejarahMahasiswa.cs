@@ -9,8 +9,8 @@ namespace Proyek_Informatika.Models
 {
     public class SejarahMahasiswa
     {
-        [Display(Name = "Kode Registrasi")]
-        public int id { get; set; }
+        [Display(Name = "No.")]
+        public int no { get; set; }
 
         [Display(Name = "Nama mata Kuliah")]
         public string MataKuliah { get; set; }

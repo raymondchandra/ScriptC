@@ -39,7 +39,7 @@ namespace Proyek_Informatika.Controllers.Mahasiswa
 
             SejarahMahasiswa x = new SejarahMahasiswa()
             {
-                id = 0,
+                no = 1,
                 MataKuliah = "Skripsi 2",
                 Tahun = 2013,
                 Semester = "genap",
@@ -49,7 +49,7 @@ namespace Proyek_Informatika.Controllers.Mahasiswa
             }; temp.Add(x);
             x = new SejarahMahasiswa()
             {
-                id = 1,
+                no = 2,
                 MataKuliah = "Skripsi 1",
                 Tahun = 2012,
                 Semester = "ganjil",

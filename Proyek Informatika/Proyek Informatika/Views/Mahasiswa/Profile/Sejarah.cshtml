@@ -9,7 +9,7 @@
         .Name("Sejarah")
         .DataKeys(keys =>
         {
-            keys.Add(p => p.id);
+            keys.Add(p => p.no);
         })
 
             .DataBinding(dataBinding =>
@@ -19,7 +19,8 @@
             })
         .Columns(columns =>
         {
-            columns.Bound(o => o.MataKuliah).Width(100).Title("Mata Kuliah");
+            columns.Bound(o => o.no).Width(20).Title("No.");
+            columns.Bound(o => o.MataKuliah).Width(80).Title("Mata Kuliah");
             columns.Bound(o => o.Tahun).Width(100).Title("Tahun");
             columns.Bound(o => o.Semester).Width(100).Title("Semester");
             columns.Bound(o => o.Topik).Width(400).Title("Topik");
