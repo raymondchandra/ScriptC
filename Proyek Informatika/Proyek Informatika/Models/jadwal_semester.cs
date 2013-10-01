@@ -12,17 +12,15 @@ namespace Proyek_Informatika.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class nilai
+    public partial class jadwal_semester
     {
         public int id { get; set; }
-        public int id_skripsi { get; set; }
-        public string jenis { get; set; }
-        public double nilai1 { get; set; }
-        public Nullable<double> bobot { get; set; }
-        public string NIK_pengisi { get; set; }
-        public int isSidang { get; set; }
+        public System.DateTime tanggal { get; set; }
+        public string isi { get; set; }
+        public int id_semester { get; set; }
+        public string jenis_skripsi_id { get; set; }
     
-        public virtual dosen dosen { get; set; }
-        public virtual skripsi skripsi { get; set; }
+        public virtual jenis_skripsi jenis_skripsi { get; set; }
+        public virtual semester semester { get; set; }
     }
 }

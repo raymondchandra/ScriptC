@@ -27,8 +27,9 @@ namespace Proyek_Informatika.Models
         public string nomor_telepon { get; set; }
         public string foto { get; set; }
         public string username { get; set; }
+        public string status { get; set; }
     
-        public virtual account account { get; set; }
+        public virtual akun akun { get; set; }
         public virtual ICollection<jadwal_kosong> jadwal_kosong { get; set; }
         public virtual ICollection<pesanan_bimbingan> pesanan_bimbingan { get; set; }
         public virtual ICollection<skripsi> skripsis { get; set; }

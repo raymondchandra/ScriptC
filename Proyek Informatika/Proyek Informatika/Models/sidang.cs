@@ -21,13 +21,11 @@ namespace Proyek_Informatika.Models
     
         public int id { get; set; }
         public System.DateTime tanggal { get; set; }
-        public System.TimeSpan jam { get; set; }
         public string ruang { get; set; }
         public int id_skripsi { get; set; }
-        public string NIK_penguji1 { get; set; }
-        public string NIK_penguji2 { get; set; }
     
         public virtual ICollection<revisi> revisis { get; set; }
+        public virtual ruang ruang1 { get; set; }
         public virtual skripsi skripsi { get; set; }
     }
 }

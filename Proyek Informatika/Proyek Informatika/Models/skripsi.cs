@@ -24,18 +24,21 @@ namespace Proyek_Informatika.Models
     
         public int id { get; set; }
         public string jenis { get; set; }
-        public string topik { get; set; }
-        public string semester_pengambilan { get; set; }
-        public int tahun_pengambilan { get; set; }
         public int pengambilan_ke { get; set; }
         public string NIK_dosen_pembimbing { get; set; }
         public string NPM_mahasiswa { get; set; }
+        public int id_semester_pengambilan { get; set; }
+        public int id_topik { get; set; }
+        public string nilai_akhir { get; set; }
     
         public virtual ICollection<bimbingan> bimbingans { get; set; }
         public virtual dosen dosen { get; set; }
+        public virtual jenis_skripsi jenis_skripsi { get; set; }
         public virtual ICollection<laporan> laporans { get; set; }
         public virtual mahasiswa mahasiswa { get; set; }
         public virtual ICollection<nilai> nilais { get; set; }
+        public virtual semester semester { get; set; }
         public virtual ICollection<sidang> sidangs { get; set; }
+        public virtual topik topik { get; set; }
     }
 }

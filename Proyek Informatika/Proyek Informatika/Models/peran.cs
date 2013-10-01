@@ -12,17 +12,18 @@ namespace Proyek_Informatika.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class nilai
+    public partial class peran
     {
-        public int id { get; set; }
-        public int id_skripsi { get; set; }
-        public string jenis { get; set; }
-        public double nilai1 { get; set; }
-        public Nullable<double> bobot { get; set; }
-        public string NIK_pengisi { get; set; }
-        public int isSidang { get; set; }
+        public peran()
+        {
+            this.akuns = new HashSet<akun>();
+            this.pengumumen = new HashSet<pengumuman>();
+        }
     
-        public virtual dosen dosen { get; set; }
-        public virtual skripsi skripsi { get; set; }
+        public string id { get; set; }
+        public string nama_peran { get; set; }
+    
+        public virtual ICollection<akun> akuns { get; set; }
+        public virtual ICollection<pengumuman> pengumumen { get; set; }
     }
 }

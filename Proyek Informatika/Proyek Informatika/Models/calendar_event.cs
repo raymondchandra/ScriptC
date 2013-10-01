@@ -18,9 +18,9 @@ namespace Proyek_Informatika.Models
         public string text { get; set; }
         public string description { get; set; }
         public System.DateTime start_date { get; set; }
-        public Nullable<System.DateTime> end_date { get; set; }
+        public System.DateTime end_date { get; set; }
         public string username { get; set; }
     
-        public virtual account account { get; set; }
+        public virtual akun akun { get; set; }
     }
 }

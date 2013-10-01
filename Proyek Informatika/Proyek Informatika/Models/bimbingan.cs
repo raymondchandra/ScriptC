@@ -16,10 +16,10 @@ namespace Proyek_Informatika.Models
     {
         public int id { get; set; }
         public string isi { get; set; }
-        public System.DateTime tanggal { get; set; }
-        public System.TimeSpan jam_mulai { get; set; }
-        public Nullable<System.TimeSpan> jam_selesai { get; set; }
+        public string deskripsi { get; set; }
         public int id_skripsi { get; set; }
+        public System.DateTime tanggal_mulai { get; set; }
+        public System.DateTime tanggal_selesai { get; set; }
     
         public virtual skripsi skripsi { get; set; }
     }

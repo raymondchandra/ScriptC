@@ -12,17 +12,20 @@ namespace Proyek_Informatika.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class nilai
+    public partial class semester
     {
-        public int id { get; set; }
-        public int id_skripsi { get; set; }
-        public string jenis { get; set; }
-        public double nilai1 { get; set; }
-        public Nullable<double> bobot { get; set; }
-        public string NIK_pengisi { get; set; }
-        public int isSidang { get; set; }
+        public semester()
+        {
+            this.jadwal_semester = new HashSet<jadwal_semester>();
+            this.skripsis = new HashSet<skripsi>();
+            this.topiks = new HashSet<topik>();
+        }
     
-        public virtual dosen dosen { get; set; }
-        public virtual skripsi skripsi { get; set; }
+        public int id { get; set; }
+        public string semester1 { get; set; }
+    
+        public virtual ICollection<jadwal_semester> jadwal_semester { get; set; }
+        public virtual ICollection<skripsi> skripsis { get; set; }
+        public virtual ICollection<topik> topiks { get; set; }
     }
 }

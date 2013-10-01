@@ -12,9 +12,9 @@ namespace Proyek_Informatika.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class account
+    public partial class akun
     {
-        public account()
+        public akun()
         {
             this.calendar_event = new HashSet<calendar_event>();
             this.dosens = new HashSet<dosen>();
@@ -23,11 +23,13 @@ namespace Proyek_Informatika.Models
     
         public string username { get; set; }
         public string password { get; set; }
-        public byte active { get; set; }
+        public byte aktif { get; set; }
         public Nullable<System.DateTime> last_login { get; set; }
+        public string peran { get; set; }
     
         public virtual ICollection<calendar_event> calendar_event { get; set; }
         public virtual ICollection<dosen> dosens { get; set; }
+        public virtual peran peran1 { get; set; }
         public virtual ICollection<mahasiswa> mahasiswas { get; set; }
     }
 }
