@@ -13,9 +13,9 @@
                 .Name("MuridSkripsi1")
                 .Columns(columns =>
                 {
-                    columns.Bound(o => o.npm).Width(100);
-                    columns.Bound(o => o.namaMahasiswa).Width(150);
-                    columns.Bound(o => o.judul).Width(200);
+                    columns.Bound(o => o.npm).Width(100).Title("NPM"); 
+                    columns.Bound(o => o.namaMahasiswa).Title("Nama Mahasiswa").Width(150);
+                    columns.Bound(o => o.judul).Width(200).Title("Judul");
                      columns.Command(commands => commands
                                 .Custom("showKartuBimbingan1")
                                 .Text("Lihat Kartu Bimbingan")

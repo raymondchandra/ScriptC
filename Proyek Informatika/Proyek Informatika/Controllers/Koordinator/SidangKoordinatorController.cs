@@ -37,7 +37,31 @@ namespace Proyek_Informatika.Controllers.Koordinator
                 {
                     tipe = "pembimbing",
                     bobot = "20",
-                    kategori = "<a>aa</a>",
+                    kategori = "Tata tulis Laporan",
+                    id = 5
+                };
+                temp.Add(x);
+                 x = new GradeCategory()
+                {
+                    tipe = "pembimbing",
+                    bobot = "20",
+                    kategori = "Kelengkapan materi",
+                    id = 5
+                };
+                temp.Add(x);
+                x = new GradeCategory()
+                {
+                    tipe = "pembimbing",
+                    bobot = "30",
+                    kategori = "Penguasaan materi",
+                    id = 5
+                };
+                temp.Add(x);
+                x = new GradeCategory()
+                {
+                    tipe = "pembimbing",
+                    bobot = "30",
+                    kategori = "Proses Bimbingan",
                     id = 5
                 };
                 temp.Add(x);
@@ -80,6 +104,30 @@ namespace Proyek_Informatika.Controllers.Koordinator
             List<GradeCategory> temp = new List<GradeCategory>();
 
             GradeCategory x = new GradeCategory()
+            {
+                tipe = "pembimbing",
+                bobot = "15",
+                kategori = "Tata tulis Laporan",
+                id = 5
+            };
+            temp.Add(x);
+            x = new GradeCategory()
+            {
+                tipe = "pembimbing",
+                bobot = "20",
+                kategori = "Kelengkapan materi",
+                id = 5
+            };
+            temp.Add(x);
+            x = new GradeCategory()
+            {
+                tipe = "pembimbing",
+                bobot = "30",
+                kategori = "Penguasaan materi",
+                id = 5
+            };
+            temp.Add(x);
+            x = new GradeCategory()
             {
                 tipe = "pembimbing",
                 bobot = "20",

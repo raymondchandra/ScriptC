@@ -64,7 +64,7 @@ namespace Proyek_Informatika.Controllers.Mahasiswa
                 status = "disetujui",
                 tanggalPesan = "12/09/2010",
                 waktu = "15:00",
-                namaDosen = "Lionov"
+                namaDosen = "Ani"
             });
             temp.Add(new MahasiswaJadwalPemesanan()
             {
@@ -72,7 +72,7 @@ namespace Proyek_Informatika.Controllers.Mahasiswa
                 status = "dibatalkan",
                 tanggalPesan = "12/09/2010",
                 waktu = "17:00",
-                namaDosen = "Lionov"
+                namaDosen = "Berto"
             });
             temp.Add(new MahasiswaJadwalPemesanan()
             {
@@ -80,7 +80,7 @@ namespace Proyek_Informatika.Controllers.Mahasiswa
                 status = "menunggu",
                 tanggalPesan = "17/09/2010",
                 waktu = "19:00",
-                namaDosen = "Lionov"
+                namaDosen = "Cristy"
             });
             return View(new GridModel<MahasiswaJadwalPemesanan>
             {

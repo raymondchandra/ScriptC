@@ -10,7 +10,7 @@
         <div style="float:left;">
             Bobot Pembimbing : <input type="text" />
             @(Html.Telerik().Grid<Proyek_Informatika.Models.GradeCategory>()
-                .HtmlAttributes(new { style = "width:400px" })
+                .HtmlAttributes(new { style = "width:450px" })
                 .Name("KategoriPembimbing")
                 .DataKeys(keys =>
                 {
@@ -42,10 +42,10 @@
                 )
             )
         </div>
-        <div style="float:left; margin-left:10px;">
+        <div style="float:right; ">
         Bobot Penguji <input type="text" />
             @(Html.Telerik().Grid<Proyek_Informatika.Models.GradeCategory>()
-                .HtmlAttributes(new { style = "width:400px" })
+                .HtmlAttributes(new { style = "width:450px" })
                 .Name("KategoriPenguji")
                 .DataKeys(keys =>
                 {
@@ -78,12 +78,13 @@
             )
         </div>
     </div>
-    
+    <bry>
+    <hr>
     
     <div>
     
     
-    Ruang Sidang
+    <h2>Ruang Sidang</h2>
     @(Html.Telerik().Grid<Proyek_Informatika.Models.account>()
         .HtmlAttributes(new { style = "width:695px" })
         .Name("Topik")

@@ -63,12 +63,12 @@
             </tr>
             -->
             <tr>
-                <td colspan ="3"><input type = "button"  id="addBimbingan" value= "Tambahkan" /></td>
+                <td colspan ="3"><input type = "button"  id="addBimbingan" value= "Tambahkan" class="t-button t-state-default"/></td>
             </tr>
-        </table>
+        </table><br/><br />
         
    @(Html.Telerik().Grid<Proyek_Informatika.Models.DosenKartuBimbingan>()
-        .HtmlAttributes(new { style = "width:900px" })
+        .HtmlAttributes(new { style = "width:100%" })
         .Name("KartuBimbinganMahasiswa")
         .DataKeys(keys =>
         {

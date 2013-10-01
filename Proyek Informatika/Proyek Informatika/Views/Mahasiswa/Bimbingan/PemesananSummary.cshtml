@@ -1,9 +1,7 @@
 ﻿
-<div class="layer">
-	<h1>Pemesanan Jadwal</h1>
 
 @(Html.Telerik().Grid<Proyek_Informatika.Models.MahasiswaJadwalPemesanan>()
-		.HtmlAttributes(new { style = "width:800px" })
+		.HtmlAttributes(new { style = "width:100%" })
 		.Name("Topik")
 		.DataKeys(keys =>
 		{
@@ -24,7 +22,7 @@
 			columns.Bound(o => o.status).Width(150).Title("Status");
 			columns.Bound(o => o.tanggalPesan).Width(150).Title("Tanggal");
 			columns.Bound(o => o.waktu).Width(150).Title("Jam");
-			columns.Bound(o => o.namaDosen).Width(150).Title("Dosen");
+			columns.Bound(o => o.namaDosen).Width(150).Title("Mahasiswa");
 			columns.Command(commands => commands.Delete()).Width(100).Title("Batalkan");
 			
 		})
@@ -35,4 +33,4 @@
 		.Scrollable(c => c.Enabled(true))
 		.Selectable()
 		.Groupable()
-)</div>
+)

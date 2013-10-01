@@ -13,7 +13,7 @@ namespace Proyek_Informatika.Controllers.Dosen
 
         public ActionResult Index()
         {
-            return View();
+            return PartialView();
         }
 
         public ActionResult PengumpulanFile()

@@ -64,9 +64,10 @@
         <input type="submit" value="Kumpulkan" class="t-button" />
     </div>
     }  *@
-    <input type ="button" id ="btnUnduh" value ="Unggah File" />
+     <input type="button" class="t-button t-state-default"  id ="btnUnduh" value ="Unggah File"/>
+      <br/><br/>
     @(Html.Telerik().Grid<Proyek_Informatika.Models.MahasiswaPengumpulanFile>()
-        .HtmlAttributes(new { style = "width:900px" })
+        .HtmlAttributes(new { style = "width:100%" })
         .Name("FileMahasiswa")
         .DataKeys(keys =>
         {

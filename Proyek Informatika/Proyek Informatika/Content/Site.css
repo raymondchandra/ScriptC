@@ -1,4 +1,14 @@
-﻿#page
+﻿#background
+{
+    width:100%;
+    height:100%;
+    position:fixed;
+    top:0px;
+    left:0px;
+    z-index:-1000;
+}
+
+#page
 {
     margin: 0 10% 0 10%;
     min-width: 750px;
@@ -32,6 +42,7 @@
     border-radius: 25px;
     padding: 25px 3% 25px 3%;
     width: 94%;
+    overflow:auto;
 }
 
 #pengumuman

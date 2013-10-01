@@ -27,6 +27,7 @@
     </script>
 </head>
 <body>
+    <img src="../../../Content/images/background.jpg" alt="" id="background" />
     <div id="page">
         <div id="header">
             <div id="title">
@@ -42,7 +43,7 @@
         <div id="main">
             <div id="navigator">
                 @{
-                    var login = "mahasiswa";
+                    var login = "dosen";
                     if (login == "mahasiswa")
                     {               //login mahasiswa
                     <text>
@@ -100,11 +101,7 @@
                                     });
                                     menu.Add().Text("Bimbingan").Items(menu2 =>
                                     {
-                                        menu2.Add().Text("Daftar Mahasiswa").Items(menu3 =>
-                                        {
-                                            menu3.Add().Text("Kartu Bimbingan");
-                                            menu3.Add().Text("Pengumpulan");
-                                        });
+                                        menu2.Add().Text("Daftar Mahasiswa");
                                         menu2.Add().Text("Jadwal Bimbingan");
                                     });
                                     menu.Add().Text("Sidang").Items(menu2 =>
