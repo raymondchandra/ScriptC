@@ -1,0 +1,39 @@
+﻿@{
+    ViewBag.Title = "DaftarDosen";
+}
+
+<div class="layer">
+    <h1>Daftar Dosen</h1>
+
+    @(Html.Telerik().Grid<Proyek_Informatika.Models.DosenPembimbing>()
+        .HtmlAttributes(new { style = "width:100%" })
+        .Name("DaftarDosen")
+                
+        .DataBinding(dataBinding => dataBinding.Ajax()
+                                                    .Select("_SelectDosen", "User")
+                                                    .Insert("_InsertDosen", "User")
+                                                    .Update("_SaveDosen", "User")
+                                                    .Delete("_DeleteDosen", "User"))
+        .Columns(columns =>
+        {
+            columns.Bound(o => o.NIK).Width(200).Title("NIK");            
+            columns.Bound(o => o.nama).Width(100).Title("Nama");
+            columns.Bound(o => o.email).Width(100).Title("Email");
+            columns.Bound(o => o.NPM_mhs).Width(100).Title("NPM Mahasiswa");
+            columns.Bound(o => o.nama_mhs).Width(100).Title("Nama Mahasiswa");                        
+            columns.Bound(o => o.status).Width(100).Title("Status");
+            columns.Bound(o => o.topik).Width(100).Title("Topik");            
+        })
+            //.ClientEvents(
+            //    events => events
+            //        .OnComplete("OnComplete") --> popup window
+            //)
+        .Pageable(p => p.PageSize(15))
+        .Sortable()
+        .Filterable()
+            //.Editable(editing => editing.Mode(GridEditMode.PopUp))
+        .Scrollable(c => c.Enabled(true))
+        .Selectable()
+        .Groupable()
+)
+</div>

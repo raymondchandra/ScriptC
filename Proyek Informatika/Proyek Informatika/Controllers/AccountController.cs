@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Security;
 using Proyek_Informatika.Models;
+using Telerik.Web.Mvc;
 
 namespace Proyek_Informatika.Controllers
 {
@@ -194,5 +195,93 @@ namespace Proyek_Informatika.Controllers
         {
             return PartialView();
         }
+
+
+
+        public ActionResult DaftarAkun()
+        {
+            return PartialView();
+        }
+
+        protected ViewResult bindingAkun(int id)
+        {
+            List<Akun> listAkun = new List<Akun>();
+
+            Akun x = new Akun()
+            {
+                username = "KoLiong19",
+                aktif = "Aktif",
+                last_login = "12/Sep/2013 17:00",
+                peran = "Pembimbing"
+            };
+            listAkun.Add(x);
+            x = new Akun()
+            {
+                username = "KoLiong20",
+                aktif = "Aktif",
+                last_login = "15/Oct/2013 13:45",
+                peran = "Koordinator"
+            };
+            listAkun.Add(x);
+            x = new Akun()
+            {
+                username = "RayWuBestStudent",
+                aktif = "Aktif",
+                last_login = "20/Sep/2013 14:30",
+                peran = "Mahasiswa"
+            };
+            listAkun.Add(x);
+            x = new Akun()
+            {
+                username = "Hanzz",
+                aktif = "-",
+                last_login = "01/Jan/2013 13:55",
+                peran = "Mahasiswa"
+            };
+            listAkun.Add(x);
+            x = new Akun()
+            {
+                username = "albertusalvin",
+                aktif = "Aktif",
+                last_login = "01/Oct/2013 16:30",
+                peran = "Mahasiswa"
+            };
+            listAkun.Add(x);
+
+            return View(new GridModel<Akun>
+            {
+                Data = listAkun
+            });
+        }
+        [GridAction]
+        public ActionResult _SelectAkun()
+        {
+            return bindingAkun(0);
+        }
+
+        [AcceptVerbs(HttpVerbs.Post)]
+        [GridAction]
+        public ActionResult _SaveAkun(int id)
+        {
+
+            return bindingAkun(id);
+        }
+
+        [AcceptVerbs(HttpVerbs.Post)]
+        [GridAction]
+        public ActionResult _InsertAkun()
+        {
+            return bindingAkun(2);
+        }
+
+        [AcceptVerbs(HttpVerbs.Post)]
+        [GridAction]
+        public ActionResult _DeleteAkun(int id)
+        {
+
+            return bindingAkun(id);
+        }
+
+
     }
 }

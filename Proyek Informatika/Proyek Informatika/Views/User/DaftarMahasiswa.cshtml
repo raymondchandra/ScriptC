@@ -1,0 +1,41 @@
+﻿@{
+    ViewBag.Title = "Daftar Mahasiswa";
+}
+
+<div class="layer">
+    <h1>Daftar Mahasiswa</h1>
+
+    @(Html.Telerik().Grid<Proyek_Informatika.Models.MahasiswaPeserta>()
+        .HtmlAttributes(new { style = "width:100%" })
+        .Name("DaftarPeserta")
+                
+        .DataBinding(dataBinding => dataBinding.Ajax()
+                                .Select("_SelectMahasiswaKoor", "User")
+                                .Update("_SaveMahasiswa", "User")
+                                .Delete("_DeleteMahasiswa", "User"))
+        .Columns(columns =>
+        {
+            columns.Bound(o => o.foto).Width(200).Title("Foto");            
+            columns.Bound(o => o.NPM).Width(100).Title("NPM");
+            columns.Bound(o => o.nama).Width(100).Title("Nama");
+            columns.Bound(o => o.email).Width(100).Title("Email");
+            columns.Bound(o => o.semester).Width(100).Title("Semester");
+            columns.Bound(o => o.status).Width(100).Title("Status");
+            columns.Bound(o => o.topik).Width(100).Title("Topik");
+            columns.Bound(o => o.pengambilan_ke).Width(100).Title("Pengambilan ke-");
+            columns.Bound(o => o.dosen).Width(100).Title("Dosen Pembimbing");
+            columns.Bound(o => o.nilai_akhir).Width(100).Title("Nilai Akhir");
+        })
+            //.ClientEvents(
+            //    events => events
+            //        .OnComplete("OnComplete") --> popup window
+            //)
+        .Pageable(p => p.PageSize(15))
+        .Sortable()
+        .Filterable()
+            //.Editable(editing => editing.Mode(GridEditMode.PopUp))
+        .Scrollable(c => c.Enabled(true))
+        .Selectable()
+        .Groupable()
+)
+</div>

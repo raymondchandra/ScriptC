@@ -11,10 +11,10 @@ namespace Proyek_Informatika.Controllers.Koordinator
         //
         // GET: /Semester/
 
-        public ActionResult Index()
+        public ActionResult JadwalSemester()
         {
-            return View();
-        }
+            return PartialView();
+        }    
 
     }
 }

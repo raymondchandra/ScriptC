@@ -1,0 +1,36 @@
+﻿@{
+    ViewBag.Title = "DaftarAkun";
+}
+
+<div class="layer">
+    <h1>Daftar Akun</h1>
+
+    @(Html.Telerik().Grid<Proyek_Informatika.Models.Akun>()
+        .HtmlAttributes(new { style = "width:100%" })
+        .Name("DaftarAkun")
+                
+        .DataBinding(dataBinding => dataBinding.Ajax()
+                                            .Select("_SelectAkun", "Account")
+                                                            .Insert("_InsertAkun", "Account")
+                                                            .Update("_SaveAkun", "Account")
+                                                            .Delete("_DeleteAkun", "Account"))
+        .Columns(columns =>
+        {
+            columns.Bound(o => o.username).Width(200).Title("Username");
+            columns.Bound(o => o.peran).Width(100).Title("Peran");
+            columns.Bound(o => o.aktif).Width(100).Title("Aktif");            
+            columns.Bound(o => o.last_login).Width(100).Title("Last Login");  
+        })
+            //.ClientEvents(
+            //    events => events
+            //        .OnComplete("OnComplete") --> popup window
+            //)
+        .Pageable(p => p.PageSize(15))
+        .Sortable()
+        .Filterable()
+            //.Editable(editing => editing.Mode(GridEditMode.PopUp))
+        .Scrollable(c => c.Enabled(true))
+        .Selectable()
+        .Groupable()
+)
+</div>

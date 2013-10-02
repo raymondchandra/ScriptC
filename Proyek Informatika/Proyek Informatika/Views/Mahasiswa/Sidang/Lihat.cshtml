@@ -17,17 +17,17 @@
         //    .Ajax(true)
         //    .Action("addUser", "User")
         //)
-            .DataBinding(dataBinding =>
-            {
-                dataBinding.Ajax()
-                    .Select("_SelectAjaxEditing", "User")
-                    .Delete("_DeleteAjaxEditing", "User");
-            })
+            //.DataBinding(dataBinding =>
+            //{
+            //    dataBinding.Ajax()
+            //        .Select("_SelectAjaxEditing", "User")
+            //        .Delete("_DeleteAjaxEditing", "User");
+            //})
         .Columns(columns =>
         {
             columns.Bound(o => o.skripsi.mahasiswa).Width(150).Title("Mahasiswa");
             columns.Bound(o => o.skripsi.mahasiswa).Width(150).Title("NPM");
-            columns.Bound(o => o.jam).Width(150).Title("Jam");
+            columns.Bound(o => o.tanggal).Width(150).Title("Waktu");
             columns.Bound(o => o.ruang).Width(150).Title("Ruang");
             columns.Bound(o => o.ruang).Width(150).Title("Pembimbing");
 

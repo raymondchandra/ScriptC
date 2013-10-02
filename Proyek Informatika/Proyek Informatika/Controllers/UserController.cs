@@ -105,6 +105,182 @@ namespace Proyek_Informatika.Controllers
             });
             return View(new GridModel<ListMahasiswa>() { Data = temp });
         }
+
+
+
+
+
+
+
+
+
+        public ActionResult DaftarMahasiswa()
+        {
+            return PartialView();
+        }
+
+        protected ViewResult bindingMahasiswa(int id)
+        {
+
+            List<MahasiswaPeserta> temp = new List<MahasiswaPeserta>();
+
+            MahasiswaPeserta x = new MahasiswaPeserta()
+            {
+                foto = "C:/something/pic.jpg",
+                NPM = "2010730001",
+                nama = "Raymond Chandra",
+                email = "raymond@chibi.unyu",
+                semester = "Ganjil 2013/2014",
+                status = "gencat",
+                topik = "Algoritma Baru Untuk Menghitung Graf Dalam Ruang Hampa",
+                pengambilan_ke = 2,
+                dosen = "Lionov",
+                nilai_akhir = 70,
+            };
+            temp.Add(x);
+            x = new MahasiswaPeserta()
+            {
+                foto = "C:/something/pic2.jpg",
+                NPM = "2010730002",
+                nama = "Chintya Dewi",
+                email = "chintya@chibi.unyu",
+                semester = "Ganjil 2013/2014",
+                status = "ambil bersama Skripsi 1 & Skripsi 2",
+                topik = "Implementasi Komputasi Paralel Untuk Menghitung Luas Tata Surya",
+                pengambilan_ke = 1,
+                dosen = "Lionov",
+                nilai_akhir = 100,
+            };
+            temp.Add(x);
+
+            return View(new GridModel<MahasiswaPeserta>
+            {
+                Data = temp
+            });
+        }
+
+        [GridAction]
+        public ActionResult _SelectMahasiswaKoor()
+        {
+            return bindingMahasiswa(0);
+        }
+
+        [AcceptVerbs(HttpVerbs.Post)]
+        [GridAction]
+        public ActionResult _SaveMahasiswa(int id)
+        {
+
+            return bindingMahasiswa(id);
+        }
+
+        [AcceptVerbs(HttpVerbs.Post)]
+        [GridAction]
+        public ActionResult _InsertMahasiswa()
+        {
+            return bindingMahasiswa(2);
+        }
+
+        [AcceptVerbs(HttpVerbs.Post)]
+        [GridAction]
+        public ActionResult _DeleteMahasiswa(int id)
+        {
+
+            return bindingMahasiswa(id);
+        }
+
+
+        public ActionResult DaftarDosen()
+        {
+            return PartialView();
+        }
+
+        protected ViewResult bindingDosen(int id)
+        {
+            List<DosenPembimbing> listDosen = new List<DosenPembimbing>();
+
+            DosenPembimbing x = new DosenPembimbing()
+            {
+                NIK = "1234567",
+                nama = "Lionov",
+                email = "lionov@gmail.com",
+                NPM_mhs = "2010730001",
+                nama_mhs = "Raymond Chandra",
+                topik = "Algoritma Baru Untuk Menghitung Graf Dalam Ruang Hampa",
+                status = "Skripsi 1"
+            };
+            listDosen.Add(x);
+            x = new DosenPembimbing()
+            {
+                NIK = "1234567",
+                nama = "Lionov",
+                email = "lionov@gmail.com",
+                NPM_mhs = "2010730002",
+                nama_mhs = "Chintya Dewi",
+                topik = "Implementasi Komputasi Paralel Untuk Menghitung Luas Tata Surya",
+                status = "ambil bersama Skripsi 1 & Skripsi 2"
+            };
+            listDosen.Add(x);
+            x = new DosenPembimbing()
+            {
+                NIK = "1234567",
+                nama = "Lionov",
+                email = "lionov@gmail.com",
+                NPM_mhs = "2010730089",
+                nama_mhs = "Albertus Alvin",
+                topik = "Pengobatan Kanker Dengan Algoritma Djikstra",
+                status = "Skripsi 2"
+            };
+            listDosen.Add(x);
+            x = new DosenPembimbing()
+            {
+                NIK = "9876543",
+                nama = "Thomas Anung",
+                email = "tanung@yahoo.com",
+                NPM_mhs = "2010730003",
+                nama_mhs = "Hans W. Halim",
+                topik = "Program Simulasi Pesawat Terbang Menggunakan Bahasa Assembly",
+                status = "ambil bersama Skripsi 1 & Skripsi 2"
+            };
+            listDosen.Add(x);
+
+            return View(new GridModel<DosenPembimbing>
+            {
+                Data = listDosen
+            });
+        }
+
+        [GridAction]
+        public ActionResult _SelectDosen()
+        {
+            return bindingDosen(0);
+        }
+
+        [AcceptVerbs(HttpVerbs.Post)]
+        [GridAction]
+        public ActionResult _SaveDosen(int id)
+        {
+
+            return bindingDosen(id);
+        }
+
+        [AcceptVerbs(HttpVerbs.Post)]
+        [GridAction]
+        public ActionResult _InsertDosen()
+        {
+            return bindingDosen(2);
+        }
+
+        [AcceptVerbs(HttpVerbs.Post)]
+        [GridAction]
+        public ActionResult _DeleteDosen(int id)
+        {
+
+            return bindingDosen(id);
+        }
+
+        
+
+        
         
     }
 }
