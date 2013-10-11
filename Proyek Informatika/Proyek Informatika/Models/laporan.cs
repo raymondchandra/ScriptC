@@ -16,6 +16,7 @@ namespace Proyek_Informatika.Models
     {
         public int id { get; set; }
         public string jenis { get; set; }
+        public string deskripsi { get; set; }
         public System.DateTime tanggal_pengumpulan { get; set; }
         public int id_skripsi { get; set; }
     

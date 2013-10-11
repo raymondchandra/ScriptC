@@ -17,7 +17,7 @@ namespace Proyek_Informatika.Models
         public int id { get; set; }
         public int id_skripsi { get; set; }
         public string jenis { get; set; }
-        public double nilai1 { get; set; }
+        public double angka { get; set; }
         public Nullable<double> bobot { get; set; }
         public string NIK_pengisi { get; set; }
         public int isSidang { get; set; }

@@ -33,9 +33,9 @@ namespace Proyek_Informatika.Controllers
         protected ViewResult bindingTopik(int id)
         {
 
-            List<Topik> temp = new List<Topik>();
+            List<TopikList> temp = new List<TopikList>();
 
-            Topik x = new Topik()
+            TopikList x = new TopikList()
             {
                 id = 0,
                 Nama = "Sistem Informasi Rumah Makan",
@@ -44,7 +44,7 @@ namespace Proyek_Informatika.Controllers
                 Keterangan = "tersedia",
             };
             temp.Add(x);
-            x = new Topik()
+            x = new TopikList()
             {
                 id = 1,
                 Nama = "Sistem Pendukung Keputusan Perusahaan Asuransi",
@@ -55,7 +55,7 @@ namespace Proyek_Informatika.Controllers
             };
             temp.Add(x);
 
-            return View(new GridModel<Topik>
+            return View(new GridModel<TopikList>
             {
                 Data = temp
             });

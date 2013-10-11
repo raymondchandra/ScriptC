@@ -22,7 +22,7 @@ namespace Proyek_Informatika.Models
         }
     
         public int id { get; set; }
-        public string semester1 { get; set; }
+        public string periode_semester { get; set; }
     
         public virtual ICollection<jadwal_semester> jadwal_semester { get; set; }
         public virtual ICollection<skripsi> skripsis { get; set; }

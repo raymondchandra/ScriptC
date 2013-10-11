@@ -13,10 +13,10 @@ namespace Proyek_Informatika.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class skripsi_automationEntities1 : DbContext
+    public partial class SkripsiAutoContainer : DbContext
     {
-        public skripsi_automationEntities1()
-            : base("name=skripsi_automationEntities1")
+        public SkripsiAutoContainer()
+            : base("name=SkripsiAutoContainer")
         {
         }
     
@@ -25,18 +25,23 @@ namespace Proyek_Informatika.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public DbSet<account> accounts { get; set; }
+        public DbSet<akun> akuns { get; set; }
         public DbSet<bimbingan> bimbingans { get; set; }
         public DbSet<calendar_event> calendar_event { get; set; }
         public DbSet<dosen> dosens { get; set; }
         public DbSet<jadwal_kosong> jadwal_kosong { get; set; }
-        public DbSet<laporan> laporans { get; set; }
+        public DbSet<jadwal_semester> jadwal_semester { get; set; }
+        public DbSet<jenis_skripsi> jenis_skripsi { get; set; }
         public DbSet<mahasiswa> mahasiswas { get; set; }
-        public DbSet<nilai> nilais { get; set; }
         public DbSet<pengumuman> pengumumen { get; set; }
+        public DbSet<peran> perans { get; set; }
         public DbSet<pesanan_bimbingan> pesanan_bimbingan { get; set; }
-        public DbSet<revisi> revisis { get; set; }
+        public DbSet<ruang> ruangs { get; set; }
         public DbSet<sidang> sidangs { get; set; }
         public DbSet<skripsi> skripsis { get; set; }
+        public DbSet<topik> topiks { get; set; }
+        public DbSet<laporan> laporans { get; set; }
+        public DbSet<semester> semesters { get; set; }
+        public DbSet<nilai> nilais { get; set; }
     }
 }

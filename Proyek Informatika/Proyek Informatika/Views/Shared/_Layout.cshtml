@@ -43,7 +43,7 @@
         <div id="main">
             <div id="navigator">
                 @{
-                    var login = "dosen";
+                    var login = "koordinator";
                     if (login == "mahasiswa")
                     {               //login mahasiswa
                     <text>
@@ -110,6 +110,7 @@
                                         menu2.Add().Text("Lihat Jadwal");
                                         menu2.Add().Text("Penilaian");
                                     });
+                                    menu.Add().Text("Kalender");
                                 })
                             )
                     </text>
@@ -147,6 +148,7 @@
                                         menu2.Add().Text("Lihat Jadwal");
                                         menu2.Add().Text("Pengaturan Sidang");
                                     });
+                                    menu.Add().Text("Kalender");
                                 })
                             )
                     </text>
