@@ -92,7 +92,7 @@ function onSelectMenuKoordinator(e) {
     } else if (item.find('> .t-link').text() == "Pengumpulan") {
         $('#content').load('PengumpulanKoordinator/PengumpulanFile');
     } else if (item.find('> .t-link').text() == "Nilai") {
-        $('#content').load('Nilai/NilaiReport');
+        $('#content').load('Nilai/Index');
     } else if (item.find('> .t-link').text() == "Pengaturan Jadwal") {
         $('#content').load('SidangKoordinator/PengaturanJadwal');
     } else if (item.find('> .t-link').text() == "Lihat Jadwal") {
