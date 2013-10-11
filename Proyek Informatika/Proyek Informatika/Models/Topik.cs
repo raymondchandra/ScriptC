@@ -11,7 +11,6 @@ namespace Proyek_Informatika.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
     
     public partial class topik
     {
@@ -23,30 +22,12 @@ namespace Proyek_Informatika.Models
         public int id { get; set; }
         public string judul { get; set; }
         public string deskripsi { get; set; }
+        public string keterangan { get; set; }
         public string NIK_pembimbing { get; set; }
         public int id_semester { get; set; }
     
         public virtual dosen dosen { get; set; }
-        public virtual semester semester { get; set; }
         public virtual ICollection<skripsi> skripsis { get; set; }
-    }
-	
-	public partial class Topik
-    {
-        
-        public int id { get; set; }
-		
-		[Display(Name="Topik")]
-        public string Nama { get; set; }
-		
-		[Display(Name="Deskripsi Topik")]
-        public string Deskripsi { get; set; }
-		
-		[Display(Name="Nama Pembimbing")]
-        public string Pembimbing { get; set; }
-		
-		[Display(Name="Keterangan")]
-        public string Keterangan { get; set; }
-    
+        public virtual semester semester { get; set; }
     }
 }

@@ -209,28 +209,28 @@ namespace Proyek_Informatika.Controllers
                 status = "Skripsi 1"
             };
             listDosen.Add(x);
-            x = new DosenPembimbing()
-            {
-                NIK = "1234567",
-                nama = "Lionov",
-                email = "lionov@gmail.com",
-                NPM_mhs = "2010730002",
-                nama_mhs = "Chintya Dewi",
-                topik = "Implementasi Komputasi Paralel Untuk Menghitung Luas Tata Surya",
-                status = "ambil bersama Skripsi 1 & Skripsi 2"
-            };
-            listDosen.Add(x);
-            x = new DosenPembimbing()
-            {
-                NIK = "1234567",
-                nama = "Lionov",
-                email = "lionov@gmail.com",
-                NPM_mhs = "2010730089",
-                nama_mhs = "Albertus Alvin",
-                topik = "Pengobatan Kanker Dengan Algoritma Djikstra",
-                status = "Skripsi 2"
-            };
-            listDosen.Add(x);
+            //x = new DosenPembimbing()
+            //{
+            //    NIK = "1234567",
+            //    nama = "Lionov",
+            //    email = "lionov@gmail.com",
+            //    NPM_mhs = "2010730002",
+            //    nama_mhs = "Chintya Dewi",
+            //    topik = "Implementasi Komputasi Paralel Untuk Menghitung Luas Tata Surya",
+            //    status = "ambil bersama Skripsi 1 & Skripsi 2"
+            //};
+            //listDosen.Add(x);
+            //x = new DosenPembimbing()
+            //{
+            //    NIK = "1234567",
+            //    nama = "Lionov",
+            //    email = "lionov@gmail.com",
+            //    NPM_mhs = "2010730089",
+            //    nama_mhs = "Albertus Alvin",
+            //    topik = "Pengobatan Kanker Dengan Algoritma Djikstra",
+            //    status = "Skripsi 2"
+            //};
+            //listDosen.Add(x);
             x = new DosenPembimbing()
             {
                 NIK = "9876543",

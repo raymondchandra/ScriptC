@@ -80,13 +80,13 @@ function onSelectMenuKoordinator(e) {
     } else if (item.find('> .t-link').text() == "Edit Pengumuman") {
         $('#content').load('PengumumanKoordinator/EditPengumuman');
     } else if (item.find('> .t-link').text() == "Pengaturan Jadwal Semester") {
-        $('#content').load('Skripsi/PengaturanSemester');
+        $('#content').load('Semester/JadwalSemester');
     } else if (item.find('> .t-link').text() == "Daftar Mahasiswa") {
-        $('#content').load('User/ListMahasiswa');
+        $('#content').load('User/DaftarMahasiswa');
     } else if (item.find('> .t-link').text() == "Daftar Dosen") {
-        $('#content').load('User/ListDosen');
+        $('#content').load('User/DaftarDosen');
     } else if (item.find('> .t-link').text() == "Daftar Akun") {
-        $('#content').load('Account/ListAkun');
+        $('#content').load('Account/DaftarAkun');
     } else if (item.find('> .t-link').text() == "Bimbingan") {
         $('#content').load('BimbinganKoordinator/Bimbingan');
     } else if (item.find('> .t-link').text() == "Pengumpulan") {
