@@ -1,0 +1,53 @@
+﻿<script>
+    function OnCompletePembimbing() {
+         $.post("SidangKoordinator/HitungPersentase", { pemberiNilai: "pembimbing", skripsi: 1 }, function (data) {
+            if (data > 100) {
+                alert("Persentase Bobot tidak boleh melebihi 100 %");
+            }
+            $("#totalBobotPembimbing2").html(data + " %");
+            
+        });
+    }
+
+</script>
+
+<h2>Komposisi Nilai</h2>
+<span>100 % dari pembimbing. </span><br />
+<h2>Kriteria Penilaian</h2>
+@(Html.Telerik().Grid<Proyek_Informatika.Models.kategori_nilai>()
+            //.HtmlAttributes(new { style = "width:50%;" })
+                .Name("KategoriPembimbing2")
+        .DataKeys(keys =>
+        {
+            keys.Add(p => p.id);
+        })
+        .ClientEvents(
+            events => events
+                .OnComplete("OnCompletePembimbing2")
+        )
+        .ToolBar(commands => commands.Insert().ButtonType(GridButtonType.Text).ImageHtmlAttributes(new { style = "margin-left:0" }))
+        .DataBinding(dataBinding =>
+        {
+            dataBinding.Ajax()
+                .Select("_SelectBobot", "SidangKoordinator", new { tipe = "pembimbing",jenisSkripsi = 1 })
+                .Insert("_InsertBobot", "SidangKoordinator", new { tipe = "pembimbing", jenisSkripsi = 1 })
+                .Update("_SaveBobot", "SidangKoordinator", new { tipe = "pembimbing", jenisSkripsi = 1 })
+                .Delete("_DeleteBobot", "SidangKoordinator", new { tipe = "pembimbing", jenisSkripsi = 1 });
+        })
+        .Columns(columns =>
+        {
+            columns.Bound(o => o.urutan).Title("Urutan");
+            columns.Bound(o => o.kategori).Title("Kategori");
+            columns.Bound(o => o.bobot).Title("Bobot(%)");
+            columns.Command(commands =>
+            {
+                commands.Edit().ButtonType(GridButtonType.Text);
+                commands.Delete().ButtonType(GridButtonType.Text);
+            }).Width(180).Title("Commands");
+        })
+        .Pageable()
+        .Scrollable()
+        .Sortable()
+        .Editable(editing => editing.Mode(GridEditMode.InLine))
+    )
+    Persentase Bobot : <span id="totalBobotPembimbing2"></span> <br />  
