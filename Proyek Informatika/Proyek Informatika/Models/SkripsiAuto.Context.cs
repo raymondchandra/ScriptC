@@ -32,16 +32,17 @@ namespace Proyek_Informatika.Models
         public DbSet<jadwal_kosong> jadwal_kosong { get; set; }
         public DbSet<jadwal_semester> jadwal_semester { get; set; }
         public DbSet<jenis_skripsi> jenis_skripsi { get; set; }
+        public DbSet<kategori_nilai> kategori_nilai { get; set; }
+        public DbSet<laporan> laporans { get; set; }
         public DbSet<mahasiswa> mahasiswas { get; set; }
+        public DbSet<nilai> nilais { get; set; }
         public DbSet<pengumuman> pengumumen { get; set; }
         public DbSet<peran> perans { get; set; }
         public DbSet<pesanan_bimbingan> pesanan_bimbingan { get; set; }
         public DbSet<ruang> ruangs { get; set; }
+        public DbSet<semester> semesters { get; set; }
         public DbSet<sidang> sidangs { get; set; }
         public DbSet<skripsi> skripsis { get; set; }
         public DbSet<topik> topiks { get; set; }
-        public DbSet<laporan> laporans { get; set; }
-        public DbSet<semester> semesters { get; set; }
-        public DbSet<nilai> nilais { get; set; }
     }
 }

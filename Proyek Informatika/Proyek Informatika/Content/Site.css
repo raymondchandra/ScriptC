@@ -10,10 +10,9 @@
 
 #page
 {
-    position: relative; 
-    width: 992px; 
-    margin: 0 auto; 
-    padding: 0; 
+    margin: 0 10% 0 10%;
+    min-width: 750px;
+    width: 80%;
 }
 
 #header, #footer
@@ -28,7 +27,7 @@
 {
     position: absolute;
     top: 20px;
-    right: 100px;
+    right: 15%;
 }
 
 #content
@@ -40,22 +39,22 @@
 
 .layer
 {
-    border-radius: 20px;
-    padding: 20px 2.5% 20px 2.5%;
-    width: 96%;
+    border-radius: 25px;
+    padding: 25px 3% 25px 3%;
+    width: 94%;
     overflow:auto;
 }
 
 #pengumuman
 {
     float: left;
-    width: 64%;
+    width: 65%;
 }
 
 #filesharing
 {
     float: right;
-    width: 23%;
+    width: 20%;
 }
 
 #filesharing a

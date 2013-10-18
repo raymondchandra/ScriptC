@@ -16,11 +16,11 @@ namespace Proyek_Informatika.Models
     {
         public dosen()
         {
-            this.jadwal_kosong = new HashSet<jadwal_kosong>();
             this.pesanan_bimbingan = new HashSet<pesanan_bimbingan>();
-            this.skripsis = new HashSet<skripsi>();
             this.topiks = new HashSet<topik>();
+            this.jadwal_kosong = new HashSet<jadwal_kosong>();
             this.nilais = new HashSet<nilai>();
+            this.skripsis = new HashSet<skripsi>();
         }
     
         public string NIK { get; set; }
@@ -29,10 +29,10 @@ namespace Proyek_Informatika.Models
         public string email { get; set; }
     
         public virtual akun akun { get; set; }
-        public virtual ICollection<jadwal_kosong> jadwal_kosong { get; set; }
         public virtual ICollection<pesanan_bimbingan> pesanan_bimbingan { get; set; }
-        public virtual ICollection<skripsi> skripsis { get; set; }
         public virtual ICollection<topik> topiks { get; set; }
+        public virtual ICollection<jadwal_kosong> jadwal_kosong { get; set; }
         public virtual ICollection<nilai> nilais { get; set; }
+        public virtual ICollection<skripsi> skripsis { get; set; }
     }
 }

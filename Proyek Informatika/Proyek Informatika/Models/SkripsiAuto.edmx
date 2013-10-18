@@ -13,6 +13,7 @@
           <EntitySet Name="jadwal_kosong" EntityType="SkripsiAuto.Store.jadwal_kosong" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="jadwal_semester" EntityType="SkripsiAuto.Store.jadwal_semester" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="jenis_skripsi" EntityType="SkripsiAuto.Store.jenis_skripsi" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="kategori_nilai" EntityType="SkripsiAuto.Store.kategori_nilai" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="laporan" EntityType="SkripsiAuto.Store.laporan" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="mahasiswa" EntityType="SkripsiAuto.Store.mahasiswa" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="nilai" EntityType="SkripsiAuto.Store.nilai" store:Type="Tables" Schema="dbo" />
@@ -51,6 +52,10 @@
           <AssociationSet Name="fk_jadwal_semester_semester" Association="SkripsiAuto.Store.fk_jadwal_semester_semester">
             <End Role="semester" EntitySet="semester" />
             <End Role="jadwal_semester" EntitySet="jadwal_semester" />
+          </AssociationSet>
+          <AssociationSet Name="FK_kategori_nilai_jenis_skripsi" Association="SkripsiAuto.Store.FK_kategori_nilai_jenis_skripsi">
+            <End Role="jenis_skripsi" EntitySet="jenis_skripsi" />
+            <End Role="kategori_nilai" EntitySet="kategori_nilai" />
           </AssociationSet>
           <AssociationSet Name="fk_mahasiswa" Association="SkripsiAuto.Store.fk_mahasiswa">
             <End Role="mahasiswa" EntitySet="mahasiswa" />
@@ -152,6 +157,9 @@
           <Property Name="start_date" Type="datetime" Nullable="false" />
           <Property Name="end_date" Type="datetime" Nullable="false" />
           <Property Name="username" Type="varchar" Nullable="false" MaxLength="15" />
+          <Property Name="place" Type="varchar" MaxLength="50" />
+          <Property Name="priority" Type="varchar" MaxLength="10" />
+          <Property Name="type" Type="varchar" MaxLength="20" />
         </EntityType>
         <EntityType Name="dosen">
           <Key>
@@ -191,6 +199,17 @@
           </Key>
           <Property Name="id" Type="nchar" Nullable="false" MaxLength="10" />
           <Property Name="nama_jenis" Type="varchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="kategori_nilai">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="urutan" Type="int" />
+          <Property Name="kategori" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="bobot" Type="int" Nullable="false" />
+          <Property Name="tipe" Type="varchar" Nullable="false" MaxLength="10" />
+          <Property Name="jenis_skripsi_id" Type="nchar" Nullable="false" MaxLength="10" />
         </EntityType>
         <EntityType Name="laporan">
           <Key>
@@ -259,7 +278,7 @@
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="nchar" Nullable="false" MaxLength="10" />
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="nama_ruang" Type="varchar" Nullable="false" MaxLength="10" />
         </EntityType>
         <EntityType Name="semester">
@@ -275,7 +294,7 @@
           </Key>
           <Property Name="id" Type="int" Nullable="false" />
           <Property Name="tanggal" Type="datetime" Nullable="false" />
-          <Property Name="ruang" Type="nchar" MaxLength="10" />
+          <Property Name="ruang" Type="int" />
           <Property Name="id_skripsi" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="skripsi">
@@ -383,6 +402,18 @@
             </Principal>
             <Dependent Role="jadwal_semester">
               <PropertyRef Name="id_semester" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_kategori_nilai_jenis_skripsi">
+          <End Role="jenis_skripsi" Type="SkripsiAuto.Store.jenis_skripsi" Multiplicity="1" />
+          <End Role="kategori_nilai" Type="SkripsiAuto.Store.kategori_nilai" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="jenis_skripsi">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="kategori_nilai">
+              <PropertyRef Name="jenis_skripsi_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -598,29 +629,30 @@
           <EntitySet Name="akuns" EntityType="SkripsiAuto.akun" />
           <EntitySet Name="bimbingans" EntityType="SkripsiAuto.bimbingan" />
           <EntitySet Name="calendar_event" EntityType="SkripsiAuto.calendar_event" />
-          <AssociationSet Name="calendar_event_fk_username" Association="SkripsiAuto.calendar_event_fk_username">
-            <End Role="akun" EntitySet="akuns" />
-            <End Role="calendar_event" EntitySet="calendar_event" />
-          </AssociationSet>
           <EntitySet Name="dosens" EntityType="SkripsiAuto.dosen" />
           <EntitySet Name="jadwal_kosong" EntityType="SkripsiAuto.jadwal_kosong" />
           <EntitySet Name="jadwal_semester" EntityType="SkripsiAuto.jadwal_semester" />
-          <AssociationSet Name="dosen_fk" Association="SkripsiAuto.dosen_fk">
-            <End Role="akun" EntitySet="akuns" />
-            <End Role="dosen" EntitySet="dosens" />
-          </AssociationSet>
-          <AssociationSet Name="jadwal_kosong_fk_NIK" Association="SkripsiAuto.jadwal_kosong_fk_NIK">
-            <End Role="dosen" EntitySet="dosens" />
-            <End Role="jadwal_kosong" EntitySet="jadwal_kosong" />
-          </AssociationSet>
           <EntitySet Name="jenis_skripsi" EntityType="SkripsiAuto.jenis_skripsi" />
+          <EntitySet Name="kategori_nilai" EntityType="SkripsiAuto.kategori_nilai" />
+          <EntitySet Name="laporans" EntityType="SkripsiAuto.laporan" />
           <EntitySet Name="mahasiswas" EntityType="SkripsiAuto.mahasiswa" />
+          <EntitySet Name="nilais" EntityType="SkripsiAuto.nilai" />
           <EntitySet Name="pengumumen" EntityType="SkripsiAuto.pengumuman" />
           <EntitySet Name="perans" EntityType="SkripsiAuto.peran" />
           <EntitySet Name="pesanan_bimbingan" EntityType="SkripsiAuto.pesanan_bimbingan" />
           <EntitySet Name="ruangs" EntityType="SkripsiAuto.ruang" />
+          <EntitySet Name="semesters" EntityType="SkripsiAuto.semester" />
           <EntitySet Name="sidangs" EntityType="SkripsiAuto.sidang" />
           <EntitySet Name="skripsis" EntityType="SkripsiAuto.skripsi" />
+          <EntitySet Name="topiks" EntityType="SkripsiAuto.topik" />
+          <AssociationSet Name="calendar_event_fk_username" Association="SkripsiAuto.calendar_event_fk_username">
+            <End Role="akun" EntitySet="akuns" />
+            <End Role="calendar_event" EntitySet="calendar_event" />
+          </AssociationSet>
+          <AssociationSet Name="dosen_fk" Association="SkripsiAuto.dosen_fk">
+            <End Role="akun" EntitySet="akuns" />
+            <End Role="dosen" EntitySet="dosens" />
+          </AssociationSet>
           <AssociationSet Name="FK_akun_peran" Association="SkripsiAuto.FK_akun_peran">
             <End Role="peran" EntitySet="perans" />
             <End Role="akun" EntitySet="akuns" />
@@ -637,6 +669,18 @@
             <End Role="dosen" EntitySet="dosens" />
             <End Role="pesanan_bimbingan" EntitySet="pesanan_bimbingan" />
           </AssociationSet>
+          <AssociationSet Name="fk_topik_dosen" Association="SkripsiAuto.fk_topik_dosen">
+            <End Role="dosen" EntitySet="dosens" />
+            <End Role="topik" EntitySet="topiks" />
+          </AssociationSet>
+          <AssociationSet Name="jadwal_kosong_fk_NIK" Association="SkripsiAuto.jadwal_kosong_fk_NIK">
+            <End Role="dosen" EntitySet="dosens" />
+            <End Role="jadwal_kosong" EntitySet="jadwal_kosong" />
+          </AssociationSet>
+          <AssociationSet Name="nilai_fk_NIK_pengisi" Association="SkripsiAuto.nilai_fk_NIK_pengisi">
+            <End Role="dosen" EntitySet="dosens" />
+            <End Role="nilai" EntitySet="nilais" />
+          </AssociationSet>
           <AssociationSet Name="skripsi_fk" Association="SkripsiAuto.skripsi_fk">
             <End Role="dosen" EntitySet="dosens" />
             <End Role="skripsi" EntitySet="skripsis" />
@@ -649,9 +693,21 @@
             <End Role="jenis_skripsi" EntitySet="jenis_skripsi" />
             <End Role="jadwal_semester" EntitySet="jadwal_semester" />
           </AssociationSet>
+          <AssociationSet Name="fk_jadwal_semester_semester" Association="SkripsiAuto.fk_jadwal_semester_semester">
+            <End Role="semester" EntitySet="semesters" />
+            <End Role="jadwal_semester" EntitySet="jadwal_semester" />
+          </AssociationSet>
+          <AssociationSet Name="FK_kategori_nilai_jenis_skripsi" Association="SkripsiAuto.FK_kategori_nilai_jenis_skripsi">
+            <End Role="jenis_skripsi" EntitySet="jenis_skripsi" />
+            <End Role="kategori_nilai" EntitySet="kategori_nilai" />
+          </AssociationSet>
           <AssociationSet Name="FK_skripsi_jenis_skripsi" Association="SkripsiAuto.FK_skripsi_jenis_skripsi">
             <End Role="jenis_skripsi" EntitySet="jenis_skripsi" />
             <End Role="skripsi" EntitySet="skripsis" />
+          </AssociationSet>
+          <AssociationSet Name="laporan_fk" Association="SkripsiAuto.laporan_fk">
+            <End Role="skripsi" EntitySet="skripsis" />
+            <End Role="laporan" EntitySet="laporans" />
           </AssociationSet>
           <AssociationSet Name="fk_mahasiswa" Association="SkripsiAuto.fk_mahasiswa">
             <End Role="mahasiswa" EntitySet="mahasiswas" />
@@ -661,6 +717,10 @@
             <End Role="mahasiswa" EntitySet="mahasiswas" />
             <End Role="skripsi" EntitySet="skripsis" />
           </AssociationSet>
+          <AssociationSet Name="nilai_fk_id_skripsi" Association="SkripsiAuto.nilai_fk_id_skripsi">
+            <End Role="skripsi" EntitySet="skripsis" />
+            <End Role="nilai" EntitySet="nilais" />
+          </AssociationSet>
           <AssociationSet Name="FK_pengumuman_peran" Association="SkripsiAuto.FK_pengumuman_peran">
             <End Role="peran" EntitySet="perans" />
             <End Role="pengumuman" EntitySet="pengumumen" />
@@ -668,29 +728,6 @@
           <AssociationSet Name="FK_sidang_ruang" Association="SkripsiAuto.FK_sidang_ruang">
             <End Role="ruang" EntitySet="ruangs" />
             <End Role="sidang" EntitySet="sidangs" />
-          </AssociationSet>
-          <AssociationSet Name="sidang_fk_id_skripsi" Association="SkripsiAuto.sidang_fk_id_skripsi">
-            <End Role="skripsi" EntitySet="skripsis" />
-            <End Role="sidang" EntitySet="sidangs" />
-          </AssociationSet>
-          <EntitySet Name="topiks" EntityType="SkripsiAuto.topik" />
-          <AssociationSet Name="fk_topik_dosen" Association="SkripsiAuto.fk_topik_dosen">
-            <End Role="dosen" EntitySet="dosens" />
-            <End Role="topik" EntitySet="topiks" />
-          </AssociationSet>
-          <AssociationSet Name="fk_skripsi_topik" Association="SkripsiAuto.fk_skripsi_topik">
-            <End Role="topik" EntitySet="topiks" />
-            <End Role="skripsi" EntitySet="skripsis" />
-          </AssociationSet>
-          <EntitySet Name="laporans" EntityType="SkripsiAuto.laporan" />
-          <AssociationSet Name="laporan_fk" Association="SkripsiAuto.laporan_fk">
-            <End Role="skripsi" EntitySet="skripsis" />
-            <End Role="laporan" EntitySet="laporans" />
-          </AssociationSet>
-          <EntitySet Name="semesters" EntityType="SkripsiAuto.semester" />
-          <AssociationSet Name="fk_jadwal_semester_semester" Association="SkripsiAuto.fk_jadwal_semester_semester">
-            <End Role="semester" EntitySet="semesters" />
-            <End Role="jadwal_semester" EntitySet="jadwal_semester" />
           </AssociationSet>
           <AssociationSet Name="fk_skripsi_semester" Association="SkripsiAuto.fk_skripsi_semester">
             <End Role="semester" EntitySet="semesters" />
@@ -700,14 +737,13 @@
             <End Role="semester" EntitySet="semesters" />
             <End Role="topik" EntitySet="topiks" />
           </AssociationSet>
-          <EntitySet Name="nilais" EntityType="SkripsiAuto.nilai" />
-          <AssociationSet Name="nilai_fk_NIK_pengisi" Association="SkripsiAuto.nilai_fk_NIK_pengisi">
-            <End Role="dosen" EntitySet="dosens" />
-            <End Role="nilai" EntitySet="nilais" />
-          </AssociationSet>
-          <AssociationSet Name="nilai_fk_id_skripsi" Association="SkripsiAuto.nilai_fk_id_skripsi">
+          <AssociationSet Name="sidang_fk_id_skripsi" Association="SkripsiAuto.sidang_fk_id_skripsi">
             <End Role="skripsi" EntitySet="skripsis" />
-            <End Role="nilai" EntitySet="nilais" />
+            <End Role="sidang" EntitySet="sidangs" />
+          </AssociationSet>
+          <AssociationSet Name="fk_skripsi_topik" Association="SkripsiAuto.fk_skripsi_topik">
+            <End Role="topik" EntitySet="topiks" />
+            <End Role="skripsi" EntitySet="skripsis" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="akun">
@@ -746,20 +782,11 @@
           <Property Type="DateTime" Name="start_date" Nullable="false" />
           <Property Type="DateTime" Name="end_date" Nullable="false" />
           <Property Type="String" Name="username" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="place" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="priority" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="type" MaxLength="20" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="akun" Relationship="SkripsiAuto.calendar_event_fk_username" FromRole="calendar_event" ToRole="akun" />
         </EntityType>
-        <Association Name="calendar_event_fk_username">
-          <End Type="SkripsiAuto.akun" Role="akun" Multiplicity="1" />
-          <End Type="SkripsiAuto.calendar_event" Role="calendar_event" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="akun">
-              <PropertyRef Name="username" />
-            </Principal>
-            <Dependent Role="calendar_event">
-              <PropertyRef Name="username" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="dosen">
           <Key>
             <PropertyRef Name="NIK" />
@@ -769,11 +796,11 @@
           <Property Type="String" Name="username" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="email" MaxLength="30" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="akun" Relationship="SkripsiAuto.dosen_fk" FromRole="dosen" ToRole="akun" />
-          <NavigationProperty Name="jadwal_kosong" Relationship="SkripsiAuto.jadwal_kosong_fk_NIK" FromRole="dosen" ToRole="jadwal_kosong" />
           <NavigationProperty Name="pesanan_bimbingan" Relationship="SkripsiAuto.fk_dosen" FromRole="dosen" ToRole="pesanan_bimbingan" />
-          <NavigationProperty Name="skripsis" Relationship="SkripsiAuto.skripsi_fk" FromRole="dosen" ToRole="skripsi" />
           <NavigationProperty Name="topiks" Relationship="SkripsiAuto.fk_topik_dosen" FromRole="dosen" ToRole="topik" />
+          <NavigationProperty Name="jadwal_kosong" Relationship="SkripsiAuto.jadwal_kosong_fk_NIK" FromRole="dosen" ToRole="jadwal_kosong" />
           <NavigationProperty Name="nilais" Relationship="SkripsiAuto.nilai_fk_NIK_pengisi" FromRole="dosen" ToRole="nilai" />
+          <NavigationProperty Name="skripsis" Relationship="SkripsiAuto.skripsi_fk" FromRole="dosen" ToRole="skripsi" />
         </EntityType>
         <EntityType Name="jadwal_kosong">
           <Key>
@@ -802,30 +829,6 @@
           <NavigationProperty Name="jenis_skripsi" Relationship="SkripsiAuto.FK_jadwal_semester_jenis_skripsi" FromRole="jadwal_semester" ToRole="jenis_skripsi" />
           <NavigationProperty Name="semester" Relationship="SkripsiAuto.fk_jadwal_semester_semester" FromRole="jadwal_semester" ToRole="semester" />
         </EntityType>
-        <Association Name="dosen_fk">
-          <End Type="SkripsiAuto.akun" Role="akun" Multiplicity="1" />
-          <End Type="SkripsiAuto.dosen" Role="dosen" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="akun">
-              <PropertyRef Name="username" />
-            </Principal>
-            <Dependent Role="dosen">
-              <PropertyRef Name="username" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="jadwal_kosong_fk_NIK">
-          <End Type="SkripsiAuto.dosen" Role="dosen" Multiplicity="1" />
-          <End Type="SkripsiAuto.jadwal_kosong" Role="jadwal_kosong" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="dosen">
-              <PropertyRef Name="NIK" />
-            </Principal>
-            <Dependent Role="jadwal_kosong">
-              <PropertyRef Name="NIK_dosen" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="jenis_skripsi">
           <Key>
             <PropertyRef Name="id" />
@@ -833,7 +836,31 @@
           <Property Type="String" Name="id" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Type="String" Name="nama_jenis" MaxLength="30" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="jadwal_semester" Relationship="SkripsiAuto.FK_jadwal_semester_jenis_skripsi" FromRole="jenis_skripsi" ToRole="jadwal_semester" />
+          <NavigationProperty Name="kategori_nilai" Relationship="SkripsiAuto.FK_kategori_nilai_jenis_skripsi" FromRole="jenis_skripsi" ToRole="kategori_nilai" />
           <NavigationProperty Name="skripsis" Relationship="SkripsiAuto.FK_skripsi_jenis_skripsi" FromRole="jenis_skripsi" ToRole="skripsi" />
+        </EntityType>
+        <EntityType Name="kategori_nilai">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="urutan" />
+          <Property Type="String" Name="kategori" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="bobot" Nullable="false" />
+          <Property Type="String" Name="tipe" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="jenis_skripsi_id" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="jenis_skripsi" Relationship="SkripsiAuto.FK_kategori_nilai_jenis_skripsi" FromRole="kategori_nilai" ToRole="jenis_skripsi" />
+        </EntityType>
+        <EntityType Name="laporan">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="jenis" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="deskripsi" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="tanggal_pengumpulan" Nullable="false" />
+          <Property Type="Int32" Name="id_skripsi" Nullable="false" />
+          <NavigationProperty Name="skripsi" Relationship="SkripsiAuto.laporan_fk" FromRole="laporan" ToRole="skripsi" />
         </EntityType>
         <EntityType Name="mahasiswa">
           <Key>
@@ -850,6 +877,20 @@
           <NavigationProperty Name="jadwal_kosong" Relationship="SkripsiAuto.jadwal_kosong_fk_NPM" FromRole="mahasiswa" ToRole="jadwal_kosong" />
           <NavigationProperty Name="pesanan_bimbingan" Relationship="SkripsiAuto.fk_mahasiswa" FromRole="mahasiswa" ToRole="pesanan_bimbingan" />
           <NavigationProperty Name="skripsis" Relationship="SkripsiAuto.skripsi_fk2" FromRole="mahasiswa" ToRole="skripsi" />
+        </EntityType>
+        <EntityType Name="nilai">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="id_skripsi" Nullable="false" />
+          <Property Type="String" Name="jenis" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Type="Double" Name="angka" Nullable="false" />
+          <Property Type="Double" Name="bobot" />
+          <Property Type="String" Name="NIK_pengisi" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="isSidang" Nullable="false" />
+          <NavigationProperty Name="dosen" Relationship="SkripsiAuto.nilai_fk_NIK_pengisi" FromRole="nilai" ToRole="dosen" />
+          <NavigationProperty Name="skripsi" Relationship="SkripsiAuto.nilai_fk_id_skripsi" FromRole="nilai" ToRole="skripsi" />
         </EntityType>
         <EntityType Name="pengumuman">
           <Key>
@@ -889,9 +930,19 @@
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Type="String" Name="id" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Type="String" Name="nama_ruang" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="sidangs" Relationship="SkripsiAuto.FK_sidang_ruang" FromRole="ruang" ToRole="sidang" />
+        </EntityType>
+        <EntityType Name="semester">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="periode_semester" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="jadwal_semester" Relationship="SkripsiAuto.fk_jadwal_semester_semester" FromRole="semester" ToRole="jadwal_semester" />
+          <NavigationProperty Name="skripsis" Relationship="SkripsiAuto.fk_skripsi_semester" FromRole="semester" ToRole="skripsi" />
+          <NavigationProperty Name="topiks" Relationship="SkripsiAuto.fk_topik_semsester" FromRole="semester" ToRole="topik" />
         </EntityType>
         <EntityType Name="sidang">
           <Key>
@@ -899,7 +950,7 @@
           </Key>
           <Property Type="Int32" Name="id" Nullable="false" />
           <Property Type="DateTime" Name="tanggal" Nullable="false" />
-          <Property Type="String" Name="ruang" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Type="Int32" Name="ruang" />
           <Property Type="Int32" Name="id_skripsi" Nullable="false" />
           <NavigationProperty Name="ruang1" Relationship="SkripsiAuto.FK_sidang_ruang" FromRole="sidang" ToRole="ruang" />
           <NavigationProperty Name="skripsi" Relationship="SkripsiAuto.sidang_fk_id_skripsi" FromRole="sidang" ToRole="skripsi" />
@@ -919,13 +970,51 @@
           <NavigationProperty Name="bimbingans" Relationship="SkripsiAuto.bimbingan_fk" FromRole="skripsi" ToRole="bimbingan" />
           <NavigationProperty Name="dosen" Relationship="SkripsiAuto.skripsi_fk" FromRole="skripsi" ToRole="dosen" />
           <NavigationProperty Name="jenis_skripsi" Relationship="SkripsiAuto.FK_skripsi_jenis_skripsi" FromRole="skripsi" ToRole="jenis_skripsi" />
+          <NavigationProperty Name="laporans" Relationship="SkripsiAuto.laporan_fk" FromRole="skripsi" ToRole="laporan" />
           <NavigationProperty Name="mahasiswa" Relationship="SkripsiAuto.skripsi_fk2" FromRole="skripsi" ToRole="mahasiswa" />
+          <NavigationProperty Name="nilais" Relationship="SkripsiAuto.nilai_fk_id_skripsi" FromRole="skripsi" ToRole="nilai" />
+          <NavigationProperty Name="semester" Relationship="SkripsiAuto.fk_skripsi_semester" FromRole="skripsi" ToRole="semester" />
           <NavigationProperty Name="sidangs" Relationship="SkripsiAuto.sidang_fk_id_skripsi" FromRole="skripsi" ToRole="sidang" />
           <NavigationProperty Name="topik" Relationship="SkripsiAuto.fk_skripsi_topik" FromRole="skripsi" ToRole="topik" />
-          <NavigationProperty Name="laporans" Relationship="SkripsiAuto.laporan_fk" FromRole="skripsi" ToRole="laporan" />
-          <NavigationProperty Name="semester" Relationship="SkripsiAuto.fk_skripsi_semester" FromRole="skripsi" ToRole="semester" />
-          <NavigationProperty Name="nilais" Relationship="SkripsiAuto.nilai_fk_id_skripsi" FromRole="skripsi" ToRole="nilai" />
         </EntityType>
+        <EntityType Name="topik">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="judul" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="deskripsi" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="keterangan" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="NIK_pembimbing" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="id_semester" Nullable="false" />
+          <NavigationProperty Name="dosen" Relationship="SkripsiAuto.fk_topik_dosen" FromRole="topik" ToRole="dosen" />
+          <NavigationProperty Name="semester" Relationship="SkripsiAuto.fk_topik_semsester" FromRole="topik" ToRole="semester" />
+          <NavigationProperty Name="skripsis" Relationship="SkripsiAuto.fk_skripsi_topik" FromRole="topik" ToRole="skripsi" />
+        </EntityType>
+        <Association Name="calendar_event_fk_username">
+          <End Type="SkripsiAuto.akun" Role="akun" Multiplicity="1" />
+          <End Type="SkripsiAuto.calendar_event" Role="calendar_event" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="akun">
+              <PropertyRef Name="username" />
+            </Principal>
+            <Dependent Role="calendar_event">
+              <PropertyRef Name="username" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="dosen_fk">
+          <End Type="SkripsiAuto.akun" Role="akun" Multiplicity="1" />
+          <End Type="SkripsiAuto.dosen" Role="dosen" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="akun">
+              <PropertyRef Name="username" />
+            </Principal>
+            <Dependent Role="dosen">
+              <PropertyRef Name="username" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_akun_peran">
           <End Type="SkripsiAuto.peran" Role="peran" Multiplicity="1" />
           <End Type="SkripsiAuto.akun" Role="akun" Multiplicity="*" />
@@ -974,6 +1063,42 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="fk_topik_dosen">
+          <End Type="SkripsiAuto.dosen" Role="dosen" Multiplicity="1" />
+          <End Type="SkripsiAuto.topik" Role="topik" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dosen">
+              <PropertyRef Name="NIK" />
+            </Principal>
+            <Dependent Role="topik">
+              <PropertyRef Name="NIK_pembimbing" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="jadwal_kosong_fk_NIK">
+          <End Type="SkripsiAuto.dosen" Role="dosen" Multiplicity="1" />
+          <End Type="SkripsiAuto.jadwal_kosong" Role="jadwal_kosong" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dosen">
+              <PropertyRef Name="NIK" />
+            </Principal>
+            <Dependent Role="jadwal_kosong">
+              <PropertyRef Name="NIK_dosen" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="nilai_fk_NIK_pengisi">
+          <End Type="SkripsiAuto.dosen" Role="dosen" Multiplicity="1" />
+          <End Type="SkripsiAuto.nilai" Role="nilai" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dosen">
+              <PropertyRef Name="NIK" />
+            </Principal>
+            <Dependent Role="nilai">
+              <PropertyRef Name="NIK_pengisi" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="skripsi_fk">
           <End Type="SkripsiAuto.dosen" Role="dosen" Multiplicity="1" />
           <End Type="SkripsiAuto.skripsi" Role="skripsi" Multiplicity="*" />
@@ -1010,6 +1135,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="fk_jadwal_semester_semester">
+          <End Type="SkripsiAuto.semester" Role="semester" Multiplicity="1" />
+          <End Type="SkripsiAuto.jadwal_semester" Role="jadwal_semester" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="semester">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="jadwal_semester">
+              <PropertyRef Name="id_semester" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_kategori_nilai_jenis_skripsi">
+          <End Type="SkripsiAuto.jenis_skripsi" Role="jenis_skripsi" Multiplicity="1" />
+          <End Type="SkripsiAuto.kategori_nilai" Role="kategori_nilai" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="jenis_skripsi">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="kategori_nilai">
+              <PropertyRef Name="jenis_skripsi_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_skripsi_jenis_skripsi">
           <End Type="SkripsiAuto.jenis_skripsi" Role="jenis_skripsi" Multiplicity="1" />
           <End Type="SkripsiAuto.skripsi" Role="skripsi" Multiplicity="*" />
@@ -1019,6 +1168,18 @@
             </Principal>
             <Dependent Role="skripsi">
               <PropertyRef Name="jenis" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="laporan_fk">
+          <End Type="SkripsiAuto.skripsi" Role="skripsi" Multiplicity="1" />
+          <End Type="SkripsiAuto.laporan" Role="laporan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="skripsi">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="laporan">
+              <PropertyRef Name="id_skripsi" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1046,6 +1207,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="nilai_fk_id_skripsi">
+          <End Type="SkripsiAuto.skripsi" Role="skripsi" Multiplicity="1" />
+          <End Type="SkripsiAuto.nilai" Role="nilai" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="skripsi">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="nilai">
+              <PropertyRef Name="id_skripsi" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_pengumuman_peran">
           <End Type="SkripsiAuto.peran" Role="peran" Multiplicity="1" />
           <End Type="SkripsiAuto.pengumuman" Role="pengumuman" Multiplicity="*" />
@@ -1067,101 +1240,6 @@
             </Principal>
             <Dependent Role="sidang">
               <PropertyRef Name="ruang" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="sidang_fk_id_skripsi">
-          <End Type="SkripsiAuto.skripsi" Role="skripsi" Multiplicity="1" />
-          <End Type="SkripsiAuto.sidang" Role="sidang" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="skripsi">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="sidang">
-              <PropertyRef Name="id_skripsi" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="topik">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Type="Int32" Name="id" Nullable="false" />
-          <Property Type="String" Name="judul" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="deskripsi" MaxLength="1000" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="keterangan" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="NIK_pembimbing" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
-          <Property Type="Int32" Name="id_semester" Nullable="false" />
-          <NavigationProperty Name="dosen" Relationship="SkripsiAuto.fk_topik_dosen" FromRole="topik" ToRole="dosen" />
-          <NavigationProperty Name="skripsis" Relationship="SkripsiAuto.fk_skripsi_topik" FromRole="topik" ToRole="skripsi" />
-          <NavigationProperty Name="semester" Relationship="SkripsiAuto.fk_topik_semsester" FromRole="topik" ToRole="semester" />
-        </EntityType>
-        <Association Name="fk_topik_dosen">
-          <End Type="SkripsiAuto.dosen" Role="dosen" Multiplicity="1" />
-          <End Type="SkripsiAuto.topik" Role="topik" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="dosen">
-              <PropertyRef Name="NIK" />
-            </Principal>
-            <Dependent Role="topik">
-              <PropertyRef Name="NIK_pembimbing" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_skripsi_topik">
-          <End Type="SkripsiAuto.topik" Role="topik" Multiplicity="1" />
-          <End Type="SkripsiAuto.skripsi" Role="skripsi" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="topik">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="skripsi">
-              <PropertyRef Name="id_topik" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="laporan">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Type="Int32" Name="id" Nullable="false" />
-          <Property Type="String" Name="jenis" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="deskripsi" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Type="DateTime" Name="tanggal_pengumpulan" Nullable="false" />
-          <Property Type="Int32" Name="id_skripsi" Nullable="false" />
-          <NavigationProperty Name="skripsi" Relationship="SkripsiAuto.laporan_fk" FromRole="laporan" ToRole="skripsi" />
-        </EntityType>
-        <Association Name="laporan_fk">
-          <End Type="SkripsiAuto.skripsi" Role="skripsi" Multiplicity="1" />
-          <End Type="SkripsiAuto.laporan" Role="laporan" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="skripsi">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="laporan">
-              <PropertyRef Name="id_skripsi" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="semester">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Type="Int32" Name="id" Nullable="false" />
-          <Property Type="String" Name="periode_semester" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="jadwal_semester" Relationship="SkripsiAuto.fk_jadwal_semester_semester" FromRole="semester" ToRole="jadwal_semester" />
-          <NavigationProperty Name="skripsis" Relationship="SkripsiAuto.fk_skripsi_semester" FromRole="semester" ToRole="skripsi" />
-          <NavigationProperty Name="topiks" Relationship="SkripsiAuto.fk_topik_semsester" FromRole="semester" ToRole="topik" />
-        </EntityType>
-        <Association Name="fk_jadwal_semester_semester">
-          <End Type="SkripsiAuto.semester" Role="semester" Multiplicity="1" />
-          <End Type="SkripsiAuto.jadwal_semester" Role="jadwal_semester" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="semester">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="jadwal_semester">
-              <PropertyRef Name="id_semester" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1189,45 +1267,31 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="nilai">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Type="Int32" Name="id" Nullable="false" />
-          <Property Type="Int32" Name="id_skripsi" Nullable="false" />
-          <Property Type="String" Name="jenis" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Type="Double" Name="angka" Nullable="false" />
-          <Property Type="Double" Name="bobot" />
-          <Property Type="String" Name="NIK_pengisi" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
-          <Property Type="Int32" Name="isSidang" Nullable="false" />
-          <NavigationProperty Name="dosen" Relationship="SkripsiAuto.nilai_fk_NIK_pengisi" FromRole="nilai" ToRole="dosen" />
-          <NavigationProperty Name="skripsi" Relationship="SkripsiAuto.nilai_fk_id_skripsi" FromRole="nilai" ToRole="skripsi" />
-        </EntityType>
-        <Association Name="nilai_fk_NIK_pengisi">
-          <End Type="SkripsiAuto.dosen" Role="dosen" Multiplicity="1" />
-          <End Type="SkripsiAuto.nilai" Role="nilai" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="dosen">
-              <PropertyRef Name="NIK" />
-            </Principal>
-            <Dependent Role="nilai">
-              <PropertyRef Name="NIK_pengisi" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="nilai_fk_id_skripsi">
+        <Association Name="sidang_fk_id_skripsi">
           <End Type="SkripsiAuto.skripsi" Role="skripsi" Multiplicity="1" />
-          <End Type="SkripsiAuto.nilai" Role="nilai" Multiplicity="*" />
+          <End Type="SkripsiAuto.sidang" Role="sidang" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="skripsi">
               <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="nilai">
+            <Dependent Role="sidang">
               <PropertyRef Name="id_skripsi" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        <Association Name="fk_skripsi_topik">
+          <End Type="SkripsiAuto.topik" Role="topik" Multiplicity="1" />
+          <End Type="SkripsiAuto.skripsi" Role="skripsi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="topik">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="skripsi">
+              <PropertyRef Name="id_topik" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -1261,6 +1325,9 @@
           <EntitySetMapping Name="calendar_event">
             <EntityTypeMapping TypeName="SkripsiAuto.calendar_event">
               <MappingFragment StoreEntitySet="calendar_event">
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="priority" ColumnName="priority" />
+                <ScalarProperty Name="place" ColumnName="place" />
                 <ScalarProperty Name="username" ColumnName="username" />
                 <ScalarProperty Name="end_date" ColumnName="end_date" />
                 <ScalarProperty Name="start_date" ColumnName="start_date" />
@@ -1313,6 +1380,29 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="kategori_nilai">
+            <EntityTypeMapping TypeName="SkripsiAuto.kategori_nilai">
+              <MappingFragment StoreEntitySet="kategori_nilai">
+                <ScalarProperty Name="jenis_skripsi_id" ColumnName="jenis_skripsi_id" />
+                <ScalarProperty Name="tipe" ColumnName="tipe" />
+                <ScalarProperty Name="bobot" ColumnName="bobot" />
+                <ScalarProperty Name="kategori" ColumnName="kategori" />
+                <ScalarProperty Name="urutan" ColumnName="urutan" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="laporans">
+            <EntityTypeMapping TypeName="SkripsiAuto.laporan">
+              <MappingFragment StoreEntitySet="laporan">
+                <ScalarProperty Name="id_skripsi" ColumnName="id_skripsi" />
+                <ScalarProperty Name="tanggal_pengumpulan" ColumnName="tanggal_pengumpulan" />
+                <ScalarProperty Name="deskripsi" ColumnName="deskripsi" />
+                <ScalarProperty Name="jenis" ColumnName="jenis" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="mahasiswas">
             <EntityTypeMapping TypeName="SkripsiAuto.mahasiswa">
               <MappingFragment StoreEntitySet="mahasiswa">
@@ -1323,6 +1413,19 @@
                 <ScalarProperty Name="email" ColumnName="email" />
                 <ScalarProperty Name="nama" ColumnName="nama" />
                 <ScalarProperty Name="NPM" ColumnName="NPM" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="nilais">
+            <EntityTypeMapping TypeName="SkripsiAuto.nilai">
+              <MappingFragment StoreEntitySet="nilai">
+                <ScalarProperty Name="isSidang" ColumnName="isSidang" />
+                <ScalarProperty Name="NIK_pengisi" ColumnName="NIK_pengisi" />
+                <ScalarProperty Name="bobot" ColumnName="bobot" />
+                <ScalarProperty Name="angka" ColumnName="angka" />
+                <ScalarProperty Name="jenis" ColumnName="jenis" />
+                <ScalarProperty Name="id_skripsi" ColumnName="id_skripsi" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1366,6 +1469,14 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="semesters">
+            <EntityTypeMapping TypeName="SkripsiAuto.semester">
+              <MappingFragment StoreEntitySet="semester">
+                <ScalarProperty Name="periode_semester" ColumnName="periode_semester" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="sidangs">
             <EntityTypeMapping TypeName="SkripsiAuto.sidang">
               <MappingFragment StoreEntitySet="sidang">
@@ -1402,38 +1513,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="laporans">
-            <EntityTypeMapping TypeName="SkripsiAuto.laporan">
-              <MappingFragment StoreEntitySet="laporan">
-                <ScalarProperty Name="id_skripsi" ColumnName="id_skripsi" />
-                <ScalarProperty Name="tanggal_pengumpulan" ColumnName="tanggal_pengumpulan" />
-                <ScalarProperty Name="deskripsi" ColumnName="deskripsi" />
-                <ScalarProperty Name="jenis" ColumnName="jenis" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="semesters">
-            <EntityTypeMapping TypeName="SkripsiAuto.semester">
-              <MappingFragment StoreEntitySet="semester">
-                <ScalarProperty Name="periode_semester" ColumnName="periode_semester" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="nilais">
-            <EntityTypeMapping TypeName="SkripsiAuto.nilai">
-              <MappingFragment StoreEntitySet="nilai">
-                <ScalarProperty Name="isSidang" ColumnName="isSidang" />
-                <ScalarProperty Name="NIK_pengisi" ColumnName="NIK_pengisi" />
-                <ScalarProperty Name="bobot" ColumnName="bobot" />
-                <ScalarProperty Name="angka" ColumnName="angka" />
-                <ScalarProperty Name="jenis" ColumnName="jenis" />
-                <ScalarProperty Name="id_skripsi" ColumnName="id_skripsi" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -1456,141 +1535,222 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram Name="SkripsiAuto" >
-        <EntityTypeShape EntityType="SkripsiAuto.akun" Width="1.5" PointX="3.75" PointY="0.875" Height="1.9802864583333331" />
-        <EntityTypeShape EntityType="SkripsiAuto.bimbingan" Width="1.5" PointX="2" PointY="7.25" Height="2.1725878906249996" />
-        <EntityTypeShape EntityType="SkripsiAuto.calendar_event" Width="1.5" PointX="1.875" PointY="1.125" Height="2.172587890625" />
+        <EntityTypeShape EntityType="SkripsiAuto.akun" Width="1.5" PointX="1.5" PointY="2.625" Height="2.7494921875000031" />
+        <EntityTypeShape EntityType="SkripsiAuto.bimbingan" Width="1.5" PointX="8.25" PointY="8" Height="2.3648893229166674" />
+        <EntityTypeShape EntityType="SkripsiAuto.calendar_event" Width="1.5" PointX="3.75" PointY="24.5" Height="2.9417936197916674" />
+        <EntityTypeShape EntityType="SkripsiAuto.dosen" Width="1.5" PointX="3.75" PointY="2.5" Height="2.9417936197916674" />
+        <EntityTypeShape EntityType="SkripsiAuto.jadwal_kosong" Width="1.5" PointX="6" PointY="4.5" Height="2.9417936197916674" />
+        <EntityTypeShape EntityType="SkripsiAuto.jadwal_semester" Width="1.5" PointX="3" PointY="9.5" Height="2.3648893229166674" />
+        <EntityTypeShape EntityType="SkripsiAuto.jenis_skripsi" Width="1.5" PointX="0.75" PointY="9.75" Height="1.9802864583333246" />
+        <EntityTypeShape EntityType="SkripsiAuto.kategori_nilai" Width="1.5" PointX="3" PointY="12.625" Height="2.3648893229166674" />
+        <EntityTypeShape EntityType="SkripsiAuto.laporan" Width="1.5" PointX="8.25" PointY="11.125" Height="2.172587890624996" />
+        <EntityTypeShape EntityType="SkripsiAuto.mahasiswa" Width="1.5" PointX="3.75" PointY="16.25" Height="3.1340950520833246" />
+        <EntityTypeShape EntityType="SkripsiAuto.nilai" Width="1.5" PointX="11.25" PointY="9.375" Height="2.7494921875000102" />
+        <EntityTypeShape EntityType="SkripsiAuto.pengumuman" Width="1.5" PointX="3.75" PointY="29.125" Height="1.9802864583333246" />
+        <EntityTypeShape EntityType="SkripsiAuto.peran" Width="1.5" PointX="1.5" PointY="16.125" Height="1.7879850260416674" />
+        <EntityTypeShape EntityType="SkripsiAuto.pesanan_bimbingan" Width="1.5" PointX="6" PointY="14.5" Height="2.9417936197916674" />
+        <EntityTypeShape EntityType="SkripsiAuto.ruang" Width="1.5" PointX="9" PointY="4.875" Height="1.595683593749996" />
+        <EntityTypeShape EntityType="SkripsiAuto.semester" Width="1.5" PointX="0.75" PointY="6.75" Height="1.9802864583333246" />
+        <EntityTypeShape EntityType="SkripsiAuto.sidang" Width="1.5" PointX="11.25" PointY="5.625" Height="2.1725878906250102" />
+        <EntityTypeShape EntityType="SkripsiAuto.skripsi" Width="1.5" PointX="6" PointY="8.5" Height="4.2879036458333246" />
+        <EntityTypeShape EntityType="SkripsiAuto.topik" Width="1.5" PointX="3.75" PointY="20.125" Height="2.7494921875000102" />
         <AssociationConnector Association="SkripsiAuto.calendar_event_fk_username" >
-          <ConnectorPoint PointX="3.75" PointY="1.9901432291666665" />
-          <ConnectorPoint PointX="3.375" PointY="1.9901432291666665" />
+          <ConnectorPoint PointX="2.25" PointY="5.3744921875000031" />
+          <ConnectorPoint PointX="2.25" PointY="6.5" />
+          <ConnectorPoint PointX="2.5" PointY="6.5" />
+          <ConnectorPoint PointX="2.5" PointY="15.875" />
+          <ConnectorPoint PointX="2.6979166666666665" PointY="15.875" />
+          <ConnectorPoint PointX="2.8645833333333335" PointY="15.875" />
+          <ConnectorPoint PointX="3.25" PointY="15.875" />
+          <ConnectorPoint PointX="3.25" PointY="25.970896809895834" />
+          <ConnectorPoint PointX="3.75" PointY="25.970896809895834" />
         </AssociationConnector>
-        <EntityTypeShape EntityType="SkripsiAuto.dosen" Width="1.5" PointX="7.75" PointY="3.25" Height="1.7879850260416665" />
-        <EntityTypeShape EntityType="SkripsiAuto.jadwal_kosong" Width="1.5" PointX="5.75" PointY="2.875" Height="2.5571907552083326" />
-        <EntityTypeShape EntityType="SkripsiAuto.jadwal_semester" Width="1.5" PointX="8.125" PointY="11" Height="1.9802864583333335" />
         <AssociationConnector Association="SkripsiAuto.dosen_fk" >
-          <ConnectorPoint PointX="5.25" PointY="0.96875" />
-          <ConnectorPoint PointX="9.15625" PointY="0.96875" />
-          <ConnectorPoint PointX="9.15625" PointY="3.25" />
+          <ConnectorPoint PointX="3" PointY="3.9997460937500016" />
+          <ConnectorPoint PointX="3.75" PointY="3.9997460937500016" />
         </AssociationConnector>
-        <AssociationConnector Association="SkripsiAuto.jadwal_kosong_fk_NIK" >
-          <ConnectorPoint PointX="7.75" PointY="4.1439925130208337" />
-          <ConnectorPoint PointX="7.25" PointY="4.1439925130208337" />
-        </AssociationConnector>
-        <EntityTypeShape EntityType="SkripsiAuto.jenis_skripsi" Width="1.5" PointX="6" PointY="11.5" Height="1.4033821614583335" />
-        <EntityTypeShape EntityType="SkripsiAuto.mahasiswa" Width="1.5" PointX="1.875" PointY="3.75" Height="2.3648893229166656" />
-        <EntityTypeShape EntityType="SkripsiAuto.pengumuman" Width="1.5" PointX="7.5" PointY="1.125" Height="1.787985026041667" />
-        <EntityTypeShape EntityType="SkripsiAuto.peran" Width="1.5" PointX="5.625" PointY="1.25" Height="1.4033821614583331" />
-        <EntityTypeShape EntityType="SkripsiAuto.pesanan_bimbingan" Width="1.5" PointX="3.875" PointY="4.375" Height="2.5571907552083326" />
-        <EntityTypeShape EntityType="SkripsiAuto.ruang" Width="1.5" PointX="2.125" PointY="9.875" Height="1.4033821614583335" />
-        <EntityTypeShape EntityType="SkripsiAuto.sidang" Width="1.5" PointX="4.125" PointY="9.625" Height="1.7879850260416657" />
-        <EntityTypeShape EntityType="SkripsiAuto.skripsi" Width="1.5" PointX="5.75" PointY="6.25" Height="2.5571907552083335" />
         <AssociationConnector Association="SkripsiAuto.FK_akun_peran" >
-          <ConnectorPoint PointX="5.625" PointY="1.9516910807291665" />
-          <ConnectorPoint PointX="5.25" PointY="1.9516910807291665" />
+          <ConnectorPoint PointX="2.78125" PointY="16.125" />
+          <ConnectorPoint PointX="2.78125" PointY="5.3744921875000031" />
         </AssociationConnector>
         <AssociationConnector Association="SkripsiAuto.mahasiswa_fk" >
-          <ConnectorPoint PointX="3.78125" PointY="2.8552864583333331" />
-          <ConnectorPoint PointX="3.78125" PointY="4.03125" />
-          <ConnectorPoint PointX="3.375" PointY="4.03125" />
+          <ConnectorPoint PointX="1.8437480000000002" PointY="5.3744921875000031" />
+          <ConnectorPoint PointX="1.8437480000000002" PointY="6.25" />
+          <ConnectorPoint PointX="2.1666666666666665" PointY="6.2499999999999991" />
+          <ConnectorPoint PointX="2.3333333333333335" PointY="6.25" />
+          <ConnectorPoint PointX="2.625" PointY="6.25" />
+          <ConnectorPoint PointX="2.625" PointY="15.625" />
+          <ConnectorPoint PointX="2.6979166666666665" PointY="15.625" />
+          <ConnectorPoint PointX="2.8645833333333335" PointY="15.625" />
+          <ConnectorPoint PointX="3.5" PointY="15.625" />
+          <ConnectorPoint PointX="3.5" PointY="17.817047526041662" />
+          <ConnectorPoint PointX="3.75" PointY="17.817047526041662" />
         </AssociationConnector>
         <AssociationConnector Association="SkripsiAuto.bimbingan_fk" >
-          <ConnectorPoint PointX="5.75" PointY="7.3437499999999991" />
-          <ConnectorPoint PointX="3.5" PointY="7.3437499999999991" />
+          <ConnectorPoint PointX="7.5" PointY="9.4324446614583337" />
+          <ConnectorPoint PointX="8.25" PointY="9.4324446614583337" />
         </AssociationConnector>
         <AssociationConnector Association="SkripsiAuto.fk_dosen" >
-          <ConnectorPoint PointX="8.695315" PointY="5.0379850260416665" />
-          <ConnectorPoint PointX="8.695315" PointY="5.6535953776041659" />
-          <ConnectorPoint PointX="8.2434908333333343" PointY="5.653595377604165" />
-          <ConnectorPoint PointX="8.0768241666666665" PointY="5.6535953776041659" />
-          <ConnectorPoint PointX="7.583333333333333" PointY="5.653595377604165" />
-          <ConnectorPoint PointX="7.416666666666667" PointY="5.6535953776041659" />
-          <ConnectorPoint PointX="5.375" PointY="5.6535953776041659" />
+          <ConnectorPoint PointX="5.25" PointY="5.3852541582532059" />
+          <ConnectorPoint PointX="5.78125" PointY="5.9165041582532059" />
+          <ConnectorPoint PointX="5.78125" PointY="15.970896809895834" />
+          <ConnectorPoint PointX="6" PointY="15.970896809895834" />
+        </AssociationConnector>
+        <AssociationConnector Association="SkripsiAuto.fk_topik_dosen" >
+          <ConnectorPoint PointX="5.2257692307692309" PointY="5.4417936197916674" />
+          <ConnectorPoint PointX="5.5" PointY="5.7160243890224365" />
+          <ConnectorPoint PointX="5.5" PointY="19.850769230769231" />
+          <ConnectorPoint PointX="5.22576923076923" PointY="20.125" />
+        </AssociationConnector>
+        <AssociationConnector Association="SkripsiAuto.jadwal_kosong_fk_NIK" >
+          <ConnectorPoint PointX="5.25" PointY="4.9113745791266092" />
+          <ConnectorPoint PointX="6" PointY="4.9113745791266092" />
+        </AssociationConnector>
+        <AssociationConnector Association="SkripsiAuto.nilai_fk_NIK_pengisi" >
+          <ConnectorPoint PointX="5.25" PointY="3.4687505" />
+          <ConnectorPoint PointX="11" PointY="3.4687505" />
+          <ConnectorPoint PointX="11" PointY="9" />
+          <ConnectorPoint PointX="11.541667166666665" PointY="9" />
+          <ConnectorPoint PointX="11.708333833333333" PointY="9" />
+          <ConnectorPoint PointX="12" PointY="9" />
+          <ConnectorPoint PointX="12" PointY="9.375" />
         </AssociationConnector>
         <AssociationConnector Association="SkripsiAuto.skripsi_fk" >
-          <ConnectorPoint PointX="7.75" PointY="4.6222407695312508" />
-          <ConnectorPoint PointX="7.5" PointY="4.6222407695312508" />
-          <ConnectorPoint PointX="7.5" PointY="5.8071907552083326" />
-          <ConnectorPoint PointX="6.5" PointY="5.8071907552083326" />
-          <ConnectorPoint PointX="6.5" PointY="6.25" />
+          <ConnectorPoint PointX="4.8628821153846156" PointY="5.4417936197916674" />
+          <ConnectorPoint PointX="4.8628821153846156" PointY="8.96875" />
+          <ConnectorPoint PointX="5.416666666666667" PointY="8.96875" />
+          <ConnectorPoint PointX="5.583333333333333" PointY="8.96875" />
+          <ConnectorPoint PointX="5.604166666666667" PointY="8.9687499999999982" />
+          <ConnectorPoint PointX="5.864583333333333" PointY="8.96875" />
+          <ConnectorPoint PointX="6" PointY="8.96875" />
         </AssociationConnector>
         <AssociationConnector Association="SkripsiAuto.jadwal_kosong_fk_NPM" >
-          <ConnectorPoint PointX="3.375" PointY="4.234375" />
-          <ConnectorPoint PointX="5.75" PointY="4.234375" />
+          <ConnectorPoint PointX="5.25" PointY="16.313460538461534" />
+          <ConnectorPoint PointX="5.4410744349011209" PointY="16.122386103560412" />
+          <ConnectorPoint PointX="5.5589255650988791" PointY="16.004534973362656" />
+          <ConnectorPoint PointX="5.6875" PointY="15.875960538461534" />
+          <ConnectorPoint PointX="5.6875" PointY="6.207836099459132" />
+          <ConnectorPoint PointX="5.697916666666667" PointY="6.2078360994591311" />
+          <ConnectorPoint PointX="5.864583333333333" PointY="6.207836099459132" />
+          <ConnectorPoint PointX="6" PointY="6.207836099459132" />
         </AssociationConnector>
         <AssociationConnector Association="SkripsiAuto.FK_jadwal_semester_jenis_skripsi" >
-          <ConnectorPoint PointX="7.5" PointY="12.201691080729166" />
-          <ConnectorPoint PointX="8.125" PointY="12.201691080729166" />
+          <ConnectorPoint PointX="2.25" PointY="10.740143229166662" />
+          <ConnectorPoint PointX="2.2916666666666665" PointY="10.740143229166661" />
+          <ConnectorPoint PointX="2.8645833333333335" PointY="10.740143229166662" />
+          <ConnectorPoint PointX="3" PointY="10.740143229166662" />
         </AssociationConnector>
-        <AssociationConnector Association="SkripsiAuto.FK_skripsi_jenis_skripsi" ManuallyRouted="false" >
-          <ConnectorPoint PointX="6.09375" PointY="11.5" />
-          <ConnectorPoint PointX="6.09375" PointY="8.8071907552083335" />
+        <AssociationConnector Association="SkripsiAuto.fk_jadwal_semester_semester" >
+          <ConnectorPoint PointX="2.25" PointY="7.7401432291666623" />
+          <ConnectorPoint PointX="2.4166666666666665" PointY="7.7401432291666605" />
+          <ConnectorPoint PointX="2.8645833333333335" PointY="7.7401432291666623" />
+          <ConnectorPoint PointX="3.75" PointY="7.7401432291666623" />
+          <ConnectorPoint PointX="3.75" PointY="9.5" />
+        </AssociationConnector>
+        <AssociationConnector Association="SkripsiAuto.FK_kategori_nilai_jenis_skripsi" >
+          <ConnectorPoint PointX="1.5" PointY="11.730286458333325" />
+          <ConnectorPoint PointX="1.5" PointY="13.807444661458334" />
+          <ConnectorPoint PointX="2.2916666666666665" PointY="13.807444661458332" />
+          <ConnectorPoint PointX="2.8645833333333335" PointY="13.807444661458334" />
+          <ConnectorPoint PointX="3" PointY="13.807444661458334" />
+        </AssociationConnector>
+        <AssociationConnector Association="SkripsiAuto.FK_skripsi_jenis_skripsi" >
+          <ConnectorPoint PointX="1.9062525" PointY="11.730286458333325" />
+          <ConnectorPoint PointX="1.9062525" PointY="12.244944661458334" />
+          <ConnectorPoint PointX="2.2916666666666665" PointY="12.244944661458332" />
+          <ConnectorPoint PointX="2.8645833333333335" PointY="12.244944661458334" />
+          <ConnectorPoint PointX="4.9731077243589743" PointY="12.244944661458334" />
+          <ConnectorPoint PointX="5.13977439102564" PointY="12.244944661458334" />
+          <ConnectorPoint PointX="5.416666666666667" PointY="12.244944661458334" />
+          <ConnectorPoint PointX="5.583333333333333" PointY="12.244944661458334" />
+          <ConnectorPoint PointX="5.604166666666667" PointY="12.244944661458332" />
+          <ConnectorPoint PointX="5.927083333333333" PointY="12.244944661458334" />
+          <ConnectorPoint PointX="6" PointY="12.244944661458334" />
+        </AssociationConnector>
+        <AssociationConnector Association="SkripsiAuto.laporan_fk" >
+          <ConnectorPoint PointX="7.5" PointY="11.956451822916662" />
+          <ConnectorPoint PointX="8.25" PointY="11.956451822916662" />
         </AssociationConnector>
         <AssociationConnector Association="SkripsiAuto.fk_mahasiswa" >
-          <ConnectorPoint PointX="3.375" PointY="5.2449446614583328" />
-          <ConnectorPoint PointX="3.875" PointY="5.2449446614583328" />
+          <ConnectorPoint PointX="5.25" PointY="16.908879579126594" />
+          <ConnectorPoint PointX="5.416666666666667" PointY="16.908879579126594" />
+          <ConnectorPoint PointX="5.583333333333333" PointY="16.908879579126594" />
+          <ConnectorPoint PointX="5.760416666666667" PointY="16.908879579126594" />
+          <ConnectorPoint PointX="5.927083333333333" PointY="16.908879579126594" />
+          <ConnectorPoint PointX="6" PointY="16.908879579126594" />
         </AssociationConnector>
         <AssociationConnector Association="SkripsiAuto.skripsi_fk2" >
-          <ConnectorPoint PointX="1.90625" PointY="6.1148893229166656" />
-          <ConnectorPoint PointX="1.90625" PointY="7.0910953776041659" />
-          <ConnectorPoint PointX="5.75" PointY="7.0910953776041659" />
-        </AssociationConnector>
-        <AssociationConnector Association="SkripsiAuto.FK_pengumuman_peran" >
-          <ConnectorPoint PointX="7.125" PointY="1.9516910807291665" />
-          <ConnectorPoint PointX="7.5" PointY="1.9516910807291665" />
-        </AssociationConnector>
-        <AssociationConnector Association="SkripsiAuto.FK_sidang_ruang" >
-          <ConnectorPoint PointX="3.625" PointY="10.576691080729166" />
-          <ConnectorPoint PointX="4.125" PointY="10.576691080729166" />
-        </AssociationConnector>
-        <AssociationConnector Association="SkripsiAuto.sidang_fk_id_skripsi" >
-          <ConnectorPoint PointX="6.421875" PointY="8.8071907552083335" />
-          <ConnectorPoint PointX="6.421875" PointY="9.375" />
-          <ConnectorPoint PointX="6.177083333333333" PointY="9.375" />
-          <ConnectorPoint PointX="6.010416666666667" PointY="9.375" />
-          <ConnectorPoint PointX="5.875" PointY="9.375" />
-          <ConnectorPoint PointX="5.875" PointY="10.499999500000001" />
-          <ConnectorPoint PointX="5.625" PointY="10.499999500000001" />
-        </AssociationConnector>
-        <EntityTypeShape EntityType="SkripsiAuto.topik" Width="1.5" PointX="8.25" PointY="8.375" Height="2.1725878906249996" />
-        <AssociationConnector Association="SkripsiAuto.fk_topik_dosen" >
-          <ConnectorPoint PointX="9.25" PointY="4.1439925130208337" />
-          <ConnectorPoint PointX="9.5000004999999987" PointY="4.1439925130208337" />
-          <ConnectorPoint PointX="9.5000004999999987" PointY="8.375" />
-        </AssociationConnector>
-        <AssociationConnector Association="SkripsiAuto.fk_skripsi_topik" >
-          <ConnectorPoint PointX="8.25" PointY="8.5910953776041659" />
-          <ConnectorPoint PointX="7.25" PointY="8.5910953776041659" />
-        </AssociationConnector>
-        <EntityTypeShape EntityType="SkripsiAuto.laporan" Width="1.5" PointX="3.875" PointY="7.5" Height="1.9802864583333335" />
-        <AssociationConnector Association="SkripsiAuto.laporan_fk" >
-          <ConnectorPoint PointX="5.75" PointY="8.1535953776041659" />
-          <ConnectorPoint PointX="5.375" PointY="8.1535953776041659" />
-        </AssociationConnector>
-        <EntityTypeShape EntityType="SkripsiAuto.semester" Width="1.5" PointX="6.25" PointY="9.625" Height="1.4033821614583335" />
-        <AssociationConnector Association="SkripsiAuto.fk_jadwal_semester_semester" >
-          <ConnectorPoint PointX="7.75" PointY="10.588590053385417" />
-          <ConnectorPoint PointX="7.99" PointY="10.588590053385417" />
-          <ConnectorPoint PointX="7.99" PointY="10.76" />
-          <ConnectorPoint PointX="8.875" PointY="10.76" />
-          <ConnectorPoint PointX="8.875" PointY="11" />
-        </AssociationConnector>
-        <AssociationConnector Association="SkripsiAuto.fk_skripsi_semester" >
-          <ConnectorPoint PointX="6.75" PointY="9.625" />
-          <ConnectorPoint PointX="6.75" PointY="8.8071907552083335" />
-        </AssociationConnector>
-        <AssociationConnector Association="SkripsiAuto.fk_topik_semsester" >
-          <ConnectorPoint PointX="7.75" PointY="10.0862939453125" />
-          <ConnectorPoint PointX="8.25" PointY="10.0862939453125" />
-        </AssociationConnector>
-        <EntityTypeShape EntityType="SkripsiAuto.nilai" Width="1.5" PointX="7.75" PointY="5.875" Height="2.3648893229166656" />
-        <AssociationConnector Association="SkripsiAuto.nilai_fk_NIK_pengisi" >
-          <ConnectorPoint PointX="8.1601575" PointY="5.0379850260416665" />
-          <ConnectorPoint PointX="8.1601575" PointY="5.875" />
+          <ConnectorPoint PointX="5.0564410576923073" PointY="16.25" />
+          <ConnectorPoint PointX="5.0564410576923073" PointY="9.2343774999999937" />
+          <ConnectorPoint PointX="5.416666666666667" PointY="9.2343774999999937" />
+          <ConnectorPoint PointX="5.583333333333333" PointY="9.2343774999999937" />
+          <ConnectorPoint PointX="5.604166666666667" PointY="9.2343774999999919" />
+          <ConnectorPoint PointX="5.864583333333333" PointY="9.2343774999999937" />
+          <ConnectorPoint PointX="6" PointY="9.2343774999999937" />
         </AssociationConnector>
         <AssociationConnector Association="SkripsiAuto.nilai_fk_id_skripsi" >
-          <ConnectorPoint PointX="7.25" PointY="7.2449446614583328" />
-          <ConnectorPoint PointX="7.75" PointY="7.2449446614583328" />
+          <ConnectorPoint PointX="7.5" PointY="10.744944661458334" />
+          <ConnectorPoint PointX="11.25" PointY="10.744944661458334" />
         </AssociationConnector>
-        </Diagram>
+        <AssociationConnector Association="SkripsiAuto.FK_pengumuman_peran" >
+          <ConnectorPoint PointX="2.25" PointY="17.912985026041667" />
+          <ConnectorPoint PointX="2.25" PointY="30.115143229166662" />
+          <ConnectorPoint PointX="3.75" PointY="30.115143229166662" />
+        </AssociationConnector>
+        <AssociationConnector Association="SkripsiAuto.FK_sidang_ruang" >
+          <ConnectorPoint PointX="10.5" PointY="6.047841796874998" />
+          <ConnectorPoint PointX="10.916666666666666" PointY="6.0478417968749971" />
+          <ConnectorPoint PointX="11.083333333333334" PointY="6.047841796874998" />
+          <ConnectorPoint PointX="11.25" PointY="6.047841796874998" />
+        </AssociationConnector>
+        <AssociationConnector Association="SkripsiAuto.fk_skripsi_semester" >
+          <ConnectorPoint PointX="2.25" PointY="8.6679777660256327" />
+          <ConnectorPoint PointX="2.4410744349011213" PointY="8.8590522009267527" />
+          <ConnectorPoint PointX="2.5589255650988791" PointY="8.976903331124511" />
+          <ConnectorPoint PointX="2.5660744349011213" PointY="8.9840522009267527" />
+          <ConnectorPoint PointX="2.6839255650988791" PointY="9.101903331124511" />
+          <ConnectorPoint PointX="2.7223244349011213" PointY="9.1403022009267527" />
+          <ConnectorPoint PointX="2.8401755650988791" PointY="9.258153331124511" />
+          <ConnectorPoint PointX="2.9375" PointY="9.3554777660256327" />
+          <ConnectorPoint PointX="2.9375" PointY="8.125" />
+          <ConnectorPoint PointX="3.6666666666666665" PointY="8.125" />
+          <ConnectorPoint PointX="3.8333333333333335" PointY="8.125" />
+          <ConnectorPoint PointX="4.7795487820512825" PointY="8.125" />
+          <ConnectorPoint PointX="4.9462154487179486" PointY="8.125" />
+          <ConnectorPoint PointX="5.416666666666667" PointY="8.125" />
+          <ConnectorPoint PointX="5.583333333333333" PointY="8.125" />
+          <ConnectorPoint PointX="5.6261528461538459" PointY="8.125" />
+          <ConnectorPoint PointX="5.6285744349011217" PointY="8.1274215887472732" />
+          <ConnectorPoint PointX="5.8401755650988791" PointY="8.3390227189450314" />
+          <ConnectorPoint PointX="6.0011528461538459" PointY="8.5" />
+        </AssociationConnector>
+        <AssociationConnector Association="SkripsiAuto.fk_topik_semsester" >
+          <ConnectorPoint PointX="1.5" PointY="8.7302864583333246" />
+          <ConnectorPoint PointX="1.5" PointY="9.5" />
+          <ConnectorPoint PointX="2.375" PointY="9.5" />
+          <ConnectorPoint PointX="2.375" PointY="16" />
+          <ConnectorPoint PointX="2.6979166666666665" PointY="16" />
+          <ConnectorPoint PointX="2.8645833333333335" PointY="16" />
+          <ConnectorPoint PointX="3.1666666666666665" PointY="16" />
+          <ConnectorPoint PointX="3.3333333333333335" PointY="16" />
+          <ConnectorPoint PointX="3.375" PointY="16" />
+          <ConnectorPoint PointX="3.375" PointY="21.499746093750005" />
+          <ConnectorPoint PointX="3.75" PointY="21.499746093750005" />
+        </AssociationConnector>
+        <AssociationConnector Association="SkripsiAuto.sidang_fk_id_skripsi" >
+          <ConnectorPoint PointX="7.5" PointY="10.554914492187507" />
+          <ConnectorPoint PointX="10.75" PointY="10.554914492187507" />
+          <ConnectorPoint PointX="10.75" PointY="9.125" />
+          <ConnectorPoint PointX="11.625000499999999" PointY="9.125" />
+          <ConnectorPoint PointX="11.625000499999999" PointY="7.79758789062501" />
+        </AssociationConnector>
+        <AssociationConnector Association="SkripsiAuto.fk_skripsi_topik" >
+          <ConnectorPoint PointX="5.25" PointY="20.182691307692306" />
+          <ConnectorPoint PointX="5.84375" PointY="19.588941307692306" />
+          <ConnectorPoint PointX="5.84375" PointY="10.739661080729164" />
+          <ConnectorPoint PointX="6" PointY="10.739661080729164" />
+        </AssociationConnector>
+      </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

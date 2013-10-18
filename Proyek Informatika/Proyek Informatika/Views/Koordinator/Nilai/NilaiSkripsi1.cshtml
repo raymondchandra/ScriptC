@@ -11,7 +11,8 @@ function viewDetails(e) {
 
 }
 </script>
-
+<div class="layer">
+    <h1>Rekap Nilai</h1>
             @(Html.Telerik().Grid<Proyek_Informatika.Models.KoordinatorPenilaian>()
                 .Name("Grid")
                 .Columns(columns =>
@@ -45,3 +46,4 @@ function viewDetails(e) {
                 .Height(350)
                 .Scrollable(true)
                 .LoadContentFrom("DetailNilaiSkripsi1","Nilai"))
+</div>
