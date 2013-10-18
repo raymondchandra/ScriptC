@@ -12,14 +12,15 @@ namespace Proyek_Informatika.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class sidang
+    public partial class kategori_nilai
     {
         public int id { get; set; }
-        public System.DateTime tanggal { get; set; }
-        public Nullable<int> ruang { get; set; }
-        public int id_skripsi { get; set; }
+        public Nullable<int> urutan { get; set; }
+        public string kategori { get; set; }
+        public int bobot { get; set; }
+        public string tipe { get; set; }
+        public string jenis_skripsi_id { get; set; }
     
-        public virtual ruang ruang1 { get; set; }
-        public virtual skripsi skripsi { get; set; }
+        public virtual jenis_skripsi jenis_skripsi { get; set; }
     }
 }

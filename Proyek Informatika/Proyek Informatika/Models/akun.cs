@@ -16,9 +16,9 @@ namespace Proyek_Informatika.Models
     {
         public akun()
         {
-            this.calendar_event = new HashSet<calendar_event>();
             this.dosens = new HashSet<dosen>();
             this.mahasiswas = new HashSet<mahasiswa>();
+            this.calendar_event = new HashSet<calendar_event>();
         }
     
         public string username { get; set; }
@@ -27,9 +27,9 @@ namespace Proyek_Informatika.Models
         public Nullable<System.DateTime> last_login { get; set; }
         public string peran { get; set; }
     
-        public virtual ICollection<calendar_event> calendar_event { get; set; }
         public virtual ICollection<dosen> dosens { get; set; }
         public virtual peran peran1 { get; set; }
         public virtual ICollection<mahasiswa> mahasiswas { get; set; }
+        public virtual ICollection<calendar_event> calendar_event { get; set; }
     }
 }

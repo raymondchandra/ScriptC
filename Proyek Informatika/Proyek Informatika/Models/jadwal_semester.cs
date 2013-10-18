@@ -20,7 +20,7 @@ namespace Proyek_Informatika.Models
         public int id_semester { get; set; }
         public string jenis_skripsi_id { get; set; }
     
-        public virtual jenis_skripsi jenis_skripsi { get; set; }
         public virtual semester semester { get; set; }
+        public virtual jenis_skripsi jenis_skripsi { get; set; }
     }
 }

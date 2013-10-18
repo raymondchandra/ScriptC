@@ -11,6 +11,7 @@ namespace Proyek_Informatika.Controllers.Mahasiswa
 {
     public class PengumpulanController : Controller
     {
+        private SkripsiAutoContainer db = new SkripsiAutoContainer();
         //
         // GET: /Pengumpulan/
 
@@ -33,6 +34,9 @@ namespace Proyek_Informatika.Controllers.Mahasiswa
             List<MahasiswaPengumpulanFile> temp;
 
             temp = new List<MahasiswaPengumpulanFile>();
+
+            
+                       
 
             temp.Add(new MahasiswaPengumpulanFile() 
             {

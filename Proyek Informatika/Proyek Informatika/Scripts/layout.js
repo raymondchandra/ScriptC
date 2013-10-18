@@ -68,6 +68,8 @@ function onSelectMenuDosen(e) {
         $('#content').load('Sidang/Lihat');
     } else if (item.find('> .t-link').text() == "Penilaian") {
         $('#content').load('SidangDosen/Penilaian');
+    } else if (item.find('> .t-link').text() == "Kalender") {
+        $('#content').load('Kalender/Index');
     }
 }
 
@@ -96,9 +98,11 @@ function onSelectMenuKoordinator(e) {
     } else if (item.find('> .t-link').text() == "Pengaturan Jadwal") {
         $('#content').load('SidangKoordinator/PengaturanJadwal');
     } else if (item.find('> .t-link').text() == "Lihat Jadwal") {
-        $('#content').load('Sidang/Lihat');
+        $('#content').load('SidangKoordinator/Lihat');
     } else if (item.find('> .t-link').text() == "Pengaturan Sidang") {
         $('#content').load('SidangKoordinator/PengaturanSidang');
+    } else if (item.find('> .t-link').text() == "Kalender") {
+        $('#content').load('Kalender/Index');
     }
 
 }

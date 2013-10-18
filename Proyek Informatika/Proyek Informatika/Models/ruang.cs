@@ -19,7 +19,7 @@ namespace Proyek_Informatika.Models
             this.sidangs = new HashSet<sidang>();
         }
     
-        public string id { get; set; }
+        public int id { get; set; }
         public string nama_ruang { get; set; }
     
         public virtual ICollection<sidang> sidangs { get; set; }
