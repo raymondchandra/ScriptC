@@ -16,7 +16,7 @@ namespace Proyek_Informatika.Models
     {
         public int id { get; set; }
         public System.DateTime tanggal { get; set; }
-        public Nullable<int> ruang { get; set; }
+        public string ruang { get; set; }
         public int id_skripsi { get; set; }
     
         public virtual ruang ruang1 { get; set; }

@@ -17,7 +17,6 @@ namespace Proyek_Informatika.Models
         public jenis_skripsi()
         {
             this.jadwal_semester = new HashSet<jadwal_semester>();
-            this.kategori_nilai = new HashSet<kategori_nilai>();
             this.skripsis = new HashSet<skripsi>();
         }
     
@@ -25,7 +24,6 @@ namespace Proyek_Informatika.Models
         public string nama_jenis { get; set; }
     
         public virtual ICollection<jadwal_semester> jadwal_semester { get; set; }
-        public virtual ICollection<kategori_nilai> kategori_nilai { get; set; }
         public virtual ICollection<skripsi> skripsis { get; set; }
     }
 }
