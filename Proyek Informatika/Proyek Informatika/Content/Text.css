@@ -98,3 +98,21 @@ a:hover
     font-weight:bold;   
 }
  
+.txtright
+{
+    text-align:right;
+} 
+ 
+.txtcenter
+{
+    text-align:center;
+} 
+
+.quote
+{
+    letter-spacing:1px;
+    font-style:oblique;
+    font-size:16px;  
+    line-height:16px; 
+    font-weight:bold; 
+}
