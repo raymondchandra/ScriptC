@@ -62,22 +62,21 @@ namespace Proyek_Informatika.Controllers
         {
             Session["role"] = null;
             Session["name"] = null;
-            Session["id"] = null;
             FormsAuthentication.SignOut();
-
             return RedirectToAction("Index", "Home");
         }
 
         private bool ValidateUser(string username, string password)
         {
             password = EncodePassword(password);
-            akun a = db.akuns.Where(b => b.username == username).SingleOrDefault();
+            akun a = db.akuns.Where(akunTemp => akunTemp.username == username).SingleOrDefault();
             if (a != null)
             {
                 string pass = EncodePassword(a.password);
                 if (pass == password)
                 {
-                    Session["role"] = a.peran;
+                    peran p = db.perans.Where(peranTemp => peranTemp.id == a.peran).SingleOrDefault();
+                    Session["role"] = p.nama_peran;
                     Session["name"] = a.username;
                     return true;
                 }

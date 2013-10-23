@@ -43,8 +43,9 @@
         </div>
         <div id="main">
             <div id="navigator">
-                @{
-                    var login = "koordinato";
+                @{  
+                    var login = (string)Session["role"];
+                    var b=login;
                     if (login == "mahasiswa")
                     {               //login mahasiswa
                     <text>
