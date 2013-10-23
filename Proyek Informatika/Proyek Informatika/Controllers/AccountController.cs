@@ -7,12 +7,14 @@ using System.Web.Routing;
 using System.Web.Security;
 using Proyek_Informatika.Models;
 using Telerik.Web.Mvc;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace Proyek_Informatika.Controllers
 {
     public class AccountController : Controller
     {
-
+        private SkripsiAutoContainer db = new SkripsiAutoContainer();
         //
         // GET: /Account/LogOn
 
@@ -29,7 +31,8 @@ namespace Proyek_Informatika.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (Membership.ValidateUser(model.UserName, model.Password))
+                //if (Membership.ValidateUser(model.UserName, model.Password))
+                if (ValidateUser(model.UserName, model.Password))
                 {
                     FormsAuthentication.SetAuthCookie(model.UserName, model.RememberMe);
                     if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/")
@@ -57,10 +60,49 @@ namespace Proyek_Informatika.Controllers
 
         public ActionResult LogOff()
         {
+            Session["role"] = null;
+            Session["name"] = null;
+            Session["id"] = null;
             FormsAuthentication.SignOut();
 
             return RedirectToAction("Index", "Home");
         }
+
+        private bool ValidateUser(string username, string password)
+        {
+            password = EncodePassword(password);
+            akun a = db.akuns.Where(b => b.username == username).SingleOrDefault();
+            if (a != null)
+            {
+                string pass = EncodePassword(a.password);
+                if (pass == password)
+                {
+                    Session["role"] = a.peran;
+                    Session["name"] = a.username;
+                    return true;
+                }
+                return false;
+            }
+            return false;
+        }
+
+        private string EncodePassword(string originalPassword)
+        {
+            //Declarations
+            Byte[] originalBytes;
+            Byte[] encodedBytes;
+            MD5 md5;
+
+            //Instantiate MD5CryptoServiceProvider, get bytes for original password and compute hash (encoded password)
+            md5 = new MD5CryptoServiceProvider();
+            originalBytes = ASCIIEncoding.Default.GetBytes(originalPassword);
+            encodedBytes = md5.ComputeHash(originalBytes);
+
+            //Convert encoded bytes back to a 'readable' string
+            return BitConverter.ToString(encodedBytes).Replace("-", "").ToLower();
+        }
+
+
 
         //
         // GET: /Account/Register
