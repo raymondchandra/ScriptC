@@ -40,10 +40,10 @@
                 ];
         scheduler.attachEvent("onBeforeLightbox", function (event_id) {
             var configLb = [
-			            { name: "text", height: 25, map_to: "text", type: "textarea", focus: true },
+			            { name: "text", height: 30, map_to: "text", type: "textarea", focus: true },
                         { name: "description", height: 75, map_to: "description", type: "textarea" },
                         { name: "time", height: 72, type: "calendar_time", map_to: "auto" },
-                        { name: "place", height: 25, map_to: "place", type: "textarea" },
+                        { name: "place", height: 30, map_to: "place", type: "textarea" },
                         { name: "priority", height: 50, options: priority_choice, map_to: "priority", type: "radio", vertical: true, default_value: "normal" }
 		            ];
             scheduler.config.lightbox.sections = configLb;

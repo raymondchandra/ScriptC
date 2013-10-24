@@ -34,10 +34,10 @@ namespace Proyek_Informatika.Controllers
 
         public JsonResult Data()
         {
-            //var username = Session["username"];
+            var username = Session["username"];
             //events for loading to scheduler
             var items = from table in db.calendar_event
-                        //where table.username == username
+                        where table.username == username
                         select table;
             List<object> listResult = new List<object>();
             foreach (var result in items.ToList())
@@ -51,11 +51,11 @@ namespace Proyek_Informatika.Controllers
 
                     result.id,
                     result.text,
-                    //result.place,
-                    //result.priority,
-                    //result.type,
-                    result.start_date,
-                    result.end_date,
+                    result.place,
+                    result.priority,
+                    result.type,
+                    start_date,
+                    end_date,
                     result.description
                 });
             }
@@ -77,19 +77,20 @@ namespace Proyek_Informatika.Controllers
             try
             {
                 calendar_event changedEvent = new calendar_event();
-                changedEvent.id = (Int32)Int64.Parse(actionValues[ids + "_id"]);
+                //changedEvent.id = (Int32)Int64.Parse(actionValues[ids + "_id"]);
                 changedEvent.text = actionValues[ids + "_text"];
                 changedEvent.start_date = Convert.ToDateTime(actionValues[ids + "_start_date"]);
                 changedEvent.end_date = Convert.ToDateTime(actionValues[ids + "_end_date"]);
-                //changedEvent.place = actionValues[ids + "_place"];
+                changedEvent.place = actionValues[ids + "_place"];
                 changedEvent.description = actionValues[ids + "_description"];
-                //changedEvent.type = actionValues[ids + "_type"];
-                //changedEvent.priority = actionValues[ids + "_priority"];
+                changedEvent.type = actionValues[ids + "_type"];
+                changedEvent.priority = actionValues[ids + "_priority"];
                 
                 switch (action_type)
                 {
                     case "inserted":
-                        changedEvent.username = "asdf";//(Int32)Int64.Parse(Session["id"].ToString());
+                        changedEvent.username = Session["username"].ToString();//(Int32)Int64.Parse(Session["id"].ToString());
+                        changedEvent.type = "";
                         db.calendar_event.Add(changedEvent);
                         break;
                     case "deleted":

@@ -66,6 +66,8 @@ namespace Proyek_Informatika.Controllers.Koordinator
             if (TryUpdateModel(kategori))
             {
                 kategori.tipe = tipe;
+                //kategori.jenis_skripsi = ;
+                
                 db.kategori_nilai.Add(kategori);
                 db.SaveChanges();
             }

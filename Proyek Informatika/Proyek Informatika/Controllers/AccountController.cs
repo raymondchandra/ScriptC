@@ -61,7 +61,7 @@ namespace Proyek_Informatika.Controllers
         public ActionResult LogOff()
         {
             Session["role"] = null;
-            Session["name"] = null;
+            Session["username"] = null;
             FormsAuthentication.SignOut();
             return RedirectToAction("Index", "Home");
         }
@@ -77,7 +77,7 @@ namespace Proyek_Informatika.Controllers
                 {
                     peran p = db.perans.Where(peranTemp => peranTemp.id == a.peran).SingleOrDefault();
                     Session["role"] = p.nama_peran;
-                    Session["name"] = a.username;
+                    Session["username"] = a.username;
                     return true;
                 }
                 return false;
