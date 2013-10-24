@@ -72,8 +72,8 @@ namespace Proyek_Informatika.Controllers
             akun a = db.akuns.Where(akunTemp => akunTemp.username == username).SingleOrDefault();
             if (a != null)
             {
-                string pass = EncodePassword(a.password);
-                if (pass == password)
+                
+                if (a.password == password)
                 {
                     peran p = db.perans.Where(peranTemp => peranTemp.id == a.peran).SingleOrDefault();
                     Session["role"] = p.nama_peran;
