@@ -16,12 +16,19 @@
 #title div
 {
     color: rgba(221,232,245,1);
-    }
-#logindisplay a
+}
+#logindisplay
 {
     color: white;
 }
-
+#logindisplay a
+{
+    color: #ffdf84;
+}
+#logindisplay a:hover
+{
+    color: #fff4cc;
+}
 #content
 {
     background-color: rgba(24,92,148,0.6);
@@ -39,7 +46,7 @@ h1, h2, h3, h4, h5, h6
 
 a
 {
-    color: rgba(230,143,23,1);
+    color: #994c00;
 }
 
 .button
