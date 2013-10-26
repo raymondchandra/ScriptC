@@ -7,12 +7,13 @@ using System.Web.Security;
 
 namespace Proyek_Informatika.Models
 {
-    public class TopikList
+    public class TopikView
     {
         public int id { get; set; }
-        public string Nama { get; set; }
-        public string Deskripsi { get; set; }
-        public string Pembimbing { get; set; }
-        public string Keterangan { get; set; }
+        public string judul { get; set; }
+        public string deskripsi { get; set; }
+        public string keterangan { get; set; }
+        public string pembimbing { get; set; }
+    
     }
 }

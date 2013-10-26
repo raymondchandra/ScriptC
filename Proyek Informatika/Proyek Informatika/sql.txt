@@ -59,6 +59,8 @@ PRIMARY KEY CLUSTERED
 GO
 SET ANSI_PADDING OFF
 GO
+INSERT [dbo].[semester] ([periode_semester]) VALUES (N'2013-2014 ganjil')
+INSERT [dbo].[semester] ([periode_semester]) VALUES (N'2013-2014 genap')
 /****** Object:  Table [dbo].[ruang]    Script Date: 10/25/2013 13:33:07 ******/
 SET ANSI_NULLS ON
 GO
@@ -123,8 +125,9 @@ CREATE TABLE [dbo].[akun](
 GO
 SET ANSI_PADDING OFF
 GO
+INSERT [dbo].[akun] ([username], [password], [aktif], [last_login], [peran]) VALUES (N'Admin', N'dc647eb65e6711e155375218212b3964', 1, CAST(0x0000A25F00000000 AS DateTime), 1)
 INSERT [dbo].[akun] ([username], [password], [aktif], [last_login], [peran]) VALUES (N'Chyntia', N'dc647eb65e6711e155375218212b3964', 1, CAST(0x0000A25F00000000 AS DateTime), 3)
-INSERT [dbo].[akun] ([username], [password], [aktif], [last_login], [peran]) VALUES (N'Koordinator', N'dc647eb65e6711e155375218212b3964', 1, CAST(0x0000A25F00000000 AS DateTime), 1)
+INSERT [dbo].[akun] ([username], [password], [aktif], [last_login], [peran]) VALUES (N'Lionov', N'dc647eb65e6711e155375218212b3964', 1, CAST(0x0000A25F00000000 AS DateTime), 2)
 INSERT [dbo].[akun] ([username], [password], [aktif], [last_login], [peran]) VALUES (N'Verliyantina', N'dc647eb65e6711e155375218212b3964', 1, CAST(0x0000A25F00000000 AS DateTime), 2)
 /****** Object:  Table [dbo].[jadwal_semester]    Script Date: 10/25/2013 13:33:07 ******/
 SET ANSI_NULLS ON
@@ -212,6 +215,7 @@ GO
 SET ANSI_PADDING OFF
 GO
 INSERT [dbo].[dosen] ([NIK], [nama], [username], [email]) VALUES (N'20100001', N'Verliyantina, S. Kom., M. T.', N'Verliyantina', N'verliyantina@gmail.com')
+INSERT [dbo].[dosen] ([NIK], [nama], [username], [email]) VALUES (N'11252', N'Lionov Without Last Name', N'Lionov', N'lionov@gmail.com')
 /****** Object:  Table [dbo].[calendar_event]    Script Date: 10/25/2013 13:33:07 ******/
 SET ANSI_NULLS ON
 GO
@@ -307,6 +311,9 @@ CREATE TABLE [dbo].[topik](
 GO
 SET ANSI_PADDING OFF
 GO
+INSERT [dbo].[topik] ([judul], [deskripsi], [keterangan], [NIK_pembimbing], [id_semester]) VALUES (N'Perancangan Aplikasi E-commerce Berbasis Mobile', N'Perancangan aplikasi e-commerce berbasis mobile yang berguna untuk mempermudah akses pengguna...', N'tersedia', N'20100001', 1)
+INSERT [dbo].[topik] ([judul], [deskripsi], [keterangan], [NIK_pembimbing], [id_semester]) VALUES (N'Median Trajectories', N'Median Trajectories adalah algoritma yang...', N'tersedia', N'11252', 1)
+
 /****** Object:  Table [dbo].[skripsi]    Script Date: 10/25/2013 13:33:07 ******/
 SET ANSI_NULLS ON
 GO

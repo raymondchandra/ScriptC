@@ -5,11 +5,15 @@ using System.Web;
 using System.Web.Mvc;
 using Proyek_Informatika.Models;
 using Telerik.Web.Mvc;
+using System.Data;
 
 namespace Proyek_Informatika.Controllers
 {
     public class HomeController : Controller
     {
+        private SkripsiAutoContainer db = new SkripsiAutoContainer();
+
+        #region view
         public ActionResult Index()
         {
             return View();
@@ -30,66 +34,145 @@ namespace Proyek_Informatika.Controllers
             return PartialView();
         }
 
-        protected ViewResult bindingTopik(int id)
+        public ActionResult TopikInsert()
         {
+            return PartialView();
+        }
+        public ActionResult TopikUpdate()
+        {
+            return PartialView();
+        }
+        #endregion
 
-            List<TopikList> temp = new List<TopikList>();
+        #region grid topik
 
-            TopikList x = new TopikList()
+        [AcceptVerbs(HttpVerbs.Post)]
+        [GridAction]
+        public ActionResult TopikInsert(TopikView model)
+        {
+            string username = (string)Session["username"];
+            var dosen = db.dosens.Where(dosenTemp => dosenTemp.username == username).SingleOrDefault();
+            topik t = new topik();
+            t.NIK_pembimbing = dosen.NIK;
+            t.judul = model.judul;
+            t.deskripsi = model.deskripsi;
+            t.keterangan = "tersedia";
+            t.id_semester = 1;
+            if (TryUpdateModel(t))
             {
-                id = 0,
-                Nama = "Sistem Informasi Rumah Makan",
-                Deskripsi = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed malesuada magna neque, quis accumsan tellus euismod et. Nulla sollicitudin, magna ac lobortis venenatis, orci lacus pulvinar arcu, id auctor sapien lectus ac metus. Nulla porttitor imperdiet augue ut ornare. Praesent a imperdiet nisi, vel suscipit orci. Nullam pulvinar sem dui, porta vehicula augue accumsan sed. Nulla facilisi. Etiam tincidunt, tortor eget sagittis tempus, eros nisi eleifend urna, nec auctor dui dolor in orci. Fusce adipiscing lectus ac imperdiet dapibus. Etiam ipsum arcu, elementum a risus ac, laoreet faucibus dolor",
-                Pembimbing = "Verliyantina",
-                Keterangan = "tersedia",
-            };
-            temp.Add(x);
-            x = new TopikList()
-            {
-                id = 1,
-                Nama = "Sistem Pendukung Keputusan Perusahaan Asuransi",
-                Deskripsi = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed malesuada magna neque, quis accumsan tellus euismod et. Nulla sollicitudin, magna ac lobortis venenatis, orci lacus pulvinar arcu, id auctor sapien lectus ac metus. Nulla porttitor imperdiet augue ut ornare. Praesent a imperdiet nisi, vel suscipit orci. Nullam pulvinar sem dui, porta vehicula augue accumsan sed. Nulla facilisi. Etiam tincidunt, tortor eget sagittis tempus, eros nisi eleifend urna, nec auctor dui dolor in orci. Fusce adipiscing lectus ac imperdiet dapibus. Etiam ipsum arcu, elementum a risus ac, laoreet faucibus dolor",
-                Pembimbing = "Verliyantina",
-                Keterangan = "tersedia",
+                db.topiks.Add(t);
+                db.SaveChanges();
+            }
+            Session["redirect"] = "topik";
+            Session["message"] = "insert";
+            return RedirectToAction("Index", "Home");
+        }
 
-            };
-            temp.Add(x);
+        [AcceptVerbs(HttpVerbs.Post)]
+        [GridAction]
+        public ActionResult TopikUpdate(TopikView model)
+        {
+            var t = db.topiks.Where(topikTemp => topikTemp.id == model.id).SingleOrDefault();
+            t.judul = model.judul;
+            t.deskripsi = model.deskripsi;
+            t.keterangan = model.keterangan;
+            TryUpdateModel(t);
+            db.Entry(t).State = EntityState.Modified;
+            db.SaveChanges();
+            Session["redirect"] = "topik";
+            Session["message"] = "update";
+            return RedirectToAction("Index", "Home");
+        }
 
-            return View(new GridModel<TopikList>
+        [GridAction]
+        public ActionResult _SelectTopikView()
+        {
+            return bindingTable();
+        }
+
+
+        [AcceptVerbs(HttpVerbs.Post)]
+        [GridAction]
+        public ActionResult _DeleteTopikView(int id)
+        {
+            var t = db.topiks.Where(topikTemp => topikTemp.id == id).SingleOrDefault();
+            db.topiks.Remove(t);
+            db.SaveChanges();
+            return bindingTable();
+        }
+
+        protected ViewResult bindingTable()
+        {
+            var login = (string)Session["role"];  
+            var username = (string)Session["username"];  
+            var temp = (from t in db.topiks 
+                        join d in db.dosens on t.NIK_pembimbing equals d.NIK 
+                        select new { t.id, t.judul, t.deskripsi, t.keterangan, d.nama, d.username }).ToList();
+
+            List<TopikView> listResult = new List<TopikView>();
+            foreach (var t in temp)
             {
-                Data = temp
+                TopikView x= new TopikView
+                {
+                    id=t.id,
+                    judul = t.judul,
+                    deskripsi = t.deskripsi,
+                    keterangan = t.keterangan,
+                    pembimbing=t.nama
+                };
+                if (login == "dosen")
+                {
+                    if (username == t.username) {
+                        listResult.Add(x);
+                    }
+
+                }
+                else { 
+                    listResult.Add(x);
+                }
+                
+            }
+
+            return View(new GridModel<TopikView>
+            {
+                Data = listResult
             });
+
+
+
+            //if ((string)Session["role"] == "koordinator")
+            //{
+            //    var listResult = (from table in db.topiks
+            //                      select table).ToList();
+            //    return View(new GridModel<topik>
+            //    {
+            //        Data = listResult
+            //    });
+            //}
+            //else if ((string)Session["role"] == "dosen")
+            //{
+            //string username = (string)Session["username"];
+            //string nik = (db.dosens.Where(dosenTemp => dosenTemp.username == username).SingleOrDefault()).NIK;
+
+
         }
 
-        [GridAction]
-        public ActionResult _SelectTopik()
-        {
-            return bindingTopik(0);
-        }
 
-        [AcceptVerbs(HttpVerbs.Post)]
-        [GridAction]
-        public ActionResult _SaveTopik(int id)
-        {
 
-            return bindingTopik(id);
-        }
-
-        [AcceptVerbs(HttpVerbs.Post)]
-        [GridAction]
-        public ActionResult _InsertTopik()
-        {
-
-            return bindingTopik(2);
-        }
-
-        [AcceptVerbs(HttpVerbs.Post)]
-        [GridAction]
-        public ActionResult _DeleteTopik(int id)
-        {
-
-            return bindingTopik(id);
-        }
+        //}
+        //else
+        //{                              
+        //    var listResult = (from table in db.topiks
+        //                        where (table.keterangan != "belum disetujui")
+        //                        select table).ToList();
+        //    return View(new GridModel<topik>
+        //    {
+        //        Data = listResult
+        //    });
+        //}
 
     }
+        #endregion
+
 }
+

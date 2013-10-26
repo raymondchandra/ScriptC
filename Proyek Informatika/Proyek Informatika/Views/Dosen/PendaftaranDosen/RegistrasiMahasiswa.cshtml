@@ -46,46 +46,35 @@
         GridEditMode mode = GridEditMode.InLine;
         GridButtonType type = GridButtonType.Image;    
     }
-    @(Html.Telerik().Grid<Proyek_Informatika.Models.TopikMahasiswa>()
+    @(Html.Telerik().Grid<Proyek_Informatika.Models.mahasiswa>()
         .HtmlAttributes(new { style = "width:100%;" })
-        .Name("Topik")
+        .Name("Mahasiswa")
         .DataKeys(keys =>
         {
             keys.Add(p => p.NPM);
         })
-
-            .DataBinding(dataBinding =>
+        .DataBinding(dataBinding =>
             {
                 dataBinding.Ajax()
-                    .Select("_SelectTopikMahasiswa", "PendaftaranDosen")
-                  .Insert("_InsertTopikMahasiswa", "PendaftaranDosen")
-                                            .Update("_SaveTopikMahasiswa", "PendaftaranDosen")
-                                            .Delete("_DeleteTopikMahasiswa", "PendaftaranDosen");
+                    .Select("_SelectMahasiswa", "PendaftaranDosen");                 
             })
 
         .Columns(columns =>
         {
             columns.Bound(o => o.NPM).Width(100).Title("NPM");
-            columns.Bound(o => o.Nama).Width(150).Title("Nama Mahasiswa");
-            columns.Bound(o => o.Topik).Width(450).Title("Topik");
-
-            columns.Command(commands =>
-                {
-                    commands.Edit().ButtonType(type);
-                    commands.Delete().ButtonType(type);
-                }).Width(80).Title("");
+            columns.Bound(o => o.nama).Width(150).Title("Nama Mahasiswa");
+            //columns.Command(commands =>
+            //{
+            //    commands.Edit().ButtonType(type);
+            //    commands.Delete().ButtonType(type);
+            //}).Width(80).Title("");
         })
-        .Editable(editing => editing.Mode(mode))
-            //.ClientEvents(
-            //    events => events
-            //        .OnComplete("OnComplete") --> popup window
-            //)
+        //.Editable(editing => editing.Mode(mode))
         .Pageable(p => p.PageSize(15))
         .Sortable()
-        .Filterable()
-            //.Editable(editing => editing.Mode(GridEditMode.PopUp))
+        .Filterable()            
         .Scrollable(c => c.Enabled(true))
         .Selectable()
         .Groupable()
-)
+    )
 </div>

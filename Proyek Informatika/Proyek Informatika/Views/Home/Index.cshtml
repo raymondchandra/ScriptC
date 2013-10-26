@@ -1,9 +1,41 @@
 ﻿@{
     ViewBag.Title = "Home Page";
-    var login = (string)Session["role"];    
+    var redirect = (string)Session["redirect"];
+    var login = (string)Session["role"];  
+     
     
 }
-@if (login == "mahasiswa") { 
+@if (redirect == "topik")
+{   
+    var message = (string)Session["message"];  
+    if (message == "insert")
+    { 
+         <script type="text/javascript">
+             alert("Registrasi topik berhasil!");      
+        </script>
+    }
+    else if (message == "update")
+    {
+        <script type="text/javascript">
+            alert("Edit topik berhasil!");      
+        </script>
+    }
+    else if (message == "delete")
+    {
+        <script type="text/javascript">
+            alert("Edit topik berhasil!");      
+        </script>
+    }
+
+
+    Session["message"] = "";
+    Session["redirect"] = "";
+    <script type="text/javascript">
+        $('#content').load('Home/TopikAdmin');
+    </script>
+}
+else if (login == "mahasiswa")
+{ 
     <script type="text/javascript">
         $('#content').load('Pengumuman/Pengumuman');
     </script>

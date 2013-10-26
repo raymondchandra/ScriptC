@@ -12,7 +12,7 @@
 {
     position: relative; 
     width: 992px; 
-    margin: 0 auto; 
+    margin: 5px auto; 
     padding: 0; 
 }
 
@@ -34,7 +34,7 @@
 #content
 {
     padding: 3%;
-    min-height: 100%;
+    min-height: 375px;
     overflow: auto;
 }
 
@@ -101,4 +101,3 @@ ul
 {
     display:inline;
 }
-

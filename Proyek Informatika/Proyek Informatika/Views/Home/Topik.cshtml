@@ -1,39 +1,78 @@
 ﻿@{
     ViewBag.Title = "Topik";
 }
+
+<script type = "text/javascript">
+    function onCommand(e) {
+        if (e.name == "lihatDetail") {
+            var text = "<table>";
+            text += "<tr><td class='name'>Topik</td><td>&nbsp:&nbsp</td><td>" + e.row.cells[1].innerHTML + "</td></tr>";
+            text += "<tr><td class='name'>Deskripsi</td><td>&nbsp:&nbsp</td><td>" + e.row.cells[2].innerHTML + "</td></tr>";
+            text += "<tr><td class='name'>Pembimbing</td><td>&nbsp:&nbsp</td><td>" + e.row.cells[3].innerHTML + "</td></tr>";
+            text += "<tr><td class='name'>Keterangan</td><td>&nbsp:&nbsp</td><td>" + e.row.cells[4].innerHTML + "</td></tr>";
+            text += "</table>";
+            document.getElementById('detail').innerHTML = text;
+            var windowZ = $("#topikDetail").data("tWindow");
+            windowZ.center().open();
+        }        
+    }
+</script>
 <div class="layer">
     <h1>
         Topik</h1>
-    @(Html.Telerik().Grid<Proyek_Informatika.Models.Topik>()
+    @(Html.Telerik().Grid<Proyek_Informatika.Models.TopikView>()
         .HtmlAttributes(new { style = "width:100%" })
         .Name("Topik")
         .DataKeys(keys =>
         {
-            keys.Add(p => p.id);
+            keys.Add(k => k.id);
         })
-
-         .DataBinding(dataBinding => dataBinding.Ajax()
-                                            .Select("_SelectTopik", "Home")
-                                            .Insert("_InsertTopik", "Home")
-                                            .Update("_SaveTopik", "Home")
-                                            .Delete("_DeleteTopik", "Home"))
+        .DataBinding(dataBinding => dataBinding.Ajax()
+            .Select("_SelectTopikView", "Home"))         
         .Columns(columns =>
         {
-            columns.Bound(o => o.Nama).Width(200).Title("Topik");            
-            columns.Bound(o => o.Pembimbing).Width(100).Title("Pembimbing");
-            columns.Bound(o => o.Keterangan).Width(100).Title("Keterangan");
-
+            columns.Bound(c => c.id).Hidden();   
+            columns.Bound(c => c.judul).Width(250).Title("Topik");
+            columns.Bound(c => c.deskripsi).Hidden();              
+            columns.Bound(c => c.pembimbing).Width(150).Title("Pembimbing");
+            columns.Bound(c => c.keterangan).Width(100).Title("Keterangan");
+            columns.Command(c => c.Custom("lihatDetail")
+                .Text("Lihat Detail")
+                .Ajax(true)).Width(100);     
         })
-            //.ClientEvents(
-            //    events => events
-            //        .OnComplete("OnComplete") --> popup window
-            //)
+        .ClientEvents(ev => ev.OnCommand("onCommand"))
         .Pageable(p => p.PageSize(15))
-        .Sortable()
-        .Filterable()
-            //.Editable(editing => editing.Mode(GridEditMode.PopUp))
         .Scrollable(c => c.Enabled(true))
+        .Sortable()
+        .Filterable()        
         .Selectable()
         .Groupable()
-)
+    )
+
+    @(Html.Telerik().Window()
+        .Name("topikDetail")
+        .Title("Detail Topik")
+        .Visible(false)        
+        .Modal(true)
+        .Width(500)
+        .Height(500)
+        .Scrollable(true)
+        .Content(@<text> <p id="detail"></p></text>)
+    )
+           
 </div>
+<style type="text/css">
+    #detail table
+    {
+        width:100%;    
+    }
+    td.name
+    {
+        width:25%;    
+    }
+    #detail table tr td
+    {
+        padding:5px;
+        vertical-align:top;    
+    }
+</style>

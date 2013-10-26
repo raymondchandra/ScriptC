@@ -1,64 +1,129 @@
-﻿@{
+﻿@model Proyek_Informatika.Models.TopikView
+@{
     ViewBag.Title = "Topik";
 }
+
+<script type = "text/javascript">
+
+    function onCommand(e) {
+        if (e.name == "lihatDetail") {
+            var text = "<table>";
+            text += "<tr><td class='name'>Topik</td><td>&nbsp:&nbsp</td><td>" + e.row.cells[1].innerHTML + "</td></tr>";
+            text += "<tr><td class='name'>Deskripsi</td><td>&nbsp:&nbsp</td><td>" + e.row.cells[2].innerHTML + "</td></tr>";
+            text += "<tr><td class='name'>Pembimbing</td><td>&nbsp:&nbsp</td><td>" + e.row.cells[3].innerHTML + "</td></tr>";
+            text += "<tr><td class='name'>Keterangan</td><td>&nbsp:&nbsp</td><td>" + e.row.cells[4].innerHTML + "</td></tr>";
+            text += "</table>";
+            document.getElementById('detail').innerHTML = text;
+            var windowZ = $("#topikDetail").data("tWindow");
+            windowZ.center().open();
+        }
+        else if (e.name == "editDetail") {
+            document.getElementById("id").value = e.row.cells[0].innerHTML;
+            document.getElementById("judul").value = e.row.cells[1].innerHTML;
+            document.getElementById("deskripsi").value = e.row.cells[2].innerHTML;
+            document.getElementById("keterangan").value = e.row.cells[4].innerHTML;
+            var windowZ = $("#topikUpdate").data("tWindow");
+            windowZ.center().open();
+        }
+    }
+
+    $(function() {
+        $('#register')
+            .click(function (e) {
+            e.preventDefault();
+            $("#topikInsert").data('tWindow').center().open();
+        });
+    });
+
+</script>
+
 <div class="layer">
     <h1>
         Topik</h1>
-    <fieldset>
-        <legend>Tambah Topik</legend>
-        <table>
-            <tr>
-                <td>
-                    Topik
-                </td>
-                <td>
-                    :
-                </td>
-                <td>
-                    <input type="text" style="width: 500px" />
-                </td>
-            </tr>
-        </table>
-        <input type="submit" value="Register" class="t-button t-state-default" />
-    </fieldset>
-    <br>
+    @{var login = (string)Session["role"]; 
+        if (login == "dosen")
+        { 
+        <button id="register" class="t-button t-state-default">Registrasi Topik</button>
+        <br /><br />
+        }    
+    }    
     @{ 
         GridEditMode mode = GridEditMode.InLine;
-        GridButtonType type = GridButtonType.Image;    
+        GridButtonType type = GridButtonType.Text;    
     }
-    @(Html.Telerik().Grid<Proyek_Informatika.Models.Topik>()
-        .Name("Topik")
-                .DataKeys(keys =>
-                {
-                    keys.Add(p => p.id);
-                })
+    @(Html.Telerik().Grid<Proyek_Informatika.Models.TopikView>()
+        .HtmlAttributes(new { style = "width:100%" })
+        .Name("Topik")  
+        .DataKeys(keys =>
+        {
+            keys.Add(k => k.id);
+        })
         .DataBinding(dataBinding => dataBinding.Ajax()
-                                    .Select("_SelectTopik", "Home")
-                                            .Insert("_InsertTopik", "Home")
-                                            .Update("_SaveTopik", "Home")
-                                            .Delete("_DeleteTopik", "Home"))
+            .Select("_SelectTopikView", "Home")
+            .Delete("_DeleteTopikView", "Home"))
         .Columns(columns =>
         {
-            columns.Bound(o => o.Nama).Width(450).Title("Topik");
-            columns.Bound(o => o.Pembimbing).Width(200).Title("Pembimbing");
-            columns.Bound(o => o.Keterangan).Width(150).Title("Keterangan");
+            columns.Bound(c => c.id).Hidden();  
+            columns.Bound(c => c.judul).Width(300).Title("Topik");
+            columns.Bound(c => c.deskripsi).Hidden();
+            columns.Bound(c => c.pembimbing).Width(180).Title("Pembimbing");
+            columns.Bound(c => c.keterangan).Width(100).Title("Keterangan");
+            columns.Command(c => c.Custom("lihatDetail")
+                .Text("Detail")
+                .Ajax(true)).Width(95);
+            columns.Command(c => c.Custom("editDetail")
+                .Text("Edit")
+                .Ajax(true)).Width(95);
             columns.Command(commands =>
             {
-                commands.Edit().ButtonType(type);
                 commands.Delete().ButtonType(type);
-            }).Width(80).Title("");
+            }).Width(95);
         })
+        .ClientEvents(ev => ev.OnCommand("onCommand").OnComplete("onCommand"))
         .Editable(editing => editing.Mode(mode))
-               .Pageable(p => p.PageSize(15))
-                .Sortable()
-                 .Filterable()
-                     .Scrollable(c => c.Enabled(true))
-                .Selectable()
-                .Groupable()
-)
+        .Pageable(p => p.PageSize(15))
+        .Scrollable(c => c.Enabled(true))
+        .Sortable()
+        .Filterable()
+        .Selectable()
+        .Groupable()
+    )
+
+    @(Html.Telerik().Window()
+        .Name("topikDetail")
+        .Title("Detail Topik")
+        .Visible(false)
+        .Modal(true)
+        .Width(500)
+        .Height(500)
+        .Scrollable(true)
+        .Content(@<text> <p id="detail"></p></text>)
+    )
+    @(Html.Telerik().Window()
+        .Name("topikUpdate")
+        .Title("Edit Topik")
+        .Visible(false)
+        .Modal(true)
+        .Width(500)
+        .Height(500)
+        .Scrollable(true)
+        .LoadContentFrom("TopikUpdate", "Home")
+    )
+    @(Html.Telerik().Window()
+        .Name("topikInsert")
+        .Title("Registrasi Topik")
+        .Visible(false)
+        .Modal(true)
+        .Width(500)
+        .Height(500)
+        .Scrollable(true)
+        .LoadContentFrom("TopikInsert", "Home")
+    )
+
     @section HeadContent {
-        <style type="text/css">
-    /* validators */
+
+<style type="text/css">
+    /*--------------------validators--------------------*/
     .field-validation-error
     {
         position: absolute;
@@ -66,8 +131,7 @@
     }
     
     * html .field-validation-error { position: relative; }
-    *+html .field-validation-error { position: relative; }
-    
+    *+html .field-validation-error { position: relative; }    
     .field-validation-error span
     {
         position: absolute;
@@ -77,32 +141,44 @@
         background: transparent url('@Url.Content("~/Content/Common/validation-error-message.png") ') no-repeat 0 0;
     }
     
-    /* in-form editing */
+    /*--------------------in-form editing--------------------*/
     .t-edit-form-container
     {
         width: 350px;
         margin: 1em;
-    }
-    
+    }    
     .t-edit-form-container .editor-label,
     .t-edit-form-container .editor-field
     {
         padding-bottom: 1em;
         float: left;
-    }
-    
+    }    
     .t-edit-form-container .editor-label
     {
         width: 30%;
         text-align: right;
         padding-right: 3%;
         clear: left;
-    }
-    
+    }    
     .t-edit-form-container .editor-field
     {
         width: 60%;
     }
 </style>
+}
+<style>
+    #detail table
+    {
+        width:100%;    
     }
+    td.name
+    {
+        width:25%;    
+    }
+    #detail table tr td
+    {
+        padding:5px;
+        vertical-align:top;    
+    }
+</style>
 </div>

@@ -124,3 +124,8 @@ a:hover
     line-height:16px; 
     font-weight:bold; 
 }
+
+.editor-label
+{
+    text-transform:capitalize;    
+}

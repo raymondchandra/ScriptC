@@ -10,6 +10,7 @@ namespace Proyek_Informatika.Controllers.Dosen
 {
     public class ProfileDosenController : Controller
     {
+        private SkripsiAutoContainer db = new SkripsiAutoContainer();
         //
         // GET: /User/
 
@@ -32,6 +33,7 @@ namespace Proyek_Informatika.Controllers.Dosen
         {
             return PartialView();
         }
+
         protected ViewResult bindingSejarahDosen(int id)
         {
 

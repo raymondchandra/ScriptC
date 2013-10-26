@@ -10,6 +10,7 @@ namespace Proyek_Informatika.Controllers.Dosen
 {
     public class PendaftaranDosenController : Controller
     {
+        private SkripsiAutoContainer db = new SkripsiAutoContainer();
         //
         // GET: /Pengumpulan/
 
@@ -24,57 +25,30 @@ namespace Proyek_Informatika.Controllers.Dosen
         }
 
 
-        protected ViewResult bindingTopikMahasiswa(int id)
+        #region grid mahasiswa
+        [GridAction]
+        public ActionResult _SelectMahasiswa()
         {
+            return bindingTable();
+        }
 
-            List<TopikMahasiswa> temp = new List<TopikMahasiswa>();
+       
 
-            TopikMahasiswa x = new TopikMahasiswa()
+        protected ViewResult bindingTable()
+        {
+            var listResult = (from table in db.mahasiswas
+                              
+                              select table).ToList();
+            var t = listResult.ElementAt(0);
+            var a = t.NPM;
+         
+
+            return View(new GridModel<mahasiswa>
             {
-                NPM = 201073221,
-                Nama = "Regina Puspa Rani",
-                Topik = "Pembangunan Perangkat Lunak Sistem Akuntansi Pembukuan dengan Pendekatan Prosedural",
-            }; temp.Add(x);
-
-            x = new TopikMahasiswa()
-            {
-                NPM = 200973190,
-                Nama = "Clinton Gunawan",
-                Topik = "Perancangan Aplikasi E-commerce Berbasis Mobile",
-            }; temp.Add(x);
-
-            return View(new GridModel<TopikMahasiswa>
-            {
-                Data = temp
+                Data = listResult
             });
         }
-        [GridAction]
-        public ActionResult _SelectTopikMahasiswa()
-        {
-            return bindingTopikMahasiswa(0);
-        }
-
-        [AcceptVerbs(HttpVerbs.Post)]
-        [GridAction]
-        public ActionResult _SaveTopikMahasiswa(int id)
-        {
-
-            return bindingTopikMahasiswa(id);
-        }
-        [AcceptVerbs(HttpVerbs.Post)]
-        [GridAction]
-        public ActionResult _InsertTopikMahasiswa()
-        {
-
-            return bindingTopikMahasiswa(2);
-        }
-        [AcceptVerbs(HttpVerbs.Post)]
-        [GridAction]
-        public ActionResult _DeleteTopikMahasiswa(int id)
-        {
-
-            return bindingTopikMahasiswa(id);
-        }
+        #endregion
 
     }
 }
