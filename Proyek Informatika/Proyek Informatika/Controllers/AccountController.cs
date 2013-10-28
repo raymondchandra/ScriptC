@@ -9,6 +9,7 @@ using Proyek_Informatika.Models;
 using Telerik.Web.Mvc;
 using System.Security.Cryptography;
 using System.Text;
+using System.Data;
 
 namespace Proyek_Informatika.Controllers
 {
@@ -60,9 +61,20 @@ namespace Proyek_Informatika.Controllers
 
         public ActionResult LogOff()
         {
-            Session["role"] = null;
-            Session["username"] = null;
-            FormsAuthentication.SignOut();
+            DateTime d = DateTime.Now;
+            string username = (string)Session["username"];
+            var akun = db.akuns.Where(akunTemp => akunTemp.username == username).SingleOrDefault();
+            if (akun != null)
+            {
+                akun.last_login = d;
+                TryUpdateModel(akun);
+                db.Entry(akun).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+                Session["role"] = null;
+                Session["username"] = null;
+                FormsAuthentication.SignOut();
+            
             return RedirectToAction("Index", "Home");
         }
 
@@ -72,7 +84,7 @@ namespace Proyek_Informatika.Controllers
             akun a = db.akuns.Where(akunTemp => akunTemp.username == username).SingleOrDefault();
             if (a != null)
             {
-                
+
                 if (a.password == password)
                 {
                     peran p = db.perans.Where(peranTemp => peranTemp.id == a.peran).SingleOrDefault();
