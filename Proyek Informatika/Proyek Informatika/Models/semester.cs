@@ -19,6 +19,7 @@ namespace Proyek_Informatika.Models
             this.jadwal_semester = new HashSet<jadwal_semester>();
             this.skripsis = new HashSet<skripsi>();
             this.topiks = new HashSet<topik>();
+            this.periode_sidang = new HashSet<periode_sidang>();
         }
     
         public int id { get; set; }
@@ -27,5 +28,6 @@ namespace Proyek_Informatika.Models
         public virtual ICollection<jadwal_semester> jadwal_semester { get; set; }
         public virtual ICollection<skripsi> skripsis { get; set; }
         public virtual ICollection<topik> topiks { get; set; }
+        public virtual ICollection<periode_sidang> periode_sidang { get; set; }
     }
 }

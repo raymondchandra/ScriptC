@@ -14,13 +14,19 @@ namespace Proyek_Informatika.Models
     
     public partial class kategori_nilai
     {
+        public kategori_nilai()
+        {
+            this.nilais = new HashSet<nilai>();
+        }
+    
         public int id { get; set; }
         public Nullable<int> urutan { get; set; }
         public string kategori { get; set; }
         public int bobot { get; set; }
         public string tipe { get; set; }
-        public string jenis_skripsi_id { get; set; }
+        public byte jenis_skripsi_id { get; set; }
     
         public virtual jenis_skripsi jenis_skripsi { get; set; }
+        public virtual ICollection<nilai> nilais { get; set; }
     }
 }

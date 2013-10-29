@@ -98,11 +98,11 @@ function onSelectMenuKoordinator(e) {
     } else if (item.find('> .t-link').text() == "Nilai") {
         $('#content').load('Nilai/Index');
     } else if (item.find('> .t-link').text() == "Pengaturan Jadwal") {
-        $('#content').load('SidangKoordinator/PengaturanJadwal');
+        $('#content').load('SidangKoordinator/Jadwal_Navigator');
     } else if (item.find('> .t-link').text() == "Lihat Jadwal") {
-        $('#content').load('SidangKoordinator/Lihat');
+        $('#content').load('SidangKoordinator/Jadwal_Lihat');
     } else if (item.find('> .t-link').text() == "Pengaturan Sidang") {
-        $('#content').load('SidangKoordinator/PengaturanSidang');
+        $('#content').load('SidangKoordinator/Sidang_Index');
     } else if (item.find('> .t-link').text() == "Kalender") {
         $('#content').load('Kalender/Index');
     }

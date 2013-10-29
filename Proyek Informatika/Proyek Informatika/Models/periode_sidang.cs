@@ -12,13 +12,14 @@ namespace Proyek_Informatika.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class pengumuman
+    public partial class periode_sidang
     {
         public int id { get; set; }
-        public System.DateTime tanggal { get; set; }
-        public string isi { get; set; }
-        public byte target { get; set; }
+        public int semester_id { get; set; }
+        public string tipe_sidang { get; set; }
+        public System.DateTime start_date { get; set; }
+        public System.DateTime end_date { get; set; }
     
-        public virtual peran peran { get; set; }
+        public virtual semester semester { get; set; }
     }
 }

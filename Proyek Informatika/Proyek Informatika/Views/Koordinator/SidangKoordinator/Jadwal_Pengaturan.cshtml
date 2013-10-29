@@ -1,0 +1,51 @@
+﻿@model Proyek_Informatika.Models.periode_sidang
+@using Proyek_Informatika.Models
+<script type="text/javascript">
+    $("#simpanButton").click(function () {
+        var values = {
+            semester_id: '@ViewBag.semester_id',
+            tipe_sidang: $("#tipeSidang").val(),
+            start_date: $("#start_date").val(),
+            end_date: $("#end_date").val()
+        };
+        $.post("SidangKoordinator/SimpanPengaturanJadwal", values, function (data) {
+            if (data == "True") {
+                alert("Data berhasil diubah");
+            } else {
+                alert("Data tidak berhasil diubah");
+            }
+        });
+    });
+
+    function getStartEnd(tipe) {
+        $.post("SidangKoordinator/GetStartDate", { semester_id:'@ViewBag.semester_id' , tipe: tipe }, function (data) { $("#start_date").val(data); });
+        $.post("SidangKoordinator/GetEndDate", { semester_id:'@ViewBag.semester_id' , tipe: tipe }, function (data) { $("#end_date").val(data); });
+    }
+
+    $(document).ready(function () {
+        getStartEnd($("#tipeSidang").val());
+        $("#tipeSidang").bind("change", function () {
+            getStartEnd($("#tipeSidang").val());
+        });
+    });
+</script>
+
+<fieldset id="settingJadwalSidang">
+    <legend>Pengaturan </legend>
+    <span>Sidang :</span>
+    <select id="tipeSidang">
+        <option>Presentasi</option>
+        <option>Akhir</option>
+    </select><br />
+    <span>Tanggal : </span>
+    @(Html.Telerik().DatePicker()
+        .Name("start_date")
+        //.Value(DateTime.Now)
+    )
+    <span> sampai </span>
+    @(Html.Telerik().DatePicker()
+        .Name("end_date")
+        //.Value(DateTime.Now)
+    )<br />
+    <input type="button" value="Simpan" id="simpanButton" class="t-button t-state-default" />
+</fieldset>

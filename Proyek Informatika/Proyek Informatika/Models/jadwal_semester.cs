@@ -18,7 +18,7 @@ namespace Proyek_Informatika.Models
         public System.DateTime tanggal { get; set; }
         public string isi { get; set; }
         public int id_semester { get; set; }
-        public string jenis_skripsi_id { get; set; }
+        public Nullable<byte> jenis_skripsi_id { get; set; }
     
         public virtual jenis_skripsi jenis_skripsi { get; set; }
         public virtual semester semester { get; set; }

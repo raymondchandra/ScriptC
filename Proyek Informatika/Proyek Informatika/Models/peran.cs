@@ -20,7 +20,7 @@ namespace Proyek_Informatika.Models
             this.pengumumen = new HashSet<pengumuman>();
         }
     
-        public string id { get; set; }
+        public byte id { get; set; }
         public string nama_peran { get; set; }
     
         public virtual ICollection<akun> akuns { get; set; }
