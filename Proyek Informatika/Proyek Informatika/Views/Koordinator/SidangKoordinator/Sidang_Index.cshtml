@@ -1,7 +1,7 @@
 ﻿@{
     ViewBag.Title = "Pengaturan Sidang";
+    
 }
-
 
 <div class="layer">
 <h1>Pengaturan Sidang</h1>
@@ -11,10 +11,10 @@
         {
             tabstrip.Add()
                 .Text("Skripsi 1")
-                .LoadContentFrom("KomposisiNilai", "SidangKoordinator");
+                .LoadContentFrom("Sidang_Bobot1", "SidangKoordinator");
             tabstrip.Add()
                 .Text("Skripsi 2")
-                .LoadContentFrom("KomposisiNilai2", "SidangKoordinator");
+                .LoadContentFrom("Sidang_Bobot2", "SidangKoordinator");
             tabstrip.Add()
                 .Text("Ruang Sidang")
                 .Content(@<text>

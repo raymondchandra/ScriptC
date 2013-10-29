@@ -1,0 +1,43 @@
+﻿
+<script type="text/javascript" charset="utf-8">
+
+    $(document).ready(function () {
+
+        $.post("SidangKoordinator/GetPeriodeSemester", "", function (data) {
+            var get = "";
+            $.each(data, function (index, value) {
+                get += "<option value='" + value.periode + "'>" + value.periode + "</option>";
+            });
+            $("#selSemester").html(get);
+        });
+        $("#selSemester").val("Ganjil 2013/2014")
+        $("#selSemester").bind("change", function () {
+            $.post("SidangKoordinator/Jadwal_Lihat_Kalender", { periode: $("#selSemester").val(), tipe:$("#tipeSidang").val() }, function (data) {
+                $("#jadwal").html(data);
+            });
+        });
+        $("#tipeSidang").bind("change", function () {
+            $.post("SidangKoordinator/Jadwal_Lihat_Kalender", { periode: $("#selSemester").val(), tipe:$("#tipeSidang").val() }, function (data) {
+                $("#jadwal").html(data);
+            });
+        });
+        $.post("SidangKoordinator/Jadwal_Lihat_Kalender", { periode: $("#selSemester").val(), tipe: $("#tipeSidang").val() }, function (data) {
+            $("#jadwal").html(data);
+        });
+    });
+</script>
+
+<div class="layer">
+    <h1>Lihat Jadwal Sidang</h1>
+    <span>Periode Semester :</span>
+    <select id="selSemester">
+        <option></option>
+    </select> <br />
+    <span>Tipe Sidang</span>
+    <select id="tipeSidang">
+        <option>Presentasi</option>
+        <option>Akhir</option>
+    </select><br />
+    <div id="jadwal"></div>
+</div>
+

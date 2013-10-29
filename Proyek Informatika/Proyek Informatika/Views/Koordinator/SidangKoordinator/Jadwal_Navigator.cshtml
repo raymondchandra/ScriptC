@@ -1,0 +1,57 @@
+﻿
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $.post("SidangKoordinator/GetPeriodeSemester", "", function (data) {
+            var get = "";
+            $.each(data, function (index, value) {
+                get += "<option value='" + value.periode + "'>" + value.periode + "</option>";
+            });
+            $("#selSemester").html(get);
+//--------------------
+//pilih yang iscurrent
+//--------------------
+        });
+        $("#selSemester").bind("change", function () {
+            $("#sidangContent").html("");
+        });
+    });
+
+    function onSelect(e) {
+        $.post("SidangKoordinator/GetSemesterId", { periode: $("#selSemester").val() }, function (data) {
+            var item = $(e.item).find('> .t-link').text();
+            if (item == "Skripsi 1") {
+                $('#sidangContent').load('SidangKoordinator/Jadwal_Penempatan1');
+            } else if (item == "Skripsi 2") {
+                $('#sidangContent').load('SidangKoordinator/Jadwal_Penempatan2');
+            } else if (item == "Pengaturan Umum") {
+                $('#sidangContent').load('SidangKoordinator/Jadwal_Pengaturan?semester_id=' + data);
+            }
+        });
+    }
+</script>
+
+<div class="layer">
+    <h1>Pengaturan Jadwal Sidang</h1>
+    <span>Periode Semester : </span><select id="selSemester"></select>
+    
+    <div style="overflow:hidden;margin-top:10px;">
+        @{ Html.Telerik().PanelBar()
+            .Name("PanelBar")
+            .ClientEvents(events=>events.OnSelect("onSelect"))
+            .HtmlAttributes(new { style = "width: 20%; float: left;" })
+            .SelectedIndex(0)
+            .Items(item =>
+            {
+                item.Add().Text("Skripsi 1");
+                item.Add().Text("Skripsi 2");
+                item.Add().Text("Pengaturan Umum");
+            })
+            .Render(); 
+        }
+        <div id="sidangContent" style="float:left;width:75%">
+            
+        </div>
+    </div>
+</div>
+
