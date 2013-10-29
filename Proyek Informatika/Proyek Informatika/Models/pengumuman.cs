@@ -17,7 +17,7 @@ namespace Proyek_Informatika.Models
         public int id { get; set; }
         public System.DateTime tanggal { get; set; }
         public string isi { get; set; }
-        public string target { get; set; }
+        public byte target { get; set; }
     
         public virtual peran peran { get; set; }
     }

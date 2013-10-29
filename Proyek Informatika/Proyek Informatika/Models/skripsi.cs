@@ -23,7 +23,7 @@ namespace Proyek_Informatika.Models
         }
     
         public int id { get; set; }
-        public string jenis { get; set; }
+        public byte jenis { get; set; }
         public int pengambilan_ke { get; set; }
         public string NIK_dosen_pembimbing { get; set; }
         public string NPM_mahasiswa { get; set; }

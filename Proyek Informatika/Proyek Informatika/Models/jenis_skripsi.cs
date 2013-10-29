@@ -21,7 +21,7 @@ namespace Proyek_Informatika.Models
             this.skripsis = new HashSet<skripsi>();
         }
     
-        public string id { get; set; }
+        public byte id { get; set; }
         public string nama_jenis { get; set; }
     
         public virtual ICollection<jadwal_semester> jadwal_semester { get; set; }

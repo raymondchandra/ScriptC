@@ -25,7 +25,7 @@ namespace Proyek_Informatika.Models
         public string password { get; set; }
         public byte aktif { get; set; }
         public Nullable<System.DateTime> last_login { get; set; }
-        public string peran { get; set; }
+        public byte peran { get; set; }
     
         public virtual ICollection<calendar_event> calendar_event { get; set; }
         public virtual ICollection<dosen> dosens { get; set; }
