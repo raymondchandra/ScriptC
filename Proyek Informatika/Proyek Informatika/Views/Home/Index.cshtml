@@ -6,32 +6,47 @@
     
 }
 @if (redirect == "topik")
-{   
-    var message = (string)Session["message"];  
+{
+    var message = (string)Session["message"];
     if (message == "insert")
     { 
-         <script type="text/javascript">
-             alert("Registrasi topik berhasil!");      
-        </script>
+    <script type="text/javascript">
+        alert("Registrasi topik berhasil!");      
+    </script>
     }
     else if (message == "update")
     {
-        <script type="text/javascript">
-            alert("Edit topik berhasil!");      
-        </script>
+    <script type="text/javascript">
+        alert("Edit topik berhasil!");      
+    </script>
     }
-    else if (message == "delete")
-    {
-        <script type="text/javascript">
-            alert("Edit topik berhasil!");      
-        </script>
-    }
-
-
+    
     Session["message"] = "";
     Session["redirect"] = "";
     <script type="text/javascript">
         $('#content').load('Home/TopikAdmin');
+    </script>
+}
+else if (redirect == "mahasiswa")
+{
+    var message = (string)Session["message"];
+    if (message == "insert")
+    { 
+    <script type="text/javascript">
+        alert("Registrasi mahasiswa berhasil!");      
+    </script>
+    }
+    else if (message == "update")
+    {
+    <script type="text/javascript">
+        alert("Edit berhasil!");      
+    </script>
+    }
+    
+    Session["message"] = "";
+    Session["redirect"] = "";
+    <script type="text/javascript">
+        $('#content').load('PendaftaranDosen/RegistrasiMahasiswa');
     </script>
 }
 else if (login == "mahasiswa")
@@ -54,76 +69,76 @@ else if (login == "koordinator")
 }
 else
 {
-<div id="pengumuman" class="layer">
-    <h1>
-        Home</h1>
-    <hr>
-    <div class="blokpengumuman">
-        <h2>
-            Petunjuk Super Singkat Penggunaan Latex</h2>
-        <div class="tanggal">
-            Senin, 23 September 2013 14:00</div>
-        Dear all,
-        <p>
-            <ol>
-                <li>Install dan download Miktex edisi terbaru (bisa diambil di lab)</li>
-                <li>Install Eclipse (source bisa diambil di lab)</li>
-                <li>Install Texlipse (lihat di http://texlipse.sourceforge.net/)</li>
-                <li>Install SumatraPDF</li>
-                <li>Di Eclipse, buat LaTeX project baru, beri nama baru dan finish</li>
-                <li>Akan terdapat file document.tex, tidak ada isinya</li>
-                <li>Download template document.tex dari tinyurl dan copy semua isinya ke dalam document.tex
-                    yang kosong</li>
-                <li>Save </li>
-                <li>Klik "Launch The Previewer" (Ctrl + 4), jika lancar SumatraPDF akan menampilkan
-                    sebuah file pdf</li>
-                <li>isi document.tex sudah dapat diubah-ubah, lihat di http://latex.wikia.com/wiki/Main_Page
-                    sebagai petunjuk</li>
-            </ol>
-        </p>
-        <div class="penulis">
-            Regards,
-            <br>
-            <br>
-            <span>Koordinator</span></div>
+    <div id="pengumuman" class="layer">
+        <h1>
+            Home</h1>
+        <hr>
+        <div class="blokpengumuman">
+            <h2>
+                Petunjuk Super Singkat Penggunaan Latex</h2>
+            <div class="tanggal">
+                Senin, 23 September 2013 14:00</div>
+            Dear all,
+            <p>
+                <ol>
+                    <li>Install dan download Miktex edisi terbaru (bisa diambil di lab)</li>
+                    <li>Install Eclipse (source bisa diambil di lab)</li>
+                    <li>Install Texlipse (lihat di http://texlipse.sourceforge.net/)</li>
+                    <li>Install SumatraPDF</li>
+                    <li>Di Eclipse, buat LaTeX project baru, beri nama baru dan finish</li>
+                    <li>Akan terdapat file document.tex, tidak ada isinya</li>
+                    <li>Download template document.tex dari tinyurl dan copy semua isinya ke dalam document.tex
+                        yang kosong</li>
+                    <li>Save </li>
+                    <li>Klik "Launch The Previewer" (Ctrl + 4), jika lancar SumatraPDF akan menampilkan
+                        sebuah file pdf</li>
+                    <li>isi document.tex sudah dapat diubah-ubah, lihat di http://latex.wikia.com/wiki/Main_Page
+                        sebagai petunjuk</li>
+                </ol>
+            </p>
+            <div class="penulis">
+                Regards,
+                <br>
+                <br>
+                <span>Koordinator</span></div>
+        </div>
+        <hr>
+        <div class="blokpengumuman">
+            <h2>
+                Pemilihan Topik Skripsi</h2>
+            <div class="tanggal">
+                Senin, 23 September 2013 14:00</div>
+            Dear all,
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed malesuada magna neque,
+                quis accumsan tellus euismod et. Nulla sollicitudin, magna ac lobortis venenatis,
+                orci lacus pulvinar arcu, id auctor sapien lectus ac metus. Nulla porttitor imperdiet
+                augue ut ornare. Praesent a imperdiet nisi, vel suscipit orci. Nullam pulvinar sem
+                dui, porta vehicula augue accumsan sed. Nulla facilisi. Etiam tincidunt, tortor
+                eget sagittis tempus, eros nisi eleifend urna, nec auctor dui dolor in orci. Fusce
+                adipiscing lectus ac imperdiet dapibus. Etiam ipsum arcu, elementum a risus ac,
+                laoreet faucibus dolor.
+            </p>
+            <div class="penulis">
+                Regards,
+                <br>
+                <br>
+                <span>Koordinator</span></div>
+        </div>
+        <hr>
+        <button type="submit" class="t-button t-state-default">
+            Pengumuman Selanjutnya</button>
+        <button type="submit" class="t-button t-state-default" style="float: right">
+            Pengumuman Sebelumnya</button>
     </div>
-    <hr>
-    <div class="blokpengumuman">
-        <h2>
-            Pemilihan Topik Skripsi</h2>
-        <div class="tanggal">
-            Senin, 23 September 2013 14:00</div>
-        Dear all,
-        <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed malesuada magna neque,
-            quis accumsan tellus euismod et. Nulla sollicitudin, magna ac lobortis venenatis,
-            orci lacus pulvinar arcu, id auctor sapien lectus ac metus. Nulla porttitor imperdiet
-            augue ut ornare. Praesent a imperdiet nisi, vel suscipit orci. Nullam pulvinar sem
-            dui, porta vehicula augue accumsan sed. Nulla facilisi. Etiam tincidunt, tortor
-            eget sagittis tempus, eros nisi eleifend urna, nec auctor dui dolor in orci. Fusce
-            adipiscing lectus ac imperdiet dapibus. Etiam ipsum arcu, elementum a risus ac,
-            laoreet faucibus dolor.
-        </p>
-        <div class="penulis">
-            Regards,
-            <br>
-            <br>
-            <span>Koordinator</span></div>
+    <div id="filesharing" class="layer">
+        <h1>
+            Download</h1>
+        <ul>
+            <li><a href="https://dpcqdq.dm1.livefilestore.com/y2pqXDETa9vgI8qPOFC1G1m0tvP-Xg4CEEreXLu9oaEUIplkmb-fnv5s88PpmOCPLFUQPPR-eMs9VQMsNezFWUx11inycbFaKexgHxzElFaimU/Template%20Skripsi%20FTIS%20v1.1.1.zip?download&psid=1">
+                Template Skripsi FTIS v1.1.1 </a></li>
+            <li><a href="https://dpcqdq.dm2301.livefilestore.com/y2pACt0yNJyIZOkGBF3JBVTmNVlLf2uqMb6_x75NatS-cXcPQ-g8pkaqnyOArmeYV4vEMRl0qvOpWlTyiD5xA7wUOl4Lj_D9CgJ6SclCaRCHIc/Contoh%20Hasil%20Skripsi.pdf?download&psid=1">
+                Contoh Hasil Skripsi </a></li>
+        </ul>
     </div>
-    <hr>
-    <button type="submit" class="t-button t-state-default">
-        Pengumuman Selanjutnya</button>
-    <button type="submit" class="t-button t-state-default" style="float: right">
-        Pengumuman Sebelumnya</button>
-</div>
-<div id="filesharing" class="layer">
-    <h1>
-        Download</h1>
-    <ul>
-        <li><a href="https://dpcqdq.dm1.livefilestore.com/y2pqXDETa9vgI8qPOFC1G1m0tvP-Xg4CEEreXLu9oaEUIplkmb-fnv5s88PpmOCPLFUQPPR-eMs9VQMsNezFWUx11inycbFaKexgHxzElFaimU/Template%20Skripsi%20FTIS%20v1.1.1.zip?download&psid=1">
-            Template Skripsi FTIS v1.1.1 </a></li>
-        <li><a href="https://dpcqdq.dm2301.livefilestore.com/y2pACt0yNJyIZOkGBF3JBVTmNVlLf2uqMb6_x75NatS-cXcPQ-g8pkaqnyOArmeYV4vEMRl0qvOpWlTyiD5xA7wUOl4Lj_D9CgJ6SclCaRCHIc/Contoh%20Hasil%20Skripsi.pdf?download&psid=1">
-            Contoh Hasil Skripsi </a></li>
-    </ul>
-</div>
 }

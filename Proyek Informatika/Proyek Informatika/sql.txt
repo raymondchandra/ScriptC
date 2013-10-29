@@ -41,6 +41,10 @@ CREATE TABLE [dbo].[jenis_skripsi](
 GO
 SET ANSI_PADDING OFF
 GO
+SET IDENTITY_INSERT [dbo].[jenis_skripsi] ON
+INSERT [dbo].[jenis_skripsi] ([id], [nama_jenis]) VALUES (1, N'Skripsi 1')
+INSERT [dbo].[jenis_skripsi] ([id], [nama_jenis]) VALUES (2, N'Skripsi 2')
+SET IDENTITY_INSERT [dbo].[jenis_skripsi] OFF
 /****** Object:  Table [dbo].[semester]    Script Date: 10/25/2013 13:33:07 ******/
 SET ANSI_NULLS ON
 GO
@@ -59,8 +63,9 @@ PRIMARY KEY CLUSTERED
 GO
 SET ANSI_PADDING OFF
 GO
+INSERT [dbo].[semester] ([periode_semester]) VALUES (N'2012-2013 ganjil')
+INSERT [dbo].[semester] ([periode_semester]) VALUES (N'2012-2013 genap')
 INSERT [dbo].[semester] ([periode_semester]) VALUES (N'2013-2014 ganjil')
-INSERT [dbo].[semester] ([periode_semester]) VALUES (N'2013-2014 genap')
 /****** Object:  Table [dbo].[ruang]    Script Date: 10/25/2013 13:33:07 ******/
 SET ANSI_NULLS ON
 GO

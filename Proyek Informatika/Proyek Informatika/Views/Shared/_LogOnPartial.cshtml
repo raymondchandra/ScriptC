@@ -1,8 +1,17 @@
-﻿@if(Request.IsAuthenticated) {
+﻿@{
+    var semester=(string)Session["semester"];
+}
+@if(Request.IsAuthenticated) {
     var login = (string)Session["role"]; 
-    <text><strong>@User.Identity.Name</strong> - @login
-    @Html.ActionLink("[ Log Off ]", "LogOff", "Account")</text>
+    
+    <text>@Html.ActionLink("[ Log Off ]", "LogOff", "Account")
+    <br/>
+    <br/><strong>@User.Identity.Name</strong> - @login
+    <br/>@semester</text>
 }
 else {
-    @:@Html.ActionLink("[ Log On ]", "LogOn", "Account")
+    <text>@Html.ActionLink("[ Log On ]", "LogOn", "Account")
+    <br/>
+    <br/>
+    <br/>@semester</text>
 }

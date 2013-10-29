@@ -6,9 +6,10 @@
     @Html.ValidationSummary(true, "Registrasi topik tidak berhasil. Tolong perbaiki kesalahan dan coba lagi.")
     @using (Html.BeginForm())
     {
+        <br />
         <div>
             <fieldset>
-                <legend>Registrasi Topik</legend>
+                <legend>Topik</legend>
                 <div class="editor-label">
                     @Html.LabelFor(m => m.judul)
                 </div>

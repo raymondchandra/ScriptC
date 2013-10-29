@@ -16,6 +16,12 @@ namespace Proyek_Informatika.Controllers
         #region view
         public ActionResult Index()
         {
+            List<int> temp = (from s in db.semesters
+                              select s.id).ToList();
+            int max = temp.Max();
+            semester x = db.semesters.Where(semesterTemp => semesterTemp.id == max).SingleOrDefault();
+            Session["id-semester"] = x.id;
+            Session["semester"] = x.periode_semester;
             return View();
         }
 
@@ -57,7 +63,7 @@ namespace Proyek_Informatika.Controllers
             t.judul = model.judul;
             t.deskripsi = model.deskripsi;
             t.keterangan = "tersedia";
-            t.id_semester = 1;
+            t.id_semester = int.Parse(Session["id-semester"].ToString());
             if (TryUpdateModel(t))
             {
                 db.topiks.Add(t);
@@ -103,34 +109,38 @@ namespace Proyek_Informatika.Controllers
 
         protected ViewResult bindingTable()
         {
-            var login = (string)Session["role"];  
-            var username = (string)Session["username"];  
-            var temp = (from t in db.topiks 
-                        join d in db.dosens on t.NIK_pembimbing equals d.NIK 
+            int idSemester = int.Parse(Session["id-semester"].ToString());
+            var login = (string)Session["role"];
+            var username = (string)Session["username"];
+            var temp = (from t in db.topiks
+                        join d in db.dosens on t.NIK_pembimbing equals d.NIK
+                        where t.id_semester == idSemester
                         select new { t.id, t.judul, t.deskripsi, t.keterangan, d.nama, d.username }).ToList();
 
             List<TopikView> listResult = new List<TopikView>();
             foreach (var t in temp)
             {
-                TopikView x= new TopikView
+                TopikView x = new TopikView
                 {
-                    id=t.id,
+                    id = t.id,
                     judul = t.judul,
                     deskripsi = t.deskripsi,
                     keterangan = t.keterangan,
-                    pembimbing=t.nama
+                    pembimbing = t.nama
                 };
                 if (login == "dosen")
                 {
-                    if (username == t.username) {
+                    if (username == t.username)
+                    {
                         listResult.Add(x);
                     }
 
                 }
-                else { 
+                else
+                {
                     listResult.Add(x);
                 }
-                
+
             }
 
             return View(new GridModel<TopikView>
