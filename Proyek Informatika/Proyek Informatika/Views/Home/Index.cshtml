@@ -1,67 +1,16 @@
 ﻿@{
     ViewBag.Title = "Home Page";
-    var redirect = (string)Session["redirect"];
-    var login = (string)Session["role"];  
+    var role = (string)Session["role"];  
      
     
 }
-@if (redirect == "topik")
-{
-    var message = (string)Session["message"];
-    if (message == "insert")
-    { 
-    <script type="text/javascript">
-        alert("Registrasi topik berhasil!");      
-    </script>
-    }
-    else if (message == "update")
-    {
-    <script type="text/javascript">
-        alert("Edit topik berhasil!");      
-    </script>
-    }
-    
-    Session["message"] = "";
-    Session["redirect"] = "";
-    <script type="text/javascript">
-        $('#content').load('Home/TopikAdmin');
-    </script>
-}
-else if (redirect == "mahasiswa")
-{
-    var message = (string)Session["message"];
-    if (message == "insert")
-    { 
-    <script type="text/javascript">
-        alert("Registrasi mahasiswa berhasil!");      
-    </script>
-    }
-    else if (message == "update")
-    {
-    <script type="text/javascript">
-        alert("Edit berhasil!");      
-    </script>
-    }
-    
-    Session["message"] = "";
-    Session["redirect"] = "";
-    <script type="text/javascript">
-        $('#content').load('PendaftaranDosen/RegistrasiMahasiswa');
-    </script>
-}
-else if (login == "mahasiswa")
-{ 
-    <script type="text/javascript">
-        $('#content').load('Pengumuman/Pengumuman');
-    </script>
-}
-else if (login == "dosen")
+@if (role == "dosen")
 {
     <script type="text/javascript">
         $('#content').load('PengumumanDosen/Pengumuman');
     </script>    
 }
-else if (login == "koordinator")
+else if (role == "koordinator")
 {
     <script type="text/javascript">
         $('#content').load('PengumumanKoordinator/Pengumuman');

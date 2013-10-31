@@ -1,9 +1,26 @@
-﻿@model Proyek_Informatika.Models.TopikView
+﻿@model Proyek_Informatika.Models.TopikContainer
 @{
     ViewBag.Title = "Registrasi Mahasiswa";
 }
+<script type="text/javascript">
+    $(document).ready(function () {
+        $.post("PendaftaranDosen/GetTopik", "", function (data) {
+            var get = "";
+            $.each(data, function (index, value) {
+                get += "<option value='" + value.id + "'>" + value.judul + "</option>";
+            });
+            $("#mahsiswa-topik-1").html(get);
+        });
 
-<script type = "text/javascript">
+        //$.post("PendaftaranDosen/GetMahasiswa", "", function (data) {
+        //    var get = "";
+        //    $.each(data, function (index, value) {
+        //       get += "<option value='" + value.NPM + "'>" + value.NPM +" - " + value.nama + "</option>";
+        //    });
+        //    $("#mahsiswa-npm-2").html(get);
+        //});
+
+    });
 
     function onCommand(e) {
         if (e.name == "lihatDetail") {
@@ -13,7 +30,7 @@
             text += "<tr><td class='name'>Email</td><td>&nbsp:&nbsp</td><td>" + e.row.cells[3].innerHTML + "</td></tr>";
             text += "<tr><td class='name'>Telepon</td><td>&nbsp:&nbsp</td><td>" + e.row.cells[4].innerHTML + "</td></tr>";
             text += "<tr><td class='name'>Status</td><td>&nbsp:&nbsp</td><td>" + e.row.cells[5].innerHTML + "</td></tr>";
-            text += "<tr><td class='name'>Judul</td><td>&nbsp:&nbsp</td><td>" + e.row.cells[6].innerHTML + "</td></tr>";
+            text += "<tr><td class='name'>Topik</td><td>&nbsp:&nbsp</td><td>" + e.row.cells[6].innerHTML + "</td></tr>";
             text += "</table>";
             document.getElementById('detail').innerHTML = text;
             var windowZ = $("#mahasiswaDetail").data("tWindow");
@@ -28,33 +45,75 @@
         }
     }
 
-    $(function () {
-        $('#register')
-            .click(function (e) {
-                e.preventDefault();
-                $("#mahasiswaInsert").data('tWindow').center().open();
-            });
-    });
-
 </script>
-
 <div class="layer">
     <h1>
         Mahasiswa</h1>
-    @{var login = (string)Session["role"]; 
-        if (login == "dosen")
-        { 
-        <button id="register" class="t-button t-state-default">Registrasi Mahasiswa</button>
-        <br /><br />
-        }    
-    }    
+    <script type="text/javascript">
+        $("#insert-1").click(function () {
+            var values = {
+                NPM: $("#mahasiswa-npm-1").val(),
+                idTopik: $("#mahsiswa-topik-1").val()
+            };            
+            $.post("PendaftaranDosen/_InsertMahasiswa1", values, function (data) {
+                alert(data);
+            });
+            $('#content').load('PendaftaranDosen/RegistrasiMahasiswa');
+        })
+    </script>
+    <br />
+    <div>
+        <fieldset>
+            <legend>Registrasi Mahasiswa dengan Topik Baru</legend>
+            <div class="editor-label">
+                NPM Mahasiswa
+            </div>
+            <div class="editor-field">
+                <input id="mahasiswa-npm-1" name="npm-1" style="width: 500px;" type="text" value="" />
+                <br />
+            </div>
+            <div class="editor-label">
+                Topik
+            </div>
+            <div class="editor-field">
+                <select id="mahsiswa-topik-1" name="topik-1" class="t-input" style="width: 500px;">
+                    <option></option>
+                </select>
+                <br />
+            </div>
+            <br />
+            <input type="button" id="insert-1" value="Register" class="t-button t-state-default" />
+        </fieldset>
+    </div>
+    <!--<div style="width: 49%; float: right;">
+        <fieldset>
+            <legend>Registrasi Mahasiswa</legend>
+            <div class="editor-label">
+                NPM
+            </div>            
+            <div class="editor-field">
+                <select id="mahsiswa-npm-2" name="npm-2" class="t-input" style="width: 90%;">
+                    <option></option>
+                </select>
+                <br />
+            </div>
+            <div class="editor-field">
+                <input type="radio" checked="checked" name="mahasiswa-tipe" /> skripsi 2
+                <input type="radio" name="mahasiswa-tipe" /> ulang skripsi 1
+                <input type="radio" name="mahasiswa-tipe" /> ulang skripsi 2
+            </div>
+            <br />
+            <input type="button" id="insert-2" value="Register" class="t-button t-state-default" />
+        </fieldset>
+    </div>-->
+    <br />
     @{ 
         GridEditMode mode = GridEditMode.InLine;
         GridButtonType type = GridButtonType.Text;    
     }
-    @(Html.Telerik().Grid<Proyek_Informatika.Models.MahasiswaView>()
+    @(Html.Telerik().Grid<Proyek_Informatika.Models.MahasiswaContainer>()
         .HtmlAttributes(new { style = "width:100%" })
-        .Name("Mahasiswa")  
+        .Name("Mahasiswa")
         .DataKeys(keys =>
         {
             keys.Add(k => k.idSkripsi);
@@ -91,7 +150,6 @@
         .Selectable()
         .Groupable()
     )
-
     @(Html.Telerik().Window()
         .Name("mahasiswaDetail")
         .Title("Detail Mahasiswa")
@@ -100,7 +158,9 @@
         .Width(500)
         .Height(250)
         .Scrollable(true)
-        .Content(@<text> <p id="detail"></p></text>)
+        .Content(@<text>
+    <p id="detail">
+    </p></text>)
     )
     @(Html.Telerik().Window()
         .Name("mahasiswaUpdate")
@@ -112,20 +172,9 @@
         .Scrollable(true)
         .LoadContentFrom("MahasiswaUpdate", "PendaftaranDosen")
     )
-    @(Html.Telerik().Window()
-        .Name("mahasiswaInsert")
-        .Title("Registrasi")
-        .Visible(false)
-        .Modal(true)
-        .Width(500)
-        .Height(250)
-        .Scrollable(true)
-        .LoadContentFrom("MahasiswaInsert", "PendaftaranDosen")
-    )
 
     @section HeadContent {
-
-<style type="text/css">
+        <style type="text/css">
     /*--------------------validators--------------------*/
     .field-validation-error
     {
@@ -168,20 +217,20 @@
         width: 60%;
     }
 </style>
-}
-<style>
-    #detail table
-    {
-        width:100%;    
     }
-    td.name
-    {
-        width:25%;    
-    }
-    #detail table tr td
-    {
-        padding:5px;
-        vertical-align:top;    
-    }
-</style>
+    <style>
+        #detail table
+        {
+            width: 100%;
+        }
+        td.name
+        {
+            width: 25%;
+        }
+        #detail table tr td
+        {
+            padding: 5px;
+            vertical-align: top;
+        }
+    </style>
 </div>

@@ -20,7 +20,7 @@
 <div class="layer">
     <h1>
         Topik</h1>
-    @(Html.Telerik().Grid<Proyek_Informatika.Models.TopikView>()
+    @(Html.Telerik().Grid<Proyek_Informatika.Models.TopikContainer>()
         .HtmlAttributes(new { style = "width:100%" })
         .Name("Topik")
         .DataKeys(keys =>
@@ -28,7 +28,7 @@
             keys.Add(k => k.id);
         })
         .DataBinding(dataBinding => dataBinding.Ajax()
-            .Select("_SelectTopikView", "Home"))         
+            .Select("_SelectTopik", "Home"))         
         .Columns(columns =>
         {
             columns.Bound(c => c.id).Hidden();   

@@ -28,11 +28,6 @@ namespace Proyek_Informatika.Controllers.Dosen
             return PartialView();
         }
 
-        public ActionResult MahasiswaInsert()
-        {
-            return PartialView();
-        }
-
         public ActionResult MahasiswaUpdate()
         {
             return PartialView();
@@ -42,10 +37,43 @@ namespace Proyek_Informatika.Controllers.Dosen
 
         #region grid mahasiswa
 
+        [HttpPost]
+        public JsonResult GetTopik()
+        {
+            int idSemester = int.Parse(Session["id-semester"].ToString());
+            string username = (string)Session["username"];
+
+            var listResult = (from t in db.topiks
+                              join d in db.dosens on t.NIK_pembimbing equals d.NIK
+                              where t.id_semester == idSemester
+                              where t.keterangan == "tersedia"
+                              where d.username == username
+                              select new { t.id, t.judul }).ToList();
+
+            return Json(listResult);
+        }
+        public JsonResult GetMahasiswa()
+        {
+            int idSemester = int.Parse(Session["id-semester"].ToString());
+            string username = (string)Session["username"];
+
+            var listResult = (from m in db.mahasiswas
+                              join s in db.skripsis on m.NPM equals s.NPM_mahasiswa
+                              join d in db.dosens on s.NIK_dosen_pembimbing equals d.NIK
+                              where d.username == username
+                              where (idSemester - s.id_semester_pengambilan) <= 2 //maks cuti hanya 1 semester
+                              select new { m.NPM, m.nama }).ToList();
+
+            return Json(listResult);
+        }
+
         [AcceptVerbs(HttpVerbs.Post)]
         [GridAction]
-        public ActionResult MahasiswaInsert(MahasiswaView model)
+        public string _InsertMahasiswa1(MahasiswaContainer model)
         {
+            if(model.NPM ==null){
+                return "Registrasi mahasiswa gagal! \nField NPM harus diisi!";
+            }
             skripsi s = new skripsi();
             s.jenis = 1;
             s.pengambilan_ke = 1;
@@ -53,43 +81,33 @@ namespace Proyek_Informatika.Controllers.Dosen
             string username = (string)Session["username"];
             var d = db.dosens.Where(dosenTemp => dosenTemp.username == username).SingleOrDefault();
             s.NIK_dosen_pembimbing = d.NIK;
-
             s.id_semester_pengambilan = int.Parse(Session["id-semester"].ToString());
 
             //topik
-            var topik = db.topiks.Where(topikTemp => topikTemp.judul == model.judul).SingleOrDefault();
-            if (topik == null)
-            {
-                topik t = new topik();
-                t.NIK_pembimbing = d.NIK;
-                t.judul = model.judul;
-                t.keterangan = "tidak tersedia";
-                t.id_semester = s.id_semester_pengambilan;
-                if (TryUpdateModel(t))
-                {
-                    db.topiks.Add(t);
-                    db.SaveChanges();
-                }
-                topik = db.topiks.Where(topikTemp => topikTemp.judul == model.judul).SingleOrDefault();
-            }
+            var topik = db.topiks.Where(topikTemp => topikTemp.id == model.idTopik).SingleOrDefault();
             topik.keterangan = "tidak tersedia";
             s.id_topik = topik.id;
+            if (TryUpdateModel(topik))
+            {
+                //db.topiks.Add(topik);
+                db.SaveChanges();
+            }
 
             //mahasiswa
-            var mahasiswa = db.mahasiswas.Where(mahasiswaTemp => mahasiswaTemp.NPM == model.NPM).SingleOrDefault();
-            if (mahasiswa == null)
+            string result = "";
+            var mahasiswa = db.mahasiswas.Where(mahasiswaTemp => mahasiswaTemp.NPM == model.NPM);
+            if (mahasiswa.Count() == 0)
             {
                 mahasiswa m = new mahasiswa();
-                m.nama = model.NPM;
+                m.nama = " ";
                 m.email = model.NPM + "@student.unpar.ac.id";
-                //m.nomor_telepon = model.NPM;
-                //m.foto = "img";
 
                 var akun = db.akuns.Where(akunTemp => akunTemp.username == model.NPM).SingleOrDefault();
                 if (akun == null)
                 {
                     akun a = new akun();
                     a.username = model.NPM;
+                    result += "\nAkun baru untuk mahasiswa berhasil dibuat. \nusername : " + model.NPM + "\npassword : Password";
                     a.aktif = 1;
                     a.password = EncodePassword("Password");
                     a.peran = 3;
@@ -109,60 +127,49 @@ namespace Proyek_Informatika.Controllers.Dosen
                     db.mahasiswas.Add(m);
                     db.SaveChanges();
                 }
-                mahasiswa = db.mahasiswas.Where(mahasiswaTemp => mahasiswaTemp.NPM == model.NPM).SingleOrDefault();
+                mahasiswa = db.mahasiswas.Where(mahasiswaTemp => mahasiswaTemp.NPM == model.NPM);
             }
-            s.NPM_mahasiswa = mahasiswa.NPM;
+            s.NPM_mahasiswa = mahasiswa.SingleOrDefault().NPM;
 
             if (TryUpdateModel(s))
             {
                 db.skripsis.Add(s);
                 db.SaveChanges();
             }
-            Session["redirect"] = "mahasiswa";
-            Session["message"] = "insert";
-            return RedirectToAction("Index", "Home");
+            return "Registrasi berhasil! " + result;
         }
 
         [AcceptVerbs(HttpVerbs.Post)]
         [GridAction]
-        public ActionResult MahasiswaUpdate(MahasiswaView model)
+        public string _UpdateMahasiswa(MahasiswaContainer model)
         {
             skripsi s = db.skripsis.Where(skripsiTemp => skripsiTemp.id == model.idSkripsi).SingleOrDefault();
 
             //topik
-            var topik = db.topiks.Where(topikTemp => topikTemp.judul == model.judul).SingleOrDefault();
-            if (topik == null)
+            var topik = db.topiks.Where(topikTemp => topikTemp.id == s.id_topik).SingleOrDefault();
+            topik.judul = model.judul;
+
+            if (TryUpdateModel(topik))
             {
-                topik t = new topik();
-                t.NIK_pembimbing = s.NIK_dosen_pembimbing;
-                t.judul = model.judul;
-                t.keterangan = "tidak tersedia";
-                t.id_semester = s.id_semester_pengambilan;
-                if (TryUpdateModel(t))
-                {
-                    db.topiks.Add(t);
-                    db.SaveChanges();
-                }
-                topik = db.topiks.Where(topikTemp => topikTemp.judul == model.judul).SingleOrDefault();
+                //db.topiks.Add(topik);
+                db.SaveChanges();
             }
-            topik.keterangan = "tidak tersedia";
-            s.id_topik = topik.id;
 
             //mahasiswa
-            var mahasiswa = db.mahasiswas.Where(mahasiswaTemp => mahasiswaTemp.NPM == model.NPM).SingleOrDefault();
-            if (mahasiswa == null)
+            string result = "";
+            var mahasiswa = db.mahasiswas.Where(mahasiswaTemp => mahasiswaTemp.NPM == model.NPM);
+            if (mahasiswa.Count() == 0)
             {
                 mahasiswa m = new mahasiswa();
-                m.nama = model.NPM;
+                m.nama = " ";
                 m.email = model.NPM + "@student.unpar.ac.id";
-                //m.nomor_telepon = model.NPM;
-                //m.foto = "img";
 
                 var akun = db.akuns.Where(akunTemp => akunTemp.username == model.NPM).SingleOrDefault();
                 if (akun == null)
                 {
                     akun a = new akun();
                     a.username = model.NPM;
+                    result += "\nAkun baru untuk mahasiswa berhasil dibuat. \nusername : " + model.NPM + "\npassword : Password";
                     a.aktif = 1;
                     a.password = EncodePassword("Password");
                     a.peran = 3;
@@ -182,19 +189,17 @@ namespace Proyek_Informatika.Controllers.Dosen
                     db.mahasiswas.Add(m);
                     db.SaveChanges();
                 }
-                mahasiswa = db.mahasiswas.Where(mahasiswaTemp => mahasiswaTemp.NPM == model.NPM).SingleOrDefault();
+                mahasiswa = db.mahasiswas.Where(mahasiswaTemp => mahasiswaTemp.NPM == model.NPM);
             }
-            s.NPM_mahasiswa = mahasiswa.NPM;
-
+            s.NPM_mahasiswa = mahasiswa.SingleOrDefault().NPM;
+            
             if (TryUpdateModel(s))
             {
-                db.skripsis.Add(s);
+                //db.skripsis.Add(s);
                 db.Entry(s).State = EntityState.Modified;
                 db.SaveChanges();
             }
-            Session["redirect"] = "mahasiswa";
-            Session["message"] = "update";
-            return RedirectToAction("Index", "Home");
+            return "Edit berhasil!";
         }
 
         [GridAction]
@@ -222,31 +227,31 @@ namespace Proyek_Informatika.Controllers.Dosen
             int idSemester = int.Parse(Session["id-semester"].ToString());
             var login = (string)Session["role"];
             var username = (string)Session["username"];
-            List<MahasiswaView> listResult = (from m in db.mahasiswas
-                                              join s in db.skripsis on m.NPM equals s.NPM_mahasiswa
-                                              join t in db.topiks on s.id_topik equals t.id
-                                              join d in db.dosens on t.NIK_pembimbing equals d.NIK
-                                              join x in db.semesters on s.id_semester_pengambilan equals x.id
-                                              where d.username == username
-                                              where s.id_semester_pengambilan == idSemester
-                                              select new MahasiswaView
-                                              {
-                                                  NPM = m.NPM,
-                                                  namaMahasiswa = m.nama,
-                                                  emailMahasiswa = m.email,
-                                                  teleponMahasiswa = m.nomor_telepon,
-                                                  status = m.status,
-                                                  idSkripsi = s.id,
-                                                  //idTopik = t.id,                                                  
-                                                  judul = t.judul,
-                                                  NIK = d.NIK,
-                                                  //namaDosen = d.nama,
-                                                  //emailDosen = d.email,
-                                                  //idSemester = t.id_semester,
-                                                  semester = x.periode_semester
-                                              }).ToList();
+            List<MahasiswaContainer> listResult = (from m in db.mahasiswas
+                                                   join s in db.skripsis on m.NPM equals s.NPM_mahasiswa
+                                                   join t in db.topiks on s.id_topik equals t.id
+                                                   join d in db.dosens on t.NIK_pembimbing equals d.NIK
+                                                   join x in db.semesters on s.id_semester_pengambilan equals x.id
+                                                   where d.username == username
+                                                   where s.id_semester_pengambilan == idSemester
+                                                   select new MahasiswaContainer
+                                                   {
+                                                       NPM = m.NPM,
+                                                       namaMahasiswa = m.nama,
+                                                       emailMahasiswa = m.email,
+                                                       teleponMahasiswa = m.nomor_telepon,
+                                                       status = m.status,
+                                                       idSkripsi = s.id,
+                                                       //idTopik = t.id,                                                  
+                                                       judul = t.judul,
+                                                       NIK = d.NIK,
+                                                       //namaDosen = d.nama,
+                                                       //emailDosen = d.email,
+                                                       //idSemester = t.id_semester,
+                                                       semester = x.periode_semester
+                                                   }).ToList();
 
-            return View(new GridModel<MahasiswaView>
+            return View(new GridModel<MahasiswaContainer>
             {
                 Data = listResult
             });

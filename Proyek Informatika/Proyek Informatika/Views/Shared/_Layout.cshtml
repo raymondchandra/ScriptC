@@ -45,8 +45,8 @@
         <div id="main">
             <div id="navigator">
                 @{  
-                    var login = (string)Session["role"];
-                    if (login == "mahasiswa")
+                    var role = (string)Session["role"];
+                    if (role == "mahasiswa")
                     {               //login mahasiswa
                     <text>
                     @(Html.Telerik().Menu()
@@ -77,7 +77,7 @@
                             )
                     </text>
                     }
-                    else if (login == "dosen")
+                    else if (role == "dosen")
                     {          //login dosen
                     <text>
                     @(Html.Telerik().Menu()
@@ -117,7 +117,7 @@
                             )
                     </text>
                     }
-                    else if (login == "koordinator")
+                    else if (role == "koordinator")
                     {         //login koordinator
                     <text>
                     @(Html.Telerik().Menu()

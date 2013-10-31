@@ -7,15 +7,17 @@ using System.Web.Security;
 
 namespace Proyek_Informatika.Models
 {
-    public class MahasiswaView
+    public class MahasiswaContainer
     {
+        [Display(Name = "NPM Mahasiswa")]
         public string NPM { get; set; }
         public string namaMahasiswa { get; set; }
         public string emailMahasiswa { get; set; }
         public string teleponMahasiswa { get; set; }
         public string status { get; set; }
         public int idSkripsi { get; set; }
-        //public int idTopik { get; set; }
+        public int idTopik { get; set; }
+        [Display(Name = "Topik")]
         public string judul { get; set; }
         public string NIK { get; set; }
         //public string namaDosen { get; set; }

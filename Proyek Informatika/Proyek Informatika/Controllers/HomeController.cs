@@ -19,7 +19,7 @@ namespace Proyek_Informatika.Controllers
             List<int> temp = (from s in db.semesters
                               select s.id).ToList();
             int max = temp.Max();
-            semester x = db.semesters.Where(semesterTemp => semesterTemp.id == max).SingleOrDefault();
+            semester x = db.semesters.Where(semesterTemp => semesterTemp.id == max).First();
             Session["id-semester"] = x.id;
             Session["semester"] = x.periode_semester;
             return View();
@@ -40,10 +40,6 @@ namespace Proyek_Informatika.Controllers
             return PartialView();
         }
 
-        public ActionResult TopikInsert()
-        {
-            return PartialView();
-        }
         public ActionResult TopikUpdate()
         {
             return PartialView();
@@ -54,54 +50,68 @@ namespace Proyek_Informatika.Controllers
 
         [AcceptVerbs(HttpVerbs.Post)]
         [GridAction]
-        public ActionResult TopikInsert(TopikView model)
+        public string _InsertTopik(TopikContainer model)
         {
-            string username = (string)Session["username"];
-            var dosen = db.dosens.Where(dosenTemp => dosenTemp.username == username).SingleOrDefault();
-            topik t = new topik();
-            t.NIK_pembimbing = dosen.NIK;
-            t.judul = model.judul;
-            t.deskripsi = model.deskripsi;
-            t.keterangan = "tersedia";
-            t.id_semester = int.Parse(Session["id-semester"].ToString());
-            if (TryUpdateModel(t))
+            //validasi
+            if (model.judul == null || model.judul == "")
             {
-                db.topiks.Add(t);
+                return "Registrasi topik gagal! \nField judul harus diisi!";
+            }
+            var temp = db.topiks.Where(t => t.judul == model.judul).SingleOrDefault();
+            if (temp != null)
+            {
+                return "Registrasi topik gagal! \nAda topik lain dengna judul yang sama!";
+            }
+
+            //insert
+            topik tpk = new topik();
+            string username = (string)Session["username"];
+            tpk.NIK_pembimbing = (db.dosens.Where(dosenTemp => dosenTemp.username == username).First()).NIK;
+            tpk.judul = model.judul;
+            tpk.deskripsi = model.deskripsi;
+            tpk.keterangan = "tersedia";
+            tpk.id_semester = int.Parse(Session["id-semester"].ToString());
+            if (TryUpdateModel(tpk))
+            {
+                db.topiks.Add(tpk);
                 db.SaveChanges();
             }
-            Session["redirect"] = "topik";
-            Session["message"] = "insert";
-            return RedirectToAction("Index", "Home");
+            return "Registrasi topik berhasil!";
         }
 
         [AcceptVerbs(HttpVerbs.Post)]
         [GridAction]
-        public ActionResult TopikUpdate(TopikView model)
+        public string _UpdateTopik(TopikContainer model)
         {
-            var t = db.topiks.Where(topikTemp => topikTemp.id == model.id).SingleOrDefault();
-            t.judul = model.judul;
-            t.deskripsi = model.deskripsi;
-            t.keterangan = model.keterangan;
-            TryUpdateModel(t);
-            db.Entry(t).State = EntityState.Modified;
-            db.SaveChanges();
-            Session["redirect"] = "topik";
-            Session["message"] = "update";
-            return RedirectToAction("Index", "Home");
+            var temp = db.topiks.Where(t => t.judul == model.judul).SingleOrDefault();
+            if (temp != null && temp.id != model.id)
+            {
+                return "Edit topik gagal! \nAda topik lain dengna judul yang sama!";
+            }
+
+            //update
+            topik tpk = db.topiks.Where(topikTemp => topikTemp.id == model.id).First();
+            tpk.judul = model.judul;
+            tpk.deskripsi = model.deskripsi;
+            if (TryUpdateModel(tpk))
+            {
+                //db.topiks.Add(topik);
+                db.SaveChanges();
+            }
+            return "Edit topik berhasil!";
         }
 
         [GridAction]
-        public ActionResult _SelectTopikView()
+        public ActionResult _SelectTopik()
         {
             return bindingTable();
         }
 
-
         [AcceptVerbs(HttpVerbs.Post)]
         [GridAction]
-        public ActionResult _DeleteTopikView(int id)
+        public ActionResult _DeleteTopik(int id)
         {
-            var t = db.topiks.Where(topikTemp => topikTemp.id == id).SingleOrDefault();
+            var t = db.topiks.Where(topikTemp => topikTemp.id == id).First();
             db.topiks.Remove(t);
             db.SaveChanges();
             return bindingTable();
@@ -110,77 +120,41 @@ namespace Proyek_Informatika.Controllers
         protected ViewResult bindingTable()
         {
             int idSemester = int.Parse(Session["id-semester"].ToString());
-            var login = (string)Session["role"];
-            var username = (string)Session["username"];
-            var temp = (from t in db.topiks
-                        join d in db.dosens on t.NIK_pembimbing equals d.NIK
-                        where t.id_semester == idSemester
-                        select new { t.id, t.judul, t.deskripsi, t.keterangan, d.nama, d.username }).ToList();
+            string role = (string)Session["role"];
+            string username = (string)Session["username"];
 
-            List<TopikView> listResult = new List<TopikView>();
-            foreach (var t in temp)
+            List<TopikContainer> listResult;
+            if (role == null || role == "")
             {
-                TopikView x = new TopikView
-                {
-                    id = t.id,
-                    judul = t.judul,
-                    deskripsi = t.deskripsi,
-                    keterangan = t.keterangan,
-                    pembimbing = t.nama
-                };
-                if (login == "dosen")
-                {
-                    if (username == t.username)
-                    {
-                        listResult.Add(x);
-                    }
-
-                }
-                else
-                {
-                    listResult.Add(x);
-                }
-
+                listResult = (from t in db.topiks
+                              join d in db.dosens on t.NIK_pembimbing equals d.NIK
+                              where t.id_semester == idSemester
+                              select new TopikContainer { id = t.id, judul = t.judul, deskripsi = t.deskripsi, keterangan = t.keterangan, pembimbing = d.nama }).ToList();
+            }
+            else if (role.ToLower().Equals("dosen"))
+            {
+                listResult = (from t in db.topiks
+                              join d in db.dosens on t.NIK_pembimbing equals d.NIK
+                              where t.id_semester == idSemester
+                              where t.keterangan == "tersedia"
+                              where d.username == username
+                              select new TopikContainer { id = t.id, judul = t.judul, deskripsi = t.deskripsi, keterangan = t.keterangan, pembimbing = d.nama }).ToList();
+            }
+            else //koordinator
+            {
+                listResult = (from t in db.topiks
+                              join d in db.dosens on t.NIK_pembimbing equals d.NIK
+                              where t.id_semester == idSemester
+                              where t.keterangan == "tersedia"
+                              select new TopikContainer { id = t.id, judul = t.judul, deskripsi = t.deskripsi, keterangan = t.keterangan, pembimbing = d.nama }).ToList();
             }
 
-            return View(new GridModel<TopikView>
+
+            return View(new GridModel<TopikContainer>
             {
                 Data = listResult
             });
-
-
-
-            //if ((string)Session["role"] == "koordinator")
-            //{
-            //    var listResult = (from table in db.topiks
-            //                      select table).ToList();
-            //    return View(new GridModel<topik>
-            //    {
-            //        Data = listResult
-            //    });
-            //}
-            //else if ((string)Session["role"] == "dosen")
-            //{
-            //string username = (string)Session["username"];
-            //string nik = (db.dosens.Where(dosenTemp => dosenTemp.username == username).SingleOrDefault()).NIK;
-
-
         }
-
-
-
-        //}
-        //else
-        //{                              
-        //    var listResult = (from table in db.topiks
-        //                        where (table.keterangan != "belum disetujui")
-        //                        select table).ToList();
-        //    return View(new GridModel<topik>
-        //    {
-        //        Data = listResult
-        //    });
-        //}
-
     }
         #endregion
 

@@ -1,9 +1,21 @@
-﻿@model Proyek_Informatika.Models.MahasiswaView
+﻿@model Proyek_Informatika.Models.MahasiswaContainer
 @{
     ViewBag.Title = "Topik";
 }
+<script type="text/javascript">
+    $("#save").click(function () {
+        var values = {
+            NPM: $("#NPM").val(),
+            judul: $("#judul").val(),
+            idSkripsi: $("#idSkripsi").val()
+        };
+        $.post("PendaftaranDosen/_UpdateMahasiswa", values, function (data) {
+            alert(data);
+        });
+        $('#content').load('PendaftaranDosen/RegistrasiMahasiswa');
+    })
+</script>
 
-    @Html.ValidationSummary(true, "Registrasi mahasiswa tidak berhasil. Tolong perbaiki kesalahan dan coba lagi.")
     @using (Html.BeginForm())
     {
         <br/>
@@ -24,7 +36,7 @@
                     @Html.TextBoxFor(m => m.judul, new { style = "width:100%;" })
                     <br />@Html.ValidationMessageFor(m => m.judul)<br />
                 </div>                
-                    <br /><input type="submit" value="Save" class="t-button t-state-default"/>  
+                    <input type="button" id="save" value="Save" class="t-button t-state-default"/>  
                 <div class="editor-field">
                     @Html.HiddenFor(m => m.idSkripsi)
                 </div>  

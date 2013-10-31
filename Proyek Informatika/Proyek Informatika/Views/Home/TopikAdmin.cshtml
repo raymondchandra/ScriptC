@@ -1,9 +1,7 @@
-﻿@model Proyek_Informatika.Models.TopikView
-@{
+﻿@{
     ViewBag.Title = "Topik";
 }
-
-<script type = "text/javascript">
+<script type="text/javascript">
 
     function onCommand(e) {
         if (e.name == "lihatDetail") {
@@ -21,49 +19,76 @@
             document.getElementById("id").value = e.row.cells[0].innerHTML;
             document.getElementById("judul").value = e.row.cells[1].innerHTML;
             document.getElementById("deskripsi").value = e.row.cells[2].innerHTML;
-            document.getElementById("keterangan").value = e.row.cells[4].innerHTML;
             var windowZ = $("#topikUpdate").data("tWindow");
             windowZ.center().open();
         }
     }
 
-    $(function() {
-        $('#register')
-            .click(function (e) {
-            e.preventDefault();
-            $("#topikInsert").data('tWindow').center().open();
-        });
-    });
 
 </script>
-
 <div class="layer">
     <h1>
         Topik</h1>
-    @{var login = (string)Session["role"]; 
-        if (login == "dosen")
-        { 
-        <button id="register" class="t-button t-state-default">Registrasi Topik</button>
-        <br /><br />
-        }    
-    }    
+    @{var login = (string)Session["role"];
+      if (login == "dosen")
+      { 
+            
+        <script type="text/javascript">
+            $("#insert").click(function () {
+                var values = {
+                    judul: $("#topik-judul").val(),
+                    deskripsi: $("#topik-deskripsi").val()
+                };
+                $.post("Home/_InsertTopik", values, function (data) {
+                    alert(data);
+                });
+                $('#content').load('Home/TopikAdmin');
+            })
+        </script>
+
+        <br />
+        <div>
+            <fieldset>
+                <legend>Registrasi Topik</legend>
+                <div class="editor-label">
+                    Topik
+                </div>
+                <div class="editor-field">
+                    <input id="topik-judul" name="judul" style="width: 500px;" type="text" value="" />
+                    <br />
+                </div>
+                <div class="editor-label">
+                    Deskripsi
+                </div>
+                <div class="editor-field">
+                    <textarea cols="20" id="topik-deskripsi" name="deskripsi" rows="2" style="width: 500px;
+                        height: 150px"></textarea><br />
+                </div>
+                <br />
+                <input type="button" id="insert" value="Register" class="t-button t-state-default" />
+            </fieldset>
+        </div>
+
+        <br />
+      }    
+    }
     @{ 
         GridEditMode mode = GridEditMode.InLine;
         GridButtonType type = GridButtonType.Text;    
     }
-    @(Html.Telerik().Grid<Proyek_Informatika.Models.TopikView>()
+    @(Html.Telerik().Grid<Proyek_Informatika.Models.TopikContainer>()
         .HtmlAttributes(new { style = "width:100%" })
-        .Name("Topik")  
+        .Name("topik")
         .DataKeys(keys =>
         {
             keys.Add(k => k.id);
         })
         .DataBinding(dataBinding => dataBinding.Ajax()
-            .Select("_SelectTopikView", "Home")
-            .Delete("_DeleteTopikView", "Home"))
+            .Select("_SelectTopik", "Home")
+            .Delete("_DeleteTopik", "Home"))
         .Columns(columns =>
         {
-            columns.Bound(c => c.id).Hidden();  
+            columns.Bound(c => c.id).Hidden();
             columns.Bound(c => c.judul).Width(300).Title("Topik");
             columns.Bound(c => c.deskripsi).Hidden();
             columns.Bound(c => c.pembimbing).Width(180).Title("Pembimbing");
@@ -88,7 +113,6 @@
         .Selectable()
         .Groupable()
     )
-
     @(Html.Telerik().Window()
         .Name("topikDetail")
         .Title("Detail Topik")
@@ -97,7 +121,9 @@
         .Width(500)
         .Height(250)
         .Scrollable(true)
-        .Content(@<text> <p id="detail"></p></text>)
+        .Content(@<text>
+    <p id="detail">
+    </p></text>)
     )
     @(Html.Telerik().Window()
         .Name("topikUpdate")
@@ -105,24 +131,12 @@
         .Visible(false)
         .Modal(true)
         .Width(500)
-        .Height(500)
+        .Height(375)
         .Scrollable(true)
         .LoadContentFrom("TopikUpdate", "Home")
     )
-    @(Html.Telerik().Window()
-        .Name("topikInsert")
-        .Title("Registrasi Topik")
-        .Visible(false)
-        .Modal(true)
-        .Width(500)
-        .Height(450)
-        .Scrollable(true)
-        .LoadContentFrom("TopikInsert", "Home")
-    )
-
     @section HeadContent {
-
-<style type="text/css">
+        <style type="text/css">
     /*--------------------validators--------------------*/
     .field-validation-error
     {
@@ -165,20 +179,20 @@
         width: 60%;
     }
 </style>
-}
-<style>
-    #detail table
-    {
-        width:100%;    
     }
-    td.name
-    {
-        width:25%;    
-    }
-    #detail table tr td
-    {
-        padding:5px;
-        vertical-align:top;    
-    }
-</style>
+    <style>
+        #detail table
+        {
+            width: 100%;
+        }
+        td.name
+        {
+            width: 25%;
+        }
+        #detail table tr td
+        {
+            padding: 5px;
+            vertical-align: top;
+        }
+    </style>
 </div>
