@@ -16,9 +16,14 @@ namespace Proyek_Informatika.Models
     {
         public int id { get; set; }
         public System.DateTime tanggal { get; set; }
-        public Nullable<int> ruang { get; set; }
+        public int ruang { get; set; }
         public int id_skripsi { get; set; }
+        public string description { get; set; }
+        public string penguji1 { get; set; }
+        public string penguji2 { get; set; }
     
+        public virtual dosen dosen { get; set; }
+        public virtual dosen dosen1 { get; set; }
         public virtual ruang ruang1 { get; set; }
         public virtual skripsi skripsi { get; set; }
     }

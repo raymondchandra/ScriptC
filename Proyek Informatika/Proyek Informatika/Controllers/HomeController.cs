@@ -16,12 +16,9 @@ namespace Proyek_Informatika.Controllers
         #region view
         public ActionResult Index()
         {
-            List<int> temp = (from s in db.semesters
-                              select s.id).ToList();
-            int max = temp.Max();
-            semester x = db.semesters.Where(semesterTemp => semesterTemp.id == max).First();
+            semester x = db.semesters.Where(semesterTemp => semesterTemp.isCurrent == 1).SingleOrDefault();
             Session["id-semester"] = x.id;
-            Session["semester"] = x.periode_semester;
+            ViewBag.semester = x.periode_semester;
             return View();
         }
 

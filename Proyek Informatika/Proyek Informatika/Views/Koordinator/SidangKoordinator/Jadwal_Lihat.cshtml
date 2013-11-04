@@ -3,26 +3,31 @@
 
     $(document).ready(function () {
 
-        $.post("SidangKoordinator/GetPeriodeSemester", "", function (data) {
+        $.post("Query/GetPeriodeSemester", "", function (data) {
             var get = "";
             $.each(data, function (index, value) {
-                get += "<option value='" + value.periode + "'>" + value.periode + "</option>";
+                get += "<option value='" + value.id + "'>" + value.periode + "</option>";
             });
             $("#selSemester").html(get);
         });
-        $("#selSemester").val("Ganjil 2013/2014")
+
         $("#selSemester").bind("change", function () {
-            $.post("SidangKoordinator/Jadwal_Lihat_Kalender", { periode: $("#selSemester").val(), tipe:$("#tipeSidang").val() }, function (data) {
+            $.post("SidangKoordinator/Jadwal_Lihat_Kalender", { periode: $("#selSemester").val(), tipe: $("#tipeSidang").val() }, function (data) {
                 $("#jadwal").html(data);
             });
         });
+
         $("#tipeSidang").bind("change", function () {
-            $.post("SidangKoordinator/Jadwal_Lihat_Kalender", { periode: $("#selSemester").val(), tipe:$("#tipeSidang").val() }, function (data) {
+            $.post("SidangKoordinator/Jadwal_Lihat_Kalender", { periode: $("#selSemester").val(), tipe: $("#tipeSidang").val() }, function (data) {
                 $("#jadwal").html(data);
             });
         });
-        $.post("SidangKoordinator/Jadwal_Lihat_Kalender", { periode: $("#selSemester").val(), tipe: $("#tipeSidang").val() }, function (data) {
-            $("#jadwal").html(data);
+
+        $.post("Query/GetCurrentSemester", "", function (data) {
+            $("#selSemester").val(data);
+            $.post("SidangKoordinator/Jadwal_Lihat_Kalender", { periode: $("#selSemester").val(), tipe: $("#tipeSidang").val() }, function (data) {
+                $("#jadwal").html(data);
+            });
         });
     });
 </script>

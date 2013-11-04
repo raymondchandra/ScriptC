@@ -3,52 +3,72 @@
         if (e.name == "Edit") {
             var detailWindow = $("#editPopUp").data("tWindow");
             detailWindow.center().open();
+            $("#npm-label").html(e.response.npm);
+            $("#nama-label").html(e.response.nama);
+            $("#pembimbing-label").html(e.response.pembimbing);
+            init();
+        } else if(e.name=="Reset"){
+            alert("hahahahaha");
         }
     }
 </script>
 
 <h3>Penempatan Mahasiswa</h3>
-@(Html.Telerik().Grid<Proyek_Informatika.Models.ruang>()
-    .HtmlAttributes(new { style = "width:100%" })
-    .Name("PengaturanJadwal")
-    .DataKeys(keys =>
+@{
+    if (ViewBag.show)
     {
-        keys.Add(p => p.id);
-    })
-    .DataBinding(dataBinding =>
-    {
-        dataBinding.Ajax()
-            .Select("_SelectJadwalSidang", "SidangKoordinator")
-            .Update("_SelectJadwalSidang", "SidangKoordinator");
-    })
-    .Columns(columns =>
-    {
-        //columns.Bound(o => o.i).Width(150).Title("NPM");
-        //columns.Bound(o => o.skripsi.mahasiswa).Width(150).Title("Mahasiswa");
-        //columns.Bound(o => o.tanggal).Width(150).Title("Tanggal & Waktu");
-        //columns.Bound(o => o.ruang).Width(150).Title("Ruang");
-        //columns.Bound(o => o.ruang).Width(150).Title("Pembimbing");
-        columns.Bound(o => o.nama_ruang).Width(150).Title("Tes2")
-            .ClientTemplate("<input type='checkbox' disabled='disabled' name='Active'  checked='checked' />");
-        columns.Bound(o => o.nama_ruang); // <--- DropList Here
-            
-        columns.Command(commands => commands.Custom("Edit")
-            .Text("Lihat File")
-            .Ajax(true)).Width(100);
-    })
-    .ClientEvents(events => events.OnCommand("actionButton"))
-    .Pageable(p => p.PageSize(15))
-    .Sortable()
-    .Filterable()
-    .Scrollable(c => c.Enabled(true))
-    .Selectable()
-    .Groupable()
-)
+        <text>
+        @(Html.Telerik().Grid<Proyek_Informatika.Models.mahasiswa>()
+            .HtmlAttributes(new { style = "width:100%" })
+            .Name("PengaturanJadwal")
+            .DataKeys(keys =>
+            {
+                keys.Add(p => p.NPM);
+            })
+            .DataBinding(dataBinding =>
+            {
+                dataBinding.Ajax()
+                    .Select("_SelectJadwalSidang", "SidangKoordinator", new { skripsi = 1});
+            })
+            .Columns(columns =>
+            {
+                columns.Bound(o => o.NPM).Width(150).Title("NPM");
+                columns.Bound(o => o.nama).Width(150).Title("Nama");
+                columns.Command(commands => {
+                    commands.Custom("Edit")
+                            .Text("Edit")
+                            .DataRouteValues(route => route.Add(o => o.NPM).RouteKey("npm"))
+                            .Ajax(true)
+                            .Action("ViewDetails", "SidangKoordinator");
+                    commands.Custom("Reset")
+                            .Text("Reset")
+                            .DataRouteValues(route => route.Add(o => o.NPM).RouteKey("npm"))
+                            .Ajax(true)
+                            .Action("ResetPenempatan", "SidangKoordinator");
+                    }).HtmlAttributes(new { style = "text-align: center" }).Width(150).Title("Commands");
+            })
+            .ClientEvents(events => events.OnComplete("actionButton"))
+            .Pageable(p => p.PageSize(15))
+            .Sortable()
+            .Filterable()
+            .Scrollable(c => c.Enabled(true))
+            .Selectable()
+            .Groupable()
+        )
 
-@(Html.Telerik().Window()
-    .Name("editPopUp")
-    .Visible(false)
-    .Title("Penentuan Jadwal Sidang")
-    .Modal(true)
-    .Scrollable(true)
-    .LoadContentFrom("PengaturanJadwalPopUp","SidangKoordinator"))
+        @(Html.Telerik().Window()
+            .Name("editPopUp")
+            .Visible(false)
+            .Title("Penentuan Jadwal Sidang")
+            .Modal(true)
+            .Scrollable(true)
+            .LoadContentFrom("Jadwal_Penempatan_PopUp", "SidangKoordinator"))
+        </text>   
+    }else{
+        <text>
+            <p>
+                Tidak bs menempatkan di bukan semester.. blablaballallala
+            </p>
+        </text> 
+    }
+}

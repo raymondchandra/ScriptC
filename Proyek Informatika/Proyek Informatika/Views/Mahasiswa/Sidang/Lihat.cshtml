@@ -1,1 +1,29 @@
 ﻿
+<script type="text/javascript" charset="utf-8">
+    var current;
+    $(document).ready(function () {
+        $("#tipeSidang").bind("change", function () {
+            $.post("SidangKoordinator/Jadwal_Lihat_Kalender", { periode: current, tipe: $("#tipeSidang").val() }, function (data) {
+                $("#jadwal").html(data);
+            });
+        });
+        $.post("Query/GetCurrentSemester", "", function (data) {
+            current = data;
+            $.post("SidangKoordinator/Jadwal_Lihat_Kalender", { periode: data, tipe: $("#tipeSidang").val() }, function (data) {
+                $("#jadwal").html(data);
+            });
+        });
+    });
+</script>
+
+<div class="layer">
+    <h1>Lihat Jadwal Sidang</h1>
+    <span>Periode Semester :</span>
+    <span>Tipe Sidang</span>
+    <select id="tipeSidang">
+        <option>Presentasi</option>
+        <option>Akhir</option>
+    </select><br />
+    <div id="jadwal"></div>
+</div>
+

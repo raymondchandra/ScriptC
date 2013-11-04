@@ -2,15 +2,16 @@
 <script type="text/javascript">
     $(document).ready(function () {
 
-        $.post("SidangKoordinator/GetPeriodeSemester", "", function (data) {
+        $.post("Query/GetPeriodeSemester", "", function (data) {
             var get = "";
             $.each(data, function (index, value) {
                 get += "<option value='" + value.periode + "'>" + value.periode + "</option>";
             });
             $("#selSemester").html(get);
-//--------------------
-//pilih yang iscurrent
-//--------------------
+        });
+        $.post("Query/GetSemesterName", {id: @Session["id-semester"].ToString() }, function (data) {
+            
+            $("#selSemester").val(data);
         });
         $("#selSemester").bind("change", function () {
             $("#sidangContent").html("");
@@ -18,12 +19,12 @@
     });
 
     function onSelect(e) {
-        $.post("SidangKoordinator/GetSemesterId", { periode: $("#selSemester").val() }, function (data) {
+        $.post("Query/GetSemesterId", { periode: $("#selSemester").val() }, function (data) {
             var item = $(e.item).find('> .t-link').text();
             if (item == "Skripsi 1") {
-                $('#sidangContent').load('SidangKoordinator/Jadwal_Penempatan1');
+                $('#sidangContent').load('SidangKoordinator/Jadwal_Penempatan1?semester_id=' + data);
             } else if (item == "Skripsi 2") {
-                $('#sidangContent').load('SidangKoordinator/Jadwal_Penempatan2');
+                $('#sidangContent').load('SidangKoordinator/Jadwal_Penempatan2?semester_id=' + data);
             } else if (item == "Pengaturan Umum") {
                 $('#sidangContent').load('SidangKoordinator/Jadwal_Pengaturan?semester_id=' + data);
             }

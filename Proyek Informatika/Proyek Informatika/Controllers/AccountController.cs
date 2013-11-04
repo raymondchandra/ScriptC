@@ -73,6 +73,7 @@ namespace Proyek_Informatika.Controllers
             }
                 Session["role"] = null;
                 Session["username"] = null;
+                Session["id-skripsi"] = null;
                 FormsAuthentication.SignOut();
             
             return RedirectToAction("Index", "Home");
@@ -90,6 +91,17 @@ namespace Proyek_Informatika.Controllers
                     peran p = db.perans.Where(peranTemp => peranTemp.id == a.peran).SingleOrDefault();
                     Session["role"] = p.nama_peran;
                     Session["username"] = a.username;
+                    if(p.nama_peran == "mahasiswa"){
+                        var idSemester = int.Parse(Session["id-semester"].ToString());
+                        var temp = (from table in db.skripsis
+                                    join table2 in db.mahasiswas on table.NPM_mahasiswa equals table2.NPM
+                                    where (table.id_semester_pengambilan == idSemester)
+                                    select table.id).ToList();
+                        if (temp.Count == 1)
+                        {
+                            Session["id-skripsi"] = temp.SingleOrDefault();
+                        }
+                    }
                     return true;
                 }
                 return false;

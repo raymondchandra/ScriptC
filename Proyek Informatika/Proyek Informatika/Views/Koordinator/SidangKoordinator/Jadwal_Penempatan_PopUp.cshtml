@@ -1,0 +1,205 @@
+﻿<script>
+
+    $("#buttonSimpan").click(function () {
+        //validasi trus simpan jadwal
+        var radio = document.getElementsByName("modeJadwal");
+        if ($("#radio_1").is(":checked")) {
+
+            var values = {
+                npm: $("#npm-label").html(),
+                tanggal: $("#waktuManual").val(),
+                ruang: $("#ruangManual").val(),
+                penguji1: $("#penguji1Manual").val(),
+                penguji2: $("#penguji2Manual").val(),
+                deskripsi: $("#deskripsi").html()
+            };
+            $.post("SidangKoordinator/SimpanJadwal", values, function (data) {
+                if (data == "True") {
+                    alert("Data berhasil diubah.");
+                } else {
+                    alert("Data tidak berhasil diubah.");
+                }
+            });
+        } else {
+            alert("def");
+        }
+    });
+    function init() {
+        $("#radio_1").prop('checked', true);
+        $.post("Query/GetDosenList", "", function (data) {
+            var get = "";
+            $.each(data, function (index, value) {
+                if (value.nama != $("#pembimbing-label").html()) {
+                    get += "<option value='" + value.NIK + "'>" + value.nama + "</option>";
+                }
+
+            });
+            $("#selPenguji").html(get);
+            $("#penguji1Manual").html(get);
+            $("#penguji2Manual").html(get);
+        });
+
+        $.post("SidangKoordinator/GetRuangSidang", "", function (data) {
+            var get = "";
+            $.each(data, function (index, value) {
+                get += "<option value='" + value.id + "'>" + value.nama_ruang + "</option>";
+            });
+            $("#ruangManual").html(get);
+        });
+
+        $.post("SidangKoordinator/GetPopUpDetails", { npm: $("#npm-label").html() }, function (data) {
+            if (data.success) {
+                alert("asdf");
+            } else {
+                
+                $("#deskripsi").val("");
+               // alert($("#deskripsi").val());
+                var date = new Date();
+                $("#waktuManual").val((date.getDay() + 1) + "/" + (date.getMonth() + 1) + "/" + date.getFullYear() + " 00:00");
+                //ruang: $("#ruangManual").val(),
+
+            }
+
+        });
+    }
+
+    $(document).ready(function () {
+        
+        $("#selPenguji").bind("change", function () {
+            var values = {
+                npm: $("#npm-label").html(),
+                pembimbing: $("#pembimbing-label").html(),
+                penguji: $("#selPenguji").val()
+            };
+            $.post("SidangKoordinator/GetTanggalSidangList", values, function (data) {
+                var get = "";
+                $.each(data, function (index, value) {
+                    var a = value.split(" ");
+                    get += "<option value='" + a[0] + "'>" + a[0] + "</option>";
+                });
+                //                $("#selTanggal").html(get);
+                $("#selWaktu").html(get);
+            });
+        });
+
+//        $("#selTanggal").bind("change", function () {
+//            $.post("Query/GetDosenList", "", function (data) {
+//                var get = "";
+//                $.each(data, function (index, value) {
+//                    get += "<option value='" + value.nama + "'>" + value.nama + "</option>";
+//                });
+//                $("#selWaktu").html(get);
+//            });
+//        });
+
+        $("#selWaktu").bind("change", function () {
+            var values = {
+                waktu: $("#selWaktu").val()
+            };
+            $.post("SidangKoordinator/GetRuangKosong", values, function (data) {
+                var get = "";
+                $.each(data, function (index, value) {
+                    get += "<option value='" + value.id + "'>" + value.nama_ruang + "</option>";
+                });
+                $("#selRuang").html(get);
+            });
+        });
+
+        $("#selRuang").bind("change", function () {
+            $.post("Query/GetDosenList", "", function (data) {
+                var get = "";
+                $.each(data, function (index, value) {
+                    get += "<option value='" + value.nama + "'>" + value.nama + "</option>";
+                });
+                $("#selPenguji2").html(get);
+            });
+        });
+    });
+
+    function changeMode(num) {
+        if(num==1){
+            $("#mode1").show();
+            $("#mode2").hide();
+        }else if(num==2){
+            $("#mode2").show();
+            $("#mode1").hide();
+        }
+    }
+</script>
+
+<div id="popup" style="width:700px;">
+    <table>
+        <tr>
+            <td>NPM:</td>
+            <td><span id="npm-label"></span></td>
+        </tr>
+        <tr>
+            <td>Nama:</td>
+            <td><span id="nama-label"></span></td>
+        </tr>
+        <tr>
+            <td>Pembimbing:</td>
+            <td><span id="pembimbing-label"></span></td>
+        </tr>
+        <tr>
+            <td>Mode :</td>
+            <td>
+                <input type="radio" name="modeJadwal" onclick="changeMode(1)" id="radio_1" checked="checked" />Manual
+                <input type="radio" name="modeJadwal" onclick="changeMode(2)" id="radio_2" />Semi-Automatic
+            </td>
+        </tr>
+    </table>
+    <div id="mode1">
+        <table>
+            <tr>
+                <td>Penguji 1:</td>
+                <td><select id="penguji1Manual"></select></td>
+            </tr>
+            <tr>
+                <td>Penguji 2:</td>
+                <td><select id="penguji2Manual"></select></td>
+            </tr>
+            <tr>
+                <td>Waktu:</td>
+                <td>@(Html.Telerik().DateTimePicker().Name("waktuManual").Value(DateTime.Now))</td>
+            </tr>
+            <tr>
+                <td>Ruang:</td>
+                <td><select id="ruangManual"></select></td>
+            </tr>
+        </table>
+        <span >*peringatan : mode ini tidak melakukan validasi jadwal</span><br />
+        
+    </div>
+    <div style="overflow:hidden;display:none;" id="mode2">
+        <div style="float:left;">
+            <span>Penguji 1</span><br />
+            <select size="10" id="selPenguji" style="width:100px"></select>
+        </div>
+        <!--<div style="float:left;">
+            <span>Tanggal</span><br />
+            <select size="10" id="selTanggal" style="width:300px"></select>
+        </div>-->
+        <div style="float:left;">
+            <span>Waktu</span><br />
+            <select size="10" id="selWaktu" style="width:100px"></select>
+        </div>
+        <div style="float:left;">
+            <span>Ruang</span><br />
+            <select size="10" id="selRuang" style="width:100px"></select>
+        </div>
+
+        <div style="float:left;">
+            <span>Penguji 2</span><br />
+            <select size="10" id="selPenguji2" style="width:100px"></select>
+        </div>
+    </div><br />
+
+    <table>
+        <tr>
+            <td>Deskripsi:</td>
+            <td><textarea rows="4" id="deskripsi" cols="10"></textarea></td>
+        </tr>
+    </table>
+    <input type="button" value="Simpan" id="buttonSimpan" class="t-button t-state-default" />
+</div>

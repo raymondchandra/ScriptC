@@ -12,18 +12,17 @@ namespace Proyek_Informatika.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class jadwal_kosong
+    public partial class jadwal_tidak_kosong
     {
         public int id { get; set; }
-        public string NIK_dosen { get; set; }
-        public string NPM_mahasiswa { get; set; }
+        public string username { get; set; }
         public System.DateTime tanggal_mulai { get; set; }
-        public Nullable<System.DateTime> tanggal_selesai { get; set; }
-        public int berulang { get; set; }
+        public System.DateTime tanggal_selesai { get; set; }
         public string text { get; set; }
         public string description { get; set; }
+        public int skripsi_id { get; set; }
     
-        public virtual dosen dosen { get; set; }
-        public virtual mahasiswa mahasiswa { get; set; }
+        public virtual akun akun { get; set; }
+        public virtual skripsi skripsi { get; set; }
     }
 }

@@ -51,19 +51,17 @@
             return true; // lightbox will be displayed
         });
 
-
         scheduler.init('scheduler_here', new Date(), "month");
-        $.post("Kalender/Data", "", function (data) {
+        $.post("Sidang/Data", "", function (data) {
             scheduler.parse(JSON.stringify(data), "json");
         });
 
-        var dp = new dataProcessor("/Kalender/Save");
+        var dp = new dataProcessor("/Sidang/Save");
 
         dp.setTransactionMode("POST", false);
         dp.enableDataNames(true);
         dp.init(scheduler);
     }
-
 
     $(document).ready(function () {
         init();

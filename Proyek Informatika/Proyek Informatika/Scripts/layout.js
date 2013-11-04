@@ -81,7 +81,7 @@ function onSelectMenuKoordinator(e) {
         $('#content').load('PengumumanKoordinator/BuatPengumuman');
     } else if (item.find('> .t-link').text() == "Edit Pengumuman") {
         $('#content').load('PengumumanKoordinator/EditPengumuman');
-    } else if (item.find('> .t-link').text() == "Pengaturan Jadwal Semester") {
+    } else if (item.find('> .t-link').text() == "Pengaturan Semester") {
         $('#content').load('Semester/JadwalSemester');
     } else if (item.find('> .t-link').text() == "Daftar Topik") {
         $('#content').load('Home/TopikAdmin');

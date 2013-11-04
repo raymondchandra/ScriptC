@@ -1,5 +1,5 @@
 ﻿@{
-    var semester=(string)Session["semester"];
+    var semester=ViewBag.semester;
 }
 @if(Request.IsAuthenticated) {
     var login = (string)Session["role"]; 
