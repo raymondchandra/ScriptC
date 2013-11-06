@@ -11,7 +11,7 @@
             text += "<tr><td class='name'>Pembimbing</td><td>&nbsp:&nbsp</td><td>" + e.row.cells[3].innerHTML + "</td></tr>";
             text += "<tr><td class='name'>Keterangan</td><td>&nbsp:&nbsp</td><td>" + e.row.cells[4].innerHTML + "</td></tr>";
             text += "</table>";
-            document.getElementById('detail').innerHTML = text;
+            $(".detail").html(text); 
             var windowZ = $("#topikDetail").data("tWindow");
             windowZ.center().open();
         }        
@@ -57,7 +57,7 @@
         .Width(500)
         .Height(500)
         .Scrollable(true)
-        .Content(@<text> <p id="detail"></p></text>)
+        .Content(@<text> <p class="detail"></p></text>)
     )
            
 </div>

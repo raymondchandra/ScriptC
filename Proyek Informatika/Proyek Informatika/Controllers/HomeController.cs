@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using Proyek_Informatika.Models;
 using Telerik.Web.Mvc;
 using System.Data;
+using Proyek_Informatika.Controllers.Utilities;
 
 namespace Proyek_Informatika.Controllers
 {
@@ -13,12 +14,17 @@ namespace Proyek_Informatika.Controllers
     {
         private SkripsiAutoContainer db = new SkripsiAutoContainer();
 
-        #region view
-        public ActionResult Index()
+        [AcceptVerbs(HttpVerbs.Post)]
+        public string SetIdSemester()
         {
             semester x = db.semesters.Where(semesterTemp => semesterTemp.isCurrent == 1).SingleOrDefault();
             Session["id-semester"] = x.id;
-            ViewBag.semester = x.periode_semester;
+            return x.periode_semester;
+        }
+
+        #region view
+        public ActionResult Index()
+        {
             return View();
         }
 
@@ -57,7 +63,7 @@ namespace Proyek_Informatika.Controllers
             var temp = db.topiks.Where(t => t.judul == model.judul).SingleOrDefault();
             if (temp != null)
             {
-                return "Registrasi topik gagal! \nAda topik lain dengna judul yang sama!";
+                return "Registrasi topik gagal! \nAda topik lain dengan judul yang sama!";
             }
 
             //insert
@@ -80,6 +86,11 @@ namespace Proyek_Informatika.Controllers
         [GridAction]
         public string _UpdateTopik(TopikContainer model)
         {
+            //validasi
+            if (model.judul == null || model.judul == "")
+            {
+                return "Registrasi topik gagal! \nField judul harus diisi!";
+            }
             var temp = db.topiks.Where(t => t.judul == model.judul).SingleOrDefault();
             if (temp != null && temp.id != model.id)
             {

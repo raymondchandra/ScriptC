@@ -4,14 +4,19 @@
 }
 <script type="text/javascript">
     $("#update").click(function () {
+        //alert('click');
         var values = {
             judul: $("#judul").val(),
             deskripsi: $("#deskripsi").val(),
             id: $("#id").val()
         };
         $.post("Home/_UpdateTopik", values, function (data) {
+            var windowZ = $("#topikUpdate").data("tWindow");
+            windowZ.center().close();
             alert(data);
+            //alert('data');
         });
+        //alert('load');
         $('#content').load('Home/TopikAdmin');
     })
 </script>

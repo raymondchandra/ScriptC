@@ -14,6 +14,8 @@ namespace Proyek_Informatika.Controllers.Dosen
     public class PendaftaranDosenController : Controller
     {
         private SkripsiAutoContainer db = new SkripsiAutoContainer();
+        private AccountController ac = new AccountController();
+
         //
         // GET: /Pengumpulan/
         #region view
@@ -71,8 +73,13 @@ namespace Proyek_Informatika.Controllers.Dosen
         [GridAction]
         public string _InsertMahasiswa1(MahasiswaContainer model)
         {
-            if(model.NPM ==null){
+            if (model.NPM == null)
+            {
                 return "Registrasi mahasiswa gagal! \nField NPM harus diisi!";
+            }
+            else if (model.NPM.Length != 10)
+            {
+                return "Registrasi mahasiswa gagal! \nField NPM tidak valid! \nField NPM yang valid memiliki 10 karakter!";
             }
             skripsi s = new skripsi();
             s.jenis = 1;
@@ -100,16 +107,17 @@ namespace Proyek_Informatika.Controllers.Dosen
             {
                 mahasiswa m = new mahasiswa();
                 m.nama = " ";
-                m.email = model.NPM + "@student.unpar.ac.id";
+                string temp = model.NPM.Substring(4, 2) + model.NPM.Substring(2, 2) + model.NPM.Substring(7, 3);
+                m.email = temp + "@student.unpar.ac.id";
 
                 var akun = db.akuns.Where(akunTemp => akunTemp.username == model.NPM).SingleOrDefault();
                 if (akun == null)
                 {
                     akun a = new akun();
-                    a.username = model.NPM;
-                    result += "\nAkun baru untuk mahasiswa berhasil dibuat. \nusername : " + model.NPM + "\npassword : Password";
+                    a.username = temp;
+                    result += "\nAkun baru untuk mahasiswa berhasil dibuat. \nusername : " + a.username + "\npassword : "+temp;
                     a.aktif = 1;
-                    a.password = EncodePassword("Password");
+                    a.password = ac.EncodePassword(temp);
                     a.peran = 3;
                     if (TryUpdateModel(a))
                     {
@@ -143,11 +151,19 @@ namespace Proyek_Informatika.Controllers.Dosen
         [GridAction]
         public string _UpdateMahasiswa(MahasiswaContainer model)
         {
+            if (model.NPM == null)
+            {
+                return "Update data mahasiswa gagal! \nField NPM harus diisi!";
+            }
+            else if (model.NPM.Length != 10)
+            {
+                return "Update data mahasiswa gagal! \nField NPM tidak valid! \nField NPM yang valid memiliki 10 karakter!";
+            }
             skripsi s = db.skripsis.Where(skripsiTemp => skripsiTemp.id == model.idSkripsi).SingleOrDefault();
 
             //topik
             var topik = db.topiks.Where(topikTemp => topikTemp.id == s.id_topik).SingleOrDefault();
-            topik.judul = model.judul;
+            topik.judul = model.topik;
 
             if (TryUpdateModel(topik))
             {
@@ -162,16 +178,17 @@ namespace Proyek_Informatika.Controllers.Dosen
             {
                 mahasiswa m = new mahasiswa();
                 m.nama = " ";
-                m.email = model.NPM + "@student.unpar.ac.id";
+                string temp = model.NPM.Substring(4, 2) + model.NPM.Substring(2, 2) + model.NPM.Substring(7, 3);
+                m.email = temp + "@student.unpar.ac.id";
 
                 var akun = db.akuns.Where(akunTemp => akunTemp.username == model.NPM).SingleOrDefault();
                 if (akun == null)
                 {
                     akun a = new akun();
-                    a.username = model.NPM;
-                    result += "\nAkun baru untuk mahasiswa berhasil dibuat. \nusername : " + model.NPM + "\npassword : Password";
+                    a.username = temp;
+                    result += "\nAkun baru untuk mahasiswa berhasil dibuat. \nusername : " + model.NPM + "\npassword : "+temp;
                     a.aktif = 1;
-                    a.password = EncodePassword("Password");
+                    a.password = ac.EncodePassword(temp);
                     a.peran = 3;
                     if (TryUpdateModel(a))
                     {
@@ -192,7 +209,7 @@ namespace Proyek_Informatika.Controllers.Dosen
                 mahasiswa = db.mahasiswas.Where(mahasiswaTemp => mahasiswaTemp.NPM == model.NPM);
             }
             s.NPM_mahasiswa = mahasiswa.SingleOrDefault().NPM;
-            
+
             if (TryUpdateModel(s))
             {
                 //db.skripsis.Add(s);
@@ -243,7 +260,7 @@ namespace Proyek_Informatika.Controllers.Dosen
                                                        status = m.status,
                                                        idSkripsi = s.id,
                                                        //idTopik = t.id,                                                  
-                                                       judul = t.judul,
+                                                       topik = t.judul,
                                                        NIK = d.NIK,
                                                        //namaDosen = d.nama,
                                                        //emailDosen = d.email,
@@ -259,20 +276,5 @@ namespace Proyek_Informatika.Controllers.Dosen
 
 
         #endregion
-        private string EncodePassword(string originalPassword)
-        {
-            //Declarations
-            Byte[] originalBytes;
-            Byte[] encodedBytes;
-            MD5 md5;
-
-            //Instantiate MD5CryptoServiceProvider, get bytes for original password and compute hash (encoded password)
-            md5 = new MD5CryptoServiceProvider();
-            originalBytes = ASCIIEncoding.Default.GetBytes(originalPassword);
-            encodedBytes = md5.ComputeHash(originalBytes);
-
-            //Convert encoded bytes back to a 'readable' string
-            return BitConverter.ToString(encodedBytes).Replace("-", "").ToLower();
-        }
     }
 }

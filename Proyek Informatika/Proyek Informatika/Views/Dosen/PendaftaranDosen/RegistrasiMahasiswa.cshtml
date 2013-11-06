@@ -32,14 +32,14 @@
             text += "<tr><td class='name'>Status</td><td>&nbsp:&nbsp</td><td>" + e.row.cells[5].innerHTML + "</td></tr>";
             text += "<tr><td class='name'>Topik</td><td>&nbsp:&nbsp</td><td>" + e.row.cells[6].innerHTML + "</td></tr>";
             text += "</table>";
-            document.getElementById('detail').innerHTML = text;
+            $(".detail").html(text);
             var windowZ = $("#mahasiswaDetail").data("tWindow");
             windowZ.center().open();
         }
         else if (e.name == "editDetail") {
-            document.getElementById("idSkripsi").value = e.row.cells[0].innerHTML;
-            document.getElementById("NPM").value = e.row.cells[1].innerHTML;
-            document.getElementById("judul").value = e.row.cells[6].innerHTML;
+            $("#idSkripsi").val(e.row.cells[0].innerHTML);
+            $("#NPM").val(e.row.cells[1].innerHTML);
+            $("#topik").val(e.row.cells[6].innerHTML); 
             var windowZ = $("#mahasiswaUpdate").data("tWindow");
             windowZ.center().open();
         }
@@ -129,7 +129,7 @@
             columns.Bound(c => c.emailMahasiswa).Hidden();
             columns.Bound(c => c.teleponMahasiswa).Hidden();
             columns.Bound(c => c.status).Hidden();
-            columns.Bound(c => c.judul).Width(300).Title("Judul");
+            columns.Bound(c => c.topik).Width(300).Title("Judul");
             columns.Command(c => c.Custom("lihatDetail")
                 .Text("Detail")
                 .Ajax(true)).Width(95);
@@ -159,7 +159,7 @@
         .Height(250)
         .Scrollable(true)
         .Content(@<text>
-    <p id="detail">
+    <p class="detail">
     </p></text>)
     )
     @(Html.Telerik().Window()

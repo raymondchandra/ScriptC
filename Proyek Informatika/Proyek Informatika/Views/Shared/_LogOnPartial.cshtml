@@ -1,17 +1,18 @@
-﻿@{
-    var semester=ViewBag.semester;
-}
-@if(Request.IsAuthenticated) {
-    var login = (string)Session["role"]; 
-    
+﻿@if (Session["role"] != null)
+{
+    var login = (string)Session["role"];     
     <text>@Html.ActionLink("[ Log Off ]", "LogOff", "Account")
-    <br/>
-    <br/><strong>@User.Identity.Name</strong> - @login
-    <br/>@semester</text>
+    <br />
+    <br />
+    <strong>@User.Identity.Name</strong> - @login
+    <br />
+    <span class="semester"></span></text>
 }
-else {
+else
+{
     <text>@Html.ActionLink("[ Log On ]", "LogOn", "Account")
-    <br/>
-    <br/>
-    <br/>@semester</text>
+    <br />
+    <br />
+    <br />
+    <span class="semester"></span></text>
 }

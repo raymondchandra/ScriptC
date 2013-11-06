@@ -4,41 +4,29 @@
 <div class="layer">
     <h1>
         Sejarah</h1>
-    @(Html.Telerik().Grid<Proyek_Informatika.Models.SejarahDosen>()
-        .HtmlAttributes(new { style = "width:100%;" })
+    @(Html.Telerik().Grid<Proyek_Informatika.Models.SejarahDosenContainer>()
+        .HtmlAttributes(new { style = "width:100%" })
         .Name("Sejarah")
         .DataKeys(keys =>
         {
-            keys.Add(p => p.no);
+            keys.Add(k => k.periode);
         })
-
-            .DataBinding(dataBinding =>
-            {
-                dataBinding.Ajax()
-                    .Select("_SelectSejarahDosen", "ProfileDosen");
-            })
+        .DataBinding(dataBinding => dataBinding.Ajax()
+            .Select("_SelectSejarah", "ProfileDosen"))
         .Columns(columns =>
         {
-            columns.Bound(o => o.no).Width(20).Title("No.");
-            columns.Bound(o => o.MataKuliah).Width(80).Title("Mata Kuliah");
-            columns.Bound(o => o.Tahun).Width(100).Title("Tahun");
-            columns.Bound(o => o.Semester).Width(100).Title("Semester");
-            columns.Bound(o => o.Topik).Width(400).Title("Topik");
-            columns.Bound(o => o.NPM).Width(100).Title("NPM");
-            columns.Bound(o => o.NPM).Width(150).Title("Nama Mahasiswa");
-            columns.Bound(o => o.Keterangan).Width(100).Title("Keterangan");
-
+            columns.Bound(c => c.periode).Width(100).Title("Periode");
+            columns.Bound(c => c.jenis).Width(100).Title("Mata Kuliah");
+            columns.Bound(c => c.topik).Width(100).Title("Topik");
+            columns.Bound(c => c.npm).Width(100).Title("NPM");
+            columns.Bound(c => c.mahasiswa).Width(100).Title("Mahasiswa");
+            columns.Bound(c => c.nilai).Width(100).Title("Nilai Akhir");
         })
-            //.ClientEvents(
-            //    events => events
-            //        .OnComplete("OnComplete") --> popup window
-            //)
         .Pageable(p => p.PageSize(15))
+        .Scrollable(c => c.Enabled(true))
         .Sortable()
         .Filterable()
-            //.Editable(editing => editing.Mode(GridEditMode.PopUp))
-        .Scrollable(c => c.Enabled(false))
         .Selectable()
         .Groupable()
-)
+    )
 </div>

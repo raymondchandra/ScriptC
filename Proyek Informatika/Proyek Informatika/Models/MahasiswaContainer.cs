@@ -18,7 +18,7 @@ namespace Proyek_Informatika.Models
         public int idSkripsi { get; set; }
         public int idTopik { get; set; }
         [Display(Name = "Topik")]
-        public string judul { get; set; }
+        public string topik { get; set; }
         public string NIK { get; set; }
         //public string namaDosen { get; set; }
         //public string emailDosen { get; set; }

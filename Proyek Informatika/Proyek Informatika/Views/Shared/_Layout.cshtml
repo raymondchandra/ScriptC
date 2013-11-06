@@ -19,14 +19,17 @@
         .DefaultGroup(group => group.Add("telerik.common.css")
                                     .Add("telerik.office2007.css"))
         )
-    <script type="text/css">
-     
-			$(function() {
-				$( "#tabs" ).tabs({
-					event: "mouseover"
-				});
-			});       
- 
+    <script>
+        $(function () {
+            $("#tabs").tabs({
+                event: "mouseover"
+            });
+        });
+
+        $.post("Home/SetIdSemester", "", function (data) {
+            $(".semester").html(data);
+        });
+              
     </script>
 </head>
 <body>
@@ -138,7 +141,7 @@
                                         menu2.Add().Text("Daftar Topik");
                                         menu2.Add().Text("Daftar Mahasiswa");
                                         menu2.Add().Text("Daftar Dosen");
-                                        menu2.Add().Text("Daftar Akun");                                        
+                                        menu2.Add().Text("Daftar Akun");
                                     });
                                     menu.Add().Text("Laporan").Items(menu2 =>
                                     {

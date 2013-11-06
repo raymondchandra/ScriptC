@@ -12,7 +12,7 @@ namespace Proyek_Informatika.Models
     {
         [Required]
         [DataType(DataType.Password)]
-        [Display(Name = "Password Saat Ini")]
+        [Display(Name = "Password Lama")]
         public string OldPassword { get; set; }
 
         [Required]

@@ -2,7 +2,19 @@
 @{
     ViewBag.Title = "Pengaturan";
 }
-
+<script type="text/javascript">
+    $("#change-pass-mhs").click(function () {
+        var values = {
+            OldPassword: $("#OldPassword").val(),
+            NewPassword: $("#NewPassword").val(),
+            ConfirmPassword: $("#ConfirmPassword").val()
+        };
+        $.post("Account/ChangePassword", values, function (data) {
+            alert(data);
+        });
+        $('#content').load('Profile/Pengaturan');
+    })
+</script>
 <div class="layer">
     <h1>
         Pengaturan</h1>
@@ -40,7 +52,7 @@
                     @Html.ValidationMessageFor(m => m.ConfirmPassword)
                 </div>
                 <p>
-                    <input type="submit" value="Change Password" class="t-button t-state-default" />
+                    <input type="button" id="change-pass-mhs" value="Ganti Password" class="t-button t-state-default" />
                 </p>
             </fieldset>
         </div>

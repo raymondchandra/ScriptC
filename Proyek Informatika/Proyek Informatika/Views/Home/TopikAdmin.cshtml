@@ -11,14 +11,14 @@
             text += "<tr><td class='name'>Pembimbing</td><td>&nbsp:&nbsp</td><td>" + e.row.cells[3].innerHTML + "</td></tr>";
             text += "<tr><td class='name'>Keterangan</td><td>&nbsp:&nbsp</td><td>" + e.row.cells[4].innerHTML + "</td></tr>";
             text += "</table>";
-            document.getElementById('detail').innerHTML = text;
+            $(".detail").html(text);
             var windowZ = $("#topikDetail").data("tWindow");
             windowZ.center().open();
         }
         else if (e.name == "editDetail") {
-            document.getElementById("id").value = e.row.cells[0].innerHTML;
-            document.getElementById("judul").value = e.row.cells[1].innerHTML;
-            document.getElementById("deskripsi").value = e.row.cells[2].innerHTML;
+            $("#id").val(e.row.cells[0].innerHTML); 
+            $("#judul").val(e.row.cells[1].innerHTML); 
+            $("#deskripsi").val(e.row.cells[2].innerHTML); 
             var windowZ = $("#topikUpdate").data("tWindow");
             windowZ.center().open();
         }
@@ -122,7 +122,7 @@
         .Height(250)
         .Scrollable(true)
         .Content(@<text>
-    <p id="detail">
+    <p class="detail">
     </p></text>)
     )
     @(Html.Telerik().Window()

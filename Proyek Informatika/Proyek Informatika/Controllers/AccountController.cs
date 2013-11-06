@@ -109,7 +109,7 @@ namespace Proyek_Informatika.Controllers
             return false;
         }
 
-        private string EncodePassword(string originalPassword)
+        public string EncodePassword(string originalPassword)
         {
             //Declarations
             Byte[] originalBytes;
@@ -162,60 +162,45 @@ namespace Proyek_Informatika.Controllers
             return View(model);
         }
 
-        //
-        // GET: /Account/ChangePassword
-
-        [Authorize]
-        public ActionResult ChangePassword()
-        {
-            return PartialView();
-        }
-
-        //
-        // POST: /Account/ChangePassword
-
-        [Authorize]
+        #region ubah password
         [HttpPost]
-        public ActionResult ChangePassword(ChangePasswordModel model)
+        public string ChangePassword(ChangePasswordModel model)
         {
-            if (ModelState.IsValid)
+            if (model.OldPassword == null || model.OldPassword == "")
             {
-
-                // ChangePassword will throw an exception rather
-                // than return false in certain failure scenarios.
-                bool changePasswordSucceeded;
-                try
-                {
-                    MembershipUser currentUser = Membership.GetUser(User.Identity.Name, true /* userIsOnline */);
-                    changePasswordSucceeded = currentUser.ChangePassword(model.OldPassword, model.NewPassword);
-                }
-                catch (Exception)
-                {
-                    changePasswordSucceeded = false;
-                }
-
-                if (changePasswordSucceeded)
-                {
-                    return RedirectToAction("ChangePasswordSuccess");
-                }
-                else
-                {
-                    ModelState.AddModelError("", "The current password is incorrect or the new password is invalid.");
-                }
+                return "Field password lama harus diisi!";
             }
-
-            // If we got this far, something failed, redisplay form
-            return PartialView(model);
+            if (model.NewPassword == null || model.NewPassword == "")
+            {
+                return "Field password baru harus diisi!";
+            }
+            if (model.ConfirmPassword == null || model.ConfirmPassword == "")
+            {
+                return "Field konfirmasi password baru harus diisi!";
+            }
+            string username = (string)Session["username"];
+            akun a = db.akuns.Where(akunTemp => akunTemp.username == username).First();
+            if (EncodePassword(model.OldPassword) != a.password)
+            {
+                return "Password lama salah!";
+            }
+            if (model.NewPassword.Length < 6)
+            {
+                return "Password baru minimal 6 karakter!";
+            }
+            if (model.NewPassword != model.ConfirmPassword)
+            {
+                return "Password baru dan konfirmasi password baru tidak sesuai!";
+            }
+            a.password = EncodePassword(model.NewPassword);
+            if (TryUpdateModel(a))
+            {
+                db.SaveChanges();
+            }
+            return "Password berhasil diubah.";
         }
-
-        //
-        // GET: /Account/ChangePasswordSuccess
-
-        public ActionResult ChangePasswordSuccess()
-        {
-            return PartialView();
-        }
-
+        #endregion
+      
         #region Status Codes
         private static string ErrorCodeToString(MembershipCreateStatus createStatus)
         {

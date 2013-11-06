@@ -2,6 +2,18 @@
     ViewBag.Title = "Biodata";
 }
 <script type="text/javascript">
+    $(document).ready(function () {
+        $.post("Profile/GetBiodata", "", function (data) {
+            $("#editInLine1a").html(data.nama);
+            $("#viewInLine1a").val(data.nama);
+            $("#editInLine2a").html(data.email);
+            $("#viewInLine2a").val(data.email);
+            $("#editInLine3a").html(data.nomor_telepon);
+            $("#viewInLine3a").val(data.nomor_telepon);
+            $("#npm").html(data.NPM);
+        });
+    });
+
     function editInLine(id) {
         document.getElementById("editInLine" + id + "a").style.display = "none";
         document.getElementById("editInLine" + id + "b").style.display = "none";
@@ -13,7 +25,39 @@
         document.getElementById("editInLine" + id + "b").style.display = "inline";
         document.getElementById("viewInLine" + id + "a").style.display = "none";
         document.getElementById("viewInLine" + id + "b").style.display = "none";
+
+        $.post("Profile/GetBiodata", "", function (data) {
+            $("#editInLine1a").html(data.nama);
+            $("#viewInLine1a").val(data.nama);
+            $("#editInLine2a").html(data.email);
+            $("#viewInLine2a").val(data.email);
+            $("#editInLine3a").html(data.nomor_telepon);
+            $("#viewInLine3a").val(data.nomor_telepon);
+            $("#npm").html(data.NPM);
+        });
     }
+
+    $("#save-nama").click(function () {
+        var values = { nama: $("#viewInLine1a").val() }
+        $.post("Profile/SaveNama", values, function (data) {
+            alert(data);
+        });
+        $('#content').load('Profile/Biodata');
+    })
+    $("#save-email").click(function () {
+        var values = { email: $("#viewInLine2a").val() }
+        $.post("Profile/SaveEmail", values, function (data) {
+            alert(data);
+        });
+        $('#content').load('Profile/Biodata');
+    })
+    $("#save-telepon").click(function () {
+        var values = { nomor_telepon: $("#viewInLine3a").val() }
+        $.post("Profile/SaveTelepon", values, function (data) {
+            alert(data);
+        });
+        $('#content').load('Profile/Biodata');
+    })
 </script>
 <div class="layer">
     <h1>
@@ -22,35 +66,17 @@
         <tr>
             <td rowspan="4" style="width: 130px">
                 <img src="../../../Content/images/user.png" class="avatar">
-                @(Html.Telerik().Upload()
+    @(Html.Telerik().Upload()
         .Name("attachments")
         .Multiple(false)
         .Async(async => async
-            .Save("Save", "Upload")
-            .Remove("Remove", "Upload")
-            .AutoUpload(true)
+        .Save("Save", "Upload")
+        .Remove("Remove", "Upload")
+        .AutoUpload(true)
         )
 )
-            </td>
-            <td style="width: 75px; height: 30px;">
-                Nama
-            </td>
-            <td style="width: 20px">
-                :
-            </td>
-            <td style="width: 250px">
-                <span id="editInLine1a">Vicky</span>
-                <input type="text" style="width: 200px; display: none;" id="viewInLine1a" value="Vicky" />
-            </td>
-            <td style="width: 100px;">
-                <a class="t-button t-button-icon t-grid-edit" onclick="editInLine(1)" id="editInLine1b">
-                    <span class="t-icon t-edit"></span></a><span id="viewInLine1b" style="display: none;">
-                        <a class="t-button t-button-icon t-grid-edit" onclick="viewInLine(1)"><span class="t-icon t-update">
-                        </span></a>&nbsp<a class="t-button t-button-icon t-grid-edit" onclick="viewInLine(1)"><span
-                            class="t-icon t-cancel"> </span></a></span>
-            </td>
-        </tr>
-        <tr>
+            </td>  
+            <!--------------------NPM-------------------->      
             <td style="height: 26px; height: 30px;">
                 NPM
             </td>
@@ -58,12 +84,38 @@
                 :
             </td>
             <td>
-                200873413
+                <span id="npm"></span>
             </td>
-            <td style="width: 80px">
+            <td style="width: 80px">                
             </td>
         </tr>
         <tr>
+            <!--------------------Nama-------------------->
+            <td style="width: 75px; height: 30px;">
+                Nama
+            </td>
+            <td style="width: 20px">
+                :
+            </td>
+            <td style="width: 250px">
+                <span id="editInLine1a"></span>
+                <input type="text" style="width: 200px; display: none;" id="viewInLine1a" value="" />
+            </td>
+            <!--------------------Editor Nama-------------------->
+            <td style="width: 100px;">
+                <!--edit-->
+                <a class="t-button t-button-icon t-grid-edit" onclick="editInLine(1)" id="editInLine1b">
+                    <span class="t-icon t-edit"></span></a>
+                 <!--save-->
+                <span id="viewInLine1b" style="display: none;">
+                    <a class="t-button t-button-icon t-grid-edit" id="save-nama"><span class="t-icon t-update">
+                    </span></a>&nbsp
+                <a class="t-button t-button-icon t-grid-edit" onclick="viewInLine(1)"><span
+                    class="t-icon t-cancel"> </span></a></span>
+            </td>
+        </tr>       
+        <tr>
+            <!--------------------Email-------------------->
             <td style="height: 30px;">
                 Email
             </td>
@@ -71,17 +123,24 @@
                 :
             </td>
             <td>
-                <span id="editInLine2a">intelek@yahoo.co.id</span>
-                <input type="text" style="width: 200px; display: none;" id="viewInLine2a" value="intelek@yahoo.co.id" />
+                <span id="editInLine2a"></span>
+                <input type="text" style="width: 200px; display: none;" id="viewInLine2a" value="" />
             </td>
+            <!--------------------Editor Email-------------------->
             <td>
+                <!--edit-->
                 <a class="t-button t-button-icon t-grid-edit" onclick="editInLine(2)" id="editInLine2b">
-                    <span class="t-icon t-edit"></span></a><span id="viewInLine2b" style="display: none;">
-                        <a class="t-button t-button-icon t-grid-edit" onclick="viewInLine(2)"><span class="t-icon t-update">
-                        </span></a>&nbsp<a class="t-button t-button-icon t-grid-edit" onclick="viewInLine(2)"><span
-                            class="t-icon t-cancel"> </span></a></span>
+                    <span class="t-icon t-edit"></span></a>
+                <!--save-->
+                <span id="viewInLine2b" style="display: none;">
+                    <a class="t-button t-button-icon t-grid-edit" id="save-email"><span class="t-icon t-update">
+                    </span></a>&nbsp
+                <a class="t-button t-button-icon t-grid-edit" onclick="viewInLine(2)"><span
+                    class="t-icon t-cancel"> </span></a></span>
             </td>
+            </tr>
             <tr>
+                <!--------------------Telepon-------------------->
                 <td style="height: 30px;">
                     Telepon
                 </td>
@@ -89,15 +148,20 @@
                     :
                 </td>
                 <td>
-                    <span id="editInLine3a">0811234567</span>
-                    <input type="text" style="width: 200px; display: none;" id="viewInLine3a" value="0811234567" />
+                    <span id="editInLine3a"></span>
+                    <input type="text" style="width: 200px; display: none;" id="viewInLine3a" value="" />
                 </td>
+                <!--------------------Editor Telepon-------------------->
                 <td>
+                    <!--edit-->
                     <a class="t-button t-button-icon t-grid-edit" onclick="editInLine(3)" id="editInLine3b">
-                        <span class="t-icon t-edit"></span></a><span id="viewInLine3b" style="display: none;">
-                            <a class="t-button t-button-icon t-grid-edit" onclick="viewInLine(3)"><span class="t-icon t-update">
-                            </span></a>&nbsp<a class="t-button t-button-icon t-grid-edit" onclick="viewInLine(3)"><span
-                                class="t-icon t-cancel"> </span></a></span>
+                        <span class="t-icon t-edit"></span></a>
+                    <!--save-->
+                    <span id="viewInLine3b" style="display: none;">
+                        <a class="t-button t-button-icon t-grid-edit" id="save-telepon"><span class="t-icon t-update">
+                        </span></a>&nbsp
+                    <a class="t-button t-button-icon t-grid-edit" onclick="viewInLine(3)"><span
+                        class="t-icon t-cancel"> </span></a></span>
                 </td>
             </tr>
     </table>

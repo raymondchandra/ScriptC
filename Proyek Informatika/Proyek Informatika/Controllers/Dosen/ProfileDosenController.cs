@@ -11,9 +11,8 @@ namespace Proyek_Informatika.Controllers.Dosen
     public class ProfileDosenController : Controller
     {
         private SkripsiAutoContainer db = new SkripsiAutoContainer();
-        //
-        // GET: /User/
 
+        #region view
         public ActionResult Index()
         {
             return View();
@@ -27,98 +26,92 @@ namespace Proyek_Informatika.Controllers.Dosen
         {
             return PartialView();
         }
-
-
         public ActionResult Pengaturan()
         {
             return PartialView();
         }
+        #endregion
 
-        protected ViewResult bindingSejarahDosen(int id)
+        #region biodata
+        [HttpPost]
+        public JsonResult GetBiodata()
         {
+            string username = (string)Session["username"];
+            dosen d = db.dosens.Where(dosenTemp => dosenTemp.username == username).First();
+            return Json(new { d.NIK, d.nama, d.email });
+        }
 
-            List<SejarahDosen> temp = new List<SejarahDosen>();
-
-            SejarahDosen x = new SejarahDosen()
+        [HttpPost]
+        public string SaveNama(dosen model)
+        {
+            if (model.nama == null || model.nama == "")
             {
-                no = 1,
-                MataKuliah = "Skripsi 2",
-                Tahun = 2004,
-                Semester = "ganjil",
-                Topik = "Pembangunan Perangkat Lunak Sistem Akuntansi Pembukuan dengan Pendekatan Berorientasi Obyek",
-                NPM = 1998730039,
-                Mahasiswa = "Elisa Dean",
-                Keterangan = "lulus"
-            }; temp.Add(x);
-
-            x = new SejarahDosen()
+                return "Field nama harus diisi!";
+            }
+            string username = (string)Session["username"];
+            dosen d = db.dosens.Where(dosenTemp => dosenTemp.username == username).First();
+            d.nama = model.nama;
+            if (TryUpdateModel(d))
             {
-                no = 2,
-                MataKuliah = "Skripsi 1",
-                Tahun = 2003,
-                Semester = "genap",
-                Topik = "Pembangunan Perangkat Lunak Sistem Akuntansi Pembukuan dengan Pendekatan Berorientasi Obyek",
-                NPM = 1998730039,
-                Mahasiswa = "Elisa Dean",
-                Keterangan = "lulus"
-            }; temp.Add(x);
+                db.SaveChanges();
+            }
+            return "Nama berhasil disimpan.";
+        }
 
-            x = new SejarahDosen()
+        [HttpPost]
+        public string SaveEmail(dosen model)
+        {
+            if (model.email == null || model.email == "")
             {
-                no = 3,
-                MataKuliah = "Skripsi 2",
-                Tahun = 2003,
-                Semester = "ganjil",
-                Topik = "Perangkat Lunak Pendukung Sistem Evaluasi Diri Program Studi",
-                NPM = 1998730025,
-                Mahasiswa = "Aryanugroho Wargono",
-                Keterangan = "lulus"
-            }; temp.Add(x);
+                return "Field email harus diisi!";
+            }
+            string username = (string)Session["username"];
+            dosen d = db.dosens.Where(dosenTemp => dosenTemp.username == username).First();
+            d.email = model.email;
+            if (TryUpdateModel(d))
+            {
+                //db.topiks.Add(topik);
+                db.SaveChanges();
+            }
+            return "Email berhasil disimpan.";
+        }
+        #endregion
 
+        #region sejarah
+        protected ViewResult bindingTable(int id)
+        {
+            int idSemester = int.Parse(Session["id-semester"].ToString());
+            var username = (string)Session["username"];
+            List<SejarahDosenContainer> listResult = (from m in db.mahasiswas
+                                                          join s in db.skripsis on m.NPM equals s.NPM_mahasiswa
+                                                          join t in db.topiks on s.id_topik equals t.id
+                                                          join d in db.dosens on t.NIK_pembimbing equals d.NIK
+                                                          join j in db.jenis_skripsi on s.jenis equals j.id
+                                                          join x in db.semesters on s.id_semester_pengambilan equals x.id
+                                                          where d.username == username
+                                                          where s.id_semester_pengambilan < idSemester //yang sudah lewat
+                                                          select new SejarahDosenContainer
+                                                          {
+                                                              periode = x.periode_semester,
+                                                              jenis = j.nama_jenis,
+                                                              topik = t.judul,
+                                                              npm = m.NPM,
+                                                              mahasiswa = m.nama,
+                                                              nilai = s.nilai_akhir
+                                                          }).ToList();
 
-            x = new SejarahDosen()
+            return View(new GridModel<SejarahDosenContainer>
             {
-                no = 4,
-                MataKuliah = "Skripsi 1",
-                Tahun = 2003,
-                Semester = "genap",
-                Topik = "Perangkat Lunak Pendukung Sistem Evaluasi Diri Program Studi",
-                NPM = 1998730025,
-                Mahasiswa = "Aryanugroho Wargono",
-                Keterangan = "lulus"
-            }; temp.Add(x);
-            return View(new GridModel<SejarahDosen>
-            {
-                Data = temp
+                Data = listResult
             });
         }
-        [GridAction]
-        public ActionResult _SelectSejarahDosen()
-        {
-            return bindingSejarahDosen(0);
-        }
 
-        [AcceptVerbs(HttpVerbs.Post)]
         [GridAction]
-        public ActionResult _SaveSejarahDosen(int id)
+        public ActionResult _SelectSejarah()
         {
-
-            return bindingSejarahDosen(id);
+            return bindingTable(0);
         }
-        [AcceptVerbs(HttpVerbs.Post)]
-        [GridAction]
-        public ActionResult _InsertSejarahDosen()
-        {
-
-            return bindingSejarahDosen(2);
-        }
-        [AcceptVerbs(HttpVerbs.Post)]
-        [GridAction]
-        public ActionResult _DeleteSejaraDosen(int id)
-        {
-
-            return bindingSejarahDosen(id);
-        }
+        #endregion
 
     }
 }
