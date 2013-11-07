@@ -8,8 +8,10 @@ using Proyek_Informatika.Models;
 
 namespace Proyek_Informatika.Controllers.Mahasiswa
 {
+    
     public class BimbinganController : Controller
     {
+        SkripsiAutoContainer db = new SkripsiAutoContainer();
         //
         // GET: /Bimbingan/
 
@@ -88,33 +90,36 @@ namespace Proyek_Informatika.Controllers.Mahasiswa
             });
         }
 
-        //Kartu Bimbingan
+        [AcceptVerbs(HttpVerbs.Post)]
+        [GridAction]
+        public ActionResult EditBimbingan(int id)
+        {
+            bimbingan result = db.bimbingans.Where<bimbingan>(x => x.id == id).Single<bimbingan>();
+            TryUpdateModel<bimbingan>(result);
+            int tipe = result.id_skripsi;
+            db.SaveChanges();
+            return bindingKartuBimbingan(tipe);
+        }
         [GridAction]
         public ActionResult _SelectKartuBimbingan()
         {
-            return bindingKartuBimbingan();
+            int id_skripsi = 1;
+            //int id_skripsi = Int32.Parse(Session["id_skripsi"].ToString());
+            return bindingKartuBimbingan(id_skripsi);
         }
-        protected ViewResult bindingKartuBimbingan()
+        protected ViewResult bindingKartuBimbingan(int id_skripsi)
         {
-            List<MahasiswaKartuBimbingan> temp;
+            var result = (from bm in db.bimbingans
+                          where bm.id_skripsi == id_skripsi
+                          select new { id_skripsi = bm.id_skripsi, id = bm.id, isi = bm.isi, deskripsi = bm.deskripsi, tanggal = bm.tanggal });
+            
+            List<bimbingan> temp = new List<bimbingan>();
 
-            temp = new List<MahasiswaKartuBimbingan>();
-
-            temp.Add(new MahasiswaKartuBimbingan() {
-                id = 1,
-                bahasan = "BAB 2",
-                namaDosen ="Lionov",
-                tanggal = "21/12/2013"
-            });
-            temp.Add(new MahasiswaKartuBimbingan()
+            foreach (var x in result)
             {
-                id = 1,
-                bahasan = "BAB 3",
-                namaDosen = "Lionov",
-                tanggal = "31/12/2013"
-            });
-
-            return View(new GridModel<MahasiswaKartuBimbingan>{ Data = temp});
+                temp.Add(new bimbingan() { id = x.id, id_skripsi = x.id_skripsi, deskripsi = x.deskripsi, isi = x.isi, tanggal = x.tanggal });
+            }
+            return View(new GridModel<bimbingan>{ Data = temp});
         }
     }
 }

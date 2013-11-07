@@ -17,10 +17,10 @@ namespace Proyek_Informatika.Models
         public skripsi()
         {
             this.bimbingans = new HashSet<bimbingan>();
+            this.jadwal_tidak_kosong = new HashSet<jadwal_tidak_kosong>();
             this.laporans = new HashSet<laporan>();
             this.nilais = new HashSet<nilai>();
             this.sidangs = new HashSet<sidang>();
-            this.jadwal_tidak_kosong = new HashSet<jadwal_tidak_kosong>();
         }
     
         public int id { get; set; }
@@ -34,6 +34,7 @@ namespace Proyek_Informatika.Models
     
         public virtual ICollection<bimbingan> bimbingans { get; set; }
         public virtual dosen dosen { get; set; }
+        public virtual ICollection<jadwal_tidak_kosong> jadwal_tidak_kosong { get; set; }
         public virtual jenis_skripsi jenis_skripsi { get; set; }
         public virtual ICollection<laporan> laporans { get; set; }
         public virtual mahasiswa mahasiswa { get; set; }
@@ -41,6 +42,5 @@ namespace Proyek_Informatika.Models
         public virtual semester semester { get; set; }
         public virtual ICollection<sidang> sidangs { get; set; }
         public virtual topik topik { get; set; }
-        public virtual ICollection<jadwal_tidak_kosong> jadwal_tidak_kosong { get; set; }
     }
 }

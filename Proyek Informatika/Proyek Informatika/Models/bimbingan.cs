@@ -18,8 +18,7 @@ namespace Proyek_Informatika.Models
         public string isi { get; set; }
         public string deskripsi { get; set; }
         public int id_skripsi { get; set; }
-        public System.DateTime tanggal_mulai { get; set; }
-        public System.DateTime tanggal_selesai { get; set; }
+        public System.DateTime tanggal { get; set; }
     
         public virtual skripsi skripsi { get; set; }
     }

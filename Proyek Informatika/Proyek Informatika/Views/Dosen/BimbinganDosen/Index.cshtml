@@ -1,0 +1,21 @@
+﻿
+<div class="layer">
+    <h1>Daftar Mahasiswa Bimbingan</h1>
+    
+    @( Html.Telerik().TabStrip()
+        .Name("DosenBimTab")
+        .Items(parent => {
+            parent.Add()
+                .Text("Skripsi-1")
+                .LoadContentFrom("Skripsi1", "BimbinganDosen")
+                .Selected(true);
+
+            parent.Add()
+                .Text("Skripsi-2")
+                .LoadContentFrom("Skripsi2", "BimbinganDosen");
+            
+        })
+    )
+    
+    
+</div>

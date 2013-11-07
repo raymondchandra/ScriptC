@@ -10,36 +10,37 @@
     <h1>Kartu Bimbingan</h1>
 
 <div id="listJadwal">
-@(Html.Telerik().Grid<Proyek_Informatika.Models.MahasiswaKartuBimbingan>()
+@(Html.Telerik().Grid<Proyek_Informatika.Models.bimbingan>()
         .HtmlAttributes(new { style = "width:900px" })
         .Name("Topik")
         .DataKeys(keys =>
         {
             keys.Add(p => p.id);
-        })    
-            .DataBinding(dataBinding =>
-            {
-                dataBinding.Ajax()
-                    .Select("_SelectKartuBimbingan", "Bimbingan");
-            })
-            
-        
+        })
+
         .Columns(columns =>
         {
             columns.Bound(o => o.tanggal).Width(150).Title("Tanggal");
-            columns.Bound(o => o.namaDosen).Width(150).Title("Dosen");
-            columns.Bound(o => o.bahasan).Width(150).Title("Pokok Bahasan");
-            columns.Command(o =>o.Custom("detBahasan").Text("Lihat Detil Bahasan").Ajax(true)).Width(100).Title("Detil Bahasan");
+            columns.Bound(o => o.isi).Width(150).Title("Topik Bimbingan");
+            columns.Command(com =>
+            {
+                com.Edit().ButtonType(GridButtonType.Image);
+                com.Custom("detil").Ajax(true).Text("Deskripsi");
+            })
+                .Title("Aksi").Width(90);
         })
-        //.ClientEvents(
-        //    events => events
-        //        .OnComplete("OnComplete") --> popup window
-        //)
+            .DataBinding(dataBinding =>
+            {
+                dataBinding.Ajax().Select("_SelectKartuBimbingan", "Bimbingan");
+                dataBinding.Ajax().Update("EditBimbingan", "Bimbingan");
+            })
         .ClientEvents(ev => ev.OnCommand("detilBimbingan"))
         .Pageable(p => p.PageSize(15))
         .Sortable()
         .Filterable()
-        //.Editable(editing => editing.Mode(GridEditMode.PopUp))
+            .Editable(editing => { 
+                editing.Mode(GridEditMode.InForm);
+            })
         .Scrollable(c => c.Enabled(true))
         .Selectable()
         .Groupable()

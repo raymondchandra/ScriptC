@@ -1,0 +1,30 @@
+﻿<label>Pokok Bahasan: </label>
+
+@model Proyek_Informatika.Models.bimbingan
+<input title="text" id = "judul" value = "@Model.isi"/>
+<br/>
+<label>Deskripsi: </label>
+<br />
+<textarea rows= "5" cols = "30" id="deskripsi">@Model.deskripsi</textarea>
+
+<input type ="button" id ="submitButton" value ="Masukan" />
+
+<script type = "text/javascript">
+    $("#submitButton").click(function () {
+        alert("test");
+        var values = {
+            id_bimbingan: '@ViewBag.id_bimbingan',
+            judul: $("#judul").val(),
+            deskripsi: $("#deskripsi").val()
+        };
+        $.post("BimbinganDosen/EditBimbingan", values, function (data) {
+            if (data == 1) {
+                alert("Anda berhasil mengganti data bimbingan");
+            }
+            else {
+                alert("Anda gagal mengganti data bimbingan");
+            }
+        });
+    });
+
+</script>

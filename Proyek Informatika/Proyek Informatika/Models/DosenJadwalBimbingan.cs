@@ -25,12 +25,11 @@ namespace Proyek_Informatika.Models
         public string detil { get; set; }
 
     }
-    public class DosenMuridBimbingan
+    public class DosenMuridBimbinganContainer
     {
         public int id { get; set; }
         public string npm { get; set; }
         public string namaMahasiswa { get; set; }
         public string judul { get; set; }
-        public int jumlahBimbingan { get; set; }
     }
 }

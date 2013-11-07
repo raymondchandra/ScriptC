@@ -1,0 +1,87 @@
+﻿@model Proyek_Informatika.Models.laporan
+@using Proyek_Informatika.Utilities
+
+<script type = "text/javascript">
+var nameFile;
+$("#btn_unggah").click(function () {
+    if (nameFile == null || nameFile == "") {
+        alert("file belum terupload");
+        return;
+    }
+    var values = {
+        jenis: $("#jenis_file").val(),
+        deskripsi: $("#deskripsi").val(),
+        name: nameFile
+    };
+    $.post("Pengumpulan/SubmitFile", values, function (data) {
+        if (data == 0) {
+            alert("gagal");
+        }
+        else if (data == 1) {
+            alert("berhasil");
+        }
+
+    });
+});
+    function onCom(e) {
+        nameFile = e.files[0].name;
+        console.log(e.files[0].name);
+
+    }
+    function onRemove(e) {
+        var r = confirm("Apakah anda yakin?");
+        if (r) {
+            nameFile = "";
+            return true;
+        } else {
+            e.preventDefault();
+            return false;
+        }
+    }
+</script>
+
+<div class = "layer">
+<h1>FormPengumpulan</h1>
+<label id="result"></label>
+@Html.Label("Nama File :")
+<br />
+<input type = "text" id= "jenis_file" />
+<br/>
+@Html.Label("Deskripsi :")
+<br />
+<textarea cols = "50" rows = "6" id= "deskripsi"></textarea>
+<br />
+@Html.Label("File :")
+@(Html.Telerik().Upload()
+        .Name("fileMahasiswa")
+        
+        .Multiple(false)
+                .Async(async => async
+                    .Save("Save2", "Upload", "attachments", new { dir = "File Mahasiswa\\" + Session["username"] + "\\dokumen" })
+                    .Remove("Remove", "Upload", new { dir = "File Mahasiswa\\" + Session["username"] + "\\dokumen" })
+                    .AutoUpload(true))
+                    .ClientEvents(c => c
+                        .OnSuccess("onCom")
+                        .OnRemove("onRemove")
+                        )
+        
+        
+       )
+
+    <div class="controls">
+		@*@{
+            if (!string.IsNullOrWhiteSpace(ViewBag.name))
+            {
+                <ul id="existing-files" class="t-upload-files t-reset" style="display: none;">
+				<li class="t-file" data-att-id="@(ViewBag.name)">
+				<span class="t-icon t-success">uploaded</span>
+				<span class="t-filename" title="@(ViewBag.name)">@(ViewBag.name)
+				<span class="t-progress"><span class="t-state-selected t-progress-status" style="width: 100%;"></span></span></span><button type="button" class="t-button t-button-icontext t-upload-action"><span class="t-icon t-delete"></span>Remove</button></li></ul>
+            }
+        }    *@                
+	</div>
+
+<input type = "button" id = "btn_unggah" value ="Unggah" />
+               
+
+</div>

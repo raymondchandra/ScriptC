@@ -7,11 +7,12 @@ using Telerik.Web.Mvc;
 using Proyek_Informatika.Models;
 namespace Proyek_Informatika.Controllers.Koordinator
 {
+    
     public class PengumpulanKoordinatorController : Controller
     {
         //
         // GET: /Pengumpulan/
-
+        SkripsiAutoContainer db = new SkripsiAutoContainer();
         public ActionResult Index()
         {
             return View();
@@ -28,24 +29,30 @@ namespace Proyek_Informatika.Controllers.Koordinator
         [GridAction]
         public ActionResult _SelectPengumpulanFile()
         {
-            return bindingPengumpulanFile(0);
+            return bindingPengumpulanFile();
         }
-        protected ViewResult bindingPengumpulanFile(int id)
+        protected ViewResult bindingPengumpulanFile()
         {
-            List<KoordinatorPengumpulanFile> temp;
+            List<KoordinatorPengumpulanContainer> result = (from si in db.skripsis
+                          join mh in db.mahasiswas on si.NPM_mahasiswa equals mh.NPM
+                          join ds in db.dosens on si.NIK_dosen_pembimbing equals ds.NIK
+                          join fl in db.laporans on si.id equals fl.id_skripsi
+                          orderby mh.NPM ascending
+                          select new KoordinatorPengumpulanContainer()
+                          {
+                              id = fl.id,
+                              npmMahasiswa = mh.NPM,
+                              namaMahasiswa = mh.nama,
+                              pembimbing = ds.nama,
+                              dokumen = fl.nama_file,
+                              waktuKumpul = fl.tanggal_pengumpulan,
+                              judul = si.topik.judul,
+                              deskripsi = fl.deskripsi,
+                              skripsi = si.jenis_skripsi.nama_jenis
+                          }).ToList<KoordinatorPengumpulanContainer>();
 
-            temp = new List<KoordinatorPengumpulanFile>();
-
-            temp.Add(new KoordinatorPengumpulanFile()
-            {
-                id = 1,
-                npmMahasiswa = "2010730125",
-                namaMahasiswa ="Hanzolo",
-                judul ="JST",
-                waktuKumpul = "19/08/2012",
-                dokumen ="Kontrak Kerja"
-            });
-            return View(new GridModel<KoordinatorPengumpulanFile>() { Data = temp });
+            
+            return View(new GridModel<KoordinatorPengumpulanContainer>() { Data = result });
         }
 
 

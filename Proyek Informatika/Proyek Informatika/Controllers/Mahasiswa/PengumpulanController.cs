@@ -6,12 +6,18 @@ using System.Web.Mvc;
 using Telerik.Web.Mvc;
 using Proyek_Informatika.Models;
 using System.IO;
+using Proyek_Informatika.Controllers;
+using iTextSharp.text.pdf.parser;
+using iTextSharp.text.pdf;
+using Proyek_Informatika.Utilities;
+
 
 namespace Proyek_Informatika.Controllers.Mahasiswa
 {
     public class PengumpulanController : Controller
     {
         private SkripsiAutoContainer db = new SkripsiAutoContainer();
+
         //
         // GET: /Pengumpulan/
 
@@ -19,80 +25,253 @@ namespace Proyek_Informatika.Controllers.Mahasiswa
         {
             return View();
         }
-        public ActionResult PengumpulanFile()
+        #region ui
+        public ActionResult FormPengumpulan()
         {
             return PartialView();
         }
+        public ActionResult EditorPengumpulan(int idLaporan)
+        {
+            var result = db.laporans.Where(x => x.id == idLaporan).Single<laporan>();
+            laporan temp = new laporan();
+            temp.id = result.id;
+            temp.id_skripsi = result.id_skripsi;
+            temp.jenis = result.jenis;
+            temp.deskripsi = result.deskripsi;
+            temp.nama_file = result.nama_file;
+            temp.tanggal_pengumpulan = result.tanggal_pengumpulan;
+            return PartialView(temp);
+        }
+        public string DeleteFile(int id_laporan)
+        {
+            laporan result = db.laporans.Where<laporan>(x => x.id == id_laporan).Single<laporan>();
+            string file = result.nama_file;
+            db.laporans.Remove(result);
+            db.SaveChanges();
+            return file;
+        }
+        public ActionResult PengumpulanFile()
+        {
+            ViewBag.username = Session["username"];
+            return PartialView();
+        }
+        //public ActionResult GetDownload(string filename)
+        //{
+        //    //ambil filename di database
+        //    try
+        //    {
+        //        var fs = System.IO.File.OpenRead(Server.MapPath("~/Upload/File Mahasiswa/"+Session["username"]+"/dokumen/" + filename));
+                
+        //        string fileType =  getFileType(filename);
+        //        return File(fs, fileType, filename);
+        //    }
+        //    catch
+        //    {
+        //        throw new HttpException(404, "Couldn't find " + filename);
+        //    }
+        //}
+        public ActionResult GetDownload(int id_laporan)
+        {
+            //ambil filename di database
+            var result = db.laporans.Where<laporan>(x => x.id == id_laporan).Single();
+            int id_skripsi = result.id_skripsi;
+            var username = (from si in db.skripsis
+                            join mh in db.mahasiswas on si.NPM_mahasiswa equals mh.NPM
+                            where si.id == id_skripsi
+                            select new { username = mh.username }).Single();
+            string filename = result.nama_file;
+            try
+            {
+                var fs = System.IO.File.OpenRead(Server.MapPath("~/Upload/File Mahasiswa/"+username.username+"/dokumen/" + filename));
+                bool exist = System.IO.File.Exists(Server.MapPath("~/Upload/File Mahasiswa/" + username.username+ "/dokumen/" + filename));
+                if (!exist)
+                {
+                    return null;
+                }
+
+                string fileType = getFileType(filename);
+                return File(fs, fileType, filename);
+            }
+            catch(Exception e)
+            {
+                return null;
+                //throw new HttpException(404, "Couldn't find " + filename);
+            }
+        }
+        
+        public ActionResult PDFViewer(int id_laporan)
+        {
+            var result = db.laporans.Where<laporan>(x => x.id == id_laporan).ToList();
+            int id_skripsi = result.ElementAt<laporan>(0).id_skripsi;
+            var username = (from si in db.skripsis
+                           join mh in db.mahasiswas on si.NPM_mahasiswa equals mh.NPM
+                           where si.id == id_skripsi
+                           select new { username = mh.username }).Single();
+            if (result.Count != 0)
+            {
+                var get = result.First();
+                string file = Server.MapPath(Url.Content("~/Upload/File Mahasiswa/"+username.username+"/dokumen/" + result.ElementAt<laporan>(0).nama_file));
+                //string file = Server.MapPath(Url.Content("~/Upload/File Mahasiswa/"+Session["username"]+"/dokumen/" + result.ElementAt<laporan>(0).nama_file));
+                try
+                {
+                    
+                    PdfReader reader = new PdfReader(file);
+                    MemoryStream pdfStream = new MemoryStream();
+
+                    PdfStamper pdfStamper = new PdfStamper(reader, pdfStream);
+
+                    reader.Close();
+                    pdfStamper.Close();
+                    pdfStream.Flush();
+                    pdfStream.Close();
+
+                    byte[] pdfArray = pdfStream.ToArray();
+                    
+                    return new BinaryContentResult(pdfArray, "application/pdf");
+                     
+                }
+                catch (IOException e)
+                {
+                    Console.WriteLine(e.Message);
+                    return null;
+                }
+            }
+            else
+            {
+                return null;
+            }
+        }
+         
+        #endregion
+
+        #region upload
+        public int SubmitFile(string jenis, string deskripsi, string name)
+        {
+            int id_skripsi;
+
+            //id_skripsi = Session["id_skripsi"];
+            id_skripsi = 1;
+            laporan temp = new laporan();
+            //string username = Session["username"].ToString();
+
+            /*var id_skripsi = (from table in db.skripsis
+                              where (table.mahasiswa == username)
+                              join
+                              select table.id );
+             * */
+            temp.jenis = jenis;
+            temp.deskripsi = deskripsi;
+            temp.id_skripsi = id_skripsi;
+            temp.nama_file = name;
+            temp.tanggal_pengumpulan = DateTime.Now;
+            try
+            {
+                db.laporans.Add(temp);
+                db.SaveChanges();
+                return 1;
+            }
+            catch (Exception ex)
+            {
+                return 0;
+                
+            }
+        }
+        public int EditFile(int id_laporan, string jenis, string deskripsi, string name)
+        {
+            string tempName;
+            
+            var result = db.laporans.Where<laporan>(x => x.id == id_laporan).Single();
+            tempName = result.nama_file;
+            
+            result.jenis = jenis;
+            result.deskripsi = deskripsi;
+            result.nama_file = name;
+            try
+            {
+                db.SaveChanges();
+                return 1;
+            }
+            catch
+            {
+                return 0;
+
+            }
+        }
+        [HttpPost]
+        public string Unggah(laporan laporan)
+        {
+            int id_skripsi;
+
+            //id_skripsi = Session["id_skripsi"];
+            string username = Session["username"].ToString();
+            id_skripsi = 1;
+            laporan.id_skripsi = id_skripsi;
+            String deskripsi = laporan.deskripsi;
+            laporan.tanggal_pengumpulan = DateTime.Now;
+            db.laporans.Add(laporan);
+            db.SaveChanges();
+            return "berhasil";
+        }
+
+        #endregion
+       
+
+
+        #region select
 
         [GridAction]
-        public ActionResult _SelectPengumpulan()
+        public ActionResult SelectPengumpulan()
         {
-            return bindingPengumpulan();
+            int id_skripsi = 1;
+            //int id_skripsi = Int32.Parse(Session["id_skripsi"].ToString());
+            return bindingPengumpulan(id_skripsi);
+
         }
-        public ViewResult bindingPengumpulan()
+        public ViewResult bindingPengumpulan(int id_skripsi)
         {
-            List<MahasiswaPengumpulanFile> temp;
+            var result = db.laporans.Where<laporan>(x => x.id_skripsi == id_skripsi);
+            //List<laporan> temp = db.laporans.Where<laporan>(x => x.id_skripsi == id_skripsi).Select(x => new laporan()
+            //{
+            //    id = x.id,
+            //    id_skripsi = x.id_skripsi,
+            //    jenis = x.jenis,
+            //    deskripsi = x.deskripsi
+            //}).ToList();
+                          
+            //List<laporan> temp = result.ToList<laporan>();
+            List<laporan> temp = new List<laporan>();
 
-            temp = new List<MahasiswaPengumpulanFile>();
-
-            
-                       
-
-            temp.Add(new MahasiswaPengumpulanFile() 
+            foreach (var i in result)
             {
-                id = 1,
-                dokumen = "Kontrak Kerja",
-                waktuKumpul = "30/10/2012",
-                namaFile = "KontrakKerja.docx",
-                deskripsi = "Kontrak Kerja i10125"
-
-            });
-
-            temp.Add(new MahasiswaPengumpulanFile()
-            {
-                id = 2,
-                dokumen = "Kontrak Kerja",
-                waktuKumpul = "2/11/2012",
-                namaFile = "KontrakKerja.docx",
-                deskripsi = "Kontrak Kerja i10125 revisi 2"
-            });
-            temp.Add(new MahasiswaPengumpulanFile()
-            {
-                id = 3,
-                dokumen = "Laporan 1",
-                waktuKumpul = "16/11/2012",
-                namaFile = "Laporan1.docx",
-                deskripsi = "Lapran 1 i10125"
-            });
-            temp.Add(new MahasiswaPengumpulanFile()
-            {
-                id = 4,
-                dokumen = "Laporan 2",
-                waktuKumpul = "5/12/2012",
-                namaFile = "Laporan2.docx",
-                deskripsi = "Laporan 2 i10125"
-            });
-
-            return View(new GridModel<MahasiswaPengumpulanFile> { Data = temp});
-        }
-
-        //Pengumpulan file
-        [HttpPost]
-        public ActionResult ProcessFile(IEnumerable<HttpPostedFileBase> attachments)
-        {
-            if (attachments != null)
-            {
-                TempData["UploadedAttachments"] = GetFileInfo(attachments);
+                laporan temp2 = new laporan();
+                temp2.id = i.id;
+                temp2.deskripsi = i.deskripsi;
+                temp2.jenis = i.jenis;
+                temp2.id_skripsi = i.id_skripsi;
+                temp.Add(temp2);
             }
-            return RedirectToAction("SyncUploadResult");
-        }
-        private IEnumerable<string> GetFileInfo(IEnumerable<HttpPostedFileBase> attachments)
-        {
-            return
-                from a in attachments
-                where a != null
-                select string.Format("{0} ({1} bytes)", Path.GetFileName(a.FileName), a.ContentLength);
-        }
 
+            return View(new GridModel<laporan> { Data = temp });
+        }
+        #endregion
+        public static string getFileType(string filename)
+        {
+            string[] temp = filename.Split('.');
+            switch (temp.Last())
+            {
+                case "pdf":
+                    return "application/pdf";
+                case "xls":
+                    return "application/msexcel";
+                case "xlsx":
+                    return "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+                case "docx":
+                    return "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
+                default:
+                    return "application/octet-stream";
+                    break;
+            };
+            return "";
+        }
     }
 }

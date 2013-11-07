@@ -53,14 +53,17 @@ namespace Proyek_Informatika.Models
         [Display(Name = "Bahasan")]
         public string bahasan { get; set; }
     }
-    public class KoordinatorPengumpulanFile
+    public class KoordinatorPengumpulanContainer
     {
         public int id { get; set; }
         public string dokumen { get; set; }
-        public string waktuKumpul { get; set; }
+        public DateTime waktuKumpul { get; set; }
         public string npmMahasiswa { get; set; }
         public string namaMahasiswa { get; set; }
+        public string pembimbing { get; set; }
         public string judul { get; set; }
+        public string deskripsi { get; set; }
+        public string skripsi { get; set; }
     }
 
     public class KoordinatorPenilaian

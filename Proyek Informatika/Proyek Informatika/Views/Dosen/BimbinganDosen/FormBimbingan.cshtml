@@ -1,0 +1,28 @@
+﻿<label>Pokok Bahasan: </label>
+<input title="text" id = "judul"/>
+<br/>
+<label>Deskripsi: </label>
+<br />
+<textarea rows= "5" cols = "30" id="deskripsi"></textarea>
+
+<input type ="button" id ="submitButton" value ="Masukan" />
+
+<script type = "text/javascript">
+    $("#submitButton").click(function () {
+        alert("test");
+        var values = {
+            id_skripsi: '@ViewBag.id_skripsi',
+            judul: $("#judul").val(),
+            deskripsi: $("#deskripsi").val()
+        };
+        $.post("BimbinganDosen/InsertBimbingan", values, function (data) {
+            if (data == 1) {
+                alert("Anda berhasil memasukan data bimbingan");
+            }
+            else {
+                alert("Anda gagal memasukan data bimbingan");
+            }
+        });
+    });
+
+</script>

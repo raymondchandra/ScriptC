@@ -1,0 +1,58 @@
+﻿<script type="text/javascript">
+    function aksi(e) {
+        if (e.name == "viewKartu") {
+            var values = { id_skripsi: e.dataItem.id };
+            $.post("BimbinganDosen/KartuBimbingan", values, function (data) {
+                var detailWindow = $("#contentWindow").data("tWindow");
+
+                $("#contents").html(data);
+                detailWindow.center().open();
+
+            });
+        }
+        else if (e.name == "viewLaporan") {
+            var values = { id_skripsi: e.dataItem.id };
+            $.post("PengumpulanDosen/FileMahasiswa", values, function (data) {
+                var detailWindow = $("#contentWindow").data("tWindow");
+
+                $("#contents").html(data);
+                detailWindow.center().open();
+
+            });
+        }
+
+
+    }
+</script>
+    @(Html.Telerik().Grid<Proyek_Informatika.Models.DosenMuridBimbinganContainer>()
+        .Name("RekapBimbinganKoordinator")
+        .DataBinding(bin => bin.Ajax().Select("_SelectBimbinganMahasiswa2", "BimbinganDosen"))       
+        .Columns(columns =>
+        {
+            columns.Bound(o => o.npm).Width(100).Title("NPM");
+            columns.Bound(o => o.namaMahasiswa).Width(100).Title("Nama Mahasiswa");            
+            columns.Bound(o => o.judul).Width(100).Title("Judul");
+            columns.Command(com =>
+            {
+                com.Custom("viewKartu").Ajax(true).Text("Lihat Kartu Bimbingan");
+                com.Custom("viewLaporan").Ajax(true).Text("Lihat Daftar Laporan");
+            }).Width(50).Title("Aksi");
+        })
+        .ClientEvents(ev => ev.OnCommand("aksi"))
+        .Pageable(p => p.PageSize(15))
+        .Sortable()
+        .Filterable()
+        .Scrollable(c => c.Enabled(true))
+        .Selectable()
+        .Groupable())
+        
+        @(Html.Telerik().Window()
+                .Name("contentWindow")
+                .Title("Kartu Bimbingan")
+                .Content(@<text><div id = "contents"></div></text>)
+                    .Width(800)
+                    .Height(600)
+                    .Draggable(true)
+                    .Modal(true)
+                    .Visible(false)
+                )
