@@ -112,3 +112,10 @@ ul
 {
     display:inline;
 }
+
+.window-content
+{
+    margin:25px;    
+    padding:0;
+    width:100%;
+}

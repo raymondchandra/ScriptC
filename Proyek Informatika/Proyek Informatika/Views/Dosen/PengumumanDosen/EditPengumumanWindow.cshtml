@@ -1,85 +1,81 @@
 ﻿@{
     ViewBag.Title = "Edit Pengumuman";
 }
-<script type="text/javascript">
-    function editInLine(id) {
-        document.getElementById("editInLine" + id + "a").style.display = "none";
-        document.getElementById("editInLine" + id + "b").style.display = "none";
-        document.getElementById("viewInLine" + id + "a").style.display = "inline";
-        document.getElementById("viewInLine" + id + "b").style.display = "inline";
-    }
-    function viewInLine(id) {
-        document.getElementById("editInLine" + id + "a").style.display = "inline";
-        document.getElementById("editInLine" + id + "b").style.display = "inline";
-        document.getElementById("viewInLine" + id + "a").style.display = "none";
-        document.getElementById("viewInLine" + id + "b").style.display = "none";
-    }
+<script>
+    $("#update-pengumuman-dsn").click(function () {
+        var temp = 0;
+        if ($("#target-pengumuman-dsn-2").is(':checked')) {
+            temp += 2;
+        }
+        if ($("#target-pengumuman-dsn-3").is(':checked')) {
+            temp += 4;
+        }
+
+        if (temp == 0) {
+            alert("Pengumuman gagal ditambahkan! Field target harus dipilih!");
+        }
+
+        var values = {
+            id: $("#id-pengumuman-dsn").val(),
+            isi: $("#pengumuman_dsn").data("tEditor").value(),
+            judul: $("#judul-pengumuman-dsn").val(),
+            target: temp
+        };
+        $.post("PengumumanDosen/_UpdatePengumuman", values, function (data) {
+            alert(data);
+        });
+        $('#content').load('PengumumanDosen/EditPengumuman');
+    })
 </script>
-<table class="profile" style="margin: 50px">
-    <tr>
-        <td style="width: 75px; height: 30px;">
-            Judul
-        </td>
-        <td style="width: 20px">
-            :
-        </td>
-        <td style="width: 550px">
-            <span id="editInLine1a">Bimbingan Minggu ini Ditiadakan</span>
-            <input type="text" style="width: 520px; display: none;" id="viewInLine1a" value="Bimbingan Minggu ini Ditiadakan" />
-        </td>
-        <td style="width: 100px;">
-            <a class="t-button t-button-icon t-grid-edit" onclick="editInLine(1)" id="editInLine1b">
-                <span class="t-icon t-edit"></span></a><span id="viewInLine1b" style="display: none;">
-                    <a class="t-button t-button-icon t-grid-edit" onclick="viewInLine(1)"><span class="t-icon t-update">
-                    </span></a>&nbsp<a class="t-button t-button-icon t-grid-edit" onclick="viewInLine(1)"><span
-                        class="t-icon t-cancel"> </span></a></span>
-        </td>
-    </tr>
-    <tr>
-        <td style="height: 30px;">
-            Isi
-        </td>
-        <td>
-            :
-        </td>
-        <td>
-            <span id="editInLine2a">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
-                malesuada magna neque, quis accumsan tellus euismod et. Nulla sollicitudin, magna
-                ac lobortis venenatis, orci lacus pulvinar arcu, id auctor sapien lectus ac metus.
-                Nulla porttitor imperdiet augue ut ornare. Praesent a imperdiet nisi, vel suscipit
-                orci. Nullam pulvinar sem dui, porta vehicula augue accumsan sed. Nulla facilisi.
-                Etiam tincidunt, tortor eget sagittis tempus, eros nisi eleifend urna, nec auctor
-                dui dolor in orci. Fusce adipiscing lectus ac imperdiet dapibus. Etiam ipsum arcu,
-                elementum a risus ac, laoreet faucibus dolor.</span>
-            <textarea style="width: 520px; height: 200px; display: none;" id="viewInLine2a">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed malesuada magna neque, quis accumsan tellus euismod et. Nulla sollicitudin, magna ac lobortis venenatis, orci lacus pulvinar arcu, id auctor sapien lectus ac metus. Nulla porttitor imperdiet augue ut ornare. Praesent a imperdiet nisi, vel suscipit orci. Nullam pulvinar sem dui, porta vehicula augue accumsan sed. Nulla facilisi. Etiam tincidunt, tortor eget sagittis tempus, eros nisi eleifend urna, nec auctor dui dolor in orci. Fusce adipiscing lectus ac imperdiet dapibus. Etiam ipsum arcu, elementum a risus ac, laoreet faucibus dolor.</textarea>
-        </td>
-        <td>
-            <a class="t-button t-button-icon t-grid-edit" onclick="editInLine(2)" id="editInLine2b">
-                <span class="t-icon t-edit"></span></a><span id="viewInLine2b" style="display: none;">
-                    <a class="t-button t-button-icon t-grid-edit" onclick="viewInLine(2)"><span class="t-icon t-update">
-                    </span></a>&nbsp<a class="t-button t-button-icon t-grid-edit" onclick="viewInLine(2)"><span
-                        class="t-icon t-cancel"> </span></a></span>
-        </td>
-    </tr>
-    <tr>
-        <td style="width: 75px; height: 30px;">
-            Kategori
-        </td>
-        <td style="width: 20px">
-            :
-        </td>
-        <td style="width: 550px">
-            <span id="editInLine3a">Bimbingan Minggu ini Ditiadakan</span> <span id="viewInLine3a"
-                style="display: none">
-                <input type="checkbox" />Mahasiswa Skripsi 1<input type="checkbox" />Mahasiswa Skripsi
-                2</span>
-        </td>
-        <td style="width: 100px;">
-            <a class="t-button t-button-icon t-grid-edit" onclick="editInLine(3)" id="editInLine3b">
-                <span class="t-icon t-edit"></span></a><span id="viewInLine3b" style="display: none;">
-                    <a class="t-button t-button-icon t-grid-edit" onclick="viewInLine(3)"><span class="t-icon t-update">
-                    </span></a>&nbsp<a class="t-button t-button-icon t-grid-edit" onclick="viewInLine(3)"><span
-                        class="t-icon t-cancel"> </span></a></span>
-        </td>
-    </tr>
-</table>
+<div class="window-content">
+    <input type="hidden" id="id-pengumuman-dsn" />
+    Judul :
+    <br />
+    <input type="text" id="judul-pengumuman-dsn" style="width: 600px">
+    <br>
+    <br>
+    @{ Html.BeginForm(); }
+    @{ Html.Telerik().Editor()
+        .Name("pengumuman_dsn")
+        .Encode(false)
+        .Tools(tools => tools
+            .Clear()
+            .Bold().Italic().Underline().Strikethrough().Subscript().Superscript().Separator()
+            .FontName().FontSize().FontColor().BackColor().Separator()
+            .JustifyLeft().JustifyCenter().JustifyRight().JustifyFull()
+            .Break()
+            .InsertUnorderedList().InsertOrderedList().Separator()
+            .Indent().Outdent().Separator()
+            .CreateLink().Unlink().Separator()
+            .FormatBlock()
+        )
+        .HtmlAttributes(new { style = "height:350px; width:600px" })
+        .Value(@<text></text>)
+        .Render();
+    }
+    <br />
+    Target :
+    <br />
+    <input type="checkbox" id="target-pengumuman-dsn-2">
+    Mahasiswa Skripsi 1&nbsp;&nbsp;
+    <input type="checkbox" id="target-pengumuman-dsn-3">
+    Mahasiswa Skripsi 2&nbsp;&nbsp;
+    <br />
+    <br />
+    <div class="txtcenter">
+        <input type="button" id="update-pengumuman-dsn" class="t-button t-state-default"
+            value="Simpan"></div>
+</div>
+@{ Html.EndForm(); }
+@section HeadContent {
+    <style type="text/css">
+        .editor-output
+        {
+            font: normal 1em/1.1em "Consolas" , "Monaco" , "Bitstream Vera Sans Mono" , "Courier New" , Courier, monospace;
+            border: 1px solid #ccc;
+            background: #fff;
+            display: block;
+            padding: 4px 8px 8px;
+        }
+    </style>
+}
