@@ -1,68 +1,109 @@
 ﻿@{
     ViewBag.Title = "EditPengumuman";
 }
-
 <script type="text/javascript">
-    function edit(e) {
-        var detailWindow = $("#EditPengumuman").data("tWindow");
-        detailWindow.center().open();
-
+    function unescapeHTML(escapedHTML) {
+        return escapedHTML.replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&');
     }
+
+    function onCommand(e) {
+        if (e.name == "editPengumuman") {
+            $("#id-pengumuman-kdt").val(e.row.cells[0].innerHTML);
+            $("#judul-pengumuman-kdt").val(e.row.cells[1].innerHTML);
+            $("#pengumuman_kdt").data("tEditor").value(unescapeHTML(e.row.cells[2].innerHTML));
+            var temp = parseInt(e.row.cells[5].innerHTML);
+
+            var home = new Array(1, 3, 5, 7, 9, 11, 13, 15);
+            var skripsi1 = new Array(2, 3, 6, 7, 10, 11, 14, 15);
+            var skripsi2 = new Array(4, 5, 6, 7, 12, 13, 14, 15);
+            var dosen = new Array(8, 9, 10, 11, 12, 13, 14, 15);
+
+            if ($.inArray(temp, home) !== -1) {
+                $("#target-pengumuman-kdt-1").attr('checked', 'checked');
+            }
+            else {
+                $("#target-pengumuman-kdt-1").removeAttr('checked');
+            }
+
+            if ($.inArray(temp, skripsi1) !== -1) {
+                $("#target-pengumuman-kdt-2").attr('checked', 'checked');
+            }
+            else {
+                $("#target-pengumuman-kdt-2").removeAttr('checked');
+            }
+
+            if ($.inArray(temp, skripsi2) !== -1) {
+                $("#target-pengumuman-kdt-3").attr('checked', 'checked');
+            }
+            else {
+                $("#target-pengumuman-kdt-3").removeAttr('checked');
+            }
+
+            if ($.inArray(temp, dosen) !== -1) {
+                $("#target-pengumuman-kdt-4").attr('checked', 'checked');
+            }
+            else {
+                $("#target-pengumuman-kdt-4").removeAttr('checked');
+            }
+
+            var windowZ = $("#pengumumanUpdate").data("tWindow");
+            windowZ.center().open();
+
+        }
+    } 
 </script>
 <div class="layer">
     <h1>
         Edit Pengumuman</h1>
     @{ 
-        GridEditMode mode = GridEditMode.PopUp;
+        GridEditMode mode = GridEditMode.InLine;
         GridButtonType type = GridButtonType.Text;    
     }
-    @(Html.Telerik().Grid<Proyek_Informatika.Models.PengumumanKoordinator>()
-        .Name("Pengumuman")
-                .DataKeys(keys =>
-                {
-                    keys.Add(p => p.id);
-                })
+    @(Html.Telerik().Grid<Proyek_Informatika.Models.PengumumanContainer>()
+        .HtmlAttributes(new { style = "width:100%" })
+        .Name("pengumuman")
+        .DataKeys(keys =>
+        {
+            keys.Add(k => k.id);
+        })
         .DataBinding(dataBinding => dataBinding.Ajax()
-                                            .Select("_SelectPengumumanKoordinator", "PengumumanKoordinator")
-                                            .Insert("_InsertPengumumanKoordinator", "PengumumanKoordinator")
-                                            .Update("_SavePengumumanKoordinator", "PengumumanKoordinator")
-                                            .Delete("_DeletePengumumanKoordinator", "PengumumanKoordinator"))
+            .Select("_SelectPengumuman", "PengumumanKoordinator")
+            .Delete("_DeletePengumuman", "PengumumanKoordinator"))
         .Columns(columns =>
         {
-            columns.Bound(o => o.Judul).Width(220).Title("Judul");
-            columns.Bound(o => o.Tanggal).Width(200).Title("Tanggal");
-            columns.Bound(o => o.Penulis).Width(120).Title("Penulis");
-            columns.Bound(o => o.Target).Width(150).Title("Kategori");
-            columns.Command(comm => comm.Custom("detailBimbingan")
-.Text("Edit")
-.Ajax(true))
-.Width(100);
+            columns.Bound(c => c.id).Hidden();
+            columns.Bound(c => c.judul).Width(300).Title("Judul");
+            columns.Bound(c => c.isi).Hidden();
+            columns.Bound(c => c.pembuat).Width(180).Title("Pembuat");
+            columns.Bound(c => c.tanggal).Width(100).Title("Tanggal");
+            columns.Bound(c => c.target).Hidden();
+            columns.Command(commands => commands.Custom("editPengumuman")
+                .Text("Edit")
+                .Ajax(true)).Width(95);
             columns.Command(commands =>
             {
-                
                 commands.Delete().ButtonType(type);
-            }).Width(100).Title("");
+            }).Width(95);
         })
+        .ClientEvents(ev => ev.OnCommand("onCommand").OnComplete("onCommand"))
         .Editable(editing => editing.Mode(mode))
-               .Pageable(p => p.PageSize(15))
-                .Sortable()
-                 .Filterable()
-                     .Scrollable(c => c.Enabled(true))
-                .Selectable()
-                .Groupable()
-                        .ClientEvents(ev => ev.OnCommand("edit"))
-)
-
-  @(Html.Telerik().Window()
-                .Name("EditPengumuman")
-                .Visible(false)
-                .Title("Edit Pengumuman")
-                .Modal(true)
-                .Width(800)
-                .Height(400)
-                .Scrollable(true)
-                .LoadContentFrom("EditPengumumanWindow","PengumumanKoordinator"))
-
+        .Pageable(p => p.PageSize(15))
+        .Scrollable(c => c.Enabled(true))
+        .Sortable()
+        .Filterable()
+        .Selectable()
+        .Groupable()
+    )
+    @(Html.Telerik().Window()
+        .Name("pengumumanUpdate")
+        .Title("Edit Pengumuman")
+        .Visible(false)
+        .Modal(true)
+        .Width(650)
+        .Height(550)
+        .Scrollable(false)
+        .LoadContentFrom("EditPengumumanWindow", "PengumumanKoordinator")
+    )
     @section HeadContent {
         <style type="text/css">
     /* validators */

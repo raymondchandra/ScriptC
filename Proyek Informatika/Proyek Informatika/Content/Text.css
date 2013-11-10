@@ -1,6 +1,6 @@
 ﻿body
 {
-    font-family: Calibri, sans-serif;
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 #title
 {
@@ -17,7 +17,7 @@
 #header h1
 {
     font-variant: small-caps;
-    font-family: Cambria, serif;
+    font-family: "Lucida Bright", Georgia, serif;
     letter-spacing: 2px;
 }
 #title div
@@ -45,14 +45,14 @@
 }
 #content h1, #content h2, #content h3, #content h4, #content h5, #content h6
 {
-    font-family: Cambria, serif;
+    font-family: "Lucida Bright", Georgia, serif;
     font-weight: bold;
 }
 
 #content h1
 {
     font-size: 22px;
-    text-transform: uppercase;
+    font-variant: small-caps;
 }
 #content h2
 {
@@ -99,6 +99,8 @@ a:hover
 .blokpengumuman .penulis, .blokpengumuman .tanggal
 {
     text-align: right;   
+    font-weight:bold; 
+    letter-spacing : 1.5px;
 }
  
 .blokpengumuman .penulis span

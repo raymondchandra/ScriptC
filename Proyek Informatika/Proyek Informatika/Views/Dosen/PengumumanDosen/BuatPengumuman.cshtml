@@ -1,33 +1,73 @@
 ﻿@{
-    ViewBag.Title = "BuatPengumuman";
+    ViewBag.Title = "Buat Pengumuman";
 }
+<script>
+    $("#insert-pengumuman-dsn").click(function () {
+        var temp = 0;
+        if ($("#target-pengumuman-dsn-2").is(':checked')) {
+            temp += 2;
+        }
+        if ($("#target-pengumuman-dsn-3").is(':checked')) {
+            temp += 4;
+        }
+
+        if (temp == 0) {
+            alert("Pengumuman gagal ditambahkan! Field target harus dipilih!");
+        }
+        else {
+            var values = {
+                isi: $("#pengumuman_dsn").data("tEditor").value(),
+                judul: $("#judul-pengumuman-dsn").val(),
+                target: temp
+            };
+            $.post("PengumumanDosen/InsertPengumuman", values, function (data) {
+                alert(data);
+            });
+        }
+        //$('#content').load('PengumumanKoordinator/Pengumuman');
+    })
+</script>
 <div class="layer">
     <h1>
         Buat Pengumuman</h1>
-        Judul : <input type="text" style="width:50%">
-        <br><br>
+    Judul :
+    <br />
+    <input type="text" id="judul-pengumuman-dsn" style="width: 100%"">
+    <br>
+    <br>
     @{ Html.BeginForm(); }
     @{ Html.Telerik().Editor()
-           .Name("editor")
-           .HtmlAttributes(new { style = "height:400px" })
-           .Encode(false)
-           .Value(@<text>
-        
-        </text>)
-               .Render();
+    .Name("pengumuman_dsn")
+    .Encode(false)
+    .Tools(tools => tools
+        .Clear()
+        .Bold().Italic().Underline().Strikethrough().Subscript().Superscript().Separator()
+        .FontName().FontSize().FontColor().BackColor().Separator()
+        .JustifyLeft().JustifyCenter().JustifyRight().JustifyFull()
+        .Break()
+        .InsertUnorderedList().InsertOrderedList().Separator()
+        .Indent().Outdent().Separator()
+        .CreateLink().Unlink().Separator()
+        .FormatBlock()
+    )
+    .HtmlAttributes(new { style = "height:350px;width:100%" })
+    .Value(@<text></text>)
+    .Render();
     }
-    <p>
-        <input type="checkbox"> Mahasiswa Skripsi 1 &nbsp &nbsp <input type="checkbox"> Mahasiswa Skripsi 2
-        <br><br><button type="submit" class="t-button t-state-default">
-            Tambahkan Pengumuman</button>
-    </p>
+    <br />Target :
+    <br /> 
+    <input type="checkbox" id="target-pengumuman-dsn-2">
+    Mahasiswa Skripsi 1&nbsp;&nbsp;
+    <input type="checkbox" id="target-pengumuman-dsn-3">
+    Mahasiswa Skripsi 2&nbsp;&nbsp;
+
+    <br />
+    <br />
+    <div class="txtcenter">
+        <input type="button" id="insert-pengumuman-dsn" class="t-button t-state-default"
+            value="Tambahkan Pengumuman">
+    </div>
     @{ Html.EndForm(); }
-    @if (ViewData.ContainsKey("value"))
-    { 
-        <h3>
-            Editor Value</h3>
-        <pre class="prettyprint editor-output">@Html.Raw((string)ViewData["value"]) </pre>
-    }
     @section HeadContent {
         <style type="text/css">
             .editor-output

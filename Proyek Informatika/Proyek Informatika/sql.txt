@@ -191,7 +191,7 @@ SET IDENTITY_INSERT [dbo].[jadwal_semester] ON
 INSERT [dbo].[jadwal_semester] ([id], [tanggal], [isi], [id_semester], [jenis_skripsi_id]) VALUES (1, CAST(0x0000A26D00000000 AS DateTime), N'test', 5, 1)
 INSERT [dbo].[jadwal_semester] ([id], [tanggal], [isi], [id_semester], [jenis_skripsi_id]) VALUES (2, CAST(0x0000A27700000000 AS DateTime), N'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 5, 1)
 SET IDENTITY_INSERT [dbo].[jadwal_semester] OFF
-/****** Object:  Table [dbo].[pengumuman]    Script Date: 11/04/2013 12:31:05 ******/
+/****** Object:  Table [dbo].[pengumuman]    Script Date: 11/09/2013 10:53:23 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -201,8 +201,10 @@ GO
 CREATE TABLE [dbo].[pengumuman](
 	[id] [int] IDENTITY(1,1) NOT NULL,
 	[tanggal] [datetime] NOT NULL,
-	[isi] [varchar](5000) NOT NULL,
+	[isi] [varchar](max) NOT NULL,
 	[target] [tinyint] NOT NULL,
+	[judul] [varchar](500) NOT NULL,
+	[pembuat] [varchar](15) NOT NULL,
  CONSTRAINT [pengumuman_pk] PRIMARY KEY CLUSTERED 
 (
 	[id] ASC
@@ -211,6 +213,12 @@ CREATE TABLE [dbo].[pengumuman](
 GO
 SET ANSI_PADDING OFF
 GO
+SET IDENTITY_INSERT [dbo].[pengumuman] ON
+INSERT [dbo].[pengumuman] ([id], [tanggal], [isi], [target], [judul], [pembuat]) VALUES (3, CAST(0x0000A27100AEAFDC AS DateTime), N'<ol><li>Install dan download <span style="background-color:#7092be;color:#ffffff;font-family:''Lucida Console'', Monaco, monospace;font-size:xx-large;"><strong>Miktex</strong></span> edisi terbaru (<del>bisa diambil di lab</del>)</li><li>Install Eclipse (source bisa diambil di lab)</li><li>Install Texlipse (<a href="http://texlipse.sourceforge.net/">download</a>)</li><li>Install SumatraPDF</li><li>Di Eclipse, buat LaTeX project baru, beri nama baru dan finish</li><li>Akan terdapat file document.tex, tidak ada isinya</li><li>Download template document.tex dari tinyurl dan copy semua isinya ke dalam document.tex yang kosong</li><li>Save&nbsp;</li><li>Klik "Launch The Previewer" <sup>(Ctrl + 4)</sup>, jika lancar SumatraPDF akan menampilkan sebuah file pdf</li><li>isi document.tex sudah dapat diubah-ubah, lihat di &nbsp;<a href="http://latex.wikia.com/wiki/Main_Page" title="klik">wiki</a> sebagai petunjuk</li></ol>', 3, N'Petunjuk Super Singkat Penggunaan Latex', N'Admin')
+INSERT [dbo].[pengumuman] ([id], [tanggal], [isi], [target], [judul], [pembuat]) VALUES (33, CAST(0x0000A27100AFB6E1 AS DateTime), N'<p style="margin-left:30px;">Dear all,</p><p><em><span style="text-decoration:underline;"><strong>Rapat dosen</strong></span></em>&nbsp;akan diadakan di ruang rapat. Harap datang karena kita akan membahas Lorem Ipsum. &nbsp;Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p><p style="text-align:right;">Thanks,</p><p style="text-align:right;"></p><p style="text-align:right;"></p>', 8, N'Rapat Dosen', N'Admin')
+INSERT [dbo].[pengumuman] ([id], [tanggal], [isi], [target], [judul], [pembuat]) VALUES (34, CAST(0x0000A27100B0A13F AS DateTime), N'<p>Jadwal presentasi kemajuan skripsi 1 sudah dipos di website ini. Harap mahasiswa skripsi 1 dan para dosen melihat pengumuman tersebut.&nbsp;</p><ul style="font-family:Arial, Helvetica, sans;font-size:11px;line-height:normal;text-align:justify;"><li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li><li>Mauris nec metus lacinia, iaculis ipsum ac, tempus dui.</li></ul><p></p>', 10, N'Jadwal Presentasi Kemajuan Skripsi 1', N'Admin')
+INSERT [dbo].[pengumuman] ([id], [tanggal], [isi], [target], [judul], [pembuat]) VALUES (35, CAST(0x0000A27100B14939 AS DateTime), N'<p>Dear mahasiswa,</p><p>Mohon maaf karena bimbingan minggu ini terpaksa ditiadakan berkaitan dengan adanya seminar. Bimbingan minggu depan akan berlangsung seperti biasa.</p><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>', 6, N'Bimbingan Minggu ini Ditiadakan', N'Verliyantina')
+SET IDENTITY_INSERT [dbo].[pengumuman] OFF
 /****** Object:  Table [dbo].[mahasiswa]    Script Date: 11/04/2013 12:31:05 ******/
 SET ANSI_NULLS ON
 GO
@@ -582,12 +590,6 @@ ALTER TABLE [dbo].[nilai]  WITH CHECK ADD  CONSTRAINT [nilai_fk_NIK_pengisi] FOR
 REFERENCES [dbo].[dosen] ([NIK])
 GO
 ALTER TABLE [dbo].[nilai] CHECK CONSTRAINT [nilai_fk_NIK_pengisi]
-GO
-/****** Object:  ForeignKey [FK_pengumuman_peran]    Script Date: 11/04/2013 12:31:05 ******/
-ALTER TABLE [dbo].[pengumuman]  WITH CHECK ADD  CONSTRAINT [FK_pengumuman_peran] FOREIGN KEY([target])
-REFERENCES [dbo].[peran] ([id])
-GO
-ALTER TABLE [dbo].[pengumuman] CHECK CONSTRAINT [FK_pengumuman_peran]
 GO
 /****** Object:  ForeignKey [FK_periode_sidang_semester]    Script Date: 11/04/2013 12:31:05 ******/
 ALTER TABLE [dbo].[periode_sidang]  WITH CHECK ADD  CONSTRAINT [FK_periode_sidang_semester] FOREIGN KEY([semester_id])

@@ -6,7 +6,6 @@ using System.Web.Mvc;
 using Proyek_Informatika.Models;
 using Telerik.Web.Mvc;
 using System.Data;
-using Proyek_Informatika.Controllers.Utilities;
 
 namespace Proyek_Informatika.Controllers
 {
@@ -47,6 +46,52 @@ namespace Proyek_Informatika.Controllers
         {
             return PartialView();
         }
+        #endregion
+
+        #region pengumuman
+
+        [AcceptVerbs(HttpVerbs.Post)]
+        public string SelectPengumuman()
+        {
+            List<PengumumanContainer> listResult = (from p in db.pengumumen
+                                                    orderby p.tanggal descending
+                                                    select new PengumumanContainer { id = p.id, target = p.target, judul = p.judul, isi = p.isi, pembuat = p.pembuat, tanggal = p.tanggal }).ToList();
+
+            int[] array = { 1, 3, 5, 7, 9, 11, 13, 15 };
+            string result = "";
+            foreach (PengumumanContainer pc in listResult)
+            {
+                if (Array.IndexOf(array, pc.target) != -1)
+                {
+                    result += format(pc);
+                }
+            }
+            return result;
+        }
+
+
+
+        public string format(PengumumanContainer model)
+        {
+            String nama = "";
+            if (model.pembuat.ToLower() == "admin")
+            {
+                nama = "Koordinator";
+            }
+            else
+            {
+                nama = db.dosens.Where(d => d.username == model.pembuat).First().nama;
+            }
+
+            string result = "<div class=\"blokpengumuman\">";
+            result += "<h2>" + model.judul + "</h2>";
+            result += "<div class=\"tanggal\">" + model.tanggal + "</div>";
+            result += model.isi;
+            result += "<div class=\"penulis\">" + nama + "</div>";
+            result += "</div><hr />";
+            return result;
+        }
+
         #endregion
 
         #region grid topik

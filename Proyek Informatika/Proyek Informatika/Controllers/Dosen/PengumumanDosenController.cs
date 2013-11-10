@@ -10,6 +10,10 @@ namespace Proyek_Informatika.Controllers.Dosen
 {
     public class PengumumanDosenController : Controller
     {
+        private SkripsiAutoContainer db = new SkripsiAutoContainer();
+        private HomeController hc = new HomeController();
+
+        #region view
         //
         // GET: /BlokPengumuman/
 
@@ -36,55 +40,131 @@ namespace Proyek_Informatika.Controllers.Dosen
         {
             return PartialView();
         }
+        #endregion
 
-        protected ViewResult bindingPengumumanDosen(int id)
+        #region pengumuman
+
+        [AcceptVerbs(HttpVerbs.Post)]
+        [ValidateInput(false)]
+        public string InsertPengumuman(PengumumanContainer model)
         {
-
-            List<PengumumanDosen> temp = new List<PengumumanDosen>();
-
-            PengumumanDosen x = new PengumumanDosen()
+            //validasi
+            if (model.judul == null || model.judul == "")
             {
-                id = 0,
-                Tanggal = "Kamis, 11 Juli 2013 11:00",
-                Judul = "Bimbingan Minggu ini Ditiadakan",
-                Isi = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed malesuada magna neque quis accumsan tellus euismod et. Nulla sollicitudin, magna ac lobortis venenatis, orci lacus pulvinar arcu, id auctor sapien lectus ac metus. Nulla porttitor imperdiet augue ut ornare. Praesent a imperdiet nisi, vel suscipit orci. Nullam pulvinar sem dui, porta vehicula augue accumsan sed. Nulla facilisi. Etiam tincidunt, tortor eget sagittis tempus, eros nisi eleifend urna, nec auctor dui dolor in orci. Fusce adipiscing lectus ac imperdiet dapibus. Etiam ipsum arcu, elementum a risus ac,laoreet faucibus dolor.",
-                Penulis = "Verliyantina",
-                Target = "Mahasiswa Skripsi 2",
+                return "Pengumuman gagal ditambahkan! \nField judul harus diisi!";
+            }
+            if (model.isi == null || model.isi == "")
+            {
+                return "Pengumuman gagal ditambahkan! \nField konten pengumuman harus diisi!";
+            }
+            pengumuman p = new pengumuman
+            {
+                tanggal = DateTime.Now,
+                isi = model.isi,
+                target = model.target,
+                judul = model.judul,
+                pembuat = (string)Session["username"]
             };
-            temp.Add(x);
 
-            return View(new GridModel<PengumumanDosen>
+            if (TryUpdateModel(p))
             {
-                Data = temp
+                db.pengumumen.Add(p);
+                db.SaveChanges();
+            }
+            return "Pengumuman berhasil ditambahkan.";
+        }
+
+        [AcceptVerbs(HttpVerbs.Post)]
+        public string SelectPengumuman()
+        {
+            string username = (string)Session["username"];
+            int[] array = { 8, 9, 10, 11, 12, 13, 14, 15 };
+            List<PengumumanContainer> listResult = (from p in db.pengumumen
+                                                    where (p.pembuat == "Admin" || p.pembuat == username)
+                                                    orderby p.tanggal descending
+                                                    select new PengumumanContainer { id = p.id, target = p.target, judul = p.judul, isi = p.isi, pembuat = p.pembuat, tanggal = p.tanggal }).ToList();
+
+            string result = "";
+            foreach (PengumumanContainer pc in listResult)
+            {
+                if (pc.pembuat == "Admin")
+                {
+                    if ((Array.IndexOf(array, pc.target) != -1))
+                    {
+                        result += hc.format(pc);
+                    }
+                }
+                else
+                {
+                    result += hc.format(pc);
+                }
+            }
+            return result;
+        }
+
+        #endregion
+
+        #region grid pengumuman
+
+        [AcceptVerbs(HttpVerbs.Post)]
+        [ValidateInput(false)]
+        public string _UpdatePengumuman(PengumumanContainer model)
+        {
+            //validasi
+            if (model.judul == null || model.judul == "")
+            {
+                return "Pengumuman gagal diubah! \nField judul harus diisi!";
+            }
+            if (model.isi == null || model.isi == "")
+            {
+                return "Pengumuman gagal diubah! \nField konten pengumuman harus diisi!";
+            }
+            pengumuman p = db.pengumumen.Where(pengumumanTemp => pengumumanTemp.id == model.id).First();
+            p.tanggal = DateTime.Now;
+            p.isi = model.isi;
+            p.target = model.target;
+            p.judul = model.judul;
+
+            if (TryUpdateModel(p))
+            {
+                db.SaveChanges();
+            }
+            return "Pengumuman berhasil diubah.";
+        }
+
+        [GridAction]
+        public ActionResult _SelectPengumuman()
+        {
+            return bindingTable();
+        }
+
+        [AcceptVerbs(HttpVerbs.Post)]
+        [GridAction]
+        public ActionResult _DeletePengumuman(int id)
+        {
+            var p = db.pengumumen.Where(pengumumanTemp => pengumumanTemp.id == id).First();
+            db.pengumumen.Remove(p);
+            db.SaveChanges();
+            return bindingTable();
+        }
+
+        protected ViewResult bindingTable()
+        {
+            string username = (string)Session["username"];
+            List<PengumumanContainer> listResult = (from p in db.pengumumen
+                                                    where (p.pembuat == username)
+                                                    orderby p.tanggal descending
+                                                    select new PengumumanContainer { id = p.id, target = p.target, judul = p.judul, isi = p.isi, pembuat = p.pembuat, tanggal = p.tanggal }).ToList();
+
+            return View(new GridModel<PengumumanContainer>
+            {
+                Data = listResult
             });
         }
-        [GridAction]
-        public ActionResult _SelectPengumumanDosen()
-        {
-            return bindingPengumumanDosen(0);
-        }
 
-        [AcceptVerbs(HttpVerbs.Post)]
-        [GridAction]
-        public ActionResult _SavePengumumanDosen(int id)
-        {
+        #endregion
 
-            return bindingPengumumanDosen(id);
-        }
-        [AcceptVerbs(HttpVerbs.Post)]
-        [GridAction]
-        public ActionResult _InsertPengumumanDosen()
-        {
 
-            return bindingPengumumanDosen(2);
-        }
-        [AcceptVerbs(HttpVerbs.Post)]
-        [GridAction]
-        public ActionResult _DeletePengumumanDosen(int id)
-        {
-
-            return bindingPengumumanDosen(id);
-        }
 
     }
 }
