@@ -14,6 +14,11 @@ namespace Proyek_Informatika.Models
     
     public partial class sidang
     {
+        public sidang()
+        {
+            this.revisis = new HashSet<revisi>();
+        }
+    
         public int id { get; set; }
         public System.DateTime tanggal { get; set; }
         public int ruang { get; set; }
@@ -24,6 +29,7 @@ namespace Proyek_Informatika.Models
     
         public virtual dosen dosen { get; set; }
         public virtual dosen dosen1 { get; set; }
+        public virtual ICollection<revisi> revisis { get; set; }
         public virtual ruang ruang1 { get; set; }
         public virtual skripsi skripsi { get; set; }
     }

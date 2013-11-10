@@ -2,27 +2,32 @@
 @using Proyek_Informatika.Utilities
 
 <script type = "text/javascript">
-var nameFile;
-$("#btn_unggah").click(function () {
-    if (nameFile == null || nameFile == "") {
-        alert("file belum terupload");
-        return;
-    }
-    var values = {
-        jenis: $("#jenis_file").val(),
-        deskripsi: $("#deskripsi").val(),
-        name: nameFile
-    };
-    $.post("Pengumpulan/SubmitFile", values, function (data) {
-        if (data == 0) {
-            alert("gagal");
-        }
-        else if (data == 1) {
-            alert("berhasil");
-        }
-
+    var nameFile;
+    $(document).ready(function () {
+        $("#jenis_file").value = "";
+        $("#deskripsi").value = "";
     });
-});
+    $("#btn_unggah").click(function () {
+        if (nameFile == null || nameFile == "") {
+            alert("file belum terupload");
+            return;
+        }
+        var values = {
+            jenis: $("#jenis_file").val(),
+            deskripsi: $("#deskripsi").val(),
+            name: nameFile
+        };
+        $.post("Pengumpulan/SubmitFile", values, function (data) {
+            if (data == 0) {
+                alert("File gagal terunggah");
+            }
+            else if (data == 1) {
+                alert("File berhasil terunggah");
+            }
+            closeWindow();
+            refreshTable();
+        });
+    });
     function onCom(e) {
         nameFile = e.files[0].name;
         console.log(e.files[0].name);

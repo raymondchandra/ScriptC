@@ -16,7 +16,29 @@ namespace Proyek_Informatika.Controllers.Dosen
 
         public ActionResult Index()
         {
-            return PartialView();
+            HansContainer.EnumSemesterSkripsiContainer semes = new HansContainer.EnumSemesterSkripsiContainer();
+            var result = from jn in db.jenis_skripsi 
+                                  select (new {id = jn.id, nama_jenis =jn.nama_jenis });
+            List<jenis_skripsi> temp = new List<jenis_skripsi>();
+            foreach (var x in result)
+            {
+                temp.Add(new jenis_skripsi {id = x.id, nama_jenis = x.nama_jenis });
+            }
+            semes.jenis_skripsi = temp;
+
+            List<semester> temp2 = new List<semester>();
+            var result2 = from si in db.semesters
+                     select (new {id = si.id, nama = si.periode_semester, curr = si.isCurrent });
+            foreach (var x in result2)
+            {
+                temp2.Add(new semester { id = x.id, periode_semester = x.nama, isCurrent = x.curr });
+                if (x.curr == 1)
+                {
+                    semes.selected_value = x.id;
+                }
+            }
+            semes.jenis_semester = temp2;
+            return PartialView(semes);
         }
 
         public ActionResult KartuBimbingan(int id_skripsi)
@@ -38,46 +60,39 @@ namespace Proyek_Informatika.Controllers.Dosen
         {
             return PartialView();
         }
-        public ActionResult Skripsi1()
-        {
-
-            return PartialView();
-        }
-        public ActionResult Skripsi2()
+        public ActionResult MahasiswaBimbingan()
         {
             return PartialView();
         }
+        [HttpPost]
+        public ActionResult MahasiswaBimbingan(int id_periode, int id_jenis_skripsi)
+        {
+            ViewBag.username = Session["username"].ToString();
+            ViewBag.periode = id_periode;
+            ViewBag.jenis_skripsi = id_jenis_skripsi;
 
+
+            return PartialView();
+        }
+        [HttpPost]
         [GridAction]
-        public ActionResult _SelectBimbinganMahasiswa1()
+        public ActionResult _SelectBimbinganMahasiswa(int periode, int jenis_skripsi)
         {
-            int id_skripsi = 1;
-
+            
             string username = Session["username"].ToString();
             var sNIK = db.dosens.Where(x => x.username == username).Single<dosen>();
             string nNIK = sNIK.NIK;
 
-            return bindingBimbinganMahasiswa(nNIK, id_skripsi);
+            return bindingBimbinganMahasiswa(nNIK, periode, jenis_skripsi);
         }
-        [GridAction]
-        public ActionResult _SelectBimbinganMahasiswa2()
-        {
-            int id_skripsi = 2;
-
-            string username = Session["username"].ToString();
-            var sNIK = db.dosens.Where(x => x.username == username).Single<dosen>();
-            string nNIK = sNIK.NIK;
-            return bindingBimbinganMahasiswa(nNIK, id_skripsi);
-        }
-
-        public ViewResult bindingBimbinganMahasiswa(string nik, int id_skripsi)
+       
+        //binding list smua mahasiswa yang dibimbing
+        public ViewResult bindingBimbinganMahasiswa(string nik,int periode, int jenis_skripsi)
         {
             
             var result = from sk in db.skripsis
-                         join mah in db.mahasiswas on sk.NPM_mahasiswa equals mah.NPM
-                         join tp in db.topiks on sk.id_topik equals tp.id
-                         where (sk.NIK_dosen_pembimbing.Equals( nik))
-                         select new DosenMuridBimbinganContainer{ id = sk.id, judul = tp.judul, namaMahasiswa= mah.nama, npm = mah.NPM };
+                         where (sk.NIK_dosen_pembimbing == nik && sk.jenis == jenis_skripsi && sk.id_semester_pengambilan == periode)
+                         select new DosenMuridBimbinganContainer{ id = sk.id, judul = sk.topik.judul, namaMahasiswa= sk.mahasiswa.nama, npm = sk.mahasiswa.NPM };
             List<DosenMuridBimbinganContainer> temp = result.ToList<DosenMuridBimbinganContainer>();
 
             //foreach (var i in result)
@@ -100,24 +115,6 @@ namespace Proyek_Informatika.Controllers.Dosen
             bimbingan result = db.bimbingans.Where<bimbingan>(x => x.id == id_bimbingan).Single<bimbingan>();
             return PartialView(result);
         }
-        [HttpPost]
-        public int EditBimbingan(int id_bimbingan, string judul, string deskripsi)
-        {
-            ViewBag.id_bimbingan = id_bimbingan;
-            bimbingan result = db.bimbingans.Where<bimbingan>(x => x.id == id_bimbingan).Single<bimbingan>();
-            result.isi = judul;
-            result.deskripsi = deskripsi;
-            try
-            {
-                db.SaveChanges();
-                return 1;
-            }
-            catch(Exception e)
-            {
-                return 0;
-            }
-            
-        }
         [AcceptVerbs(HttpVerbs.Post)]
         [GridAction]
         public ActionResult EditBimbingan(int id)
@@ -133,10 +130,26 @@ namespace Proyek_Informatika.Controllers.Dosen
         public ActionResult DeleteBimbingan(int id)
         {
             bimbingan result = db.bimbingans.Where<bimbingan>(x => x.id == id).Single<bimbingan>();
+            
             int tipe = result.id_skripsi;
             db.bimbingans.Remove(result);
             db.SaveChanges();
             return bindingKartu(tipe);
+        }
+        
+        [HttpPost]
+        public void InsertBimbingans(int id_skripsi)
+        {
+            bimbingan bim = new bimbingan();
+            bim.id_skripsi = id_skripsi;
+            bim.tanggal = DateTime.Now;
+            //Perform model binding (fill the product properties and validate it).
+            bim.deskripsi = "";
+            bim.isi = "";
+            db.bimbingans.Add(bim);
+            db.SaveChanges();
+ 
+            //Rebind the grid
         }
         [HttpPost]
         public int InsertBimbingan(int id_skripsi, string judul, string deskripsi)

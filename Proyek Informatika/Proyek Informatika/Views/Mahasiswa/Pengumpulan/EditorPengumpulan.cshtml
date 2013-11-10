@@ -6,7 +6,6 @@
 <script type = "text/javascript">
     var nameFile;
     $("#btn_edit").click(function () {
-        alert("jenis : " + $('#jenis_file2').val());
         var values = {
             id_laporan: @(Model.id),
             jenis: $("#jenis_file2").val(),
@@ -15,13 +14,15 @@
         };
         $.post("Pengumpulan/EditFile", values, function (data) {
             if (data == 0) {
-                alert("gagal");
+                alert("File gagal diubah");
             }
             else if (data == 1) {
-                alert("berhasil");
+                alert("File berhasil diubah");
             }
-
+            $(".t-grid .t-refresh").trigger('click');
+            closeWindow();
         });
+        
     });
     function onCom(e) {
         nameFile = e.files[0].name;
@@ -81,6 +82,7 @@
             }
             $fileList.show();
         }
+        nameFile = '@Model.nama_file';
 
     });
 </script>

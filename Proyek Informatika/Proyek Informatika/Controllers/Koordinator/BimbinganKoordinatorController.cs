@@ -14,44 +14,70 @@ namespace Proyek_Informatika.Controllers.Koordinator
         SkripsiAutoContainer db = new SkripsiAutoContainer();
         public ActionResult Index()
         {
-            return View();
-        }
+            HansContainer.EnumSemesterSkripsiContainer semes = new HansContainer.EnumSemesterSkripsiContainer();
+            var result = from jn in db.jenis_skripsi
+                         select (new { id = jn.id, nama_jenis = jn.nama_jenis });
+            List<jenis_skripsi> temp = new List<jenis_skripsi>();
+            foreach (var x in result)
+            {
+                temp.Add(new jenis_skripsi { id = x.id, nama_jenis = x.nama_jenis });
+            }
+            semes.jenis_skripsi = temp;
 
-        public ActionResult Bimbingan()
+            List<semester> temp2 = new List<semester>();
+            var result2 = from si in db.semesters
+                          select (new { id = si.id, nama = si.periode_semester, curr = si.isCurrent });
+            foreach (var x in result2)
+            {
+                temp2.Add(new semester { id = x.id, periode_semester = x.nama, isCurrent = x.curr });
+                if (x.curr == 1)
+                {
+                    semes.selected_value = x.id;
+                }
+            }
+            semes.jenis_semester = temp2;
+            return PartialView(semes);
+        }
+        [HttpPost]
+        public ActionResult ListMahasiswa(int periode, int jenis_skripsi)
         {
+            ViewBag.periode = periode;
+            ViewBag.jenis_skripsi = jenis_skripsi;
             return PartialView();
         }
 
         [GridAction]
-        public ActionResult SelectBimbingan(int tipe)
+        public ActionResult SelectBimbingan(int periode, int jenis_skripsi)
         {
-            return bindingBimbingan(tipe);
+            return bindingBimbingan(periode, jenis_skripsi);
         }
 
-        protected ViewResult bindingBimbingan(int tipe)
+        protected ViewResult bindingBimbingan(int periode, int jenis_skripsi)
         {
             var result = from si in db.skripsis
-                                                where si.jenis == tipe
-                                                select new KoordinatorBimbingan() {
-                                                    id= si.id,
-                                                    judul = si.topik.judul,
-                                                    jumlahBimbingan = 0,
-                                                    namaDosen = si.dosen.nama,
-                                                    namaMahasiswa = si.mahasiswa.nama,
-                                                    nikDosen = si.dosen.NIK,
-                                                    npmMahasiswa = si.mahasiswa.NPM,
-                                                    periode = si.semester.periode_semester
-                                                    };
-            List<KoordinatorBimbingan> temp = new List<KoordinatorBimbingan>();
+                         where si.jenis == jenis_skripsi && si.id_semester_pengambilan == periode
+                         select new HansContainer.KoordinatorListMahasiswa() {
+                             id= si.id,
+                             judul = si.topik.judul,
+                             jumlahBimbingan = 0,
+                             namaDosen = si.dosen.nama,
+                             namaMahasiswa = si.mahasiswa.nama,
+                             nikDosen = si.dosen.NIK,
+                             npmMahasiswa = si.mahasiswa.NPM,
+                             periode = si.semester.periode_semester,
+                             pengambilanke = si.pengambilan_ke,
+                             tipe = si.jenis_skripsi.nama_jenis
+                             };
+            List<HansContainer.KoordinatorListMahasiswa> temp = new List<HansContainer.KoordinatorListMahasiswa>();
 
             foreach(var x in result)
             {
-                KoordinatorBimbingan temp2 = x;
+                HansContainer.KoordinatorListMahasiswa temp2 = x;
                 temp2.jumlahBimbingan = db.bimbingans.Where<bimbingan>(a => a.id_skripsi == temp2.id).Count<bimbingan>();
                 temp.Add(temp2);
             }
 
-            return View(new GridModel<KoordinatorBimbingan> { Data = temp});
+            return View(new GridModel<HansContainer.KoordinatorListMahasiswa> { Data = temp});
         }
         #region kartubimbingan
         public ActionResult KartuBimbingan(int id_skripsi)
@@ -73,14 +99,6 @@ namespace Proyek_Informatika.Controllers.Koordinator
 
 
         #endregion
-        public ActionResult Skripsi1()
-        {
-            return PartialView();
-        }
 
-        public ActionResult Skripsi2()
-        {
-            return PartialView();
-        }
     }
 }

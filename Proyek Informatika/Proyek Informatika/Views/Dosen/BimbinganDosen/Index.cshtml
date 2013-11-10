@@ -1,21 +1,33 @@
-﻿
+﻿@model Proyek_Informatika.Models.HansContainer.EnumSemesterSkripsiContainer
+
+<script type="text/javascript">
+    
+    function changeContent(e) {
+        var cbPeriode = $("#DropPeriode").data("tDropDownList");
+        var cbSemester = $("#DropSkripsi").data("tDropDownList");
+
+        var val = {id_periode : cbPeriode.value(), id_jenis_skripsi: cbSemester.value() };
+        $.post("BimbinganDosen/MahasiswaBimbingan", val, function (data) {
+            $("#listMahasiswaContainer").html(data);
+        });
+    }
+</script>
 <div class="layer">
     <h1>Daftar Mahasiswa Bimbingan</h1>
-    
-    @( Html.Telerik().TabStrip()
-        .Name("DosenBimTab")
-        .Items(parent => {
-            parent.Add()
-                .Text("Skripsi-1")
-                .LoadContentFrom("Skripsi1", "BimbinganDosen")
-                .Selected(true);
-
-            parent.Add()
-                .Text("Skripsi-2")
-                .LoadContentFrom("Skripsi2", "BimbinganDosen");
-            
-        })
+    @(Html.Telerik().DropDownList()
+    .Name("DropPeriode")
+    .BindTo(new SelectList(Model.jenis_semester,"id","periode_semester",Model.selected_value))
+            .ClientEvents(c => c.OnChange("changeContent"))
     )
-    
+    @(Html.Telerik().DropDownList()
+    .Name("DropSkripsi")
+    .BindTo(new SelectList(Model.jenis_skripsi,"id","nama_jenis"))
+    .ClientEvents(c=>{
+        c.OnChange("changeContent");
+        c.OnLoad("changeContent");
+    })
+    )
+    <div id= "listMahasiswaContainer">
+    </div>
     
 </div>

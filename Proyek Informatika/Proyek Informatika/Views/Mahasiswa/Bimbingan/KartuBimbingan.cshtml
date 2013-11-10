@@ -25,21 +25,28 @@
             columns.Command(com =>
             {
                 com.Edit().ButtonType(GridButtonType.Image);
-                com.Custom("detil").Ajax(true).Text("Deskripsi");
+                //com.Custom("detil").Ajax(true).Text("Deskripsi");
             })
                 .Title("Aksi").Width(90);
         })
-            .DataBinding(dataBinding =>
-            {
-                dataBinding.Ajax().Select("_SelectKartuBimbingan", "Bimbingan");
-                dataBinding.Ajax().Update("EditBimbingan", "Bimbingan");
-            })
-        .ClientEvents(ev => ev.OnCommand("detilBimbingan"))
+        .DataBinding(dataBinding =>
+        {
+            dataBinding.Ajax().Select("_SelectKartuBimbingan", "Bimbingan");
+            dataBinding.Ajax().Update("EditBimbingan", "Bimbingan");
+        })
+        .DetailView(det => det.ClientTemplate(
+                "<fieldset>" +
+                         "<legend>Detil Bahasan</legend>" +
+                             "<div class = 'deskripsi'><#= deskripsi #>" +
+                             "</div>" +
+                     "</fieldset>"
+            ))
+        //.ClientEvents(ev => ev.OnCommand("detilBimbingan"))
         .Pageable(p => p.PageSize(15))
         .Sortable()
         .Filterable()
             .Editable(editing => { 
-                editing.Mode(GridEditMode.InForm);
+                editing.Mode(GridEditMode.PopUp);
             })
         .Scrollable(c => c.Enabled(true))
         .Selectable()

@@ -55,21 +55,7 @@ namespace Proyek_Informatika.Controllers.Mahasiswa
             ViewBag.username = Session["username"];
             return PartialView();
         }
-        //public ActionResult GetDownload(string filename)
-        //{
-        //    //ambil filename di database
-        //    try
-        //    {
-        //        var fs = System.IO.File.OpenRead(Server.MapPath("~/Upload/File Mahasiswa/"+Session["username"]+"/dokumen/" + filename));
-                
-        //        string fileType =  getFileType(filename);
-        //        return File(fs, fileType, filename);
-        //    }
-        //    catch
-        //    {
-        //        throw new HttpException(404, "Couldn't find " + filename);
-        //    }
-        //}
+        
         public ActionResult GetDownload(int id_laporan)
         {
             //ambil filename di database
@@ -111,7 +97,7 @@ namespace Proyek_Informatika.Controllers.Mahasiswa
             {
                 var get = result.First();
                 string file = Server.MapPath(Url.Content("~/Upload/File Mahasiswa/"+username.username+"/dokumen/" + result.ElementAt<laporan>(0).nama_file));
-                //string file = Server.MapPath(Url.Content("~/Upload/File Mahasiswa/"+Session["username"]+"/dokumen/" + result.ElementAt<laporan>(0).nama_file));
+                
                 try
                 {
                     
@@ -149,16 +135,16 @@ namespace Proyek_Informatika.Controllers.Mahasiswa
         {
             int id_skripsi;
 
-            //id_skripsi = Session["id_skripsi"];
-            id_skripsi = 1;
-            laporan temp = new laporan();
-            //string username = Session["username"].ToString();
+            id_skripsi = -1;
+            if (Session["id-skripsi"] != null)
+            {
+                id_skripsi = Int32.Parse(Session["id-skripsi"].ToString());
 
-            /*var id_skripsi = (from table in db.skripsis
-                              where (table.mahasiswa == username)
-                              join
-                              select table.id );
-             * */
+            }
+            string id_pengambilan = Session["id-semester"].ToString();
+            Console.WriteLine(id_pengambilan);
+            laporan temp = new laporan();
+
             temp.jenis = jenis;
             temp.deskripsi = deskripsi;
             temp.id_skripsi = id_skripsi;
@@ -201,10 +187,12 @@ namespace Proyek_Informatika.Controllers.Mahasiswa
         public string Unggah(laporan laporan)
         {
             int id_skripsi;
-
-            //id_skripsi = Session["id_skripsi"];
+            if (Session["id-skripsi"] == null)
+            {
+                return null;
+            }
+            id_skripsi = (Int32)Int64.Parse(Session["id-skripsi"].ToString());
             string username = Session["username"].ToString();
-            id_skripsi = 1;
             laporan.id_skripsi = id_skripsi;
             String deskripsi = laporan.deskripsi;
             laporan.tanggal_pengumpulan = DateTime.Now;
@@ -222,8 +210,11 @@ namespace Proyek_Informatika.Controllers.Mahasiswa
         [GridAction]
         public ActionResult SelectPengumpulan()
         {
-            int id_skripsi = 1;
-            //int id_skripsi = Int32.Parse(Session["id_skripsi"].ToString());
+            int id_skripsi = -1;
+            if (Session["id-skripsi"] != null)
+            {
+                id_skripsi = Int32.Parse(Session["id-skripsi"].ToString());
+            }
             return bindingPengumpulan(id_skripsi);
 
         }

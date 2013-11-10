@@ -1,7 +1,4 @@
 ﻿
-
-    <script src="../../../Scripts/jquery-ui.js" type="text/javascript"></script>
-    <script src="../../../Scripts/bimbingan/dosen_kartubimbingan.js" type="text/javascript"></script>
 <script type = "text/javascript">
 
     function detilBimbingan2(e) {
@@ -12,8 +9,6 @@
             windowZ = $("#formBimbingans").data("tWindow");
             windowZ.center().open();
         }
-
-
         }
     
 </script>
@@ -40,9 +35,6 @@
                 <td>:</td>
                 <td>@(ViewBag.jumlahBimbingan)</td>
             </tr>
-            <tr>
-                <td colspan ="3"><input type = "button"  id="addBimbingan" value= "Tambahkan" class="t-button t-state-default"/></td>
-            </tr>
         </table><br/><br />
  @(Html.Telerik().Grid<Proyek_Informatika.Models.bimbingan>()
         .HtmlAttributes(new { style = "width:100%" })
@@ -55,16 +47,27 @@
         {
             columns.Bound(o => o.tanggal).Width(75).Title("Tanggal");
             columns.Bound(o => o.isi).Width(150).Title("Bahasan");
-            columns.Command(com =>
-            {
-                com.Custom("showDetilBimbingan").Text("Tampilkan").Ajax(true);
-            }).Width(50).Title("Aksi");
+            //columns.Command(com =>
+            //{
+            //    com.Custom("showDetilBimbingan").Text("Tampilkan").Ajax(true);
+            //}).Width(50).Title("Aksi");
         })
-               .DataBinding(dat => 
-               {
-                   dat.Ajax().Select("_SelectKartu", "BimbinganDosen", new {id_skripsi = ViewBag.id});
+             .DetailView(det => det.ClientTemplate(
+                 "<fieldset>" +
+                     "<legend>Detil Bahasan</legend>" +
+                         "<ul style='padding:0;margin:0;list-style:none'>" +
+                             //"<li>Pokok Bahasan: <#= isi #></li>" +
+                             "<li>Detil Bahasan:</li>" +
+                         "</ul>" +
+                         "<div class = 'deskripsi'><#= deskripsi #>"+
+                         "</div>"+
+                 "</fieldset>"))
+        .DataBinding(dat => 
+        {
+            dat.Ajax().Select("_SelectKartu", "BimbinganDosen", new {id_skripsi = ViewBag.id});
 
-               })
+        })
+        
         .ClientEvents(ev => ev.OnCommand("detilBimbingan2"))
         .Editable(c=>c.Mode(GridEditMode.InForm))
         .Sortable()

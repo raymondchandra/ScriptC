@@ -4,11 +4,7 @@
     function OnComplete(e) {
         alert("file mahasiswa");
         if (e.name == "unduhFile") {
-            var values = { id_laporan: e.dataItem.id };
-            $.post("Pengumpulan/GetDownload", values, function (data) {
-
-                location.href(data);
-            });
+            window.open("Pengumpulan/GetDownload?id_laporan=" + e.dataItem.id, "_blank");
         }
         else if (e.name == "lihatFile") {
             var values = { id_laporan: e.dataItem.id };
@@ -20,10 +16,6 @@
         else if (e.name == "deskripsi") {
             var values = { id_laporan: e.dataItem.deskripsi };
             alert(e.dataItem.deskripsi);
-//            var id = e.dataItem.id;
-//            loadIframe("pdfContainer", "Pengumpulan/PDFViewer?id_laporan=" + id);
-//            var windowZ = $("#viewLaporan").data("tWindow");
-//            windowZ.center().open();
         }
     }
     function loadIframe(iframeName, url) {
@@ -66,15 +58,22 @@
         {
             com.Custom("unduhFile").Text("Unduh").Ajax(true);
             com.Custom("lihatFile").Text("Lihat").Ajax(true);
-            com.Custom("deskripsi").Text("Deskripsi").Ajax(true);
+            //com.Custom("deskripsi").Text("Deskripsi").Ajax(true);
         })
+        
         .Title("Aksi")
         .Width(100);
     }
 )
+.DetailView(det => det.ClientTemplate(
+         "<fieldset>" +
+             "<legend>Detil Bahasan</legend>" +
+                 "<div class = 'deskripsi'><#= deskripsi #>" +
+                 "</div>" +
+         "</fieldset>"
+    ))
             .ClientEvents(events => events.OnCommand("OnComplete"))
-.DataBinding(data => data.Ajax().Select("SelectPengumpulan", "Pengumpulan"))
-
+.DataBinding(data => data.Ajax().Select("SelectPengumpulan", "PengumpulanDosen", new {id_skripsi = ViewBag.id }))
 .Pageable(p => p.PageSize(15))
 .Sortable()
 .Filterable()

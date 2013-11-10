@@ -3,19 +3,19 @@
     <script src="../../../Scripts/jquery-ui.js" type="text/javascript"></script>
     <script src="../../../Scripts/bimbingan/dosen_kartubimbingan.js" type="text/javascript"></script>
 <script type = "text/javascript">
-    $(function () {
-        $("#addBimbingan").click(function () {
+//    $(function () {
+//        $("#addBimbingan").click(function () {
 
-            var value = { id_skripsi: '@ViewBag.id' };
+//            var value = { id_skripsi:  };
 
-            $.post("BimbinganDosen/FormBimbingan", value, function (data) {
+//            $.post("BimbinganDosen/FormBimbingan", value, function (data) {
 
-                var windowBimbingan = $("#formBimbingans").data("tWindow");
-                $("#container").html(data);
-                windowBimbingan.center().open();
-            });
-        });
-    });
+//                var windowBimbingan = $("#formBimbingans").data("tWindow");
+//                $("#container").html(data);
+//                windowBimbingan.center().open();
+//            });
+//        });
+//    });
     function detilBimbingan(e) {
         alert("kartu bimbingan");
         var windowZ;
@@ -31,7 +31,12 @@
                 windowZ = $("#formBimbingans").data("tWindow");
                 windowZ.center().open();
             });
-            
+
+        }
+        else if (e.name == "addBimbingan") {
+        var value = {id_skripsi : '@ViewBag.id'};
+            $.post("BimbinganDosen/InsertBimbingans",value, function (data) { });
+            $(".t-grid .t-refresh").trigger('click');
         }
     }
 </script>
@@ -58,9 +63,6 @@
                 <td>:</td>
                 <td>@(ViewBag.jumlahBimbingan)</td>
             </tr>
-            <tr>
-                <td colspan ="3"><input type = "button"  id="addBimbingan" value= "Tambahkan" class="t-button t-state-default"/></td>
-            </tr>
         </table><br/><br />
  @(Html.Telerik().Grid<Proyek_Informatika.Models.bimbingan>()
         .HtmlAttributes(new { style = "width:100%" })
@@ -75,19 +77,29 @@
             columns.Bound(o => o.isi).Width(150).Title("Bahasan");
             columns.Command(com =>
             {
-                com.Edit();
-                com.Delete();
-                com.Custom("showDetil").Text("Tampilkan").Ajax(true);
+                com.Edit().ButtonType(GridButtonType.Image);
+                com.Delete().ButtonType(GridButtonType.Image);
+                //com.Custom("showDetil").Text("Tampilkan").Ajax(true).ButtonType(GridButtonType.Image);
             }).Width(50).Title("Aksi");
         })
+             .ToolBar(t => t.Custom().Name("addBimbingan").Ajax(true).Text("Tambah Bimbingan"))
                .DataBinding(dat => 
                {
                    dat.Ajax().Select("_SelectKartu", "BimbinganDosen", new {id_skripsi = ViewBag.id});
-                   dat.Ajax().Delete("DeleteBimbingan", "BimbinganDosen");
                    dat.Ajax().Update("EditBimbingan", "BimbinganDosen");
+                   dat.Ajax().Delete("DeleteBimbingan", "BimbinganDosen");
+                   
                })
+        .DetailView(det=>det.ClientTemplate(
+              "<fieldset>" +
+                  "<legend>Detil Bahasan</legend>" +
+                      "<div class = 'deskripsi'><#= deskripsi #>" +
+                      "</div>" +
+              "</fieldset>"
+            ))
+        
         .ClientEvents(ev => ev.OnCommand("detilBimbingan"))
-        .Editable(c=>c.Mode(GridEditMode.InForm))
+        .Editable(c=>c.Mode(GridEditMode.PopUp))
         .Sortable()
         .Filterable()
         .Scrollable()
