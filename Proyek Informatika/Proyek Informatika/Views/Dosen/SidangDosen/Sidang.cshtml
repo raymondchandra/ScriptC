@@ -1,164 +1,137 @@
 ﻿@{
-    ViewBag.Title = "Penilaian Sidang";
+    List<Tuple<int, string, int, int>> bobotData = ViewData["bobot"] as List<Tuple<int, string, int, int>>;
+    var count = bobotData.Count;
 }
-<div class="layer">
-    <h1>
-        Penilaian Sidang</h1>
-    <div style="float: left; width: 300px;">
-        @{
-            var role = ViewBag.role;
-            if (role == "pembimbing")
-            {
-            <text><br>
-            <table>
-                <tr>
-                    <td style="width: 75px;">
-                        Nama
-                    </td>
-                    <td style="width: 20px;">
-                        :
-                    </td>
-                    <td>
-                        Albertus Alvin
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        Pembimbing
-                    </td>
-                    <td>
-                        :
-                    </td>
-                    <td>
-                        Lionov
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        Penguji 1
-                    </td>
-                    <td>
-                        :
-                    </td>
-                    <td>
-                        Oerip S. Santoso
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        Penguji 2
-                    </td>
-                    <td>
-                        :
-                    </td>
-                    <td>
-                        -
-                    </td>
-                </tr>
-            </table>
-            <br>
-            </text>
-            }
-            else if (role == "penguji 1")
-            {
+<script>
+    var itt = 0;
+    function change(order) {
 
-            }
-            else if (role == "penguji 2")
-            {
+        var a = parseFloat($("#nilai" + order).val());
+        var b = parseFloat($("#bobot" + order).html());
+        var kali = a * b / 100;
+        $("#total" + order).html(kali);
+        var total = 0.0;
+        for (var i = 1; i <= @count; i++) {
+            total += parseFloat($("#total" + i).html());
+        }
+        $("#total").html(total);
+    }
 
+    $("#submitButton").click(function(){
+        var r = confirm("Apakah anda yakin? Data akan dikirimkan kepada koordinator sidang.");
+        if(r){
+            var success = save();
+            if(success){
+                $.post("SidangDosen/SubmitAll",{skripsi_id : '@ViewBag.skripsi_id'},function(data){
+                    if(data == "True"){
+                        $('#content').load('SidangDosen/Penilaian');
+                    }else{
+                        alert("Error dalam mengirim nilai.");
+                    }
+                });
+                
             }
         }
-    </div>
-    <div style="float: left; width: 450px;">
-        <fieldset>
-            <legend>Penilaian</legend>
-            <table style="text-align:left;">
-                <tr>
-                    <th style="width:175px">
-                        Komponen Penilaian
-                    </th>
-                    <th style="width:80px">
-                        Nilai
-                    </th>
-                    <th style="width:80px">
-                        Bobot
-                    </th>
-                    <th style="width:80px">
-                        Hasil
-                    </th>
-                </tr>
-                <tr>
-                    <td>
-                        Tata tulis laporan
-                    </td>
-                    <td>
-                        <input type="text" style="width:50px">
-                    </td>
-                    <td>
-                        20
-                    </td>
-                    <td>15
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        Kelengkapan materi
-                    </td>
-                    <td>
-                        <input type="text" style="width:50px">
-                    </td>
-                    <td>
-                        20
-                    </td>
-                    <td>12
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        Penguasaan materi
-                    </td>
-                    <td>
-                        <input type="text" style="width:50px">
-                    </td>
-                    <td>
-                        30
-                    </td>
-                    <td>25.5
-                    </td>
-                </tr>
+    });
+    $("#saveButton").click(function(){
+        save();
+    });
 
-                 <tr>
-                    <td>
-                        Proses bimbingan
-                    </td>
-                    <td>
-                        <input type="text" style="width:50px">
-                    </td>
-                    <td>
-                        30
-                    </td>
-                    <td>21
-                    </td>
-                </tr>
+    function save(){
+        var success = true;
+        for (var i = 1; i <= @count; i++) {
+            if(!isNaN(parseFloat($("#total" + i).html()))){
 
+                var values = {
+                    nilai : parseFloat($("#total" + i).html()),
+                    skripsi_id : '@ViewBag.skripsi_id',
+                    urutan : i
+                };
+                $.post("SidangDosen/SimpanNilai",values,function(data){
+                    itt++;
+                    if(itt==@count){
+                        hitungTotal();
+                    }
+                });
+            }else{
+                success = false;
+            }
+        }
+        if(success){
+            return true;
+        }else{
+            alert("Tidak dapat menyimpan semua nilai karena tidak berupa angka.");
+            return false;
+        }
+    };
 
+    function hitungTotal(){
+        var values = {
+            nilai : parseFloat($("#total").html()),
+            skripsi_id : '@ViewBag.skripsi_id',
+            kategori : '@ViewBag.role'
+        };
+        $.post("SidangDosen/SimpanNilaiTotal",values,function(data){
+            if(data == "True"){
+                alert("Data berhasil diubah.");
+            }else{
+                alert("Data tidak berhasil diubah.");
+            }
+        });
+    }
+
+    $("#backButton").click(function(){
+        var r = confirm("Apakah anda yakin? Semua data yang belum disimpan akan hilang.");
+        if(r){
+            $('#content').load('SidangDosen/Penilaian');
+        }
+    });
+
+    $(document).ready(function(){
+        for (var i = 1; i <= @count; i++) {
+            change(i);
+        }
+        @{
+            if(ViewBag.jenis_skripsi == 1 && ViewBag.role == "penguji1"){
+                <text>
+                    $("#tab1").html("Dosen reviewer tidak dapat memberi nilai.");
+                </text>
+            }
+        }
+    });
+</script>
+<div id="tab1">
+    <table>
+        <tr>
+            <th style="width:175px">Komponen Penilaian</th>
+            <th style="width:80px">Nilai</th>
+            <th style="width:80px">Bobot</th>
+            <th style="width:80px">Total</th>
+        </tr>
+        @{
+                    
+            foreach (var item in bobotData)
+            {
+                <text>
                 <tr>
-                    <th>
-                        Total
-                    </th>
-                    <th>
-                        
-                    </th>
-                    <th>
-                        
-                    </th>
-                    <th>
-                        73.5
-                    </th>
+                    <td>@item.Item2</td>
+                    <td><input type="text" style="width:50px" id="nilai@(item.Item1)" onkeyup="change(@item.Item1)" value="@(item.Item4)"></td>
+                    <td id="bobot@(item.Item1)">@item.Item3</td>
+                    <td id="total@(item.Item1)"></td>
                 </tr>
-            </table><br>
-             <button type="submit" class="t-button t-state-default">
-        Ok</button> &nbsp <button type="submit" class="t-button t-state-default">
-        Kembali</button></fieldset>
-    </div>
+                </text>
+            }
+                    
+        }
+                
+        <tr>
+            <th>Total</th>
+            <th></th>
+            <th></th>
+            <th id="total"></th>
+        </tr>
+    </table><br>
+    <input type="button" class="t-button t-state-default" id="submitButton" value="Kirim" />&nbsp 
+    <input type="button" class="t-button t-state-default" id="saveButton" value="Simpan" />&nbsp 
+    <input type="button" class="t-button t-state-default" id="backButton" value="Kembali" />
 </div>

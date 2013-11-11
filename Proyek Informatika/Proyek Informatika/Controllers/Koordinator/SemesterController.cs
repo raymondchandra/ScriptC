@@ -38,7 +38,7 @@ namespace Proyek_Informatika.Controllers.Koordinator
                 db.semesters.Add(newsemester);
                 try{
                     db.SaveChanges();
-                }catch (Exception e){
+                }catch{
                     return false;
                 }
                 return true;

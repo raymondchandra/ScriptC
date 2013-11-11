@@ -1,0 +1,82 @@
+﻿@{
+    ViewBag.Title = "Penilaian Sidang";
+    var koordinator = false;
+    if(ViewBag.role == "penguji1"){
+        koordinator = true;
+    }
+
+}
+<script type="text/javascript">
+    $(document).ready(function () {
+        $.post("SidangDosen/GetSidangStatus", {skripsi_id:@ViewBag.skripsi_id}, function (data) {
+            if(data == 1){
+                $("#nilaiPanel").show();
+                $("#openPanel").hide();
+            }else if(data == 0){
+                $("#nilaiPanel").hide();
+                $("#openPanel").show();
+            }
+        });
+    });
+
+    $("#openButton").click(function(){
+         $.post("SidangDosen/MulaiSidang", {skripsi_id:@ViewBag.skripsi_id}, function (data) {
+            if(data=="True"){
+               $('#content').load('SidangDosen/Sidang_Index?role=@ViewBag.role' + '&skripsi_id=@ViewBag.skripsi_id');
+            }
+        });
+    });
+</script>
+
+<div class="layer">
+    <h1>Penilaian Sidang</h1>
+    <div style="float: left; width: 300px;">
+        <table>
+                <tr>
+                    <td style="width: 75px;">Nama</td>
+                    <td style="width: 20px;">:</td>
+                    <td>@ViewBag.nama</td>
+                </tr>
+                <tr>
+                    <td style="width: 75px;">NPM</td>
+                    <td style="width: 20px;">:</td>
+                    <td>@ViewBag.npm</td>
+                </tr>
+                <tr>
+                    <td>Pembimbing</td>
+                    <td>:</td>
+                    <td>@ViewBag.pembimbing</td>
+                </tr>
+                <tr>
+                    <td>Penguji 1</td>
+                    <td>:</td>
+                    <td>@ViewBag.penguji1</td>
+                </tr>
+                <tr>
+                    <td>Penguji 2</td>
+                    <td>:</td>
+                    <td>@ViewBag.penguji2</td>
+                </tr>
+            </table>
+    </div>
+    <div id="openPanel">
+        <input type="button" id="openButton" value="Mulai Sidang" class="t-button t-state-default"/>
+    </div>
+    <div id="nilaiPanel" style="float: left; width: 550px;">
+        @( Html.Telerik().TabStrip()
+            .Name("SidangTab")
+            .Items(parent => {
+                parent.Add()
+                    .Text("Sidang")
+                    .LoadContentFrom("Sidang", "SidangDosen", new { role = ViewBag.role, skripsi_id = ViewBag.skripsi_id})
+                    .Selected(true);
+
+                parent.Add()
+                    .Text("Koordinator Sidang")
+                    .LoadContentFrom("Sidang_Koordinator", "SidangDosen", new { role = ViewBag.role, skripsi_id = ViewBag.skripsi_id })
+                    .Visible(koordinator);
+            
+            })
+        )
+    </div>
+</div>

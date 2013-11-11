@@ -23,9 +23,9 @@
         }else if(pemberiNilai==2){
             tipe = "penguji1";
         } else if (pemberiNilai == 3) {
-            tipe = "penguji3";
+            tipe = "penguji2";
         }
-        $.post("SidangKoordinator/GetBobot", { tipe: tipe }, function (data) {
+        $.post("SidangKoordinator/GetBobot", { tipe: tipe,jenis_skripsi_id :2 }, function (data) {
             $("#textBobot" + pemberiNilai).val(data);
             $("#labelBobot" + pemberiNilai).html(data);
             hitungTotal();
@@ -50,6 +50,7 @@
             $("#labelBobot" + pemberiNilai).hide();
             $("#save" + pemberiNilai).val("Simpan");
         } else if ($("#save" + pemberiNilai).val() == "Simpan"){
+            debugger;
             $("#textBobot" + pemberiNilai).hide();
             $("#labelBobot" + pemberiNilai).show();
             $("#save" + pemberiNilai).val("Ubah");
@@ -59,18 +60,19 @@
             }else if(pemberiNilai==2){
                 tipe = "penguji1";
             } else if (pemberiNilai == 3) {
-                tipe = "penguji3";
+                tipe = "penguji2";
             }
             var values = {
-                kategori : "general",
-                tipe : tipe,
+                tipe : "general",
+                kategori : tipe,
                 bobot : $("#textBobot" + pemberiNilai).val(),
+                jenis_skripsi_id : 2
             };
             $.post("SidangKoordinator/SimpanBobotGeneral", values, function (data) { 
                 if(data == "True"){
                     $("#labelBobot" + pemberiNilai).html($("#textBobot" + pemberiNilai).val());
                 }else{
-                    $("#textBobot" + pemberiNilai).val($("#labelBobot" + pemberiNilai).val());
+                    $("#textBobot" + pemberiNilai).val($("#labelBobot" + pemberiNilai).html());
                 }
             });
             hitungTotal();
@@ -147,7 +149,7 @@
             {
                 commands.Edit().ButtonType(GridButtonType.Text);
                 commands.Delete().ButtonType(GridButtonType.Text);
-            }).Width(180).Title("Commands");
+            }).Width(100).Title("Commands");
         })
         .Pageable()
         .Scrollable()
@@ -188,7 +190,7 @@
                 {
                     commands.Edit().ButtonType(GridButtonType.Text);
                     commands.Delete().ButtonType(GridButtonType.Text);
-                }).Width(180).Title("Commands");
+                }).Width(100).Title("Commands");
             })
             .Pageable()
             .Scrollable()

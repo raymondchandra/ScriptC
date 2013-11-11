@@ -131,7 +131,7 @@ namespace Proyek_Informatika.Controllers.Mahasiswa
                 db.SaveChanges();
                 target_id = changedEvent.id;
             }
-            catch (Exception a)
+            catch
             {
                 action_type = "error";
             }

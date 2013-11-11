@@ -20,12 +20,6 @@
                                     .Add("telerik.office2007.css"))
         )
     <script>
-        $(function () {
-            $("#tabs").tabs({
-                event: "mouseover"
-            });
-        });
-
         $.post("Home/SetIdSemester", "", function (data) {
             $(".semester").html(data);
         });

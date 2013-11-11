@@ -1,102 +1,59 @@
 ﻿@{
     ViewBag.Title = "Penilaian Sidang";
 }
-<script>
-    function goToSidang() {
-        $('#content').load('SidangDosen/Sidang?role=pembimbing');
+<script type="text/javascript">
+    function goToSidang(e) {
+       if (e.name == "akses") {
+           var skripsi_id = e.response.id;
+           $.post("SidangDosen/GetRole", { skripsi_id: skripsi_id }, function (data) {
+               $.post("SidangDosen/CekSidangAkses", { skripsi_id: skripsi_id, role: data }, function (ret) {
+                   if (ret == 1) {
+                       $('#content').load('SidangDosen/Sidang_Index?role=' + data + '&skripsi_id=' + skripsi_id);
+                   } else if (ret == 2) {
+                       alert("Sidang belum dapat diakses. Koordinator sidang harus memberikan akses terlebih dahulu.");
+                   } else if (ret == 3) {
+                       alert("Bobot pengujian belum tersedia. Silahkan melapor kepada koordinator skripsi.");
+                   }
+               });
+
+           });
+        }
+        
     }
 </script>
 <div class="layer">
 
     <h1>
         Penilaian Sidang</h1>
-    @{ 
-        GridEditMode mode = GridEditMode.PopUp;
-        GridButtonType type = GridButtonType.Text;    
-    }
-    @(Html.Telerik().Grid<Proyek_Informatika.Models.PenilaianSidang>()
+    @(Html.Telerik().Grid<Proyek_Informatika.Models.PenilaianSidangContainer>()
         .Name("Pengumuman")
                 .DataKeys(keys =>
                 {
-                    keys.Add(p => p.id);
+                    keys.Add(p => p.NPM);
                 })
-        .DataBinding(dataBinding => dataBinding.Ajax()
-                                                    .Select("_SelectPenilaianSidang", "SidangDosen")
-                                                    .Insert("_InsertPenilaianSidang", "SidangDosen")
-                                                    .Update("_SavePenilaianSidang", "SidangDosen")
-                                                    .Delete("_DeletePenilaianSidang", "SidangDosen"))
+        .DataBinding(dataBinding => dataBinding.Ajax().Select("_SelectPenilaianSidang", "SidangDosen"))
         .Columns(columns =>
         {
-            columns.Bound(o => o.id).Width(100);
-            columns.Bound(o => o.mahasiswa).Width(150);
+            columns.Bound(o => o.NPM).Width(100);
+            columns.Bound(o => o.nama).Width(150);
             columns.Bound(o => o.pembimbing).Width(150);
             columns.Bound(o => o.penguji1).Width(150);
             columns.Bound(o => o.penguji2).Width(150);
-               columns.Command(comm => comm.Custom("detailBimbingan")
-.Text("Penilaian")
-.Ajax(true))
-.Width(100);
-            
+
+            columns.Command(comm => comm.Custom("akses")
+                    .Text("Penilaian")
+                    .Ajax(true)
+                    .Action("AksesSidang", "SidangDosen"))
+                    .Width(100);
         })
-        .Editable(editing => editing.Mode(mode))
-               .Pageable(p => p.PageSize(15))
-                .Sortable()
-                 .Filterable()
-                     .Scrollable(c => c.Enabled(true))
-                .Selectable()
-                .Groupable()
-                .ClientEvents(ev => ev.OnCommand("goToSidang"))
+        .Pageable(p => p.PageSize(15))
+        .Sortable()
+        .Filterable()
+        .Scrollable(c => c.Enabled(true))
+        .Selectable()
+        .Groupable()
+                .ClientEvents(ev => ev.OnComplete("goToSidang"))
 
 
 )
-   
-    @section HeadContent {
-        <style type="text/css">
-    /* validators */
-    .field-validation-error
-    {
-        position: absolute;
-        display: block;
-    }
-    
-    * html .field-validation-error { position: relative; }
-    *+html .field-validation-error { position: relative; }
-    
-    .field-validation-error span
-    {
-        position: absolute;
-        white-space: nowrap;
-        color: red;
-        padding: 17px 5px 3px;
-        background: transparent url('@Url.Content("~/Content/Common/validation-error-message.png") ') no-repeat 0 0;
-    }
-    
-    /* in-form editing */
-    .t-edit-form-container
-    {
-        width: 350px;
-        margin: 1em;
-    }
-    
-    .t-edit-form-container .editor-label,
-    .t-edit-form-container .editor-field
-    {
-        padding-bottom: 1em;
-        float: left;
-    }
-    
-    .t-edit-form-container .editor-label
-    {
-        width: 30%;
-        text-align: right;
-        padding-right: 3%;
-        clear: left;
-    }
-    
-    .t-edit-form-container .editor-field
-    {
-        width: 60%;
-    }
-</style>
-    }
 </div>

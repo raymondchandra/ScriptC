@@ -29,7 +29,7 @@
         .DataBinding(dataBinding =>
         {
             dataBinding.Ajax()
-                .Select("_SelectBobot", "SidangKoordinator", new { tipe = "pembimbing",jenisSkripsi = 1 })
+                .Select("_SelectBobot", "SidangKoordinator", new { tipe = "pembimbing", jenisSkripsi = 1 })
                 .Insert("_InsertBobot", "SidangKoordinator", new { tipe = "pembimbing", jenisSkripsi = 1 })
                 .Update("_SaveBobot", "SidangKoordinator", new { tipe = "pembimbing", jenisSkripsi = 1 })
                 .Delete("_DeleteBobot", "SidangKoordinator", new { tipe = "pembimbing", jenisSkripsi = 1 });
@@ -38,12 +38,12 @@
         {
             columns.Bound(o => o.urutan).Title("Urutan");
             columns.Bound(o => o.kategori).Title("Kategori");
-            columns.Bound(o => o.id).Title("Bobot(%)");
+            columns.Bound(o => o.bobot).Title("Bobot(%)");
             columns.Command(commands =>
             {
                 commands.Edit().ButtonType(GridButtonType.Text);
                 commands.Delete().ButtonType(GridButtonType.Text);
-            }).Width(180).Title("Commands");
+            }).Width(100).Title("Commands");
         })
         .Pageable()
         .Scrollable()

@@ -63,7 +63,7 @@ namespace Proyek_Informatika.Controllers.Koordinator
                 db.SaveChanges();
                 return true;
             }
-            catch (Exception e)
+            catch
             {
                 return false;
             }
@@ -201,7 +201,6 @@ namespace Proyek_Informatika.Controllers.Koordinator
                 return Json(new
                 {
                     success = true,
-                    get.description,
                     get.penguji1,
                     get.penguji2,
                     get.ruang,
@@ -348,7 +347,7 @@ namespace Proyek_Informatika.Controllers.Koordinator
 
         }
 
-        public bool SimpanJadwal(string npm, string tanggal, int ruang, string penguji1, string penguji2, string deskripsi)
+        public bool SimpanJadwal(string npm, string tanggal, int ruang, string penguji1, string penguji2)
         {
 
             var skripsi_id = query.GetThisIdFromNPM(npm);
@@ -358,10 +357,9 @@ namespace Proyek_Informatika.Controllers.Koordinator
             if (checkExist.Count == 0)
             {
                 sidang newSidang = new sidang();
-                newSidang.description = deskripsi;
                 newSidang.id_skripsi = skripsi_id;
                 newSidang.penguji1 = penguji1;
-                newSidang.penguji2 = penguji2;
+                newSidang.penguji2 = (penguji2 == "--") ? null: penguji2;
                 newSidang.ruang = ruang;
                 newSidang.tanggal = DateTime.ParseExact(tanggal, "dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture);
                 db.sidangs.Add(newSidang);
@@ -369,7 +367,6 @@ namespace Proyek_Informatika.Controllers.Koordinator
             else
             {
                 sidang getSidang = checkExist.SingleOrDefault();
-                getSidang.description = deskripsi;
                 getSidang.id_skripsi = skripsi_id;
                 getSidang.penguji1 = penguji1;
                 getSidang.penguji2 = penguji2;
@@ -382,7 +379,7 @@ namespace Proyek_Informatika.Controllers.Koordinator
             {
                 db.SaveChanges();
                 return true;
-            }catch(Exception e){
+            }catch{
                 return false;
             }
         }
@@ -458,7 +455,6 @@ namespace Proyek_Informatika.Controllers.Koordinator
                     nama = mahasiswa.nama,
                     start_date,
                     end_date,
-                    result.description,
                     ruang,
                     penguji1,
                     penguji2
@@ -521,6 +517,71 @@ namespace Proyek_Informatika.Controllers.Koordinator
         public ActionResult Sidang_Index()
         {
             ViewBag.username = Session["username"].ToString();
+            var kategori = db.kategori_nilai.Where(x => x.tipe == "general" && x.kategori == "pembimbing" && x.jenis_skripsi_id == 1).ToList();
+            var kategori1 = db.kategori_nilai.Where(x => x.tipe == "general" && x.kategori == "pembimbing" && x.jenis_skripsi_id == 2).ToList();
+            var kategori2 = db.kategori_nilai.Where(x => x.tipe == "general" && x.kategori == "penguji1" && x.jenis_skripsi_id == 2).ToList();
+            var kategori3 = db.kategori_nilai.Where(x => x.tipe == "general" && x.kategori == "penguji2" && x.jenis_skripsi_id == 2).ToList();
+            var kategori4 = db.kategori_nilai.Where(x => x.tipe == "final" && x.kategori == "nilaiAkhir" && x.jenis_skripsi_id == 1).ToList();
+            var kategori5 = db.kategori_nilai.Where(x => x.tipe == "final" && x.kategori == "nilaiAkhir" && x.jenis_skripsi_id == 2).ToList();
+            if(kategori.Count == 0){
+                kategori_nilai newKategori = new kategori_nilai();
+                newKategori.tipe = "general";
+                newKategori.kategori = "pembimbing";
+                newKategori.jenis_skripsi_id = 1;
+                newKategori.bobot = 100;
+                db.kategori_nilai.Add(newKategori);
+                db.SaveChanges();
+            }
+            if (kategori1.Count == 0)
+            {
+                kategori_nilai newKategori1 = new kategori_nilai();
+                newKategori1.tipe = "general";
+                newKategori1.kategori = "pembimbing";
+                newKategori1.jenis_skripsi_id = 2;
+                newKategori1.bobot = 20;
+                db.kategori_nilai.Add(newKategori1);
+                db.SaveChanges();
+            }
+            if (kategori2.Count == 0)
+            {
+                kategori_nilai newKategori2 = new kategori_nilai();
+                newKategori2.tipe = "general";
+                newKategori2.kategori = "penguji1";
+                newKategori2.jenis_skripsi_id = 2;
+                newKategori2.bobot = 40;
+                db.kategori_nilai.Add(newKategori2);
+                db.SaveChanges();
+            }
+            if (kategori3.Count == 0)
+            {
+                kategori_nilai newKategori3 = new kategori_nilai();
+                newKategori3.tipe = "general";
+                newKategori3.kategori = "penguji2";
+                newKategori3.jenis_skripsi_id = 2;
+                newKategori3.bobot = 40;
+                db.kategori_nilai.Add(newKategori3);
+                db.SaveChanges();
+            }
+            if (kategori4.Count == 0)
+            {
+                kategori_nilai newKategori4 = new kategori_nilai();
+                newKategori4.tipe = "final";
+                newKategori4.kategori = "nilaiAkhir";
+                newKategori4.jenis_skripsi_id = 1;
+                newKategori4.bobot = 100;
+                db.kategori_nilai.Add(newKategori4);
+                db.SaveChanges();
+            }
+            if (kategori5.Count == 0)
+            {
+                kategori_nilai newKategori5 = new kategori_nilai();
+                newKategori5.tipe = "final";
+                newKategori5.kategori = "nilaiAkhir";
+                newKategori5.jenis_skripsi_id = 2;
+                newKategori5.bobot = 100;
+                db.kategori_nilai.Add(newKategori5);
+                db.SaveChanges();
+            }
             return PartialView();
         }
 
@@ -537,57 +598,68 @@ namespace Proyek_Informatika.Controllers.Koordinator
 
         #region grid bobot
         [GridAction]
-        public ActionResult _SelectBobot(string tipe, string jenisSkripsi)
+        public ActionResult _SelectBobot(string tipe, byte jenisSkripsi)
         {
-            return bindingTable(tipe);
+            return bindingTable(tipe, jenisSkripsi);
         }
 
         [AcceptVerbs(HttpVerbs.Post)]
         [GridAction]
-        public ActionResult _SaveBobot(int id, string tipe)
+        public ActionResult _SaveBobot(int id, string tipe, byte jenisSkripsi)
         {
             var getKategori = db.kategori_nilai.Where(p => p.id == id).First();
             TryUpdateModel(getKategori);
             db.Entry(getKategori).State = EntityState.Modified;
             db.SaveChanges();
-            return bindingTable(tipe);
+            return bindingTable(tipe, jenisSkripsi);
         }
 
         [AcceptVerbs(HttpVerbs.Post)]
         [GridAction]
-        public ActionResult _InsertBobot(string tipe)
+        public ActionResult _InsertBobot(string tipe,byte jenisSkripsi)
         {
             kategori_nilai kategori = new kategori_nilai();
             if (TryUpdateModel(kategori))
             {
                 kategori.tipe = tipe;
-                //kategori.jenis_skripsi = ;
+                kategori.jenis_skripsi_id = (byte) jenisSkripsi;
                 
                 db.kategori_nilai.Add(kategori);
                 db.SaveChanges();
             }
-            return bindingTable(tipe);
+            return bindingTable(tipe,jenisSkripsi);
         }
 
         [AcceptVerbs(HttpVerbs.Post)]
         [GridAction]
-        public ActionResult _DeleteBobot(int id, string tipe)
+        public ActionResult _DeleteBobot(int id, string tipe, byte jenisSkripsi)
         {
             var getKategori = db.kategori_nilai.Where(p => p.id == id).First();
             db.kategori_nilai.Remove(getKategori);
             db.SaveChanges();
-            return bindingTable(tipe);
+            return bindingTable(tipe,jenisSkripsi);
         }
 
-        protected ViewResult bindingTable(string tipe)
+        protected ViewResult bindingTable(string tipe, byte jenisSkripsi)
         {
             var listResult = (from table in db.kategori_nilai
-                              where (table.tipe == tipe && table.kategori != "general")
+                              where (table.tipe == tipe && jenisSkripsi == table.jenis_skripsi_id)
                               select table).ToList();
-
+            var temp = new List<kategori_nilai>();
+            foreach (var item in listResult)
+            {
+                kategori_nilai nilai = new kategori_nilai();
+                nilai.id = item.id;
+                nilai.bobot = item.bobot;
+                nilai.jenis_skripsi_id = item.jenis_skripsi_id;
+                nilai.kategori = item.kategori;
+                nilai.tipe = item.tipe;
+                nilai.urutan = item.urutan;
+                temp.Add(nilai);
+            }
             return View(new GridModel<kategori_nilai>
             {
-                Data = listResult
+                Data = temp
             });
         }
     #endregion
@@ -652,10 +724,10 @@ namespace Proyek_Informatika.Controllers.Koordinator
         }
     #endregion
 
-        public int GetBobot(string tipe)
+        public int GetBobot(string tipe, byte jenis_skripsi_id)
         {
             var listResult = (from table in db.kategori_nilai
-                              where (table.kategori == "general" && table.tipe == tipe)
+                              where (table.tipe == "general" && table.kategori == tipe && table.jenis_skripsi_id == jenis_skripsi_id)
                               select table).ToList();
             if (listResult.Count != 0)
             {
@@ -671,7 +743,7 @@ namespace Proyek_Informatika.Controllers.Koordinator
         public int HitungPersentase(string pemberiNilai,int skripsi)
         {
             var listResult = (from table in db.kategori_nilai
-                              where (table.tipe == pemberiNilai && table.kategori != "general")
+                              where (table.tipe == pemberiNilai && table.jenis_skripsi_id == skripsi)
                               select table).ToList();
             if (listResult.Count != 0)
             {
@@ -686,7 +758,7 @@ namespace Proyek_Informatika.Controllers.Koordinator
 
         public bool SimpanBobotGeneral(kategori_nilai newRow)
         {
-            var find = db.kategori_nilai.Where(x=>x.kategori=="general" && x.tipe == newRow.tipe).ToList();
+            var find = db.kategori_nilai.Where(x=>x.tipe=="general" && x.kategori == newRow.kategori).ToList();
 
             if (find.Count == 0)
             {

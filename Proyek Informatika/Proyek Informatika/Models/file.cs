@@ -12,17 +12,10 @@ namespace Proyek_Informatika.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class nilai
+    public partial class file
     {
-        public int id { get; set; }
-        public int id_skripsi { get; set; }
-        public double angka { get; set; }
-        public string NIK_pengisi { get; set; }
-        public int kategori { get; set; }
-        public byte submitted { get; set; }
-    
-        public virtual dosen dosen { get; set; }
-        public virtual kategori_nilai kategori_nilai { get; set; }
-        public virtual skripsi skripsi { get; set; }
+        public int id_file { get; set; }
+        public string nama_file { get; set; }
+        public string path { get; set; }
     }
 }

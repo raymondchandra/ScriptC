@@ -94,7 +94,7 @@ namespace Proyek_Informatika.Controllers
                     if(p.nama_peran == "mahasiswa"){
                         var idSemester = int.Parse(Session["id-semester"].ToString());
                         var temp = (from table in db.skripsis
-                                    join table2 in db.mahasiswas on table.NPM_mahasiswa equals table2.NPM
+                                    //join table2 in db.mahasiswas on table.NPM_mahasiswa equals table2.NPM
                                     where (table.id_semester_pengambilan == idSemester && table.mahasiswa.username == a.username)
                                     select table.id).ToList();
                         if (temp.Count == 1)

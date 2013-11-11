@@ -34,7 +34,7 @@ namespace Proyek_Informatika.Controllers
 
         public JsonResult Data()
         {
-            var username = Session["username"];
+            var username = Session["username"].ToString();
             //events for loading to scheduler
             var items = from table in db.calendar_event
                         where table.username == username
@@ -106,7 +106,7 @@ namespace Proyek_Informatika.Controllers
                 db.SaveChanges();
                 target_id = changedEvent.id;
             }
-            catch (Exception a)
+            catch
             {
                 action_type = "error";
             }

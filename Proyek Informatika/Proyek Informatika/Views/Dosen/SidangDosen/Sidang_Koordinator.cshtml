@@ -1,0 +1,99 @@
+﻿@{
+    List<Tuple<int, string, int, double>> bobotData2 = ViewData["bobot2"] as List<Tuple<int, string, int, double>>;
+    var count = bobotData2.Count;
+}
+<script>
+    $(document).ready(function () { 
+        @{
+            if(ViewBag.showhide){
+                <text>
+                $("#showhide").show();
+                $("#showhide2").hide();
+                </text>
+            }else{
+                <text>
+                $("#showhide").hide();
+                $("#showhide2").show();
+                </text>
+            }
+        }
+        var total = 0;
+        for (var i = 1; i <= @count; i++) {
+            var a = parseFloat($("#nilaiAll" + i).html());
+            var b = parseFloat($("#bobotAll" + i).html());
+            var kali = a * b / 100;
+            $("#totalAll" + i).html(kali);
+            total += parseFloat($("#totalAll" + i).html());
+        }
+        $("#totalAkhir").html(total);
+    });
+
+    $("#finishButton").click(function(){
+        var r = confirm("Apakah Anda Yakin? Penilaian ini tidak dapat diubah lagi.");
+        if(r){
+            //save nilai akhir
+            //tutup sidang
+            var values = {
+                skripsi_id : '@ViewBag.skripsi_id',
+                nilai_akhir : parseFloat($("#totalAkhir").html())
+            };
+            $.post("SidangDosen/AkhiriSidang",values,function(data){
+                if(data == "True"){
+                    $('#content').load('SidangDosen/Penilaian');
+                }
+            });
+            
+            
+            
+        }
+    });
+
+    $("#refreshButton").click(function(){
+        $.post("SidangDosen/Sidang_Koordinator",{role:'@ViewBag.role', skripsi_id : '@ViewBag.skripsi_id'},function(data){
+            $( "#SidangTab .t-link" ).each(function(index) {
+                if($(this).text() == "Koordinator Sidang"){
+                    $("#SidangTab-"+(index+1)).html(data);
+                }
+            });
+        });
+        
+    });
+    
+</script>
+
+<input type="button" class="t-button t-state-default" id="refreshButton" value="Refresh" />
+<fieldset id="showhide" style="display:none;">
+    <legend>Ringkasan Penilaian Sidang</legend>
+        <table style="text-align:left;">
+        <tr>
+            <th style="width:175px">Penilai</th>
+            <th style="width:80px">Nilai</th>
+            <th style="width:80px">Bobot</th>
+            <th style="width:80px">Total</th>
+        </tr>
+        @{
+                    
+            foreach (var item in bobotData2)
+            {
+                <text>
+                <tr>
+                    <td>@item.Item2</td>
+                    <td id="nilaiAll@(item.Item1)">@item.Item4</td>
+                    <td id="bobotAll@(item.Item1)">@item.Item3</td>
+                    <td id="totalAll@(item.Item1)"></td>
+                </tr>
+                </text>
+            }
+                    
+        }
+                
+        <tr>
+            <th>Total</th>
+            <th></th>
+            <th></th>
+            <th id="totalAkhir"></th>
+        </tr>
+    </table><br>
+    <input type="button" class="t-button t-state-default" id="finishButton" value="Akhiri Sidang" />
+</fieldset>
+<div id="showhide2"><p>Belum semua pemberi nilai mengirimkan nilainya.</p></div>
