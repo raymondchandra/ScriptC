@@ -26,6 +26,11 @@ else
         $.post("Home/SelectPengumuman", "", function (data) {
             $("#pengumuman-home").html(data);
         });
+        $(document).ready(function () {
+            $.post("Home/Files", function (data) {
+                $("#fileSpan").html(data);
+            });
+        });
     </script>
     <div id="pengumuman" class="layer">
         <h1>
@@ -40,11 +45,6 @@ else
     <div id="filesharing" class="layer">
         <h1>
             Download</h1>
-        <ul>
-            <li><a href="https://dpcqdq.dm1.livefilestore.com/y2pqXDETa9vgI8qPOFC1G1m0tvP-Xg4CEEreXLu9oaEUIplkmb-fnv5s88PpmOCPLFUQPPR-eMs9VQMsNezFWUx11inycbFaKexgHxzElFaimU/Template%20Skripsi%20FTIS%20v1.1.1.zip?download&psid=1">
-                Template Skripsi FTIS v1.1.1 </a></li>
-            <li><a href="https://dpcqdq.dm2301.livefilestore.com/y2pACt0yNJyIZOkGBF3JBVTmNVlLf2uqMb6_x75NatS-cXcPQ-g8pkaqnyOArmeYV4vEMRl0qvOpWlTyiD5xA7wUOl4Lj_D9CgJ6SclCaRCHIc/Contoh%20Hasil%20Skripsi.pdf?download&psid=1">
-                Contoh Hasil Skripsi </a></li>
-        </ul>
+        <span id = "fileSpan"></span>
     </div>
 }

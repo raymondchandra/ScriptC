@@ -208,8 +208,26 @@ namespace Proyek_Informatika.Controllers
                 Data = listResult
             });
         }
-    }
         #endregion
+
+        #region filesharing
+        [HttpPost]
+        public ActionResult Files()
+        {
+            return PartialView();
+        }
+        [HttpPost]
+        public JsonResult GetFiles()
+        {
+
+            var listResultTemp = db.files.Select(x => new { id = x.id_file, nama = x.nama_file }).ToList();
+
+            return Json(listResultTemp);
+        }
+        #endregion
+
+    }
+
 
 }
 
