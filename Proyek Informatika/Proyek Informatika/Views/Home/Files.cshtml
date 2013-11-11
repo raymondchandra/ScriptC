@@ -1,0 +1,20 @@
+﻿<script type="text/javascript">
+    $(document).ready(function () {
+        $.post("Home/GetFiles", "", function (data) {
+            var get = "";
+            $.each(data, function (index, value) {
+                get += "<ul><a id ='file' title ='"+value.id+"' href ='PengaturanFile/GetDownload?id="+value.id+"'>" + value.nama + "</a></ul>";
+            });
+            $("#file_list").html(get);
+        });
+    });
+    $("#file").click(function (evt) {
+        alert("href: " );
+        var href = $(this).attr('title');
+        
+        //window.open("PengaturanFile/GetDownload?id=" + href, "_blank");
+    });
+</script>
+
+<li id="file_list">
+</li>

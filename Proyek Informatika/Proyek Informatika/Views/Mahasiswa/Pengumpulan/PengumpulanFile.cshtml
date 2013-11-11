@@ -13,8 +13,9 @@
             });
         }
         else if (e.name == "unduhFile") {
+        alert("test: "+e.dataItem.id);
             var values = { id_laporan: e.dataItem.id };
-            window.open("Pengumpulan/GetDownload?id_laporan=" + e.dataItem.id, "_blank");
+            window.open("Pengumpulan/GetDownload",values,"_blank");
 
         }
         else if (e.name == "lihatFile") {

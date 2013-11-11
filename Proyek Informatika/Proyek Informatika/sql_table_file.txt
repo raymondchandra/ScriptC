@@ -1,0 +1,29 @@
+USE [skripsi_automation]
+GO
+
+/****** Object:  Table [dbo].[file]    Script Date: 11/10/2013 23:38:17 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+SET ANSI_PADDING ON
+GO
+
+CREATE TABLE [dbo].[file](
+	[id_file] [int] IDENTITY(1,1) NOT NULL,
+	[nama_file] [varchar](50) NOT NULL,
+	[path] [varchar](100) NULL,
+ CONSTRAINT [PK_file] PRIMARY KEY CLUSTERED 
+(
+	[id_file] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+SET ANSI_PADDING OFF
+GO
+
+

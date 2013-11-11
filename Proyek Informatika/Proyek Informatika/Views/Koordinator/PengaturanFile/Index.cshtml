@@ -1,0 +1,81 @@
+﻿<script type="text/javascript">
+    var formWindow; 
+    function Aksi(e) {
+        if (e.name == "edit") {
+            $.post("PengaturanFile/Editor?id=" + e.dataItem.id_file, function (data) {
+                $("#container").html(data);
+            });
+            openWindow();
+        }
+        else if (e.name == "download") {
+            window.open("PengaturanFile/GetDownload?id=" + e.dataItem.id_file, "_blank");
+        }
+        else if (e.name == "newFile") {
+            $.post("PengaturanFile/Form", function (data) {
+                $("#container").html(data);
+            });
+            openWindow();
+        }
+        else if (e.name == "delFile") {
+            var values = { id: e.dataItem.id_file };
+            var r = confirm("Apakah anda yakin?");
+            if (r) {
+                $.post("PengaturanFile/Delete", values, function (data) {
+                    var val = { file: data, dir: "FileSharing" }
+                    $.post("Upload/Remove2", val, function (datas) {
+                        if (datas == "") {
+                            alert("File berhasil dihapus");
+                        }
+                        else {
+                            alert("File gagal dihapus");
+                        }
+                        refreshTable();
+                    });
+                });
+            }
+        }
+    }
+    function openWindow() {
+        formWindow = $("#formUnggah").data("tWindow");
+        formWindow.center().open();
+    }
+    function closeWindow() {
+        formWindow = $("#formUnggah").data("tWindow");
+        formWindow.close();
+    }
+</script>
+
+<div class = "layer">
+<h1>Pengaturan File Sharing</h1>
+@(Html.Telerik().Grid<Proyek_Informatika.Models.file>()
+.Name("fileSharingIndex")
+.DataBinding(d => d.Ajax().Select("SelectFile", "PengaturanFile"))
+.Columns(c =>
+{
+    c.Bound(b => b.nama_file);
+    c.Command(b =>
+    {
+        b.Custom("edit").Ajax(true).Text("Edit");
+        b.Custom("download").Ajax(true).Text("Unduh");
+        b.Custom("delFile").Ajax(true).Text("Hapus");
+    });
+})
+.ToolBar(t => t.Custom().Name("newFile").Text("Tambah File Baru").Ajax(true))
+.ClientEvents(c => c.OnCommand("Aksi"))
+.Scrollable()
+.Sortable()
+.Resizable(r => r.Columns(true))
+.HtmlAttributes(new {style = "width: 100%" })
+)
+
+</div>
+@(  Html.Telerik().Window()
+        .Name("formUnggah")
+        .Title("Form File")
+        .Content(@<text><div id="container"></div></text>)
+            .Width(500)
+            .Height(550)
+            .Draggable(true)
+            .Modal(true)
+            .Visible(false)
+)

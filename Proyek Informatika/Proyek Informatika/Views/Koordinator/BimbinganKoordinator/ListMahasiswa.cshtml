@@ -1,0 +1,62 @@
+﻿<script type="text/javascript">
+    function viewKartuBimbingan(e) {
+        var values = { id_skripsi: e.dataItem.id };
+        $.post("BimbinganKoordinator/KartuBimbingan", values, function (data) {
+            var detailWindow = $("#DetailBimbingan").data("tWindow");
+            $("#container").html(data);
+            detailWindow.center().open();
+
+        });
+
+    }
+</script>
+    @(Html.Telerik().Grid<Proyek_Informatika.Models.HansContainer.KoordinatorListMahasiswa>()
+        .Name("RekapBimbinganKoordinator")
+        .DataBinding(bin => bin.Ajax().Select("SelectBimbingan", "BimbinganKoordinator", new {periode = ViewBag.periode, jenis_skripsi = ViewBag.jenis_skripsi}))
+        .Columns(columns =>
+        {
+            //columns.Bound(o => o.periode).Width(100).Title("Periode");
+            columns.Bound(o => o.nikDosen).Width(100).Title("NIK Dosen");
+            //columns.Bound(o => o.namaDosen).Width(150).Title("Nama Dosen");
+            columns.Bound(o => o.npmMahasiswa).Width(150).Title("NPM Mahasiswa");
+            //columns.Bound(o => o.namaMahasiswa).Width(150).Title("Nama Mahasiswa");
+            //columns.Bound(o => o.judul).Width(150).Title("Judul");
+            columns.Bound(o => o.jumlahBimbingan).Width(150).Title("Jumlah Bimbingan");
+            columns.Command(comm => comm.Custom("detailBimbingan")
+                .Text("Lihat Kartu Bimbingan")
+                .Ajax(true))
+                .Width(150).Title("Aksi");
+
+        })
+        .DetailView(det => det.ClientTemplate(
+            "<fieldset>"+
+                "<legend>Detil<#= namaMahasiswa #></legend>"+
+                    "<ul style='padding:0;margin:0;list-style:none'>" +
+                        "<li>Nama Mahasiswa: <#= namaMahasiswa #></li>" +
+                        "<li>Nama Pembimbing: <#= namaDosen #></li>" +
+                        "<li>Periode: <#= periode #></li>" +
+                        "<li>Jenis: <#= tipe #></li>" +
+                        "<li>Pengambilan ke: <#= pengambilanke #></li>" +
+                        "<li>Judul: <#= judul #></li>" +
+                        "<li>Jumlah Bimbingan: <#= jumlahBimbingan #></li>"+
+                    "</ul>" +
+            "</fieldset>"
+            ))
+        .ClientEvents(ev => ev.OnCommand("viewKartuBimbingan"))
+        .Pageable(p => p.PageSize(15))
+        .Sortable()
+        .Filterable()
+        .Scrollable(c => c.Enabled(true))
+        .Selectable()
+        .Groupable())
+
+        @(Html.Telerik().Window()
+                .Name("DetailBimbingan")
+                .Visible(false)
+                .Title("Detail Nilai")
+                .Modal(true)
+                .Width(950)
+                .Height(600)
+                .Scrollable(true)
+                .Content(@<text><div id = "container"></div></text>))
+

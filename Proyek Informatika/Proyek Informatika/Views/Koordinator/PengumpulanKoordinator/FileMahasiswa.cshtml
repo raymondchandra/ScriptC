@@ -1,0 +1,91 @@
+﻿<script type="text/javascript">
+function actionButton(e) {
+    var windowZ;
+
+    if (e.name == "downFile") {
+        var values = { id_laporan: e.dataItem.id };
+        window.open("Pengumpulan/GetDownload?id_laporan=" + e.dataItem.id, "_blank");
+    }
+    else if (e.name == "viewFile") {
+        var values = { id_laporan: e.dataItem.id };
+        var id = e.dataItem.id;
+        loadIframe("frameContainer", "Pengumpulan/PDFViewer?id_laporan=" + id);
+        $("#frameContainer").show();
+        $("#container").hide();
+        windowZ = $("#PreviewDoc").data("tWindow");
+        windowZ.center().open();
+    }
+    else if (e.name == "viewDeskripsi") {
+        $("#container").html(e.dataItem.deskripsi);
+        $("#frameContainer").hide();
+        $("#container").show();
+        windowZ = $("#PreviewDoc").data("tWindow");
+        windowZ.center().open();
+    }
+}
+function loadIframe(iframeName, url) {
+    var $iframe = $('#' + iframeName);
+    if ($iframe.length) {
+        $iframe.attr('src', url);
+        return true;
+    }
+    return false;
+}
+</script>
+
+@(Html.Telerik().Grid<Proyek_Informatika.Models.HansContainer.KoordinatorPengumpulanContainer>()
+        .Name("tabKoorFile")
+        .Columns(col =>
+        {
+            col.Bound(o => o.waktuKumpul).Width(150).Title("Waktu");
+            col.Bound(o => o.npmMahasiswa).Width(100).Title("NPM");
+            col.Bound(o => o.namaMahasiswa).Width(150).Title("Mahasiswa");
+            col.Bound(o => o.pembimbing).Width(150).Title("Pembimbing");
+            col.Bound(o => o.dokumen).Width(150).Title("Dokumen");
+            //col.Bound(o => o.skripsi).Width(100).Title("Jenis");
+            col.Command(com =>
+            {
+                com.Custom("viewFile").Text("Lihat").Ajax(true);
+                com.Custom("downFile").Text("Unduh").Ajax(true);
+                //com.Custom("viewDeskripsi").Text("Deskripsi").Ajax(true);
+            }).Width(75);
+        })
+        .DetailView(det => det.ClientTemplate(
+                "<fieldset>" +
+                     "<legend>Detil File</legend>" +
+                         "<ul style='padding:0;margin:0;list-style:none'>" +
+                             "<li>NPM Mahasiswa: <#= npmMahasiswa #></li>" +
+                             "<li>Nama Mahasiswa: <#= namaMahasiswa #></li>" +
+                             "<li>NIK Pembimbing: <#= nikDosen #></li>" +
+                             "<li>Nama Pembimbing: <#= pembimbing #></li>" +
+                             "<li>Judul Skripsi: <#= judul #></li>" +
+                             "<li>Dokumen: <#= dokumen #></li>" +
+                             "<li>Deskripsi:</li>" +
+                         "</ul>" +
+                         "<div class = 'deskripsi'><#= deskripsi #>" +
+                         "</div>" +
+                 "</fieldset>"
+            ))
+        .ClientEvents(events => events.OnCommand("actionButton"))
+        .DataBinding(dataBinding => dataBinding.Ajax().Select("_SelectPengumpulanFile", "PengumpulanKoordinator", new {periode = ViewBag.periode, jenis_skripsi = ViewBag.jenis_skripsi }))
+        .Sortable()
+        .Filterable()
+        .Scrollable(c => c.Enabled(true))
+        .Selectable()
+        .Groupable()
+
+
+)
+
+<div id="tool_pengumpulanfile">
+
+@(Html.Telerik().Window()
+                .Name("PreviewDoc")
+                .Visible(false)
+                .Title("Preview Document")
+                .Modal(true)
+                .Width(800)
+                .Height(600)
+                .Scrollable(true)
+                .Content(@<text><div id="container"></div><iframe src ="" id ="frameContainer" width="98%" height ="98%"></iframe></text>))
+</div>

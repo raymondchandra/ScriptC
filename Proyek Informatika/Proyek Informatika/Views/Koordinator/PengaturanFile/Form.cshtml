@@ -1,0 +1,124 @@
+﻿
+@using Proyek_Informatika.Utilities
+
+<script type = "text/javascript">
+    var nameFile;
+    $("#btn_unggah").click(function () {
+        if (nameFile == null || nameFile == "") {
+            alert("file belum terupload");
+            return;
+        }
+        var values = {
+            nama: $("#jenis_file").val(),
+            path: nameFile
+        };
+        $.post("PengaturanFile/SubmitFile2", values, function (data) {
+            if (data == 0) {
+                alert("File gagal terunggah");
+            }
+            else if (data == 1) {
+                alert("File berhasil terunggah");
+            }
+            closeWindow();
+            $(".t-grid .t-refresh").trigger('click');
+        });
+    });
+    function onCom(e) {
+        nameFile = e.files[0].name;
+        //console.log(e.files[0].name);
+        var val = {path : nameFile};
+        $.post("PengaturanFile/SubmitFile1",val, function (data) {
+            if (data == 0) {
+                alert("File gagal masuk ke dalam sistem");
+                nameFile = "";
+            }
+            else {
+                alert("File telah masuk ke dalam sistem");
+            }
+        });
+
+
+    }
+    function onRemove(e) {
+        var r = confirm("Apakah anda yakin?");
+        if (r) {
+            nameFile = "";
+            return true;
+        } else {
+            e.preventDefault();
+            return false;
+        }
+    }
+    $(document).ready(function () {
+        $("#jenis_file").value = "";
+
+        var $fileList, $files, item, _fn, _i, _len;
+
+        $fileList = $("#existing-files");
+
+        if ($fileList.length > 0) {
+            $("#filemahasiswa .t-upload").append($fileList);
+            $files = $(".t-file");
+            _fn = function (item) {
+                var $item, fileId, filenames;
+                $item = $(item);
+                fileId = $item.data("att-id");
+                filenames = [
+                          {
+                              name: fileId
+                          }
+                        ];
+                return $item.data("fileNames", filenames);
+            };
+            for (_i = 0, _len = $files.length; _i < _len; _i++) {
+                item = $files[_i];
+                _fn(item);
+            }
+            $fileList.show();
+        }
+        nameFile = '@ViewBag.path';
+
+    });
+</script>
+
+<div class = "layer">
+<h1>FormPengumpulan</h1>
+<label id="result"></label>
+@Html.Label("Nama File :")
+<br />
+<input type = "text" id= "jenis_file" />
+<br/>
+@Html.Label("File :")
+@(Html.Telerik().Upload()
+        .Name("fileSharing")
+        
+        .Multiple(false)
+                .Async(async => async
+                    .Save("Save2", "Upload", "attachments", new { dir = "FileSharing" })
+                    .Remove("Remove", "Upload", new { dir = "FileSharing" })
+                    .AutoUpload(true))
+                    .ClientEvents(c => c
+                        .OnSuccess("onCom")
+                        .OnRemove("onRemove")
+                        )
+        
+        
+       )
+
+    <div class="controls">
+		@{
+            if (!string.IsNullOrWhiteSpace(ViewBag.path))
+            {
+                <ul id="existing-files" class="t-upload-files t-reset" style="display: none;">
+				<li class="t-file" data-att-id="@(ViewBag.path)">
+				<span class="t-icon t-success">uploaded</span>
+				<span class="t-filename" title="@(ViewBag.path)">@(ViewBag.path)
+				<span class="t-progress"><span class="t-state-selected t-progress-status" style="width: 100%;"></span></span></span><button type="button" class="t-button t-button-icontext t-upload-action"><span class="t-icon t-delete"></span>Remove</button></li></ul>
+            }
+        }                   
+	</div>
+
+<input type = "button" id = "btn_unggah" value ="Unggah" />
+               
+
+</div>

@@ -1,0 +1,29 @@
+﻿@model Proyek_Informatika.Models.HansContainer.EnumSemesterSkripsiContainer
+<script type="text/javascript">
+    function changeContent(e) {
+        var periode = $("#DropPeriode").data("tDropDownList");
+        var semester = $("#DropSkripsi").data("tDropDownList");
+
+        var value = { periode: periode.value(), jenis_skripsi: semester.value() };
+        $.post("PengumpulanKoordinator/FileMahasiswa", value, function (data) {
+            $("#pengumpulanContainer").html(data);
+        });
+    }
+</script>
+<div class="layer">
+    <h1>Rekap File Mahasiswa</h1>
+   @(Html.Telerik().DropDownList()
+    .Name("DropPeriode")
+    .BindTo(new SelectList(Model.jenis_semester,"id","periode_semester",Model.selected_value))
+            .ClientEvents(c => c.OnChange("changeContent"))
+    )
+    @(Html.Telerik().DropDownList()
+    .Name("DropSkripsi")
+    .BindTo(new SelectList(Model.jenis_skripsi,"id","nama_jenis"))
+    .ClientEvents(c=>{
+        c.OnChange("changeContent");
+        c.OnLoad("changeContent");
+    })
+    )
+    <div id="pengumpulanContainer"></div>
+    </div>
