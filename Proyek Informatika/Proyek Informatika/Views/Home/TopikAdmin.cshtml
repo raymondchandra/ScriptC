@@ -5,20 +5,20 @@
 
     function onCommand(e) {
         if (e.name == "lihatDetail") {
-            var text = "<table>";
-            text += "<tr><td class='name'>Topik</td><td>&nbsp:&nbsp</td><td>" + e.row.cells[1].innerHTML + "</td></tr>";
-            text += "<tr><td class='name'>Deskripsi</td><td>&nbsp:&nbsp</td><td>" + e.row.cells[2].innerHTML + "</td></tr>";
-            text += "<tr><td class='name'>Pembimbing</td><td>&nbsp:&nbsp</td><td>" + e.row.cells[3].innerHTML + "</td></tr>";
-            text += "<tr><td class='name'>Keterangan</td><td>&nbsp:&nbsp</td><td>" + e.row.cells[4].innerHTML + "</td></tr>";
+            var text = "<table class='window-content'>";
+            text += "<tr><td class='label'>Topik</td><td>:</td><td>" + e.row.cells[1].innerHTML + "</td></tr>";
+            text += "<tr><td class='label'>Deskripsi</td><td>:</td><td>" + e.row.cells[2].innerHTML + "</td></tr>";
+            text += "<tr><td class='label'>Pembimbing</td><td>:</td><td>" + e.row.cells[3].innerHTML + "</td></tr>";
+            text += "<tr><td class='label'>Keterangan</td><td>:</td><td>" + e.row.cells[4].innerHTML + "</td></tr>";
             text += "</table>";
             $(".detail").html(text);
             var windowZ = $("#topikDetail").data("tWindow");
             windowZ.center().open();
         }
         else if (e.name == "editDetail") {
-            $("#id").val(e.row.cells[0].innerHTML); 
-            $("#judul").val(e.row.cells[1].innerHTML); 
-            $("#deskripsi").val(e.row.cells[2].innerHTML); 
+            $("#id").val(e.row.cells[0].innerHTML);
+            $("#judul").val(e.row.cells[1].innerHTML);
+            $("#deskripsi").val(e.row.cells[2].innerHTML);
             var windowZ = $("#topikUpdate").data("tWindow");
             windowZ.center().open();
         }
@@ -43,30 +43,29 @@
                 $('#content').load('Home/TopikAdmin');
             })
         </script>
-
-        
-            <fieldset>
-                <legend>Registrasi Topik</legend>
-                <div class="editor-label">
-                    Topik
-                </div>
-                <div class="editor-field">
-                    <input id="topik-judul" name="judul" style="width: 500px;" type="text" value="" />
-                    <br />
-                </div>
-                <div class="editor-label">
-                    Deskripsi
-                </div>
-                <div class="editor-field">
-                    <textarea cols="20" id="topik-deskripsi" name="deskripsi" rows="2" style="width: 500px;
-                        height: 150px"></textarea><br />
-                </div>
-                <br />
-                <input type="button" id="insert" value="Register" class="t-button t-state-default" />
-            </fieldset>
-        
-
-       
+                
+        <fieldset>
+            <legend>Registrasi Topik</legend>
+            <div class="editor-label grid_15">
+                <label>
+                    Topik</label>
+            </div>
+            <br class="clear" />
+            <div class="editor-field grid_15">
+                <input id="topik-judul" name="judul" type="text" value="" class="grid_10" />
+            </div>
+            <br class="clear" />
+            <div class="editor-label grid_15">
+                <label>
+                    Deskripsi</label>
+            </div>
+            <br class="clear" />
+            <div class="editor-field grid_15">
+                <textarea cols="" id="topik-deskripsi" name="deskripsi" rows="" class="grid_10"></textarea>
+            </div>
+            <div class="button-block grid_15">
+                <input type="button" id="insert" value="Register" class="t-button t-state-default" /></div>
+        </fieldset>                   
       }    
     }
     @{ 
@@ -88,8 +87,8 @@
             columns.Bound(c => c.id).Hidden();
             columns.Bound(c => c.judul).Width(300).Title("Topik");
             columns.Bound(c => c.deskripsi).Hidden();
-            columns.Bound(c => c.pembimbing).Width(180).Title("Pembimbing");
-            columns.Bound(c => c.keterangan).Width(100).Title("Keterangan");
+            columns.Bound(c => c.pembimbing).Width(140).Title("Pembimbing");
+            columns.Bound(c => c.keterangan).Width(140).Title("Keterangan");
             columns.Command(c => c.Custom("lihatDetail")
                 .Text("Detail")
                 .Ajax(true)).Width(95);
@@ -112,23 +111,21 @@
     )
     @(Html.Telerik().Window()
         .Name("topikDetail")
-        .Title("Detail Topik")
+        .Title("Topik")
         .Visible(false)
         .Modal(true)
         .Width(500)
-        .Height(250)
+        .Height(300)
         .Scrollable(true)
-        .Content(@<text>
-    <p class="detail">
-    </p></text>)
+        .Content(@<text> <span class="detail"></span></text>)
     )
     @(Html.Telerik().Window()
         .Name("topikUpdate")
-        .Title("Edit Topik")
+        .Title("Edit")
         .Visible(false)
         .Modal(true)
         .Width(500)
-        .Height(375)
+        .Height(300)
         .Scrollable(true)
         .LoadContentFrom("TopikUpdate", "Home")
     )
@@ -177,19 +174,4 @@
     }
 </style>
     }
-    <style>
-        #detail table
-        {
-            width: 100%;
-        }
-        td.name
-        {
-            width: 25%;
-        }
-        #detail table tr td
-        {
-            padding: 5px;
-            vertical-align: top;
-        }
-    </style>
 </div>

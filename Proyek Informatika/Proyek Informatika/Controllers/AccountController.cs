@@ -48,7 +48,7 @@ namespace Proyek_Informatika.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("", "The user name or password provided is incorrect.");
+                    ModelState.AddModelError("", "Username atau password tidak sesuai.");
                 }
             }
 

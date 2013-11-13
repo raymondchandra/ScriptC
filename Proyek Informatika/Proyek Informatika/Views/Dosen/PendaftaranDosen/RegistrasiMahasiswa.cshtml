@@ -24,14 +24,14 @@
 
     function onCommand(e) {
         if (e.name == "lihatDetail") {
-            var text = "<table>";
+            var text = "<table class='window-content'>";
             text += "<tr><td rowspan='6' style='width: 130px'><img class='avatar' src='" + e.row.cells[7].innerHTML + "'/></td>";
-            text += "<td style='width: 100px'>NPM</td><td>&nbsp:&nbsp</td><td>" + e.row.cells[1].innerHTML + "</td></tr>";
-            text += "<tr><td>Nama</td><td>&nbsp:&nbsp</td><td>" + e.row.cells[2].innerHTML + "</td></tr>";
-            text += "<tr><td>Email</td><td>&nbsp:&nbsp</td><td>" + e.row.cells[3].innerHTML + "</td></tr>";
-            text += "<tr><td>Telepon</td><td>&nbsp:&nbsp</td><td>" + e.row.cells[4].innerHTML + "</td></tr>";
-            text += "<tr><td>Status</td><td>&nbsp:&nbsp</td><td>" + e.row.cells[5].innerHTML + "</td></tr>";
-            text += "<tr><td>Topik</td><td>&nbsp:&nbsp</td><td>" + e.row.cells[6].innerHTML + "</td></tr>";
+            text += "<td class='label'>NPM</td><td>&nbsp:&nbsp</td><td>" + e.row.cells[1].innerHTML + "</td></tr>";
+            text += "<tr><td class='label'>Nama</td><td>&nbsp:&nbsp</td><td>" + e.row.cells[2].innerHTML + "</td></tr>";
+            text += "<tr><td class='label'>Email</td><td>&nbsp:&nbsp</td><td>" + e.row.cells[3].innerHTML + "</td></tr>";
+            text += "<tr><td class='label'>Telepon</td><td>&nbsp:&nbsp</td><td>" + e.row.cells[4].innerHTML + "</td></tr>";
+            text += "<tr><td class='label'>Status</td><td>&nbsp:&nbsp</td><td>" + e.row.cells[5].innerHTML + "</td></tr>";
+            text += "<tr><td class='label'>Topik</td><td>&nbsp:&nbsp</td><td>" + e.row.cells[6].innerHTML + "</td></tr>";
             text += "</table>";
             $(".detail").html(text);
             var windowZ = $("#mahasiswaDetail").data("tWindow");
@@ -40,7 +40,7 @@
         else if (e.name == "editDetail") {
             $("#idSkripsi").val(e.row.cells[0].innerHTML);
             $("#NPM").val(e.row.cells[1].innerHTML);
-            $("#topik").val(e.row.cells[6].innerHTML); 
+            $("#topik").val(e.row.cells[6].innerHTML);
             var windowZ = $("#mahasiswaUpdate").data("tWindow");
             windowZ.center().open();
         }
@@ -55,36 +55,38 @@
             var values = {
                 NPM: $("#mahasiswa-npm-1").val(),
                 idTopik: $("#mahsiswa-topik-1").val()
-            };            
+            };
             $.post("PendaftaranDosen/_InsertMahasiswa1", values, function (data) {
                 alert(data);
             });
             $('#content').load('PendaftaranDosen/RegistrasiMahasiswa');
         })
     </script>
-  
-        <fieldset>
-            <legend>Registrasi Mahasiswa dengan Topik Baru</legend>
-            <div class="editor-label">
-                NPM Mahasiswa
-            </div>
-            <div class="editor-field">
-                <input id="mahasiswa-npm-1" name="npm-1" style="width: 500px;" type="text" value="" />
-                <br />
-            </div>
-            <div class="editor-label">
-                Topik
-            </div>
-            <div class="editor-field">
-                <select id="mahsiswa-topik-1" name="topik-1" class="t-input" style="width: 500px;">
-                    <option></option>
-                </select>
-                <br />
-            </div>
-            <br />
-            <input type="button" id="insert-1" value="Register" class="t-button t-state-default" />
-        </fieldset>
-    
+    <fieldset>
+        <legend>Registrasi Mahasiswa</legend>
+        <div class="editor-label grid_15">
+            <label>
+                NPM Mahasiswa</label>
+        </div>
+        <br class="clear" />
+        <div class="editor-field grid_15">
+            <input id="mahasiswa-npm-1" name="npm-1" class="grid_10" type="text" />
+        </div>
+        <br class="clear" />
+        <div class="editor-label grid_15">
+            <label>
+                Topik</label>
+        </div>
+        <br class="clear" />
+        <div class="editor-field grid_15">
+            <select id="mahsiswa-topik-1" name="topik-1" class="grid_10">
+                <option></option>
+            </select>
+        </div>
+        <br class="clear" />
+        <div class="button-block grid_15">
+            <input type="button" id="insert-1" value="Register" class="t-button t-state-default" /></div>
+    </fieldset>
     <!--<div style="width: 49%; float: right;">
         <fieldset>
             <legend>Registrasi Mahasiswa</legend>
@@ -106,7 +108,6 @@
             <input type="button" id="insert-2" value="Register" class="t-button t-state-default" />
         </fieldset>
     </div>-->
-    
     @{ 
         GridEditMode mode = GridEditMode.InLine;
         GridButtonType type = GridButtonType.Text;    
@@ -125,11 +126,11 @@
         {
             columns.Bound(c => c.idSkripsi).Hidden();
             columns.Bound(c => c.NPM).Width(100).Title("NPM");
-            columns.Bound(c => c.namaMahasiswa).Width(100).Title("Nama");
+            columns.Bound(c => c.namaMahasiswa).Width(125).Title("Nama");
             columns.Bound(c => c.emailMahasiswa).Hidden();
             columns.Bound(c => c.teleponMahasiswa).Hidden();
             columns.Bound(c => c.status).Hidden();
-            columns.Bound(c => c.topik).Width(300).Title("Judul");
+            columns.Bound(c => c.topik).Width(300).Title("Topik");
             columns.Bound(c => c.fotoMahasiswa).Hidden();
             columns.Command(c => c.Custom("lihatDetail")
                 .Text("Detail")
@@ -153,7 +154,7 @@
     )
     @(Html.Telerik().Window()
         .Name("mahasiswaDetail")
-        .Title("Detail Mahasiswa")
+        .Title("Mahasiswa")
         .Visible(false)
         .Modal(true)
         .Width(500)
@@ -169,11 +170,10 @@
         .Visible(false)
         .Modal(true)
         .Width(500)
-        .Height(250)
+        .Height(200)
         .Scrollable(true)
         .LoadContentFrom("MahasiswaUpdate", "PendaftaranDosen")
     )
-
     @section HeadContent {
         <style type="text/css">
     /*--------------------validators--------------------*/
@@ -219,19 +219,4 @@
     }
 </style>
     }
-    <style>
-        #detail table
-        {
-            width: 100%;
-        }
-        td.name
-        {
-            width: 25%;
-        }
-        #detail table tr td
-        {
-            padding: 5px;
-            vertical-align: top;
-        }
-    </style>
 </div>

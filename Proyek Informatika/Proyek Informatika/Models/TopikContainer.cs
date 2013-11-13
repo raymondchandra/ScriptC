@@ -13,6 +13,7 @@ namespace Proyek_Informatika.Models
         
         [Display(Name = "Topik")]
         public string judul { get; set; }
+        [Display(Name = "Deskripsi")]
         public string deskripsi { get; set; }
         public string keterangan { get; set; }
         public string pembimbing { get; set; }

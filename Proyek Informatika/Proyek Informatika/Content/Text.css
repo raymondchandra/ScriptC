@@ -1,4 +1,19 @@
-﻿body
+﻿/* Helper Class
+----------------------------------------------------------------------------------------------------*/
+
+.txtright
+{
+    text-align: right;
+}
+
+.txtcenter
+{
+    text-align: center;
+}
+
+/* General 
+----------------------------------------------------------------------------------------------------*/
+body
 {
     font-family: "HelveticaNeue-Light" , "Helvetica Neue Light" , "Helvetica Neue" , Helvetica, Arial, sans-serif;
 }
@@ -7,49 +22,9 @@ fieldset legend
 {
     font-size: 12px;
     font-style: italic;
-    letter-spacing:1px;
-}
-#title
-{
-    text-align: center;
-}
-#logindisplay
-{
-    text-align: right;
-}
-#logindisplay a:hover
-{
-    text-decoration: none;
-}
-#header h1
-{
-    font-variant: small-caps;
-    font-family: "Lucida Bright" , Georgia, serif;
-    letter-spacing: 2px;
-}
-#title div
-{
-    font-size: 12px;
-}
-#footer
-{
-    text-align: center;
-    font-size: 12px;
+    letter-spacing: 1px;
 }
 
-#navigator
-{
-    text-align: center;
-}
-
-#navigator ul li
-{
-    text-align: left;
-}
-#content
-{
-    font-size: 14px;
-}
 #content h1, #content h2, #content h3, #content h4, #content h5, #content h6
 {
     font-family: "Lucida Bright" , Georgia, serif;
@@ -82,6 +57,11 @@ fieldset legend
     font-size: 15px;
 }
 
+#content
+{
+    font-size: 14px;
+}
+
 a
 {
     text-decoration: none;
@@ -92,10 +72,70 @@ a:hover
     text-decoration: underline;
 }
 
-.input
+.warning
 {
-    font-family: "Eras Medium ITC" , sans-serif;
+    font-size: 12px;
+    font-weight: bold;
 }
+
+.window-content .label
+{
+    font-size:12px;
+    font-weight:bold;
+}
+/* Layout
+----------------------------------------------------------------------------------------------------*/
+
+#title
+{
+    text-align: center;
+}
+
+#logindisplay
+{
+    text-align: right;
+}
+
+#logindisplay a:hover
+{
+    text-decoration: none;
+}
+
+#header h1
+{
+    font-variant: small-caps;
+    font-family: "Lucida Bright" , Georgia, serif;
+    letter-spacing: 2px;
+}
+
+#title div
+{
+    font-size: 12px;
+}
+
+#footer
+{
+    text-align: center;
+    font-size: 12px;
+}
+
+#navigator
+{
+    text-align: center;
+}
+
+#navigator ul li
+{
+    text-align: left;
+}
+
+#content
+{
+    font-size: 14px;
+}
+
+/* Specific 
+----------------------------------------------------------------------------------------------------*/
 
 .blokpengumuman p
 {
@@ -115,16 +155,6 @@ a:hover
     font-weight: bold;
 }
 
-.txtright
-{
-    text-align: right;
-}
-
-.txtcenter
-{
-    text-align: center;
-}
-
 .quote
 {
     letter-spacing: 1px;
@@ -132,9 +162,4 @@ a:hover
     font-size: 16px;
     line-height: 16px;
     font-weight: bold;
-}
-
-.editor-label
-{
-    text-transform: capitalize;
 }

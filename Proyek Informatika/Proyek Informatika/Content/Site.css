@@ -1,19 +1,71 @@
-﻿fieldset
+﻿
+/* Helper Class
+----------------------------------------------------------------------------------------------------*/
+.span
 {
-    margin:24px 0;
+    display: inline;
+}
+
+.left
+{
+    float: left;
+}
+
+.right
+{
+    float: right;
+}
+
+.wide
+{
+    width: 100%;
+}
+
+/* General 
+----------------------------------------------------------------------------------------------------*/
+body, div, span
+{
+    margin: 0;
+    padding: 0;
+}
+
+fieldset
+{
+    margin: 24px 0;
     padding: 24px;
 }
 
-.button_delete_jadwal
-{
-    width: 15px;
-    height: 15px;
-}
-
-.table_semester td
+ul
 {
     padding: 5px;
 }
+
+.editor-field
+{
+    /*margin: 0 0 10px 0;*/
+}
+
+.button-block
+{
+    margin: 0 0 10px 0;
+    padding: 10px 0 0 0;
+}
+
+.window-content
+{
+    width: 100%;
+}
+
+.window-content tr td
+{
+    vertical-align: top;
+    height: 30px;
+    padding: 0 2.5px 12px 2.5px;
+}
+
+
+/* Layout
+----------------------------------------------------------------------------------------------------*/
 
 #background
 {
@@ -37,10 +89,12 @@
 {
     padding: 5px 20px 5px 20px;
 }
+
 #title div
 {
     margin: -20px auto 15px auto;
 }
+
 #logindisplay
 {
     position: absolute;
@@ -58,36 +112,33 @@
 .layer
 {
     border-radius: 20px;
-    padding: 20px 2.5% 20px 2.5%;
-    width: 96%;
+    padding: 20px 2.5%;
+    width: 95%;
     overflow: auto;
 }
 
-#pengumuman
+div.t-window-content.t-content
 {
-    float: left;
-    width: 64%;
+    padding: 20px;
 }
 
-#filesharing
+/* Specific 
+----------------------------------------------------------------------------------------------------*/
+
+.button_delete_jadwal
 {
-    float: right;
-    width: 23%;
+    width: 15px;
+    height: 15px;
+}
+
+.table_semester td
+{
+    padding: 5px;
 }
 
 #filesharing a
 {
     display: block;
-}
-
-.button, .input
-{
-    border-radius: 5px;
-    padding: 5px;
-}
-ul
-{
-    padding: 5px;
 }
 
 .avatar
@@ -114,14 +165,79 @@ ul
     padding: 2px;
 }
 
-.span
+/* #Forms
+================================================== */
+
+form
+{
+    margin-bottom: 20px;
+}
+
+fieldset
+{
+    margin-bottom: 20px;
+}
+
+input[type="text"], input[type="password"], input[type="email"], textarea, select
+{
+    border: 1px solid #ccc;
+    padding: 6px 4px;
+    outline: none;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+    font: 13px "HelveticaNeue" , "Helvetica Neue" , Helvetica, Arial, sans-serif;
+    letter-spacing: 1px;
+    color: #777;
+    margin: 0;
+    display: block;
+    margin-bottom: 20px;
+    background: #fff;
+}
+
+select
+{
+    padding: 0;
+    height:28px;
+}
+
+input[type="text"]:focus, input[type="password"]:focus, input[type="email"]:focus, textarea:focus
+{
+    border: 1px solid #aaa;
+    color: #444;
+    -moz-box-shadow: 0 0 3px rgba(0,0,0,.2);
+    -webkit-box-shadow: 0 0 3px rgba(0,0,0,.2);
+    box-shadow: 0 0 3px rgba(0,0,0,.2);
+}
+
+textarea
+{
+    min-height: 60px;
+}
+
+label, legend
+{
+    display: block;
+    font-size: 12px;
+}
+
+input[type="checkbox"]
 {
     display: inline;
 }
 
-.window-content
+label span, legend span
 {
-    margin: 25px;
-    padding: 0;
-    width: 100%;
+    font-weight: normal;
+    font-size: 12px;
+    color: #444;
+}
+
+label
+{
+    font-weight: bold;
+}
+textarea, select
+{
+    margin-left: 0 !important;
 }

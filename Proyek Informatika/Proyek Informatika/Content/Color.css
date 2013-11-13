@@ -1,44 +1,18 @@
-﻿
+﻿/* Helper Class
+----------------------------------------------------------------------------------------------------*/
 
-#header, #footer
+.warning,.red
 {
-    /*background:white url(images/header.png) repeat-x bottom center;*/
-    background-color: #042E50;
-    color: white;
-    border: 1px solid rgba(104,140,175,1);
+    color: #c0392b;
 }
 
-#header h1
+.green
 {
-    color: white;
-    text-shadow: 0 0 5px black,0 0 15px gray,0 0 30px white;
-}
-#title div
-{
-    color: rgba(221,232,245,1);
-}
-#logindisplay
-{
-    color: white;
-}
-#logindisplay a
-{
-    color: #ffdf84;
-}
-#logindisplay a:hover
-{
-    color: #fff4cc;
-}
-#content
-{
-    background-color: rgba(24,92,148,0.6);
-    color:#2c3e50;
+    color: #27ae60;
 }
 
-.layer
-{
-    background-color: rgba(255,255,255,0.85);
-}
+/* General 
+----------------------------------------------------------------------------------------------------*/
 
 h1, h2, h3, h4, h5, h6
 {
@@ -50,28 +24,53 @@ a
     color: #d35400;
 }
 
-.button
+
+/* Layout
+----------------------------------------------------------------------------------------------------*/
+#header, #footer
 {
-    border: 1px outset white;
-    background-color: rgba(24,92,148,0.7);
-    color: White;
-    text-decoration: none !important;
+    background-color: #042E50;
+    color: white;
+    border: 1px solid rgba(104,140,175,1);
 }
 
-.button:hover
+#header h1
 {
-    border: 1px inset white;
-    background-color: rgba(24,92,148,0.8);
+    color: white;
+    text-shadow: 0 0 5px black,0 0 15px gray,0 0 30px white;
 }
 
-.button:active
+#title div
 {
-    border: 1px inset gray;
-    background-color: rgba(24,92,148,0.7);
-    color: rgba(230,143,23,1);
+    color: rgba(221,232,245,1);
 }
 
-.input
+#logindisplay
 {
-    border: 1px solid gray;
+    color: white;
 }
+
+#logindisplay a
+{
+    color: #ffdf84;
+}
+
+#logindisplay a:hover
+{
+    color: #fff4cc;
+}
+
+#content
+{
+    background-color: rgba(24,92,148,0.6);
+    color: #2c3e50;
+}
+
+.layer
+{
+    background-color: rgba(255,255,255,0.85);
+}
+
+
+
+
