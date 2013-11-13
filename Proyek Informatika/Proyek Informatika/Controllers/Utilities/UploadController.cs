@@ -9,8 +9,8 @@ namespace relmon.Controllers.Utilities
 {
     public class UploadController : Controller
     {
-	//buat Upload 
-        public ActionResult Save(IEnumerable<HttpPostedFileBase> attachments,string dir)
+        //buat Upload 
+        public ActionResult Save(IEnumerable<HttpPostedFileBase> attachments, string dir)
         {
             var name = "";
 
@@ -29,12 +29,12 @@ namespace relmon.Controllers.Utilities
                 }
                 // save file
                 file.SaveAs(physicalPath);
-                
+
             }
             // Return an empty string to signify success
             return Content("");
         }
-//file upload tapi nambah
+        //file upload tapi nambah
         public ActionResult Save2(IEnumerable<HttpPostedFileBase> attachments, string dir)
         {
 
@@ -50,11 +50,12 @@ namespace relmon.Controllers.Utilities
                 var folderPath = Path.Combine(Server.MapPath("~/Upload"), dir);
                 bool exist = true;
                 int num = 1;
-                while(exist){
+                while (exist)
+                {
                     if (System.IO.File.Exists(physicalPath))
                     {
                         var split = fileNameOri.Split('.');
-                        fileName = split[0] + "("+num+")." + split[1];
+                        fileName = split[0] + "(" + num + ")." + split[1];
                         physicalPath = Path.Combine(Server.MapPath("~/Upload"), dir, fileName);
                         num++;
                     }
@@ -63,7 +64,7 @@ namespace relmon.Controllers.Utilities
                         exist = false;
                     }
                 }
-                
+
                 if (!System.IO.Directory.Exists(folderPath))
                 {
                     System.IO.Directory.CreateDirectory(folderPath);
@@ -85,7 +86,7 @@ namespace relmon.Controllers.Utilities
                 {
                     var fileName = Path.GetFileName(fullName);
                     string home = System.AppDomain.CurrentDomain.BaseDirectory;
-                    string physicalPath = home + "Upload\\" + dir +"\\"+ fileName;
+                    string physicalPath = home + "Upload\\" + dir + "\\" + fileName;
 
                     //var physicalPath = Path.Combine(test, dir, fileName);
 
@@ -103,7 +104,7 @@ namespace relmon.Controllers.Utilities
         public ActionResult Remove2(string file, string dir)
         {
             // The parameter of the Remove action must be called "fileNames"
-        
+
             var fileName = Path.GetFileName(file);
             string home = System.AppDomain.CurrentDomain.BaseDirectory;
             string physicalPath = home + "Upload\\" + dir + "\\" + fileName;
@@ -116,12 +117,12 @@ namespace relmon.Controllers.Utilities
                 //remove file
                 System.IO.File.Delete(physicalPath);
             }
-            
-            
+
+
             // Return an empty string to signify success
             return Content("");
         }
-        public ActionResult Move(string filename, string sourceDir,string destDir)
+        public ActionResult Move(string filename, string sourceDir, string destDir)
         {
             if (!string.IsNullOrWhiteSpace(filename) && !filename.Equals("null"))
             {
@@ -132,12 +133,13 @@ namespace relmon.Controllers.Utilities
                 {
                     System.IO.Directory.CreateDirectory(Path.Combine(Server.MapPath("~/Upload"), destDir));
                 }
-                if(!System.IO.Directory.Exists(destPath)){
+                if (!System.IO.Directory.Exists(destPath))
+                {
                     System.IO.File.Move(sourcePath, destPath);
                 }
-                    
-                
-                
+
+
+
             }
             return Content("");
         }
@@ -159,7 +161,7 @@ namespace relmon.Controllers.Utilities
             };
             return "";
         }
-        
+
 
         //public ActionResult Copy(string filename, string sourceDir, string destDir)
         //{
@@ -168,7 +170,7 @@ namespace relmon.Controllers.Utilities
         //        var name = Path.GetFileName(filename);
         //        var sourcePath = Path.Combine(Config.upload, sourceDir, name);
         //        var destPath = Path.Combine(Config.upload, destDir, name);
-                
+
         //            System.IO.File.Copy(sourcePath, destPath);
         //    }
         //    return Content("");
@@ -193,8 +195,18 @@ namespace relmon.Controllers.Utilities
         //    }
         //        return Content("");
         //}
+
+        public string GetPathFoto(string foto)
+        {
+            if (foto == null || foto == "")
+            {
+                return "../../../Content/images/user.png";
+            }
+            string[] tokens = foto.Split(new string[] { "Content" }, StringSplitOptions.None);
+            return "../../../Content" + tokens[1].Replace("\\", "/");
+        }
     }
 
-        
+
 
 }

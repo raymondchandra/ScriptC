@@ -14,6 +14,7 @@ namespace Proyek_Informatika.Models
         public string namaMahasiswa { get; set; }
         public string emailMahasiswa { get; set; }
         public string teleponMahasiswa { get; set; }
+        public string fotoMahasiswa { get; set; }
         public string status { get; set; }
         public int idSkripsi { get; set; }
         public int idTopik { get; set; }

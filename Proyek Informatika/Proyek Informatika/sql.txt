@@ -235,7 +235,7 @@ CREATE TABLE [dbo].[mahasiswa](
 	[nama] [varchar](30) NOT NULL,
 	[email] [varchar](30) NULL,
 	[nomor_telepon] [varchar](15) NULL,
-	[foto] [varchar](100) NULL,
+	[foto] [varchar](200) NULL,
 	[username] [varchar](15) NOT NULL,
 	[status] [varchar](100) NOT NULL,
  CONSTRAINT [mahasiswa_pk] PRIMARY KEY CLUSTERED 
@@ -289,6 +289,7 @@ CREATE TABLE [dbo].[dosen](
 	[nama] [varchar](30) NOT NULL,
 	[username] [varchar](15) NOT NULL,
 	[email] [varchar](30) NULL,
+	[foto] [varchar](200) NULL,	
  CONSTRAINT [dosen_pk] PRIMARY KEY CLUSTERED 
 (
 	[NIK] ASC

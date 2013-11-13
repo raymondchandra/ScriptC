@@ -10,6 +10,9 @@
             $("#viewInLine2a").val(data.email);
             $("#nik").html(data.NIK);
         });
+        $.post("ProfileDosen/GetFoto", "", function (data) {            
+            $("#foto").attr("src", data);
+        });
     });
 
     function editInLine(id) {
@@ -34,7 +37,7 @@
     }
 
     $("#save-nama").click(function () {
-        var values= {nama : $("#viewInLine1a").val()}
+        var values = { nama: $("#viewInLine1a").val() }
         $.post("ProfileDosen/SaveNama", values, function (data) {
             alert(data);
         });
@@ -47,6 +50,14 @@
         });
         $('#content').load('ProfileDosen/Biodata');
     })
+    function onComplete(e) {
+        $('#content').load('ProfileDosen/Biodata');
+    }
+    $("#remove-foto").click(function () {
+        $.post("ProfileDosen/RemoveFoto", "", function (data) {
+        });
+        $('#content').load('ProfileDosen/Biodata');
+    })
 </script>
 <div class="layer">
     <h1>
@@ -54,19 +65,10 @@
     <table class="profile">
         <tr>
             <td rowspan="3" style="width: 130px">
-                <img src="../../../Content/images/user.png" class="avatar">
-                @(Html.Telerik().Upload()
-    .Name("attachments")
-    .Multiple(false)
-    .Async(async => async
-    .Save("Save", "Upload")
-    .Remove("Remove", "Upload")
-    .AutoUpload(true)
-    )
-)
+                <img src="../../../Content/images/user.png" class="avatar" id="foto">
             </td>
             <!--------------------NIK-------------------->
-            <td style="height: 26px; height: 30px;">
+            <td style="height: 30px;">
                 NIK
             </td>
             <td>
@@ -80,7 +82,7 @@
         </tr>
         <tr>
             <!--------------------Nama-------------------->
-            <td style="width: 75px; height: 30px;">
+            <td style="width: 85px; height: 30px;">
                 Nama
             </td>
             <td style="width: 20px">
@@ -128,5 +130,47 @@
                     </span></a></span>
             </td>
         </tr>
+        <tr>
+            <td colspan="5">
+
+                @(Html.Telerik().Upload()
+    .Name("attachmentsFoto")
+    .Multiple(false)
+    .Async(async => async
+    .Save("SaveFoto", "ProfileDosen")
+    .Remove("RemoveFoto", "ProfileDosen")
+    .AutoUpload(true))
+    .ClientEvents(c => c
+        .OnSuccess("onComplete")
+    )
+
+)
+                <br />
+                <button id="remove-foto" class="t-button t-state-default">
+                    Reset Default</button>
+            </td>
+        </tr>
     </table>
 </div>
+@section HeadContent {
+    <style type="text/css">
+        .t-upload
+        {
+            float: left;
+        }
+        
+        .note
+        {
+            clear: left;
+            float: left;
+        }
+        
+        .example .configurator
+        {
+            width: 400px;
+            float: right;
+            margin: 0 0 0 10em;
+            display: inline;
+        }
+    </style>
+}

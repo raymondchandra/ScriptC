@@ -25,12 +25,13 @@
     function onCommand(e) {
         if (e.name == "lihatDetail") {
             var text = "<table>";
-            text += "<tr><td class='name'>NPM</td><td>&nbsp:&nbsp</td><td>" + e.row.cells[1].innerHTML + "</td></tr>";
-            text += "<tr><td class='name'>Nama</td><td>&nbsp:&nbsp</td><td>" + e.row.cells[2].innerHTML + "</td></tr>";
-            text += "<tr><td class='name'>Email</td><td>&nbsp:&nbsp</td><td>" + e.row.cells[3].innerHTML + "</td></tr>";
-            text += "<tr><td class='name'>Telepon</td><td>&nbsp:&nbsp</td><td>" + e.row.cells[4].innerHTML + "</td></tr>";
-            text += "<tr><td class='name'>Status</td><td>&nbsp:&nbsp</td><td>" + e.row.cells[5].innerHTML + "</td></tr>";
-            text += "<tr><td class='name'>Topik</td><td>&nbsp:&nbsp</td><td>" + e.row.cells[6].innerHTML + "</td></tr>";
+            text += "<tr><td rowspan='6' style='width: 130px'><img class='avatar' src='" + e.row.cells[7].innerHTML + "'/></td>";
+            text += "<td style='width: 100px'>NPM</td><td>&nbsp:&nbsp</td><td>" + e.row.cells[1].innerHTML + "</td></tr>";
+            text += "<tr><td>Nama</td><td>&nbsp:&nbsp</td><td>" + e.row.cells[2].innerHTML + "</td></tr>";
+            text += "<tr><td>Email</td><td>&nbsp:&nbsp</td><td>" + e.row.cells[3].innerHTML + "</td></tr>";
+            text += "<tr><td>Telepon</td><td>&nbsp:&nbsp</td><td>" + e.row.cells[4].innerHTML + "</td></tr>";
+            text += "<tr><td>Status</td><td>&nbsp:&nbsp</td><td>" + e.row.cells[5].innerHTML + "</td></tr>";
+            text += "<tr><td>Topik</td><td>&nbsp:&nbsp</td><td>" + e.row.cells[6].innerHTML + "</td></tr>";
             text += "</table>";
             $(".detail").html(text);
             var windowZ = $("#mahasiswaDetail").data("tWindow");
@@ -61,8 +62,7 @@
             $('#content').load('PendaftaranDosen/RegistrasiMahasiswa');
         })
     </script>
-    <br />
-    <div>
+  
         <fieldset>
             <legend>Registrasi Mahasiswa dengan Topik Baru</legend>
             <div class="editor-label">
@@ -84,7 +84,7 @@
             <br />
             <input type="button" id="insert-1" value="Register" class="t-button t-state-default" />
         </fieldset>
-    </div>
+    
     <!--<div style="width: 49%; float: right;">
         <fieldset>
             <legend>Registrasi Mahasiswa</legend>
@@ -106,7 +106,7 @@
             <input type="button" id="insert-2" value="Register" class="t-button t-state-default" />
         </fieldset>
     </div>-->
-    <br />
+    
     @{ 
         GridEditMode mode = GridEditMode.InLine;
         GridButtonType type = GridButtonType.Text;    
@@ -130,6 +130,7 @@
             columns.Bound(c => c.teleponMahasiswa).Hidden();
             columns.Bound(c => c.status).Hidden();
             columns.Bound(c => c.topik).Width(300).Title("Judul");
+            columns.Bound(c => c.fotoMahasiswa).Hidden();
             columns.Command(c => c.Custom("lihatDetail")
                 .Text("Detail")
                 .Ajax(true)).Width(95);
@@ -156,7 +157,7 @@
         .Visible(false)
         .Modal(true)
         .Width(500)
-        .Height(250)
+        .Height(300)
         .Scrollable(true)
         .Content(@<text>
     <p class="detail">

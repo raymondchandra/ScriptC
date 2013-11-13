@@ -12,6 +12,17 @@
             $("#viewInLine3a").val(data.nomor_telepon);
             $("#npm").html(data.NPM);
         });
+        $.post("Profile/GetFoto", "", function (data) {
+            $("#foto").attr("src", data);
+        });
+        $.post("Profile/GetData", "", function (data) {
+            $("#foto2").attr("src", data.foto);
+            $("#nik").html(data.NIK);
+            $("#nama").html(data.nama);
+            $("#email").html(data.email);
+            $("#matkul").html("Skripsi "+data.jenis);
+            $("#topik").html(data.judul);
+        });
     });
 
     function editInLine(id) {
@@ -58,6 +69,14 @@
         });
         $('#content').load('Profile/Biodata');
     })
+    function onComplete(e) {
+        $('#content').load('Profile/Biodata');
+    }
+    $("#remove-foto").click(function () {
+        $.post("Profile/RemoveFoto", "", function (data) {
+        });
+        $('#content').load('Profile/Biodata');
+    })
 </script>
 <div class="layer">
     <h1>
@@ -65,19 +84,10 @@
     <table class="profile">
         <tr>
             <td rowspan="4" style="width: 130px">
-                <img src="../../../Content/images/user.png" class="avatar">
-    @(Html.Telerik().Upload()
-        .Name("attachments")
-        .Multiple(false)
-        .Async(async => async
-        .Save("Save", "Upload")
-        .Remove("Remove", "Upload")
-        .AutoUpload(true)
-        )
-)
-            </td>  
-            <!--------------------NPM-------------------->      
-            <td style="height: 26px; height: 30px;">
+                <img id="foto" src="../../../Content/images/user.png" class="avatar">
+            </td>
+            <!--------------------NPM-------------------->
+            <td style="height: 30px;">
                 NPM
             </td>
             <td>
@@ -86,12 +96,12 @@
             <td>
                 <span id="npm"></span>
             </td>
-            <td style="width: 80px">                
+            <td style="width: 80px">
             </td>
         </tr>
         <tr>
             <!--------------------Nama-------------------->
-            <td style="width: 75px; height: 30px;">
+            <td style="width: 85px; height: 30px;">
                 Nama
             </td>
             <td style="width: 20px">
@@ -106,14 +116,12 @@
                 <!--edit-->
                 <a class="t-button t-button-icon t-grid-edit" onclick="editInLine(1)" id="editInLine1b">
                     <span class="t-icon t-edit"></span></a>
-                 <!--save-->
-                <span id="viewInLine1b" style="display: none;">
-                    <a class="t-button t-button-icon t-grid-edit" id="save-nama"><span class="t-icon t-update">
-                    </span></a>&nbsp
-                <a class="t-button t-button-icon t-grid-edit" onclick="viewInLine(1)"><span
-                    class="t-icon t-cancel"> </span></a></span>
+                <!--save-->
+                <span id="viewInLine1b" style="display: none;"><a class="t-button t-button-icon t-grid-edit"
+                    id="save-nama"><span class="t-icon t-update"></span></a>&nbsp <a class="t-button t-button-icon t-grid-edit"
+                        onclick="viewInLine(1)"><span class="t-icon t-cancel"></span></a></span>
             </td>
-        </tr>       
+        </tr>
         <tr>
             <!--------------------Email-------------------->
             <td style="height: 30px;">
@@ -132,37 +140,130 @@
                 <a class="t-button t-button-icon t-grid-edit" onclick="editInLine(2)" id="editInLine2b">
                     <span class="t-icon t-edit"></span></a>
                 <!--save-->
-                <span id="viewInLine2b" style="display: none;">
-                    <a class="t-button t-button-icon t-grid-edit" id="save-email"><span class="t-icon t-update">
-                    </span></a>&nbsp
-                <a class="t-button t-button-icon t-grid-edit" onclick="viewInLine(2)"><span
-                    class="t-icon t-cancel"> </span></a></span>
+                <span id="viewInLine2b" style="display: none;"><a class="t-button t-button-icon t-grid-edit"
+                    id="save-email"><span class="t-icon t-update"></span></a>&nbsp <a class="t-button t-button-icon t-grid-edit"
+                        onclick="viewInLine(2)"><span class="t-icon t-cancel"></span></a></span>
             </td>
-            </tr>
+        </tr>
+        <tr>
+            <!--------------------Telepon-------------------->
+            <td style="height: 30px;">
+                Telepon
+            </td>
+            <td>
+                :
+            </td>
+            <td>
+                <span id="editInLine3a"></span>
+                <input type="text" style="width: 200px; display: none;" id="viewInLine3a" value="" />
+            </td>
+            <!--------------------Editor Telepon-------------------->
+            <td>
+                <!--edit-->
+                <a class="t-button t-button-icon t-grid-edit" onclick="editInLine(3)" id="editInLine3b">
+                    <span class="t-icon t-edit"></span></a>
+                <!--save-->
+                <span id="viewInLine3b" style="display: none;"><a class="t-button t-button-icon t-grid-edit"
+                    id="save-telepon"><span class="t-icon t-update"></span></a>&nbsp <a class="t-button t-button-icon t-grid-edit"
+                        onclick="viewInLine(3)"><span class="t-icon t-cancel"></span></a></span>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="5">
+                @(Html.Telerik().Upload()
+    .Name("attachmentsFoto")
+    .Multiple(false)
+    .Async(async => async
+    .Save("SaveFoto", "Profile")
+    .Remove("RemoveFoto", "Profile")
+    .AutoUpload(true))
+    .ClientEvents(c => c
+        .OnSuccess("onComplete")
+    )
+
+)
+                <br />
+                <button id="remove-foto" class="t-button t-state-default">
+                    Reset Default</button>
+            </td>
+        </tr>
+    </table>
+
+    <fieldset>
+        <legend>Data Dosen Pembimbing</legend>
+
+        <table class="profile">
             <tr>
-                <!--------------------Telepon-------------------->
+                <td rowspan="3" style="width: 130px">
+                    <img id="foto2" src="../../../Content/images/user.png" class="avatar">
+                </td>
+                <!--------------------NPM-------------------->
                 <td style="height: 30px;">
-                    Telepon
+                    NIK
                 </td>
                 <td>
                     :
                 </td>
                 <td>
-                    <span id="editInLine3a"></span>
-                    <input type="text" style="width: 200px; display: none;" id="viewInLine3a" value="" />
-                </td>
-                <!--------------------Editor Telepon-------------------->
-                <td>
-                    <!--edit-->
-                    <a class="t-button t-button-icon t-grid-edit" onclick="editInLine(3)" id="editInLine3b">
-                        <span class="t-icon t-edit"></span></a>
-                    <!--save-->
-                    <span id="viewInLine3b" style="display: none;">
-                        <a class="t-button t-button-icon t-grid-edit" id="save-telepon"><span class="t-icon t-update">
-                        </span></a>&nbsp
-                    <a class="t-button t-button-icon t-grid-edit" onclick="viewInLine(3)"><span
-                        class="t-icon t-cancel"> </span></a></span>
+                    <span id="nik"></span>
                 </td>
             </tr>
-    </table>
+            <tr>
+                <!--------------------Nama-------------------->
+                <td style="width: 85px; height: 30px;">
+                    Nama
+                </td>
+                <td style="width: 20px">
+                    :
+                </td>
+                <td style="width: 250px">
+                    <span id="nama"></span>
+                </td>
+            </tr>
+            <tr>
+                <!--------------------Email-------------------->
+                <td style="height: 30px;">
+                    Email
+                </td>
+                <td>
+                    :
+                </td>
+                <td>
+                    <span id="email"></span>
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+
+    <fieldset>
+        <legend>Data Skripsi</legend>
+
+        <table class="profile">
+            <tr>
+                <!--------------------Mata Kuliah-------------------->
+                <td style="width: 85px; height: 30px;">
+                    Mata Kuliah
+                </td>
+                <td style="width: 20px">
+                    :
+                </td>
+                <td>
+                    <span id="matkul"></span>
+                </td>
+            </tr>
+            <tr>
+                <!--------------------Topik-------------------->
+                <td style="height: 30px;">
+                    Topik
+                </td>
+                <td>
+                    :
+                </td>
+                <td>
+                    <span id="topik"></span>
+                </td>
+            </tr>
+
+        </table>
+    </fieldset>
 </div>

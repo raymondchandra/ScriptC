@@ -1,6 +1,13 @@
 ﻿body
 {
-    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: "HelveticaNeue-Light" , "Helvetica Neue Light" , "Helvetica Neue" , Helvetica, Arial, sans-serif;
+}
+
+fieldset legend
+{
+    font-size: 12px;
+    font-style: italic;
+    letter-spacing:1px;
 }
 #title
 {
@@ -8,16 +15,16 @@
 }
 #logindisplay
 {
-    text-align:right;    
+    text-align: right;
 }
 #logindisplay a:hover
 {
-    text-decoration:none;
+    text-decoration: none;
 }
 #header h1
 {
     font-variant: small-caps;
-    font-family: "Lucida Bright", Georgia, serif;
+    font-family: "Lucida Bright" , Georgia, serif;
     letter-spacing: 2px;
 }
 #title div
@@ -45,7 +52,7 @@
 }
 #content h1, #content h2, #content h3, #content h4, #content h5, #content h6
 {
-    font-family: "Lucida Bright", Georgia, serif;
+    font-family: "Lucida Bright" , Georgia, serif;
     font-weight: bold;
 }
 
@@ -98,36 +105,36 @@ a:hover
 
 .blokpengumuman .penulis, .blokpengumuman .tanggal
 {
-    text-align: right;   
-    font-weight:bold; 
-    letter-spacing : 1.5px;
+    text-align: right;
+    font-weight: bold;
+    letter-spacing: 1.5px;
 }
- 
+
 .blokpengumuman .penulis span
 {
-    font-weight:bold;   
+    font-weight: bold;
 }
- 
+
 .txtright
 {
-    text-align:right;
-} 
- 
+    text-align: right;
+}
+
 .txtcenter
 {
-    text-align:center;
-} 
+    text-align: center;
+}
 
 .quote
 {
-    letter-spacing:1px;
-    font-style:oblique;
-    font-size:16px;  
-    line-height:16px; 
-    font-weight:bold; 
+    letter-spacing: 1px;
+    font-style: oblique;
+    font-size: 16px;
+    line-height: 16px;
+    font-weight: bold;
 }
 
 .editor-label
 {
-    text-transform:capitalize;    
+    text-transform: capitalize;
 }

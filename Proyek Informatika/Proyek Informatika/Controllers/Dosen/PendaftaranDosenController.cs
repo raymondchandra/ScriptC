@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using Proyek_Informatika.Models;
 using Telerik.Web.Mvc;
+using relmon.Controllers.Utilities;
 using System.Data;
 using System.Security.Cryptography;
 using System.Text;
@@ -15,6 +16,7 @@ namespace Proyek_Informatika.Controllers.Dosen
     {
         private SkripsiAutoContainer db = new SkripsiAutoContainer();
         private AccountController ac = new AccountController();
+        private UploadController uc = new UploadController();
 
         //
         // GET: /Pengumpulan/
@@ -115,7 +117,7 @@ namespace Proyek_Informatika.Controllers.Dosen
                 {
                     akun a = new akun();
                     a.username = temp;
-                    result += "\nAkun baru untuk mahasiswa berhasil dibuat. \nusername : " + a.username + "\npassword : "+temp;
+                    result += "\nAkun baru untuk mahasiswa berhasil dibuat. \nusername : " + a.username + "\npassword : " + temp;
                     a.aktif = 1;
                     a.password = ac.EncodePassword(temp);
                     a.peran = 3;
@@ -128,7 +130,7 @@ namespace Proyek_Informatika.Controllers.Dosen
                 }
                 akun = db.akuns.Where(akunTemp => akunTemp.username == model.NPM).SingleOrDefault();
 
-                m.status = "aktif";
+                m.status = "nonaktif";
 
                 if (TryUpdateModel(m))
                 {
@@ -186,7 +188,7 @@ namespace Proyek_Informatika.Controllers.Dosen
                 {
                     akun a = new akun();
                     a.username = temp;
-                    result += "\nAkun baru untuk mahasiswa berhasil dibuat. \nusername : " + model.NPM + "\npassword : "+temp;
+                    result += "\nAkun baru untuk mahasiswa berhasil dibuat. \nusername : " + model.NPM + "\npassword : " + temp;
                     a.aktif = 1;
                     a.password = ac.EncodePassword(temp);
                     a.peran = 3;
@@ -199,7 +201,7 @@ namespace Proyek_Informatika.Controllers.Dosen
                 }
                 akun = db.akuns.Where(akunTemp => akunTemp.username == model.NPM).SingleOrDefault();
 
-                m.status = "aktif";
+                m.status = "nonaktif";
 
                 if (TryUpdateModel(m))
                 {
@@ -257,6 +259,7 @@ namespace Proyek_Informatika.Controllers.Dosen
                                                        namaMahasiswa = m.nama,
                                                        emailMahasiswa = m.email,
                                                        teleponMahasiswa = m.nomor_telepon,
+                                                       fotoMahasiswa = m.foto,
                                                        status = m.status,
                                                        idSkripsi = s.id,
                                                        //idTopik = t.id,                                                  
@@ -267,7 +270,10 @@ namespace Proyek_Informatika.Controllers.Dosen
                                                        //idSemester = t.id_semester,
                                                        semester = x.periode_semester
                                                    }).ToList();
-
+            foreach (MahasiswaContainer mc in listResult)
+            {
+                mc.fotoMahasiswa = uc.GetPathFoto(mc.fotoMahasiswa);
+            }
             return View(new GridModel<MahasiswaContainer>
             {
                 Data = listResult
