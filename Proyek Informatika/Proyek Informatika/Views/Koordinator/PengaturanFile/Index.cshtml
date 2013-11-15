@@ -1,9 +1,9 @@
 ﻿<script type="text/javascript">
-    var formWindow; 
+    var formWindow;
     function Aksi(e) {
         if (e.name == "edit") {
             $.post("PengaturanFile/Editor?id=" + e.dataItem.id_file, function (data) {
-                $("#container").html(data);
+                $("#container2").html(data);
             });
             openWindow();
         }
@@ -12,7 +12,7 @@
         }
         else if (e.name == "newFile") {
             $.post("PengaturanFile/Form", function (data) {
-                $("#container").html(data);
+                $("#container2").html(data);
             });
             openWindow();
         }
@@ -44,20 +44,19 @@
         formWindow.close();
     }
 </script>
-
-<div class = "layer">
-<h1>Pengaturan File Sharing</h1>
-@(Html.Telerik().Grid<Proyek_Informatika.Models.file>()
+<div class="layer">
+    <h1>
+        Pengaturan File Sharing</h1>
+    @(Html.Telerik().Grid<Proyek_Informatika.Models.file>()
 .Name("fileSharingIndex")
 .DataBinding(d => d.Ajax().Select("SelectFile", "PengaturanFile"))
 .Columns(c =>
 {
-    c.Bound(b => b.nama_file);
+    c.Bound(b => b.nama_file).Title("Nama File");
     c.Command(b =>
-    {
-        b.Custom("edit").Ajax(true).Text("Edit");
-        b.Custom("download").Ajax(true).Text("Unduh");
-        b.Custom("delFile").Ajax(true).Text("Hapus");
+    {   b.Custom("download").Ajax(true).Text("Download");
+        b.Custom("edit").Ajax(true).Text("Edit");        
+        b.Custom("delFile").Ajax(true).Text("Delete");
     });
 })
 .ToolBar(t => t.Custom().Name("newFile").Text("Tambah File Baru").Ajax(true))
@@ -65,16 +64,16 @@
 .Scrollable()
 .Sortable()
 .Resizable(r => r.Columns(true))
-.HtmlAttributes(new {style = "width: 100%" })
+.HtmlAttributes(new { style = "width: 100%" })
 )
-
 </div>
 @(  Html.Telerik().Window()
         .Name("formUnggah")
-        .Title("Form File")
-        .Content(@<text><div id="container"></div></text>)
+        .Title("File")
+        .Content(@<text><div id="container2">
+        </div></text>)
             .Width(500)
-            .Height(550)
+            .Height(250)
             .Draggable(true)
             .Modal(true)
             .Visible(false)

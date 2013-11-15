@@ -1,7 +1,7 @@
 ﻿@{
     ViewBag.Title = "Buat Pengumuman";
 }
-<script>
+<script type="text/javascript">
     $("#insert-pengumuman-dsn").click(function () {
         var temp = 0;
         if ($("#target-pengumuman-dsn-2").is(':checked')) {
@@ -30,13 +30,23 @@
 <div class="layer">
     <h1>
         Buat Pengumuman</h1>
-    Judul :
-    <br />
-    <input type="text" id="judul-pengumuman-dsn" style="width: 100%"">
-    <br>
-    <br>
-    @{ Html.BeginForm(); }
-    @{ Html.Telerik().Editor()
+    <div class="editor-label grid_15">
+        <label>
+            Judul</label>
+    </div>
+    <br class="clear" />
+    <div class="editor-field grid_15">
+        <input type="text" id="judul-pengumuman-dsn" class="grid_15" />
+    </div>
+    <br class="clear" />
+    <div class="editor-label grid_15">
+        <label>
+            Isi</label>
+    </div>
+    <br class="clear" />
+    <div class="editor-field grid_15">
+        @{ Html.BeginForm(); }
+        @{ Html.Telerik().Editor()
     .Name("pengumuman_dsn")
     .Encode(false)
     .Tools(tools => tools
@@ -53,31 +63,25 @@
     .HtmlAttributes(new { style = "height:350px;width:100%" })
     .Value(@<text></text>)
     .Render();
-    }
-    <br />Target :
-    <br /> 
-    <input type="checkbox" id="target-pengumuman-dsn-2">
-    Mahasiswa Skripsi 1&nbsp;&nbsp;
-    <input type="checkbox" id="target-pengumuman-dsn-3">
-    Mahasiswa Skripsi 2&nbsp;&nbsp;
-
-    <br />
-    <br />
-    <div class="txtcenter">
+        }
+    </div>
+    <br class="clear" />
+    <div class="editor-label grid_15">
+        <label>
+            Target
+        </label>
+    </div>
+    <br class="clear" />
+    <div class="editor-field grid_15">
+        <input type="checkbox" id="target-pengumuman-dsn-2" />
+        Mahasiswa Skripsi 1&nbsp;&nbsp;
+        <input type="checkbox" id="target-pengumuman-dsn-3" />
+        Mahasiswa Skripsi 2&nbsp;&nbsp;
+    </div>
+    <br class="clear" />    
+    <div class="button-block grid_15">
         <input type="button" id="insert-pengumuman-dsn" class="t-button t-state-default"
-            value="Tambahkan Pengumuman">
+            value="Tambahkan Pengumuman" />
     </div>
     @{ Html.EndForm(); }
-    @section HeadContent {
-        <style type="text/css">
-            .editor-output
-            {
-                font: normal 1em/1.1em "Consolas" , "Monaco" , "Bitstream Vera Sans Mono" , "Courier New" , Courier, monospace;
-                border: 1px solid #ccc;
-                background: #fff;
-                display: block;
-                padding: 4px 8px 8px;
-            }
-        </style>
-    }
 </div>

@@ -1,7 +1,7 @@
 ﻿@{
     ViewBag.Title = "Edit Pengumuman";
 }
-<script>
+<script type="text/javascript">
     $("#update-pengumuman-kdt").click(function () {
         var temp = 0;
         if ($("#target-pengumuman-kdt-1").is(':checked')) {
@@ -20,7 +20,7 @@
         if (temp == 0) {
             alert("Pengumuman gagal ditambahkan! Field target harus dipilih!");
         }
-        
+
         var values = {
             id: $("#id-pengumuman-kdt").val(),
             isi: $("#pengumuman_kdt").data("tEditor").value(),
@@ -33,15 +33,25 @@
         $('#content').load('PengumumanKoordinator/EditPengumuman');
     })
 </script>
-<div class="window-content">
+<div class="container_15">
     <input type="hidden" id="id-pengumuman-kdt" />
-    Judul :
-    <br />
-    <input type="text" id="judul-pengumuman-kdt" style="width: 600px">
-    <br>
-    <br>
-    @{ Html.BeginForm(); }
-    @{ Html.Telerik().Editor()
+    <div class="editor-label grid_15">
+        <label>
+            Judul</label>
+    </div>
+    <br class="clear" />
+    <div class="editor-field grid_15">
+        <input type="text" id="judul-pengumuman-kdt" class="grid_15" />
+    </div>
+    <br class="clear" />
+    <div class="editor-label grid_15">
+        <label>
+            Isi</label>
+    </div>
+    <br class="clear" />
+    <div class="editor-field grid_15">
+        @{ Html.BeginForm(); }
+        @{ Html.Telerik().Editor()
         .Name("pengumuman_kdt")
         .Encode(false)
         .Tools(tools => tools
@@ -55,25 +65,33 @@
             .CreateLink().Unlink().Separator()
             .FormatBlock()
         )
-        .HtmlAttributes(new { style = "height:350px; width:600px" })
+        .HtmlAttributes(new { style = "height:350px; width:100%;" })
         .Value(@<text></text>)
         .Render();
-    }
-    <br />Target :
-    <br /> 
-    <input type="checkbox" id="target-pengumuman-kdt-1">
-    Home&nbsp;&nbsp;
-    <input type="checkbox" id="target-pengumuman-kdt-2">
-    Mahasiswa Skripsi 1&nbsp;&nbsp;
-    <input type="checkbox" id="target-pengumuman-kdt-3">
-    Mahasiswa Skripsi 2&nbsp;&nbsp;
-    <input type="checkbox" id="target-pengumuman-kdt-4">
-    Dosen
-    <br />
-    <br />
-    <div class="txtcenter">
+        }
+    </div>
+    <br class="clear" />
+    <div class="editor-label grid_15">
+        <label>
+            Target
+        </label>
+    </div>
+    <br class="clear" />
+    <div class="editor-field grid_15">
+        <input type="checkbox" id="target-pengumuman-kdt-1" />
+        Home&nbsp;&nbsp;
+        <input type="checkbox" id="target-pengumuman-kdt-2" />
+        Mahasiswa Skripsi 1&nbsp;&nbsp;
+        <input type="checkbox" id="target-pengumuman-kdt-3" />
+        Mahasiswa Skripsi 2&nbsp;&nbsp;
+        <input type="checkbox" id="target-pengumuman-kdt-4" />
+        Dosen
+    </div>
+    <br class="clear" />    
+    <div class="button-block grid_15">
         <input type="button" id="update-pengumuman-kdt" class="t-button t-state-default"
-            value="Simpan"></div>
+            value="Save" />
+    </div>
 </div>
 @{ Html.EndForm(); }
 @section HeadContent {

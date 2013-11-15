@@ -1,7 +1,7 @@
 ﻿/* Helper Class
 ----------------------------------------------------------------------------------------------------*/
 
-.warning,.red
+.warning, .red
 {
     color: #c0392b;
 }
@@ -23,6 +23,24 @@ a
 {
     color: #d35400;
 }
+
+.blue
+{
+    border: 1px solid #688caf;
+}
+
+.blue .th
+{
+    background-color: #c3d8f1;
+    border-bottom: 1px solid #688caf;
+}
+
+.blue .tf
+{
+    background-color: #e9f1fc;
+    border-bottom: 1px solid #688caf;
+}
+
 
 
 /* Layout

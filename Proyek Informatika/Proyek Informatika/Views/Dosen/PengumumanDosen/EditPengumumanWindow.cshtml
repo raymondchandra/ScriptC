@@ -1,7 +1,7 @@
 ﻿@{
     ViewBag.Title = "Edit Pengumuman";
 }
-<script>
+<script type="text/javascript">
     $("#update-pengumuman-dsn").click(function () {
         var temp = 0;
         if ($("#target-pengumuman-dsn-2").is(':checked')) {
@@ -27,15 +27,25 @@
         $('#content').load('PengumumanDosen/EditPengumuman');
     })
 </script>
-<div class="window-content">
+<div class="container_15">
     <input type="hidden" id="id-pengumuman-dsn" />
-    Judul :
-    <br />
-    <input type="text" id="judul-pengumuman-dsn" style="width: 600px">
-    <br>
-    <br>
-    @{ Html.BeginForm(); }
-    @{ Html.Telerik().Editor()
+    <div class="editor-label grid_15">
+        <label>
+            Judul</label>
+    </div>
+    <br class="clear" />
+    <div class="editor-field grid_15">
+        <input type="text" id="judul-pengumuman-dsn" class="grid_15" />
+    </div>
+    <br class="clear" />
+    <div class="editor-label grid_15">
+        <label>
+            Isi</label>
+    </div>
+    <br class="clear" />
+    <div class="editor-field grid_15">
+        @{ Html.BeginForm(); }
+        @{ Html.Telerik().Editor()
         .Name("pengumuman_dsn")
         .Encode(false)
         .Tools(tools => tools
@@ -49,33 +59,27 @@
             .CreateLink().Unlink().Separator()
             .FormatBlock()
         )
-        .HtmlAttributes(new { style = "height:350px; width:600px" })
+        .HtmlAttributes(new { style = "height:350px; width:100%" })
         .Value(@<text></text>)
         .Render();
-    }
-    <br />
-    Target :
-    <br />
-    <input type="checkbox" id="target-pengumuman-dsn-2">
-    Mahasiswa Skripsi 1&nbsp;&nbsp;
-    <input type="checkbox" id="target-pengumuman-dsn-3">
-    Mahasiswa Skripsi 2&nbsp;&nbsp;
-    <br />
-    <br />
-    <div class="txtcenter">
+        }
+    </div>
+    <br class="clear" />
+    <div class="editor-label grid_15">
+        <label>
+            Target
+        </label>
+    </div>
+    <br class="clear" />
+    <div class="editor-field grid_15">
+        <input type="checkbox" id="target-pengumuman-dsn-2" />
+        Mahasiswa Skripsi 1&nbsp;&nbsp;
+        <input type="checkbox" id="target-pengumuman-dsn-3" />
+        Mahasiswa Skripsi 2&nbsp;&nbsp;
+    </div>
+    <br class="clear" />   
+    <div class="button-block grid_15">
         <input type="button" id="update-pengumuman-dsn" class="t-button t-state-default"
-            value="Simpan"></div>
+            value="Save" /></div>
 </div>
 @{ Html.EndForm(); }
-@section HeadContent {
-    <style type="text/css">
-        .editor-output
-        {
-            font: normal 1em/1.1em "Consolas" , "Monaco" , "Bitstream Vera Sans Mono" , "Courier New" , Courier, monospace;
-            border: 1px solid #ccc;
-            background: #fff;
-            display: block;
-            padding: 4px 8px 8px;
-        }
-    </style>
-}

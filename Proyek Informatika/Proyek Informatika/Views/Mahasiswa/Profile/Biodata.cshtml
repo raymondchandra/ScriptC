@@ -20,7 +20,7 @@
             $("#nik").html(data.NIK);
             $("#nama").html(data.nama);
             $("#email").html(data.email);
-            $("#matkul").html("Skripsi "+data.jenis);
+            $("#matkul").html("Skripsi " + data.jenis);
             $("#topik").html(data.judul);
         });
     });
@@ -81,38 +81,35 @@
 <div class="layer">
     <h1>
         Biodata</h1>
-    <table class="profile">
-        <tr>
-            <td rowspan="4" style="width: 130px">
-                <img id="foto" src="../../../Content/images/user.png" class="avatar">
-            </td>
-            <!--------------------NPM-------------------->
-            <td style="height: 30px;">
+    <div class="grid_5 alpha">
+        <img id="foto" src="../../../Content/images/user.png" class="avatar right" alt="" />
+    </div>
+    <div class="grid_10 omega biodata">
+        <!--------------------NPM-------------------->
+        <div class="editor-label grid_15">
+            <label>
                 NPM
-            </td>
-            <td>
-                :
-            </td>
-            <td>
-                <span id="npm"></span>
-            </td>
-            <td style="width: 80px">
-            </td>
-        </tr>
-        <tr>
-            <!--------------------Nama-------------------->
-            <td style="width: 85px; height: 30px;">
+            </label>
+        </div>
+        <br class="clear" />
+        <div class="editor-field grid_15 row">
+            <span id="npm"></span>
+        </div>
+        <br class="clear" />
+        <!--------------------Nama-------------------->
+        <div class="editor-label grid_15">
+            <label>
                 Nama
-            </td>
-            <td style="width: 20px">
-                :
-            </td>
-            <td style="width: 250px">
+            </label>
+        </div>
+        <br class="clear" />
+        <div class="editor-field grid_15 row">
+            <div class="grid_9 alpha">
                 <span id="editInLine1a"></span>
-                <input type="text" style="width: 200px; display: none;" id="viewInLine1a" value="" />
-            </td>
+                <input type="text" class="grid_14" style="display: none;" id="viewInLine1a" value="" />&nbsp;
+            </div>
             <!--------------------Editor Nama-------------------->
-            <td style="width: 100px;">
+            <div class="grid_6 omega">
                 <!--edit-->
                 <a class="t-button t-button-icon t-grid-edit" onclick="editInLine(1)" id="editInLine1b">
                     <span class="t-icon t-edit"></span></a>
@@ -120,22 +117,23 @@
                 <span id="viewInLine1b" style="display: none;"><a class="t-button t-button-icon t-grid-edit"
                     id="save-nama"><span class="t-icon t-update"></span></a>&nbsp <a class="t-button t-button-icon t-grid-edit"
                         onclick="viewInLine(1)"><span class="t-icon t-cancel"></span></a></span>
-            </td>
-        </tr>
-        <tr>
-            <!--------------------Email-------------------->
-            <td style="height: 30px;">
+            </div>
+        </div>
+        <br class="clear" />
+        <!--------------------Email-------------------->
+        <div class="editor-label grid_15">
+            <label>
                 Email
-            </td>
-            <td>
-                :
-            </td>
-            <td>
+            </label>
+        </div>
+        <br class="clear" />
+        <div class="editor-field grid_15 row">
+            <div class="grid_9 alpha">
                 <span id="editInLine2a"></span>
-                <input type="text" style="width: 200px; display: none;" id="viewInLine2a" value="" />
-            </td>
+                <input type="text" class="grid_14" style="display: none;" id="viewInLine2a" value="" />&nbsp;
+            </div>
             <!--------------------Editor Email-------------------->
-            <td>
+            <div class="grid_6 omega">
                 <!--edit-->
                 <a class="t-button t-button-icon t-grid-edit" onclick="editInLine(2)" id="editInLine2b">
                     <span class="t-icon t-edit"></span></a>
@@ -143,22 +141,23 @@
                 <span id="viewInLine2b" style="display: none;"><a class="t-button t-button-icon t-grid-edit"
                     id="save-email"><span class="t-icon t-update"></span></a>&nbsp <a class="t-button t-button-icon t-grid-edit"
                         onclick="viewInLine(2)"><span class="t-icon t-cancel"></span></a></span>
-            </td>
-        </tr>
-        <tr>
-            <!--------------------Telepon-------------------->
-            <td style="height: 30px;">
+            </div>
+        </div>
+        <br class="clear" />
+        <!--------------------Telepon-------------------->
+        <div class="editor-label grid_15">
+            <label>
                 Telepon
-            </td>
-            <td>
-                :
-            </td>
-            <td>
+            </label>
+        </div>
+        <br class="clear" />
+        <div class="editor-field grid_15 row">
+            <div class="grid_9 alpha">
                 <span id="editInLine3a"></span>
-                <input type="text" style="width: 200px; display: none;" id="viewInLine3a" value="" />
-            </td>
+                <input type="text" class="grid_14" style="display: none;" id="viewInLine3a" value="" />&nbsp;
+            </div>
             <!--------------------Editor Telepon-------------------->
-            <td>
+            <div class="grid_6 omega">
                 <!--edit-->
                 <a class="t-button t-button-icon t-grid-edit" onclick="editInLine(3)" id="editInLine3b">
                     <span class="t-icon t-edit"></span></a>
@@ -166,11 +165,13 @@
                 <span id="viewInLine3b" style="display: none;"><a class="t-button t-button-icon t-grid-edit"
                     id="save-telepon"><span class="t-icon t-update"></span></a>&nbsp <a class="t-button t-button-icon t-grid-edit"
                         onclick="viewInLine(3)"><span class="t-icon t-cancel"></span></a></span>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="5">
-                @(Html.Telerik().Upload()
+            </div>
+        </div>
+        <br class="clear" />
+    </div>
+    <br class="clear" />
+    <div class="grid_9 prefix_3">
+        @(Html.Telerik().Upload()
     .Name("attachmentsFoto")
     .Multiple(false)
     .Async(async => async
@@ -182,88 +183,80 @@
     )
 
 )
-                <br />
-                <button id="remove-foto" class="t-button t-state-default">
-                    Reset Default</button>
-            </td>
-        </tr>
-    </table>
-
-    <fieldset>
-        <legend>Data Dosen Pembimbing</legend>
-
-        <table class="profile">
-            <tr>
-                <td rowspan="3" style="width: 130px">
-                    <img id="foto2" src="../../../Content/images/user.png" class="avatar">
-                </td>
+        <br />
+        <button id="remove-foto" class="t-button t-state-default">
+            Reset Default</button>
+    </div>
+    <br class="clear" />
+    <br />
+    <div class="half">
+        <fieldset>
+            <legend>Data Dosen Pembimbing</legend>
+            <div class="grid_9 alpha biodata">
                 <!--------------------NPM-------------------->
-                <td style="height: 30px;">
-                    NIK
-                </td>
-                <td>
-                    :
-                </td>
-                <td>
+                <div class="editor-label grid_15 txtright">
+                    <label>
+                        NIK
+                    </label>
+                </div>
+                <br class="clear" />
+                <div class="editor-field grid_15 row txtright">
                     <span id="nik"></span>
-                </td>
-            </tr>
-            <tr>
+                </div>
+                <br class="clear" />
                 <!--------------------Nama-------------------->
-                <td style="width: 85px; height: 30px;">
-                    Nama
-                </td>
-                <td style="width: 20px">
-                    :
-                </td>
-                <td style="width: 250px">
+                <div class="editor-label grid_15 txtright">
+                    <label>
+                        Nama
+                    </label>
+                </div>
+                <br class="clear" />
+                <div class="editor-field grid_15 row txtright">
                     <span id="nama"></span>
-                </td>
-            </tr>
-            <tr>
+                </div>
+                <br class="clear" />
                 <!--------------------Email-------------------->
-                <td style="height: 30px;">
-                    Email
-                </td>
-                <td>
-                    :
-                </td>
-                <td>
+                <div class="editor-label grid_15 txtright">
+                    <label>
+                        Email
+                    </label>
+                </div>
+                <br class="clear" />
+                <div class="editor-field grid_15 row txtright">
                     <span id="email"></span>
-                </td>
-            </tr>
-        </table>
-    </fieldset>
-
-    <fieldset>
-        <legend>Data Skripsi</legend>
-
-        <table class="profile">
-            <tr>
+                </div>
+            </div>
+            <div class="grid_6 omega">
+                <img id="foto2" src="../../../Content/images/user.png" class="avatar-s" alt="">
+            </div>
+        </fieldset>
+    </div>
+    <div class="half">
+        <fieldset>
+            <legend>Data Skripsi</legend>
+            <div class="grid_15 biodata">
                 <!--------------------Mata Kuliah-------------------->
-                <td style="width: 85px; height: 30px;">
-                    Mata Kuliah
-                </td>
-                <td style="width: 20px">
-                    :
-                </td>
-                <td>
+                <div class="editor-label grid_15">
+                    <label>
+                        Mata Kuliah
+                    </label>
+                </div>
+                <br class="clear" />
+                <div class="editor-field grid_15 row">
                     <span id="matkul"></span>
-                </td>
-            </tr>
-            <tr>
+                </div>
+                <br class="clear" />
                 <!--------------------Topik-------------------->
-                <td style="height: 30px;">
-                    Topik
-                </td>
-                <td>
-                    :
-                </td>
-                <td>
+                <div class="editor-label grid_15">
+                    <label>
+                        Topik
+                    </label>
+                </div>
+                <br class="clear" />
+                <div class="editor-field grid_15 row">
                     <span id="topik"></span>
-                </td>
-            </tr>
-
-        </table>
-    </fieldset>
+                </div>
+                <br class="clear" />
+        </fieldset>
+    </div>
 </div>

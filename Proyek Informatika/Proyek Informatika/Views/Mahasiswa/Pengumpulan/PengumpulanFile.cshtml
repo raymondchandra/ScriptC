@@ -78,20 +78,20 @@
     <h1>Berkas-berkas Skripsi</h1>
     @(  Html.Telerik().Window()
         .Name("formUnggah")
-        .Title("Form Pengunggahan File")
+        .Title("Upload File")
         .LoadContentFrom("FormPengumpulan","Pengumpulan")
             .Width(500)
-            .Height(550)
+            .Height(350)
             .Draggable(true)
             .Modal(true)
             .Visible(false)
 )
  @(  Html.Telerik().Window()
         .Name("editorUnggah")
-        .Title("Editor Pengunggahan File")
+        .Title("Edit File")
         .Content(@<text><div id= "editorContent"></div></text>)
             .Width(500)
-            .Height(550)
+            .Height(350)
             .Draggable(true)
             .Modal(true)
             .Visible(false)
@@ -105,15 +105,15 @@
 .Columns(
     col =>
     {
-        col.Bound(o => o.jenis).Title("Nama File");
-        col.Bound(o => o.tanggal_pengumpulan).Title("Tanggal Pengumpulan");
+        col.Bound(o => o.jenis).Title("Nama File").Width(245);
+        col.Bound(o => o.tanggal_pengumpulan).Title("Tanggal Pengumpulan").Width(175);
         col.Command(com =>
         {
-            com.Custom("unduhFile").Text("Unduh").Ajax(true);
-            com.Custom("lihatFile").Text("Lihat").Ajax(true);
+            com.Custom("unduhFile").Text("Download").Ajax(true);
+            com.Custom("lihatFile").Text("View").Ajax(true);
             com.Custom("editFile").Text("Edit").Ajax(true);
-            com.Custom("delFile").Text("Hapus").Ajax(true);
-        }).Title("Aksi").Width(90);
+            com.Custom("delFile").Text("Delete").Ajax(true);
+        }).Width(320);
     }
 )
 .DetailView(det => det.ClientTemplate(
@@ -125,7 +125,7 @@
     ))
 .ClientEvents(events => events.OnCommand("onComplete"))
 .DataBinding(data => data.Ajax().Select("SelectPengumpulan", "Pengumpulan"))
-.ToolBar(t=>t.Custom().Name("unggah").Text("Unggah").Ajax(true))
+.ToolBar(t=>t.Custom().Name("unggah").Text("Upload").Ajax(true))
 .Sortable()
 .Filterable()
 .Scrollable(c => c.Enabled(true))
@@ -137,12 +137,12 @@
 @(Html.Telerik().Window()
                 .Name("viewLaporan")
                 .Visible(false)
-                .Title("Detil Bimbingan")
+                .Title("View File")
                 .Modal(true)
-                .Width(820)
-                .Height(620)
+                .Width(800)
+                .Height(500)
                 .Scrollable(true)
-                .Content(@<text><iframe src="" id="pdfContainer" width ="800" height="600"></iframe></text>))
+                .Content(@<text><iframe src="" id="pdfContainer" style="width:100%; height:100%; border:none;"></iframe></text>))
 
 
 

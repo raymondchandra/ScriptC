@@ -80,8 +80,20 @@ a:hover
 
 .window-content .label
 {
-    font-size:12px;
-    font-weight:bold;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.blue .tf td, .blue .th td
+{
+    text-align: center;
+    letter-spacing:1px;
+    font-family: "Lucida Bright" , Georgia, serif;
+}
+
+.blue .th td
+{
+    font-weight: bold;
 }
 /* Layout
 ----------------------------------------------------------------------------------------------------*/
@@ -146,11 +158,14 @@ a:hover
 .blokpengumuman .penulis, .blokpengumuman .tanggal
 {
     text-align: right;
-    font-weight: bold;
     letter-spacing: 1.5px;
 }
 
-.blokpengumuman .penulis span
+.blokpengumuman .tanggal
+{
+    font-size: 12px;
+}
+.blokpengumuman .penulis
 {
     font-weight: bold;
 }

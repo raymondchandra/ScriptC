@@ -3,7 +3,7 @@
         $.post("Home/GetFiles", "", function (data) {
             var get = "";
             $.each(data, function (index, value) {
-                get += "<ul><a id ='file' title ='"+value.id+"' href ='PengaturanFile/GetDownload?id="+value.id+"'>" + value.nama + "</a></ul>";
+                get += "<li><a id ='file' title ='"+value.id+"' href ='PengaturanFile/GetDownload?id="+value.id+"'>" + value.nama + "</a></li>";
             });
             $("#file_list").html(get);
         });
@@ -16,5 +16,5 @@
     });
 </script>
 
-<li id="file_list">
-</li>
+<ul id="file_list">
+</ul>

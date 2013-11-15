@@ -2,9 +2,9 @@
     ViewBag.Title = "Pengaturan Sidang";
     
 }
-
 <div class="layer">
-<h1>Pengaturan Sidang</h1>
+    <h1>
+        Pengaturan Sidang</h1>
     @{ Html.Telerik().TabStrip()
         .Name("TabStrip")
         .Items(tabstrip =>
@@ -18,10 +18,11 @@
             tabstrip.Add()
                 .Text("Ruang Sidang")
                 .Content(@<text>
-                    <div id="ruangDiv">
-                        <h2>Ruang Sidang</h2>
-                        @(Html.Telerik().Grid<Proyek_Informatika.Models.ruang>()
-                            .HtmlAttributes(new { style = "width:450px" })
+        <div id="ruangDiv">
+            <h2>
+                Ruang Sidang</h2>
+            @(Html.Telerik().Grid<Proyek_Informatika.Models.ruang>()
+                            .HtmlAttributes(new { style = "width:50%;" })
                             .Name("Ruang")
                             .DataKeys(keys =>
                             {
@@ -38,22 +39,22 @@
                             })
                             .Columns(columns =>
                             {
-                                columns.Bound(o => o.nama_ruang).Title("Ruang");
+                                columns.Bound(o => o.nama_ruang).Title("Ruang").Width(200);
                                 columns.Command(commands =>
                                 {
                                     commands.Edit().ButtonType(GridButtonType.Text);
                                     commands.Delete().ButtonType(GridButtonType.Text);
-                                }).Width(180).Title("Commands");
+                                }).Width(180).Title("");
                             })
                             .Pageable()
                             .Scrollable()
                             .Sortable()
                             .Editable(editing => editing.Mode(GridEditMode.InLine))
                         )
-                    </div>
-                </text>);
+        </div>
+        </text>);
         })
         .SelectedIndex(0)
         .Render();
-} 
+    }
 </div>

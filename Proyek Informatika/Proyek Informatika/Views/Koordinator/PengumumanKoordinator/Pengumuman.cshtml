@@ -1,8 +1,7 @@
 ﻿@{
     ViewBag.Title = "Pengumuman";
 }
-
-<script>
+<script type="text/javascript">
     $(document).ready(function () {
         $.post("PengumumanKoordinator/SelectPengumuman", "", function (data) {
             $("#pengumuman-kdt").html(data);
@@ -12,11 +11,10 @@
 <div class="layer">
     <h1>
         Pengumuman</h1>
-    <hr />    
-    <span id="pengumuman-kdt">
-    </span>
-    <button type="submit" class="t-button t-state-default" style="display:none;">
+    <hr />
+    <span id="pengumuman-kdt"></span>
+    <button type="submit" class="t-button t-state-default" style="display: none;">
         Pengumuman Selanjutnya</button>
-    <button type="submit" class="t-button t-state-default" style="float:right; display:none;">
+    <button type="submit" class="t-button t-state-default" style="float: right; display: none;">
         Pengumuman Sebelumnya</button>
 </div>

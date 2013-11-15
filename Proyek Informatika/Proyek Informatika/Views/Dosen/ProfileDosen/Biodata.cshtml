@@ -10,7 +10,7 @@
             $("#viewInLine2a").val(data.email);
             $("#nik").html(data.NIK);
         });
-        $.post("ProfileDosen/GetFoto", "", function (data) {            
+        $.post("ProfileDosen/GetFoto", "", function (data) {
             $("#foto").attr("src", data);
         });
     });
@@ -62,38 +62,35 @@
 <div class="layer">
     <h1>
         Biodata</h1>
-    <table class="profile">
-        <tr>
-            <td rowspan="3" style="width: 130px">
-                <img src="../../../Content/images/user.png" class="avatar" id="foto">
-            </td>
-            <!--------------------NIK-------------------->
-            <td style="height: 30px;">
+    <div class="grid_5 alpha">
+        <img src="../../../Content/images/user.png" alt="" class="avatar right" id="foto" />
+    </div>
+    <div class="grid_10 omega biodata">
+        <!--------------------NIK-------------------->
+        <div class="editor-label grid_15">
+            <label>
                 NIK
-            </td>
-            <td>
-                :
-            </td>
-            <td>
-                <span id="nik"></span>
-            </td>
-            <td style="width: 80px">
-            </td>
-        </tr>
-        <tr>
-            <!--------------------Nama-------------------->
-            <td style="width: 85px; height: 30px;">
+            </label>
+        </div>
+        <br class="clear" />
+        <div class="editor-field grid_15 row">
+            <span id="nik"></span>
+        </div>
+        <br class="clear" />
+        <!--------------------Nama-------------------->
+        <div class="editor-label grid_15">
+            <label>
                 Nama
-            </td>
-            <td style="width: 20px">
-                :
-            </td>
-            <td style="width: 250px">
+            </label>
+        </div>
+        <br class="clear" />
+        <div class="editor-field grid_15 row">
+            <div class="grid_9 alpha">
                 <span id="editInLine1a"></span>
-                <input type="text" style="width: 200px; display: none;" id="viewInLine1a" value="" />
-            </td>
+                <input type="text" class="grid_14" style="display: none;" id="viewInLine1a" value="" />&nbsp;
+            </div>
             <!--------------------Editor Nama-------------------->
-            <td style="width: 100px;">
+            <div class="grid_6 omega">
                 <!--edit-->
                 <a class="t-button t-button-icon t-grid-edit" onclick="editInLine(1)" id="editInLine1b">
                     <span class="t-icon t-edit"></span></a>
@@ -103,37 +100,39 @@
                     <!--cancel-->
                     <a class="t-button t-button-icon t-grid-edit" onclick="viewInLine(1)"><span class="t-icon t-cancel">
                     </span></a></span>
-            </td>
-        </tr>
-        <tr>
-            <!--------------------Email-------------------->
-            <td style="height: 30px;">
-                Email
-            </td>
-            <td>
-                :
-            </td>
-            <td>
-                <span id="editInLine2a"></span>
-                <input type="text" style="width: 200px; display: none;" id="viewInLine2a" value="" />
-            </td>
-            <!--------------------Editor Email-------------------->
-            <td>
-                <!--edit-->
-                <a class="t-button t-button-icon t-grid-edit" onclick="editInLine(2)" id="editInLine2b">
-                    <span class="t-icon t-edit"></span></a>
-                <!--save-->
-                <span id="viewInLine2b" style="display: none;"><a class="t-button t-button-icon t-grid-edit"
-                    id="save-email"><span class="t-icon t-update"></span></a>&nbsp
-                    <!--cancel-->
-                    <a class="t-button t-button-icon t-grid-edit" onclick="viewInLine(2)"><span class="t-icon t-cancel">
-                    </span></a></span>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="5">
-
-                @(Html.Telerik().Upload()
+            </div>
+        </div>
+        <br class="clear" />
+        <!--------------------Email-------------------->
+        <div class="editor-label grid_15">
+            <label>
+            Email
+            </label>
+        </div>
+        <br class="clear" />
+        <div class="editor-field grid_15 row">
+            <div class="grid_9 alpha">
+            <span id="editInLine2a"></span>
+            <input type="text" class="grid_14" style="display: none;" id="viewInLine2a" value="" />&nbsp;
+            </div>
+        <!--------------------Editor Email-------------------->
+            <div class="grid_6 omega">
+            <!--edit-->
+            <a class="t-button t-button-icon t-grid-edit" onclick="editInLine(2)" id="editInLine2b">
+                <span class="t-icon t-edit"></span></a>
+            <!--save-->
+            <span id="viewInLine2b" style="display: none;"><a class="t-button t-button-icon t-grid-edit"
+                id="save-email"><span class="t-icon t-update"></span></a>&nbsp
+                <!--cancel-->
+                <a class="t-button t-button-icon t-grid-edit" onclick="viewInLine(2)"><span class="t-icon t-cancel">
+                </span></a></span>
+            </div>
+        </div>
+        <br class="clear" />
+    </div>
+    <br class="clear" />
+    <div class="grid_9 prefix_3">
+        @(Html.Telerik().Upload()
     .Name("attachmentsFoto")
     .Multiple(false)
     .Async(async => async
@@ -145,12 +144,10 @@
     )
 
 )
-                <br />
-                <button id="remove-foto" class="t-button t-state-default">
-                    Reset Default</button>
-            </td>
-        </tr>
-    </table>
+        <br />
+        <button id="remove-foto" class="t-button t-state-default">
+            Reset Default</button>
+    </div>
 </div>
 @section HeadContent {
     <style type="text/css">
@@ -158,13 +155,11 @@
         {
             float: left;
         }
-        
         .note
         {
             clear: left;
             float: left;
         }
-        
         .example .configurator
         {
             width: 400px;

@@ -1,9 +1,6 @@
-﻿
-<h1>EditorPengumpulan</h1>
-@model Proyek_Informatika.Models.file
+﻿@model Proyek_Informatika.Models.file
 @using Proyek_Informatika.Utilities
-
-<script type = "text/javascript">
+<script type="text/javascript">
     var nameFile;
     $("#btn_edit").click(function () {
         if(nameFile == null || nameFile == "")
@@ -89,17 +86,24 @@
 
     });
 </script>
-
-<div class = "layer">
-<label id="result"></label>
-@Html.Label("Nama File :")
-<br />
-<input type = "text" id= "jenis_file2" value = "@(Model.nama_file)"/>
-<br/>
-
-<div class="t-widget t-upload" id = "filemahasiswa">
-@Html.Label("File :")
-@(Html.Telerik().Upload()
+<div class="container_15">
+    <label id="result">
+    </label>
+    <div class="editor-label grid_15">
+        @Html.Label("Nama File")
+    </div>
+    <br class="clear" />
+    <div class="editor-field grid_15">
+        <input type = "text" id= "jenis_file2" value = "@(Model.nama_file)"  class="grid_15"/>
+    </div>
+    <br class="clear" />
+    <div class="t-widget t-upload" id="filemahasiswa">
+        <div class="editor-label grid_15">
+            @Html.Label("File")
+        </div>
+        <br class="clear" />
+        <div class="editor-field grid_15">
+            @(Html.Telerik().Upload()
         .Name("attachments")
         .Multiple(false)
         .Async(async => async
@@ -112,21 +116,24 @@
                     .OnRemove("onRemove")
                     )
 )
-    <div class="controls" >
-		@{
-            if (!string.IsNullOrWhiteSpace(Model.path))
-            {
+        </div>
+        <br class="clear" />
+        <div class="controls">
+            @{
+                if (!string.IsNullOrWhiteSpace(Model.path))
+                {
                 <ul id="existing-files" class="t-upload-files t-reset" style="display: none;">
-				<li class="t-file" data-att-id="@(Model.path)">
-				<span class="t-icon t-success">uploaded</span>
-				<span class="t-filename" title="@(Model.path)">@(Model.path)
-				<span class="t-progress"><span class="t-state-selected t-progress-status" style="width: 100%;"></span></span></span><button type="button" class="t-button t-button-icontext t-upload-action"><span class="t-icon t-delete"></span>Remove</button></li></ul>
+                    <li class="t-file" data-att-id="@(Model.path)"><span class="t-icon t-success">uploaded</span>
+                        <span class="t-filename" title="@(Model.path)">@(Model.path)
+                            <span class="t-progress"><span class="t-state-selected t-progress-status" style="width: 100%;">
+                            </span></span></span>
+                        <button type="button" class="t-button t-button-icontext t-upload-action">
+                            <span class="t-icon t-delete"></span>Remove</button></li></ul>
+                }
             }
-        }                   
-	</div>
+        </div>
     </div>
-<input type = "button" id = "btn_edit" value ="Edit" />
-
-               
-
+    <div class="button-block grid_15">
+        <input type="button" id="btn_edit" value="Save"  class="t-button"/>
+    </div>
 </div>

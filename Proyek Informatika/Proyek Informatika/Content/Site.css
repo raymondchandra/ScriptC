@@ -21,6 +21,13 @@
     width: 100%;
 }
 
+.half
+{
+    width: 49%;
+    margin: 0 0 0 1%;
+    float: left;
+}
+
 /* General 
 ----------------------------------------------------------------------------------------------------*/
 body, div, span
@@ -31,8 +38,8 @@ body, div, span
 
 fieldset
 {
-    margin: 24px 0;
-    padding: 24px;
+    margin: 20px 0;
+    padding: 20px;
 }
 
 ul
@@ -62,8 +69,16 @@ ul
     height: 30px;
     padding: 0 2.5px 12px 2.5px;
 }
+.blue tr td
+{
+    padding: 0 5px;
+    height: 35px;
+}
 
-
+.editor-field
+{
+    margin-bottom: 15px;
+}
 /* Layout
 ----------------------------------------------------------------------------------------------------*/
 
@@ -122,6 +137,10 @@ div.t-window-content.t-content
     padding: 20px;
 }
 
+div#filesharing, div#pengumuman
+{
+    padding: 20px !important;
+}
 /* Specific 
 ----------------------------------------------------------------------------------------------------*/
 
@@ -135,21 +154,35 @@ div.t-window-content.t-content
 {
     padding: 5px;
 }
-
-#filesharing a
+.blokpengumuman .tanggal
+{
+    margin: 0 0 20px 0;
+}
+.blokpengumuman .penulis
+{
+    margin: 20px 0 0 0;
+}
+a#file
 {
     display: block;
+    padding: 5px 0;
 }
 
 .avatar
 {
-    width: 120px;
-    height: 120px;
+    width: 200px;
+    height: 200px;
+}
+
+.avatar-s
+{
+    width: 150px;
+    height: 150px;
 }
 
 .profile td
 {
-    vertical-align: top;
+    vertical-align: top; /*height: 20px;*/
 }
 
 .icon
@@ -164,6 +197,7 @@ div.t-window-content.t-content
     height: 44px;
     padding: 2px;
 }
+
 
 /* #Forms
 ================================================== */
@@ -190,15 +224,14 @@ input[type="text"], input[type="password"], input[type="email"], textarea, selec
     letter-spacing: 1px;
     color: #777;
     margin: 0;
-    display: block;
-    margin-bottom: 20px;
+    display: block; /*margin-bottom: 20px;*/
     background: #fff;
 }
 
 select
 {
     padding: 0;
-    height:28px;
+    height: 28px;
 }
 
 input[type="text"]:focus, input[type="password"]:focus, input[type="email"]:focus, textarea:focus
@@ -240,4 +273,10 @@ label
 textarea, select
 {
     margin-left: 0 !important;
+}
+
+div.t-widget.t-tabstrip.t-header
+{
+    background: transparent;
+    border: none;
 }

@@ -1,7 +1,7 @@
 ﻿@{
     ViewBag.Title = "Pengumuman";
 }
-<script>
+<script type="text/javascript">
     $(document).ready(function () {
         $.post("PengumumanDosen/SelectPengumuman", "", function (data) {
             $("#pengumuman-dsn").html(data);

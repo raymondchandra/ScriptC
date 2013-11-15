@@ -1,7 +1,5 @@
-﻿
-@using Proyek_Informatika.Utilities
-
-<script type = "text/javascript">
+﻿@using Proyek_Informatika.Utilities
+<script type="text/javascript">
     var nameFile;
     $("#btn_unggah").click(function () {
         if (nameFile == null || nameFile == "") {
@@ -26,8 +24,8 @@
     function onCom(e) {
         nameFile = e.files[0].name;
         //console.log(e.files[0].name);
-        var val = {path : nameFile};
-        $.post("PengaturanFile/SubmitFile1",val, function (data) {
+        var val = { path: nameFile };
+        $.post("PengaturanFile/SubmitFile1", val, function (data) {
             if (data == 0) {
                 alert("File gagal masuk ke dalam sistem");
                 nameFile = "";
@@ -80,18 +78,24 @@
 
     });
 </script>
-
-<div class = "layer">
-<h1>FormPengumpulan</h1>
-<label id="result"></label>
-@Html.Label("Nama File :")
-<br />
-<input type = "text" id= "jenis_file" />
-<br/>
-@Html.Label("File :")
-@(Html.Telerik().Upload()
+<div class="container_15">
+    <label id="result">
+    </label>
+    <div class="editor-label grid_15">
+        @Html.Label("Nama File")
+    </div>
+    <br class="clear" />
+    <div class="editor-field grid_15">
+        <input type="text" id="jenis_file" class="grid_15"/></div>
+    <br class="clear" />
+    <div class="editor-label grid_15">
+        @Html.Label("File")
+    </div>
+    <br class="clear" />
+    <div class="editor-field grid_15">
+        @(Html.Telerik().Upload()
         .Name("fileSharing")
-        
+
         .Multiple(false)
                 .Async(async => async
                     .Save("Save2", "Upload", "attachments", new { dir = "FileSharing" })
@@ -101,24 +105,26 @@
                         .OnSuccess("onCom")
                         .OnRemove("onRemove")
                         )
-        
-        
-       )
 
+
+       )
+    </div>
+    <br class="clear" />
     <div class="controls">
-		@{
+        @{
             if (!string.IsNullOrWhiteSpace(ViewBag.path))
             {
-                <ul id="existing-files" class="t-upload-files t-reset" style="display: none;">
-				<li class="t-file" data-att-id="@(ViewBag.path)">
-				<span class="t-icon t-success">uploaded</span>
-				<span class="t-filename" title="@(ViewBag.path)">@(ViewBag.path)
-				<span class="t-progress"><span class="t-state-selected t-progress-status" style="width: 100%;"></span></span></span><button type="button" class="t-button t-button-icontext t-upload-action"><span class="t-icon t-delete"></span>Remove</button></li></ul>
+            <ul id="existing-files" class="t-upload-files t-reset" style="display: none;">
+                <li class="t-file" data-att-id="@(ViewBag.path)"><span class="t-icon t-success">uploaded</span>
+                    <span class="t-filename" title="@(ViewBag.path)">@(ViewBag.path)
+                        <span class="t-progress"><span class="t-state-selected t-progress-status" style="width: 100%;">
+                        </span></span></span>
+                    <button type="button" class="t-button t-button-icontext t-upload-action">
+                        <span class="t-icon t-delete"></span>Remove</button></li></ul>
             }
-        }                   
-	</div>
-
-<input type = "button" id = "btn_unggah" value ="Unggah" />
-               
-
+        }
+    </div>
+    <div class="button-block grid_15">
+        <input type="button" id="btn_unggah" value="Upload" class="t-button"/>
+    </div>
 </div>

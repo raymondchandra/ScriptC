@@ -15,7 +15,7 @@
 
             var skripsi1 = new Array(2, 3, 6, 7, 10, 11, 14, 15);
             var skripsi2 = new Array(4, 5, 6, 7, 12, 13, 14, 15);
-            
+
             if ($.inArray(temp, skripsi1) !== -1) {
                 $("#target-pengumuman-dsn-2").attr('checked', 'checked');
             }
@@ -29,10 +29,9 @@
             else {
                 $("#target-pengumuman-dsn-3").removeAttr('checked');
             }
-            
+
             var windowZ = $("#pengumumanUpdate").data("tWindow");
             windowZ.center().open();
-
         }
     } 
 </script>
@@ -80,7 +79,7 @@
     )
     @(Html.Telerik().Window()
         .Name("pengumumanUpdate")
-        .Title("Edit Pengumuman")
+        .Title("Edit")
         .Visible(false)
         .Modal(true)
         .Width(650)
