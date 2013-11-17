@@ -1,53 +1,140 @@
 ﻿<script>
-    function OnCompletePembimbing2() {
-         $.post("SidangKoordinator/HitungPersentase", { pemberiNilai: "pembimbing", skripsi: 1 }, function (data) {
-            if (data > 100) {
-                alert("Persentase Bobot tidak boleh melebihi 100 %");
-            }
-            $("#totalBobotPembimbing2").html(data + " %");
-            
+
+    $(document).ready(function () {
+        getBobot2(1);
+        getBobot2(2);
+        getBobot2(3);
+
+    });
+
+    function getBobot2(kriteria) {
+        var tipe;
+        if (kriteria == 1) {
+            tipe = "report1";
+        } else if (kriteria == 2) {
+            tipe = "report2";
+        } else if (kriteria == 3) {
+            tipe = "presentasi";
+        }
+        $.post("SidangKoordinator/GetBobot", { tipe: tipe, jenis_skripsi_id: 1 }, function (data) {
+            $("#textBobot2" + kriteria).val(data);
+            $("#labelBobot2" + kriteria).html(data);
+            $("#labelBobot2" + kriteria).show();
+            $("#imgBobot2" + kriteria).hide();
+            hitungTotal();
         });
     }
 
+    function turnEditing2(kriteria) {
+        if ($("#save2" + kriteria).val() == "Ubah") {
+            $("#textBobot2" + kriteria).show();
+            $("#labelBobot2" + kriteria).hide();
+            $("#save2" + kriteria).val("Simpan");
+        } else if ($("#save2" + kriteria).val() == "Simpan") {
+
+            $("#textBobot2" + kriteria).hide();
+            $("#labelBobot2" + kriteria).show();
+            $("#save2" + kriteria).val("Ubah");
+            var tipe;
+            if (kriteria == 1) {
+                tipe = "report1";
+            } else if (kriteria == 2) {
+                tipe = "report2";
+            } else if (kriteria == 3) {
+                tipe = "presentasi";
+            }
+            var values = {
+                tipe: "general",
+                kategori: tipe,
+                bobot: $("#textBobot2" + kriteria).val(),
+                jenis_skripsi_id: 1
+            };
+            $.post("SidangKoordinator/SimpanBobotGeneral", values, function (data) {
+                if (data == "True") {
+                    $("#labelBobot2" + kriteria).html($("#textBobot2" + kriteria).val());
+                } else {
+                    alert("Komposisi Nilai tidak boleh melebihi 100 %");
+                    $("#textBobot2" + kriteria).val($("#labelBobot2" + kriteria).html());
+                }
+                hitungTotal();
+            });
+            
+        }
+    }
+
+    function hitungTotal() {
+        var result = parseInt($("#textBobot21").val()) + parseInt($("#textBobot22").val()) + parseInt($("#textBobot23").val());
+        if(!isNaN(result)){
+            $("#totalBobot2").html(result);
+        }
+        
+//        if (result > 100) {
+//            alert("Komposisi Nilai tidak boleh melebihi 100 %");
+//        }
+    }
 </script>
 
 <h2>Komposisi Nilai</h2>
-<span>100 % dari pembimbing. </span><br />
-<h2>Kriteria Penilaian</h2>
-@(Html.Telerik().Grid<Proyek_Informatika.Models.kategori_nilai>()
-            //.HtmlAttributes(new { style = "width:50%;" })
-                .Name("KategoriPembimbing2")
-        .DataKeys(keys =>
-        {
-            keys.Add(p => p.id);
-        })
-        .ClientEvents(
-            events => events
-                .OnComplete("OnCompletePembimbing2")
-        )
-        .ToolBar(commands => commands.Insert().ButtonType(GridButtonType.Text).ImageHtmlAttributes(new { style = "margin-left:0" }))
-        .DataBinding(dataBinding =>
-        {
-            dataBinding.Ajax()
-                .Select("_SelectBobot", "SidangKoordinator", new { tipe = "pembimbing", jenisSkripsi = 1 })
-                .Insert("_InsertBobot", "SidangKoordinator", new { tipe = "pembimbing", jenisSkripsi = 1 })
-                .Update("_SaveBobot", "SidangKoordinator", new { tipe = "pembimbing", jenisSkripsi = 1 })
-                .Delete("_DeleteBobot", "SidangKoordinator", new { tipe = "pembimbing", jenisSkripsi = 1 });
-        })
-        .Columns(columns =>
-        {
-            columns.Bound(o => o.urutan).Title("Urutan");
-            columns.Bound(o => o.kategori).Title("Kategori");
-            columns.Bound(o => o.bobot).Title("Bobot(%)");
-            columns.Command(commands =>
-            {
-                commands.Edit().ButtonType(GridButtonType.Text);
-                commands.Delete().ButtonType(GridButtonType.Text);
-            }).Width(100).Title("Commands");
-        })
-        .Pageable()
-        .Scrollable()
-        .Sortable()
-        .Editable(editing => editing.Mode(GridEditMode.InLine))
-    )
-    Persentase Bobot : <span id="totalBobotPembimbing2"></span> <br />  
+<div class="container_15">
+    <table class="blue" style="width: 50%;">
+        <tr class="th">
+            <td style="width: 40%;">
+                Penilaian
+            </td>
+            <td style="width: 30%;">
+                Bobot (%)
+            </td>
+            <td>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label>Progress Report 1</label>
+            </td>
+            <td class="txtcenter">
+                <span id="labelBobot21" style="display:none;"></span>
+                <input type="text" id="textBobot21" style="display: none;" class="grid_14"/>
+                <img src="@Url.Content("~/Content/images/loading.gif")" id="imgBobot21" alt="load" />
+            </td>
+            <td class="txtcenter">
+                <input type="button" id="save21" value="Ubah" onclick="turnEditing2(1)" style="width: 70px;" class="t-button"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label>Progress Report 2</label>
+            </td>
+            <td class="txtcenter">
+                <span id="labelBobot22" style="display:none;"></span>
+                <input type="text" id="textBobot22" style="display: none;" class="grid_14"/>
+                <img src="@Url.Content("~/Content/images/loading.gif")" id="imgBobot22" alt="load" />
+            </td>
+            <td class="txtcenter">
+                <input type="button" id="save22" value="Ubah" onclick="turnEditing2(2)" style="width: 70px;" class="t-button"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label>Presentasi</label>
+            </td>
+            <td class="txtcenter">
+                <span id="labelBobot23" style="display:none;"></span>
+                <input type="text" id="textBobot23" style="display: none;" class="grid_14"/>
+                <img src="@Url.Content("~/Content/images/loading.gif")" id="imgBobot23" alt="load" />
+            </td>
+            <td class="txtcenter">
+                <input type="button" id="save23" value="Ubah" onclick="turnEditing2(3)" style="width: 70px;" class="t-button"/>
+            </td>
+        </tr>
+        <tr class="tf">
+            <td>
+                Total
+            </td>
+            <td id="totalBobot2">
+                <img src="@Url.Content("~/Content/images/loading.gif")" id="imgBobot2" alt="load" />
+            </td>
+            <td>
+            </td>
+        </tr>
+    </table>
+</div>

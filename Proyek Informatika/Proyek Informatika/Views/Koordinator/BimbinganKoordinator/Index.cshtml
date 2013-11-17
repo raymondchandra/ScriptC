@@ -3,7 +3,6 @@
     function changeContent(e) {
         var periode = $("#DropPeriode").data("tDropDownList");
         var semester = $("#DropSkripsi").data("tDropDownList");
-
         var value = { periode: periode.value(), jenis_skripsi: semester.value() };
         $.post("BimbinganKoordinator/ListMahasiswa", value, function (data) {
             $("#bimbinganContainer").html(data);

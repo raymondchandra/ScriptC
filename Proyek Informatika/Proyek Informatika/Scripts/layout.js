@@ -22,13 +22,13 @@ function onSelectMenuMahasiswa(e) {
     } else if (item.find('> .t-link').text() == "Pengaturan") {
         $('#content').load('Profile/Pengaturan');
     } else if (item.find('> .t-link').text() == "Jadwal Bimbingan") {
-        $('#content').load('Bimbingan/PemesananIndex');
+        $('#content').load('Bimbingan/Pemesanan');
     } else if (item.find('> .t-link').text() == "Kartu Bimbingan") {
         $('#content').load('Bimbingan/KartuBimbingan');
     } else if (item.find('> .t-link').text() == "Pengumpulan") {
         $('#content').load('Pengumpulan/PengumpulanFile');
     } else if (item.find('> .t-link').text() == "Pengumpulan Jadwal") {
-        $('#content').load('Sidang/Pengumpulan');
+        $('#content').load('Sidang/Pengumpulan_Index');
     } else if (item.find('> .t-link').text() == "Lihat Jadwal") {
         $('#content').load('Sidang/Lihat');
     } else if (item.find('> .t-link').text() == "Kalender") {
@@ -61,9 +61,9 @@ function onSelectMenuDosen(e) {
     } else if (item.find('> .t-link').text() == "Pengumpulan") {
         $('#content').load('Pengumpulan/PengumpulanFile');
     } else if (item.find('> .t-link').text() == "Jadwal Bimbingan") {
-        $('#content').load('Bimbingan/PemesananIndex');
+        $('#content').load('BimbinganDosen/Pemesanan');
     } else if (item.find('> .t-link').text() == "Pengumpulan Jadwal") {
-        $('#content').load('Sidang/Pengumpulan');
+        $('#content').load('SidangDosen/Pengumpulan_Index');
     } else if (item.find('> .t-link').text() == "Lihat Jadwal") {
         $('#content').load('Sidang/Lihat');
     } else if (item.find('> .t-link').text() == "Penilaian") {

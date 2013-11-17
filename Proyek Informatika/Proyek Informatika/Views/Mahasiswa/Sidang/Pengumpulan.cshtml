@@ -32,13 +32,17 @@
         scheduler.blockTime(0, "fullday");
         scheduler.blockTime(6, "fullday");
         scheduler.config.full_day = true;
-        var day = @start[0];
-        for (var i = 0; i < 7; i++) {
-            day--;
-            scheduler.blockTime(new Date(@start[2], @start[1]-1, day), "fullday");
-        }
-       
 
+        var day = new Date(@start[2], @start[1]-1, @start[0]);
+        for (var i = 0; i < 7; i++) {
+            day.setDate(day.getDate() - 1);
+            scheduler.blockTime(day, "fullday");
+        }
+        var endday = new Date(@end[2], @end[1]-1, @end[0]);
+        for (var i = 0; i < 7; i++) {
+            endday.setDate(endday.getDate()+1);
+            scheduler.blockTime(endday, "fullday");
+        }
 
 
         scheduler.createGridView({
@@ -93,11 +97,11 @@
         };
 
         scheduler.init('scheduler_here', new Date(@start[2], @start[1]-1, @start[0]), "week");
-        $.post("Sidang/Data", "", function (data) {
+        $.post("Sidang/Data", {periode_id : '@ViewBag.periode_id'}, function (data) {
             scheduler.parse(JSON.stringify(data), "json");
         });
 
-        var dp = new dataProcessor("/Sidang/Save");
+        var dp = new dataProcessor("/Sidang/Save?periode_id="+'@ViewBag.periode_id');
 
         dp.setTransactionMode("POST", false);
         dp.enableDataNames(true);
@@ -174,8 +178,7 @@
     });
 </script>
 
-<div class="layer">
-    <h1>Pengumpulan Jadwal Tidak Kosong</h1>
+
     <div style="overflow:hidden;" id="jadwal">
     <div id="scheduler_here" class="dhx_cal_container" style='padding-top=10px; height:480px;'>
     <div class="dhx_cal_navline">
@@ -193,4 +196,3 @@
     </div>
     </div>
     </div>
-</div>

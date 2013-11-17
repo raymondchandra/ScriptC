@@ -19,17 +19,7 @@ namespace Proyek_Informatika.Controllers.Mahasiswa
         {
             return View();
         }
-        public ActionResult PemesananIndex()
-        {
-            return PartialView();
-        }
-
-        public ActionResult PemesananKalender()
-        {
-            return PartialView();
-        }
-
-        public ActionResult PemesananSummary()
+        public ActionResult Pemesanan()
         {
             return PartialView();
         }
@@ -42,52 +32,6 @@ namespace Proyek_Informatika.Controllers.Mahasiswa
         public ActionResult DetilBimbingan()
         {
             return PartialView();
-        }
-
-        //Pemesanan Jadwal
-        [GridAction]
-        public ActionResult _SelectJadwal()
-        {
-            return bindingJadwal(2);
-        }
-        [GridAction]
-        public ActionResult _DeleteJadwal()
-        {
-            return bindingJadwal(3);
-        }
-        protected ViewResult bindingJadwal(int id)
-        {
-
-            List<MahasiswaJadwalPemesanan> temp = new List<MahasiswaJadwalPemesanan>();
-
-            temp.Add(new MahasiswaJadwalPemesanan()
-            {
-                id = 5,
-                status = "disetujui",
-                tanggalPesan = "12/09/2010",
-                waktu = "15:00",
-                namaDosen = "Ani"
-            });
-            temp.Add(new MahasiswaJadwalPemesanan()
-            {
-                id = 7,
-                status = "dibatalkan",
-                tanggalPesan = "12/09/2010",
-                waktu = "17:00",
-                namaDosen = "Berto"
-            });
-            temp.Add(new MahasiswaJadwalPemesanan()
-            {
-                id = 6,
-                status = "menunggu",
-                tanggalPesan = "17/09/2010",
-                waktu = "19:00",
-                namaDosen = "Cristy"
-            });
-            return View(new GridModel<MahasiswaJadwalPemesanan>
-            {
-                Data = temp
-            });
         }
 
         [AcceptVerbs(HttpVerbs.Post)]
@@ -121,5 +65,92 @@ namespace Proyek_Informatika.Controllers.Mahasiswa
             }
             return View(new GridModel<bimbingan>{ Data = temp});
         }
+
+
+        #region kalender
+        public JsonResult Data()
+        {
+            var username = Session["username"].ToString();
+            var npm = db.mahasiswas.Where(x => x.username == username).Select(y => y.NPM).SingleOrDefault();
+            //events for loading to scheduler
+            var items = from table in db.pesanan_bimbingan
+                        where table.NPM_mahasiswa == npm
+                        select table;
+            List<object> listResult = new List<object>();
+            foreach (var result in items.ToList())
+            {
+                string pattern = "yyyy-MM-dd HH:mm:ss";
+                string start_date = result.tanggal_mulai.ToString(pattern);
+                string end_date = result.tanggal_selesai.ToString(pattern);
+                listResult.Add(new
+                {
+
+                    result.id,
+                    result.text,
+                    result.description,
+                    //result.NIK_dosen,
+                    result.setuju,
+                    start_date,
+                    end_date
+                });
+            }
+            return Json(listResult);
+
+        }
+
+
+
+
+        public ActionResult Save(FormCollection actionValues,bool editing)
+        {
+            String ids = actionValues["ids"];
+            String action_type = actionValues[ids + "_!nativeeditor_status"];
+            Int64 source_id = Int64.Parse(actionValues[ids + "_id"]);
+            Int64 target_id = source_id;
+
+            pesanan_bimbingan changedEvent = new pesanan_bimbingan();
+            try
+            {
+                
+                switch (action_type)
+                {
+                    case "inserted":
+                       
+                        changedEvent.text = actionValues[ids + "_text"];
+                        changedEvent.tanggal_mulai = Convert.ToDateTime(actionValues[ids + "_start_date"]);
+                        changedEvent.tanggal_selesai = Convert.ToDateTime(actionValues[ids + "_end_date"]);
+                        changedEvent.description = actionValues[ids + "_description"];var username = Session["username"].ToString();
+                        var npm = db.mahasiswas.Where(x => x.username == username).Select(y => y.NPM).SingleOrDefault();
+                        var nik = db.skripsis.Where(x => x.NPM_mahasiswa == npm).Select(y => y.NIK_dosen_pembimbing).SingleOrDefault();
+                        changedEvent.NPM_mahasiswa = npm;
+                        changedEvent.NIK_dosen = nik;
+                        changedEvent.setuju = "menunggu";
+                        db.pesanan_bimbingan.Add(changedEvent);
+                        break;
+                    case "deleted":
+                        changedEvent = db.pesanan_bimbingan.SingleOrDefault(ev => ev.id == source_id);
+                        db.pesanan_bimbingan.Remove(changedEvent);
+                        break;
+                    default: // "updated"                          
+                        changedEvent = db.pesanan_bimbingan.SingleOrDefault(ev => ev.id == source_id);
+                        changedEvent.text = actionValues[ids + "_text"];
+                        changedEvent.tanggal_mulai = Convert.ToDateTime(actionValues[ids + "_start_date"]);
+                        changedEvent.tanggal_selesai = Convert.ToDateTime(actionValues[ids + "_end_date"]);
+                        changedEvent.setuju = "menunggu";
+                        changedEvent.description = actionValues[ids + "_description"];
+                        break;
+                }
+
+                db.SaveChanges();
+                target_id = changedEvent.id;
+            }
+            catch
+            {
+                action_type = "error";
+            }
+            return View(new CalendarActionResponseModel(action_type, source_id, target_id));
+        }
+
+        #endregion
     }
 }

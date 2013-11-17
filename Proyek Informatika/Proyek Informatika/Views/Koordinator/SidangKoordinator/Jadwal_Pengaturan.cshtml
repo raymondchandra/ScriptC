@@ -21,7 +21,24 @@
         }
         
     });
+    $("#bukaButton").click(function () {
+        if ($("#bukaButton").val() == "Mulai Pengumpulan Jadwal") {
+            $.post("SidangKoordinator/Mulai_Pengumpulan", { mulai: true, semester_id: '@ViewBag.semester_id', tipe: $("#tipeSidang").val() }, function (data) {
+                if (data == "True") {
+                    $("#bukaButton").val("Akhiri Pengumpulan Jadwal");
+                }
+            });
+            
+           
+        } else if ($("#bukaButton").val() == "Akhiri Pengumpulan Jadwal") {
 
+            $.post("SidangKoordinator/Mulai_Pengumpulan", { mulai: false, semester_id: '@ViewBag.semester_id', tipe: $("#tipeSidang").val() }, function (data) {
+                if (data == "True") {
+                    $("#bukaButton").val("Mulai Pengumpulan Jadwal");
+                }
+            });
+        }
+    });
     function getStartEnd(tipe) {
         $.post("SidangKoordinator/GetStartDate", { semester_id:'@ViewBag.semester_id' , tipe: tipe }, function (data) { $("#start_date").val(data); });
         $.post("SidangKoordinator/GetEndDate", { semester_id:'@ViewBag.semester_id' , tipe: tipe }, function (data) { $("#end_date").val(data); });
@@ -54,3 +71,6 @@
     )<br />
     <input type="button" value="Simpan" id="simpanButton" class="t-button t-state-default" />
 </fieldset>
+<div style="text-align:center;">
+    <input type="button" value="Mulai Pengumpulan Jadwal" id="bukaButton" class="t-button t-state-default" style="width:300px;height:70px;"/>
+</div>

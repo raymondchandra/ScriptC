@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using Proyek_Informatika.Controllers.Utilities;
+<!DOCTYPE html>
 <html>
 <head>
     <title>@ViewBag.Title</title>
@@ -25,6 +26,14 @@
         });
               
     </script>
+	@{
+        var isAktif = true;
+        if(Session["username"] !=null){
+            var username = Session["username"].ToString();
+            isAktif = QueryController.IsAktif(username);
+        }
+        
+    }
 </head>
 <body>
     <img src="../../../Content/images/background.jpg" alt="" id="background" />
@@ -63,14 +72,14 @@
                                     {
                                         menu2.Add().Text("Jadwal Bimbingan");
                                         menu2.Add().Text("Kartu Bimbingan");
-                                    });
-                                    menu.Add().Text("Pengumpulan");
+                                    }).Visible(isAktif);
+                                    menu.Add().Text("Pengumpulan").Visible(isAktif);
                                     menu.Add().Text("Sidang").Items(menu2 =>
                                     {
                                         menu2.Add().Text("Pengumpulan Jadwal");
                                         menu2.Add().Text("Lihat Jadwal");
-                                    });
-                                    menu.Add().Text("Kalender");
+                                    }).Visible(isAktif);
+                                    menu.Add().Text("Kalender").Visible(isAktif);
                                 })
                             )
                     </text>

@@ -26,8 +26,8 @@ namespace Proyek_Informatika.Models
         public string NIK_pembimbing { get; set; }
         public int id_semester { get; set; }
     
-        public virtual dosen dosen { get; set; }
         public virtual semester semester { get; set; }
+        public virtual dosen dosen { get; set; }
         public virtual ICollection<skripsi> skripsis { get; set; }
     }
 }

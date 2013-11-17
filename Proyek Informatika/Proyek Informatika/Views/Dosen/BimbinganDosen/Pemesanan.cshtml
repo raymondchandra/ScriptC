@@ -1,0 +1,173 @@
+﻿<script src="../../../Scripts/schedular/dhtmlxscheduler.js" type="text/javascript"></script>
+<script src="../../../Scripts/schedular/ext/dhtmlxscheduler_grid_view.js" type="text/javascript"></script>
+<script src="../../../Scripts/schedular/ext/dhtmlxscheduler_limit.js" type="text/javascript" charset="utf-8"></script>
+<link href="../../../Scripts/schedular/dhtmlxscheduler_glossy.css" rel="stylesheet" type="text/css" />
+<script src="../../../Scripts/schedular/ext/dhtmlxscheduler_serialize.js" type="text/javascript" charset="utf-8"></script>
+@{
+    ViewBag.Title = "Pemesanan Bimbingan";
+}
+
+<style>
+    .dhx_cal_larea
+    {
+        height:230px!important;
+    }
+    
+    .dhx_cal_light
+    {
+        height:285px!important;
+    }
+    
+    .dhx_cal_event.high div, .dhx_cal_event_line.high{
+        background-color:red !important; 
+        color:white !important;
+    }
+    .dhx_cal_event.low div, .dhx_cal_event_line.low{
+        background-color: #BBBBBB !important; 
+        color:white !important;
+    }
+</style>
+<script type="text/javascript" charset="utf-8">
+
+    function init() {
+        scheduler.config.xml_date = "%Y-%m-%d %H:%i";
+        scheduler.config.first_hour = 7;
+        scheduler.config.last_hour = 17;
+        scheduler.config.multi_day = false;
+        scheduler.blockTime(0, "fullday");
+        scheduler.blockTime(6, "fullday");
+        scheduler.attachEvent("onBeforeDrag", function () { return false; }); //block event resize and drag
+        scheduler.config.dblclick_create = false; //block event creation by doubleclick
+
+        var day = new Date();
+        for (var i = 0; i < 7; i++) {
+            day.setDate(day.getDate() - 1);
+            scheduler.blockTime(day, "fullday");
+        }
+
+        scheduler.createGridView({
+            fields: [
+                { id: "npm", label: 'NPM', sort: 'str' },
+                { id: "nama", label: 'Nama', sort: 'str' },
+                { id: "text", label: 'Subject', sort: 'str' },
+                { id: "date", label: 'Tanggal', sort: 'date' },
+                { id: "setuju", label: 'Status', sort: 'str' },
+            ], from: new Date()
+        });
+        scheduler.locale.labels.grid_tab = "Tabel";
+
+        //label
+        scheduler.locale.labels.section_text = 'Judul';
+        scheduler.locale.labels.section_description = 'Deskripsi';
+        scheduler.locale.labels.section_select = 'Konfirmasi';
+
+        var alert_opts = [
+            { key: "ditolak", label: 'Tolak' },
+            { key: "menunggu", label: 'Tunggu' },
+            { key: "diterima", label: 'Terima' }
+        ];
+ 
+        scheduler.config.lightbox.sections = [
+            { name: "text", height: 25, map_to: "text", type: "textarea", focus: true },
+            { name: "description", height: 75, map_to: "description", type: "textarea" },
+            { name: "select", height:40, map_to:"setuju", type:"select", options:alert_opts},
+            { name: "time", height: 0, type: "time", map_to: "auto" }
+        ];
+        
+        scheduler.form_blocks.textarea.set_value = function (node, value, ev) {
+            node.firstChild.value = value || "";
+            node.firstChild.disabled = true;
+        }
+        scheduler.attachEvent("onBeforeLightbox", function () {
+            var time = scheduler.formSection("time");
+            time.node.style.display = "none";
+            return true;
+        });
+
+
+        scheduler.original_prev = scheduler._click.dhx_cal_prev_button;
+        scheduler._click.dhx_cal_prev_button = function () {
+            if (prev_limit_check()) {
+                scheduler.original_prev()
+            }
+        };
+
+        scheduler.templates.event_class = function (start, end, event) {
+            if (event.setuju == "ditolak") {
+                return "high";
+            } else if (event.setuju == "menunggu") {
+                return "normal";
+            } else if (event.setuju == "diterima") {
+                return "low";
+            }
+        }
+
+        scheduler.init('scheduler_here', new Date(), "week");
+        var a = new Date();
+        scheduler.config.limit_start = a;
+        scheduler.config.limit_end = new Date(a.getFullYear() + 1, a.getMonth(), a.getDate());
+        $.post("BimbinganDosen/Data", "", function (data) {
+            scheduler.parse(JSON.stringify(data), "json");
+        });
+
+        var dp = new dataProcessor("/BimbinganDosen/Save");
+
+        dp.setTransactionMode("POST", false);
+        dp.enableDataNames(true);
+        dp.init(scheduler);
+
+    }
+    function prev_limit_check() {
+        var date = $(".dhx_cal_date").html();
+        var split = date.split(' ');
+        var monthIdx = this.getMonthIndex(split[1]);
+        var first = new Date(split[2], monthIdx, split[0]);
+        var limitStart = new Date();
+        if (+first <= +limitStart) {
+            return false;
+        } else {
+            return true;
+        }
+
+    }
+
+    function getMonthIndex(month) {
+        switch (month) {
+            case "Jan": return 0; break;
+            case "Feb": return 1; break;
+            case "Mar": return 2; break;
+            case "Apr": return 3; break;
+            case "May": return 4; break;
+            case "Jun": return 5; break;
+            case "Jul": return 6; break;
+            case "Aug": return 7; break;
+            case "Sep": return 8; break;
+            case "Oct": return 9; break;
+            case "Nov": return 10; break;
+            case "Dec": return 11;
+        }
+    }
+    $(document).ready(function () {
+        init();
+
+    });
+</script>
+
+<div class="layer">
+    <h1>Pemesanan Bimbingan</h1>
+    <div id="scheduler_here" class="dhx_cal_container" style='padding-top=10px; height:480px;'>
+    <div class="dhx_cal_navline">
+	    <div class="dhx_cal_prev_button">&nbsp;</div>
+	    <div class="dhx_cal_next_button">&nbsp;</div>
+	    <div class="dhx_cal_today_button"></div>
+	    <div class="dhx_cal_date"></div>
+	    <div class="dhx_cal_tab dhx_cal_tab_first" name="day_tab" style="right:14px;"></div>
+	    <div class="dhx_cal_tab" name="week_tab" style="right:75px;"></div>
+        <div class="dhx_cal_tab" name="grid_tab" style="right:137px;"></div>
+    </div>
+    <div class="dhx_cal_header">
+    </div>
+    <div class="dhx_cal_data">
+    </div>
+    </div>
+</div>

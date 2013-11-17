@@ -51,12 +51,23 @@
             return true; // lightbox will be displayed
         });
 
+
+        scheduler.templates.event_class = function (start, end, event) {
+            if (event.priority == "high") {
+                return "high";
+            } else if (event.priority == "normal") {
+                return "normal";
+            } else if (event.priority == "low") {
+                return "low";
+            }
+        }
+        
         scheduler.init('scheduler_here', new Date(), "month");
-        $.post("Sidang/Data", "", function (data) {
+        $.post("Kalender/Data", "", function (data) {
             scheduler.parse(JSON.stringify(data), "json");
         });
 
-        var dp = new dataProcessor("/Sidang/Save");
+        var dp = new dataProcessor("/Kalender/Save");
 
         dp.setTransactionMode("POST", false);
         dp.enableDataNames(true);

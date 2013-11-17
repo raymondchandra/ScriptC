@@ -33,9 +33,17 @@
         if(r){
             //save nilai akhir
             //tutup sidang
+            var jenis = '@ViewBag.jenis_skripsi_id';
+            var nilai_akhir = 0.0;
+            if(jenis == 1){
+                nilai_akhir = parseFloat($("#totalSkripsi1").html());
+            }else if(jenis == 2){
+                nilai_akhir = parseFloat($("#totalAkhir").html());
+            }
+           
             var values = {
                 skripsi_id : '@ViewBag.skripsi_id',
-                nilai_akhir : parseFloat($("#totalAkhir").html())
+                nilai_akhir : nilai_akhir
             };
             $.post("SidangDosen/AkhiriSidang",values,function(data){
                 if(data == "True"){
@@ -64,36 +72,55 @@
 <input type="button" class="t-button t-state-default" id="refreshButton" value="Refresh" />
 <fieldset id="showhide" style="display:none;">
     <legend>Ringkasan Penilaian Sidang</legend>
-        <table style="text-align:left;">
-        <tr>
-            <th style="width:175px">Penilai</th>
-            <th style="width:80px">Nilai</th>
-            <th style="width:80px">Bobot</th>
-            <th style="width:80px">Total</th>
-        </tr>
-        @{
-                    
+    @{
+        if (ViewBag.jenis_skripsi_id == 1)
+        {
             foreach (var item in bobotData2)
             {
                 <text>
-                <tr>
-                    <td>@item.Item2</td>
-                    <td id="nilaiAll@(item.Item1)">@item.Item4</td>
-                    <td id="bobotAll@(item.Item1)">@item.Item3</td>
-                    <td id="totalAll@(item.Item1)"></td>
-                </tr>
+                <span>Presentasi : </span><span id="totalSkripsi1">@item.Item4</span>
                 </text>
             }
-                    
         }
+            
+        else if (ViewBag.jenis_skripsi_id == 2)
+        {
+            <text>
+            <table style="text-align:left;">
+                <tr>
+                    <th style="width:175px">Penilaian</th>
+                    <th style="width:80px">Nilai</th>
+                    <th style="width:80px">Bobot</th>
+                    <th style="width:80px">Total</th>
+                </tr>
+                @{
+                    
+                    foreach (var item in bobotData2)
+                    {
+                        <text>
+                        <tr>
+                            <td>@item.Item2</td>
+                            <td id="nilaiAll@(item.Item1)">@item.Item4</td>
+                            <td id="bobotAll@(item.Item1)">@item.Item3</td>
+                            <td id="totalAll@(item.Item1)"></td>
+                        </tr>
+                        </text>
+                    }
+                    
+                }
                 
-        <tr>
-            <th>Total</th>
-            <th></th>
-            <th></th>
-            <th id="totalAkhir"></th>
-        </tr>
-    </table><br>
+                <tr>
+                    <th>Total</th>
+                    <th></th>
+                    <th></th>
+                    <th id="totalAkhir"></th>
+                </tr>
+            </table>
+            </text>   
+        }
+        
+    }
+        <br>
     <input type="button" class="t-button t-state-default" id="finishButton" value="Akhiri Sidang" />
 </fieldset>
-<div id="showhide2"><p>Belum semua pemberi nilai mengirimkan nilainya.</p></div>
+<div id="showhide2" style="display:none;"><p>Belum semua pemberi nilai mengirimkan nilainya.</p></div>

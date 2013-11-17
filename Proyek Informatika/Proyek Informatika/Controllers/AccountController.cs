@@ -21,7 +21,7 @@ namespace Proyek_Informatika.Controllers
 
         public ActionResult LogOn()
         {
-            return View();
+            return PartialView();
         }
 
         //

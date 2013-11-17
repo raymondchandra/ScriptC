@@ -27,12 +27,18 @@ namespace Proyek_Informatika.Controllers.Mahasiswa
     {
         private SkripsiAutoContainer db = new SkripsiAutoContainer();
         private QueryController query = new QueryController();
-        
-        public ActionResult Pengumpulan()
+
+        public ActionResult Pengumpulan_Index()
         {
-            string periode = db.semesters.Where(x=>x.isCurrent == 1).Select(y=>y.periode_semester).SingleOrDefault();
             int sessionSkripsi = (int)Int64.Parse(Session["id-skripsi"].ToString());
             int tipeId = db.skripsis.Where(x => x.id == sessionSkripsi).Select(y=>y.jenis).SingleOrDefault();
+            ViewBag.tipeId = tipeId;
+            return PartialView();
+        }
+
+        public ActionResult Pengumpulan(int tipeId)
+        {
+            string periode = db.semesters.Where(x=>x.isCurrent == 1).Select(y=>y.periode_semester).SingleOrDefault();
             string tipe;
             if (tipeId == 1)
             {
@@ -44,7 +50,7 @@ namespace Proyek_Informatika.Controllers.Mahasiswa
             }
             var semId = query.GetSemesterId(periode);
             var result = (from table in db.periode_sidang
-                          where (table.semester_id == semId && table.tipe_sidang == tipe)
+                          where (table.semester_id == semId && table.tipe_sidang == tipe && table.status == "open")
                           select table).ToList();
             if (result.Count != 0)
             {
@@ -54,6 +60,7 @@ namespace Proyek_Informatika.Controllers.Mahasiswa
                 ViewBag.start_date = start;
                 ViewBag.end_date = end;
                 ViewBag.exist = true;
+                ViewBag.periode_id = getResult.id;
             }
             else
             {
@@ -64,13 +71,13 @@ namespace Proyek_Informatika.Controllers.Mahasiswa
 
         
 
-        public JsonResult Data()
+        public JsonResult Data(int periode_id)
         {
             string username = Session["username"].ToString();
-            int sessionSkripsi = (int)Int64.Parse(Session["id-skripsi"].ToString());
+            //int periode_id = db.periode_sidang.Where(x=>x.);
             //events for loading to scheduler
             var items = from table in db.jadwal_tidak_kosong
-                        where (table.username == (string) username && table.skripsi_id == sessionSkripsi)
+                        where (table.username == (string) username && table.periode_sidang_id == periode_id)
                         select table;
             List<object> listResult = new List<object>();
             foreach (var result in items.ToList())
@@ -96,7 +103,7 @@ namespace Proyek_Informatika.Controllers.Mahasiswa
 
 
 
-        public ActionResult Save(FormCollection actionValues)
+        public ActionResult Save(FormCollection actionValues,int periode_id)
         {
             String ids = actionValues["ids"];
             String action_type = actionValues[ids + "_!nativeeditor_status"];
@@ -111,7 +118,7 @@ namespace Proyek_Informatika.Controllers.Mahasiswa
                 changedEvent.tanggal_mulai = Convert.ToDateTime(actionValues[ids + "_start_date"]);
                 changedEvent.tanggal_selesai = Convert.ToDateTime(actionValues[ids + "_end_date"]);
                 changedEvent.description = actionValues[ids + "_description"];
-                changedEvent.skripsi_id = (int)Int64.Parse(Session["id-skripsi"].ToString());
+                changedEvent.periode_sidang_id = periode_id;
                 switch (action_type)
                 {
                     case "inserted":

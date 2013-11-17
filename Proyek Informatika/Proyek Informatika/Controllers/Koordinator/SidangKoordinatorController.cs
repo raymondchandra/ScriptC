@@ -11,20 +11,6 @@ using System.Globalization;
 
 namespace Proyek_Informatika.Controllers.Koordinator
 {
-    //public class CalendarActionResponseModel
-    //{
-    //    public String Status;
-    //    public Int64 Source_id;
-    //    public Int64 Target_id;
-
-    //    public CalendarActionResponseModel(String status, Int64 source_id, Int64 target_id)
-    //    {
-    //        Status = status;
-    //        Source_id = source_id;
-    //        Target_id = target_id;
-    //    }
-    //}
-
     public class SidangKoordinatorController : Controller
     {
         private SkripsiAutoContainer db = new SkripsiAutoContainer();
@@ -36,9 +22,10 @@ namespace Proyek_Informatika.Controllers.Koordinator
             return PartialView();
         }
     #region Pengaturan
-        public ActionResult Jadwal_Pengaturan(int semester_id)
+        public ActionResult Jadwal_Pengaturan()
         {
-            ViewBag.semester_id = semester_id;
+            var getCurrentFromDb = db.semesters.Where(x => x.isCurrent == 1).Select(y => y.id).SingleOrDefault();
+            ViewBag.semester_id = getCurrentFromDb;
             return PartialView();
         }
 
@@ -90,31 +77,17 @@ namespace Proyek_Informatika.Controllers.Koordinator
     #endregion
 
     #region Penempatan Mahasiswa
-        public ActionResult Jadwal_Penempatan1(int semester_id)
+        public ActionResult Jadwal_Penempatan1()
         {
             var getCurrentFromDb = db.semesters.Where(x => x.isCurrent == 1).Select(y=>y.id).SingleOrDefault();
-            if (getCurrentFromDb == semester_id)
-            {
-                ViewBag.show = true;
-            }
-            else
-            {
-                ViewBag.show = false;
-            }
+            ViewBag.show = true;
             return PartialView();
         }
 
-        public ActionResult Jadwal_Penempatan2(int semester_id)
+        public ActionResult Jadwal_Penempatan2()
         {
             var getCurrentFromDb = db.semesters.Where(x => x.isCurrent == 1).Select(y => y.id).SingleOrDefault();
-            if (getCurrentFromDb == semester_id)
-            {
-                ViewBag.show = true;
-            }
-            else
-            {
-                ViewBag.show = false;
-            }
+            ViewBag.show = true;
             return PartialView();
         }
 
@@ -128,7 +101,7 @@ namespace Proyek_Informatika.Controllers.Koordinator
         {
             var listResult = (from table in db.mahasiswas
                               join table2 in db.skripsis on table.NPM equals table2.NPM_mahasiswa
-                              where (table2.jenis == skripsi)
+                              where (table2.jenis == skripsi && table.status == "aktif")
                               select table).ToList();
             List<mahasiswa> temp = new List<mahasiswa>();
             foreach (var item in listResult)
@@ -160,11 +133,16 @@ namespace Proyek_Informatika.Controllers.Koordinator
             if (temp.Count() == 1)
             {
                 var result = temp.SingleOrDefault();
+                var topik = (from table in db.topiks
+                             join table2 in db.skripsis on table.id equals table2.id_topik
+                             where (table2.NPM_mahasiswa == result.npm)
+                             select table.judul).SingleOrDefault();
                 return Json(new
                 {
                     npm = result.npm,
                     nama = result.nama,
-                    pembimbing = result.pembimbing
+                    pembimbing = result.pembimbing,
+                    topik = topik
                 });
             }
             else
@@ -181,11 +159,11 @@ namespace Proyek_Informatika.Controllers.Koordinator
 
         public JsonResult GetPopUpDetails(string npm)
         {
+            var semester = int.Parse(Session["id-semester"].ToString());
             var temp = (from table in db.mahasiswas
                         join table2 in db.skripsis on table.NPM equals table2.NPM_mahasiswa
                         join table3 in db.sidangs on table2.id equals table3.id_skripsi
-                        join table4 in db.semesters on table2.id_semester_pengambilan equals table4.id
-                        where (table.NPM == npm && table4.isCurrent == 1)
+                        where (table.NPM == npm && table2.id_semester_pengambilan == semester)
                         select table3).ToList();
             if (temp.Count == 0)
             {
@@ -197,14 +175,14 @@ namespace Proyek_Informatika.Controllers.Koordinator
             else
             {
                 var get = temp.SingleOrDefault();
-
+                var d = get.tanggal.ToString();
                 return Json(new
                 {
                     success = true,
                     get.penguji1,
                     get.penguji2,
                     get.ruang,
-                    get.tanggal
+                    tanggal = d
                 });
             }
         }
@@ -276,8 +254,9 @@ namespace Proyek_Informatika.Controllers.Koordinator
                 var pembimbingTakKosong = this.GetJadwalTakKosongFromUsername(pembimbingUsername);
                 string pengujiUsername = db.dosens.Where(x => x.nama == penguji).Select(y => y.username).SingleOrDefault();
                 var pengujiTakKosong = this.GetJadwalTakKosongFromUsername(pengujiUsername);
-
-                var summary = dateList.Except(mahasiswaTakKosong).Except(pembimbingTakKosong).Except(pengujiTakKosong);
+                var jadwal1 = this.GetJadwalNgujiKecualiMahasiswaItu(npm, pembimbingUsername);
+                var jadwal2 = this.GetJadwalNgujiKecualiMahasiswaItu(npm, pengujiUsername);
+                var summary = dateList.Except(mahasiswaTakKosong).Except(pembimbingTakKosong).Except(pengujiTakKosong).Except(jadwal1).Except(jadwal2);
 
                 List<string> retSummary = new List<string>();
                 foreach (var item in summary)
@@ -294,6 +273,52 @@ namespace Proyek_Informatika.Controllers.Koordinator
             
         }
 
+        public List<DateTime> GetJadwalNgujiKecualiMahasiswaItu(string npm, string username)
+        {
+            var id = db.dosens.Where(x => x.username == username).Select(y => y.NIK).SingleOrDefault();
+
+            var semester = int.Parse(Session["id-semester"].ToString());
+            var resultList = (from table in db.sidangs
+                              join table2 in db.skripsis on table.id_skripsi equals table2.id
+                              where ((table.penguji1 == id || table.penguji2 == id || table2.NIK_dosen_pembimbing == id) && table2.id_semester_pengambilan == semester)
+                              select new
+                              {
+                                  table2.NPM_mahasiswa,
+                                  table.tanggal
+                              }).ToList();
+
+            List<DateTime> dateList = new List<DateTime>();
+             foreach (var item in resultList)
+            {
+               if(item.NPM_mahasiswa !=npm){
+                    DateTime startTemp = item.tanggal;
+                    DateTime endTemp = item.tanggal.AddHours(2);
+                    DateTime start = new DateTime(startTemp.Year, startTemp.Month, startTemp.Day, startTemp.Hour, 0, 0);
+                    DateTime end = new DateTime(endTemp.Year, endTemp.Month, endTemp.Day, endTemp.Hour, 0, 0);
+                    if (start.ToString() == end.ToString() && start.Hour >= 7 && start.Hour <= 16)
+                    {
+                        dateList.Add(start);
+                    }
+                    while (start.ToString() != end.ToString())
+                    {
+                        if (start.Hour < 7)
+                        {
+                            start = new DateTime(start.Year, start.Month, start.Day, 7, 0, 0);
+                        }
+                        else if (start.Hour >= 7 && start.Hour <= 16)
+                        {
+                            DateTime temp = start.AddHours(1);
+                            dateList.Add(temp);
+                        }
+                        else if (start.Hour > 16)
+                        {
+                            start = new DateTime(start.Year, start.Month, start.Day + 1, 7, 0, 0);
+                        }
+                    }
+               }
+            }
+            return dateList;
+        }
 
         public List<DateTime> GetJadwalTakKosongFromUsername(string username)
         {
@@ -336,18 +361,58 @@ namespace Proyek_Informatika.Controllers.Koordinator
             return Json(listResult);
         }
 
-        public JsonResult GetRuangKosong(string waktu)
+        public JsonResult GetRuangKosong(string npm, string waktu)
         {
-            //DateTime convert = waktu
-            var listResult = (from table in db.ruangs
+            var semester = int.Parse(Session["id-semester"].ToString());
+            DateTime convert = DateTime.ParseExact(waktu, "dd/MM/yyyy HH:mm:ss", CultureInfo.InvariantCulture);
+            List<ruang> listResult = (from table in db.ruangs
                               join table2 in db.sidangs on table.id equals table2.ruang
-                              //
+                              where (table2.skripsi.id_semester_pengambilan == semester && table2.tanggal == convert && table2.skripsi.NPM_mahasiswa !=npm)
                               select table).ToList();
-            return Json(listResult);
+            List<ruang> allRuang = db.ruangs.ToList();
+            List<ruang> ruang = allRuang.Except(listResult).ToList();
+            List<object> listRuang = new List<object>();
+            foreach (var item in ruang)
+            {
+                listRuang.Add(new ruang()
+                {
+                    id = item.id,
+                    nama_ruang = item.nama_ruang
+                });
+            }
+            return Json(listRuang);
 
         }
 
-        public bool SimpanJadwal(string npm, string tanggal, int ruang, string penguji1, string penguji2)
+        public JsonResult GetPenguji2(string npm, string waktu)
+        {
+            var dosenList = db.dosens.ToList(); //pas waktu itu bisa nguji
+            List<object> result = new List<object>();
+            foreach (var item in dosenList)
+            {
+                var pengujiTakKosong = this.GetJadwalTakKosongFromUsername(item.username);
+                var pengujiNguji = this.GetJadwalNgujiKecualiMahasiswaItu(npm,item.username);
+                var union = pengujiNguji.Union(pengujiTakKosong);
+                var can = true;
+                foreach (var item2 in union)
+                {
+                    if(item2.ToString() == waktu){
+                        can = false;  
+                    }
+                }
+                if(can){
+                    result.Add(new
+                    {
+                        NIK = item.NIK,
+                        nama = item.nama
+                    });
+                }
+            }
+            return Json(result);
+
+        }
+
+        public bool SimpanJadwal(string npm, string tanggal, string penguji1, string penguji2, int ruang = 0)
         {
 
             var skripsi_id = query.GetThisIdFromNPM(npm);
@@ -369,9 +434,10 @@ namespace Proyek_Informatika.Controllers.Koordinator
                 sidang getSidang = checkExist.SingleOrDefault();
                 getSidang.id_skripsi = skripsi_id;
                 getSidang.penguji1 = penguji1;
-                getSidang.penguji2 = penguji2;
+                getSidang.penguji2 = (penguji2=="--")?null:penguji2;
                 getSidang.ruang = ruang;
                 getSidang.tanggal = DateTime.ParseExact(tanggal, "dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture);
+                
                 db.Entry(getSidang).State = EntityState.Modified;
             }
             
@@ -436,7 +502,7 @@ namespace Proyek_Informatika.Controllers.Koordinator
             {
                 string pattern = "yyyy-MM-dd HH:mm:ss";
                 string start_date = result.tanggal.ToString(pattern);
-                string end_date = result.tanggal.AddHours(1).ToString(pattern);
+                string end_date = result.tanggal.AddHours(2).ToString(pattern);
                 var mahasiswa = (from table in db.mahasiswas
                             join table2 in db.skripsis on table.NPM equals table2.NPM_mahasiswa
                             where table2.id == result.id_skripsi
@@ -517,71 +583,71 @@ namespace Proyek_Informatika.Controllers.Koordinator
         public ActionResult Sidang_Index()
         {
             ViewBag.username = Session["username"].ToString();
-            var kategori = db.kategori_nilai.Where(x => x.tipe == "general" && x.kategori == "pembimbing" && x.jenis_skripsi_id == 1).ToList();
-            var kategori1 = db.kategori_nilai.Where(x => x.tipe == "general" && x.kategori == "pembimbing" && x.jenis_skripsi_id == 2).ToList();
-            var kategori2 = db.kategori_nilai.Where(x => x.tipe == "general" && x.kategori == "penguji1" && x.jenis_skripsi_id == 2).ToList();
-            var kategori3 = db.kategori_nilai.Where(x => x.tipe == "general" && x.kategori == "penguji2" && x.jenis_skripsi_id == 2).ToList();
-            var kategori4 = db.kategori_nilai.Where(x => x.tipe == "final" && x.kategori == "nilaiAkhir" && x.jenis_skripsi_id == 1).ToList();
-            var kategori5 = db.kategori_nilai.Where(x => x.tipe == "final" && x.kategori == "nilaiAkhir" && x.jenis_skripsi_id == 2).ToList();
-            if(kategori.Count == 0){
-                kategori_nilai newKategori = new kategori_nilai();
-                newKategori.tipe = "general";
-                newKategori.kategori = "pembimbing";
-                newKategori.jenis_skripsi_id = 1;
-                newKategori.bobot = 100;
-                db.kategori_nilai.Add(newKategori);
-                db.SaveChanges();
-            }
-            if (kategori1.Count == 0)
-            {
-                kategori_nilai newKategori1 = new kategori_nilai();
-                newKategori1.tipe = "general";
-                newKategori1.kategori = "pembimbing";
-                newKategori1.jenis_skripsi_id = 2;
-                newKategori1.bobot = 20;
-                db.kategori_nilai.Add(newKategori1);
-                db.SaveChanges();
-            }
-            if (kategori2.Count == 0)
-            {
-                kategori_nilai newKategori2 = new kategori_nilai();
-                newKategori2.tipe = "general";
-                newKategori2.kategori = "penguji1";
-                newKategori2.jenis_skripsi_id = 2;
-                newKategori2.bobot = 40;
-                db.kategori_nilai.Add(newKategori2);
-                db.SaveChanges();
-            }
-            if (kategori3.Count == 0)
-            {
-                kategori_nilai newKategori3 = new kategori_nilai();
-                newKategori3.tipe = "general";
-                newKategori3.kategori = "penguji2";
-                newKategori3.jenis_skripsi_id = 2;
-                newKategori3.bobot = 40;
-                db.kategori_nilai.Add(newKategori3);
-                db.SaveChanges();
-            }
-            if (kategori4.Count == 0)
-            {
-                kategori_nilai newKategori4 = new kategori_nilai();
-                newKategori4.tipe = "final";
-                newKategori4.kategori = "nilaiAkhir";
-                newKategori4.jenis_skripsi_id = 1;
-                newKategori4.bobot = 100;
-                db.kategori_nilai.Add(newKategori4);
-                db.SaveChanges();
-            }
-            if (kategori5.Count == 0)
-            {
-                kategori_nilai newKategori5 = new kategori_nilai();
-                newKategori5.tipe = "final";
-                newKategori5.kategori = "nilaiAkhir";
-                newKategori5.jenis_skripsi_id = 2;
-                newKategori5.bobot = 100;
-                db.kategori_nilai.Add(newKategori5);
-                db.SaveChanges();
-            }
+            //var kategori = db.kategori_nilai.Where(x => x.tipe == "general" && x.kategori == "pembimbing" && x.jenis_skripsi_id == 1).ToList();
+            //var kategori1 = db.kategori_nilai.Where(x => x.tipe == "general" && x.kategori == "pembimbing" && x.jenis_skripsi_id == 2).ToList();
+            //var kategori2 = db.kategori_nilai.Where(x => x.tipe == "general" && x.kategori == "penguji1" && x.jenis_skripsi_id == 2).ToList();
+            //var kategori3 = db.kategori_nilai.Where(x => x.tipe == "general" && x.kategori == "penguji2" && x.jenis_skripsi_id == 2).ToList();
+            //var kategori4 = db.kategori_nilai.Where(x => x.tipe == "final" && x.kategori == "nilaiAkhir" && x.jenis_skripsi_id == 1).ToList();
+            //var kategori5 = db.kategori_nilai.Where(x => x.tipe == "final" && x.kategori == "nilaiAkhir" && x.jenis_skripsi_id == 2).ToList();
+            //if(kategori.Count == 0){
+            //    kategori_nilai newKategori = new kategori_nilai();
+            //    newKategori.tipe = "general";
+            //    newKategori.kategori = "pembimbing";
+            //    newKategori.jenis_skripsi_id = 1;
+            //    newKategori.bobot = 100;
+            //    db.kategori_nilai.Add(newKategori);
+            //    db.SaveChanges();
+            //}
+            //if (kategori1.Count == 0)
+            //{
+            //    kategori_nilai newKategori1 = new kategori_nilai();
+            //    newKategori1.tipe = "general";
+            //    newKategori1.kategori = "pembimbing";
+            //    newKategori1.jenis_skripsi_id = 2;
+            //    newKategori1.bobot = 20;
+            //    db.kategori_nilai.Add(newKategori1);
+            //    db.SaveChanges();
+            //}
+            //if (kategori2.Count == 0)
+            //{
+            //    kategori_nilai newKategori2 = new kategori_nilai();
+            //    newKategori2.tipe = "general";
+            //    newKategori2.kategori = "penguji1";
+            //    newKategori2.jenis_skripsi_id = 2;
+            //    newKategori2.bobot = 40;
+            //    db.kategori_nilai.Add(newKategori2);
+            //    db.SaveChanges();
+            //}
+            //if (kategori3.Count == 0)
+            //{
+            //    kategori_nilai newKategori3 = new kategori_nilai();
+            //    newKategori3.tipe = "general";
+            //    newKategori3.kategori = "penguji2";
+            //    newKategori3.jenis_skripsi_id = 2;
+            //    newKategori3.bobot = 40;
+            //    db.kategori_nilai.Add(newKategori3);
+            //    db.SaveChanges();
+            //}
+            //if (kategori4.Count == 0)
+            //{
+            //    kategori_nilai newKategori4 = new kategori_nilai();
+            //    newKategori4.tipe = "final";
+            //    newKategori4.kategori = "nilaiAkhir";
+            //    newKategori4.jenis_skripsi_id = 1;
+            //    newKategori4.bobot = 100;
+            //    db.kategori_nilai.Add(newKategori4);
+            //    db.SaveChanges();
+            //}
+            //if (kategori5.Count == 0)
+            //{
+            //    kategori_nilai newKategori5 = new kategori_nilai();
+            //    newKategori5.tipe = "final";
+            //    newKategori5.kategori = "nilaiAkhir";
+            //    newKategori5.jenis_skripsi_id = 2;
+            //    newKategori5.bobot = 100;
+            //    db.kategori_nilai.Add(newKategori5);
+            //    db.SaveChanges();
+            //}
             return PartialView();
         }
 
@@ -608,9 +674,15 @@ namespace Proyek_Informatika.Controllers.Koordinator
         public ActionResult _SaveBobot(int id, string tipe, byte jenisSkripsi)
         {
             var getKategori = db.kategori_nilai.Where(p => p.id == id).First();
+            var total = this.HitungPersentase(getKategori.tipe,2);
+            var bobotTemp = getKategori.bobot;
             TryUpdateModel(getKategori);
-            db.Entry(getKategori).State = EntityState.Modified;
-            db.SaveChanges();
+            total = total + getKategori.bobot - bobotTemp;
+            if (total <= 100)
+            {
+                db.Entry(getKategori).State = EntityState.Modified;
+                db.SaveChanges();
+            }
             return bindingTable(tipe, jenisSkripsi);
         }
 
@@ -623,9 +695,14 @@ namespace Proyek_Informatika.Controllers.Koordinator
             {
                 kategori.tipe = tipe;
                 kategori.jenis_skripsi_id = (byte) jenisSkripsi;
+                var total = this.HitungPersentase(kategori.tipe, 2);
+                total = total + kategori.bobot;
+                if (total <= 100)
+                {
+                    db.kategori_nilai.Add(kategori);
+                    db.SaveChanges();
+                }
                 
-                db.kategori_nilai.Add(kategori);
-                db.SaveChanges();
             }
             return bindingTable(tipe,jenisSkripsi);
         }
@@ -756,10 +833,11 @@ namespace Proyek_Informatika.Controllers.Koordinator
             }
         }
 
+       
         public bool SimpanBobotGeneral(kategori_nilai newRow)
         {
             var find = db.kategori_nilai.Where(x=>x.tipe=="general" && x.kategori == newRow.kategori).ToList();
-
+            
             if (find.Count == 0)
             {
                 db.kategori_nilai.Add(newRow);
@@ -767,6 +845,11 @@ namespace Proyek_Informatika.Controllers.Koordinator
             else
             {
                 var getKategori = find.First();
+                var selisih = newRow.bobot - getKategori.bobot;
+                var total = HitungTotalBobotGeneralTemp(getKategori.jenis_skripsi_id, selisih);
+                if(total > 100){
+                    return false;
+                }
                 getKategori.bobot = newRow.bobot;
                 db.Entry(getKategori).State = EntityState.Modified;
             }
@@ -782,8 +865,44 @@ namespace Proyek_Informatika.Controllers.Koordinator
             }
         }
 
+        public int HitungTotalBobotGeneralTemp(int jenis_skripsi,int selisih)
+        {
+            var list = db.kategori_nilai.Where(x=>x.tipe=="general" && x.jenis_skripsi_id == jenis_skripsi).ToList();
+            int a = list.Sum(x => x.bobot);
+            return a + selisih;
+        }
+        public bool Mulai_Pengumpulan(bool mulai,int semester_id, string tipe)
+        {
+            var getPeriodeSidang = db.periode_sidang.Where(x => x.semester_id == semester_id && x.tipe_sidang == tipe).ToList();
+            if (getPeriodeSidang.Count != 0)
+            {
+                var get = getPeriodeSidang.SingleOrDefault();
+                if (mulai)
+                {
+                    get.status = "open";
+                }
+                else
+                {
+                    get.status = "close";
+                }
+                try
+                {
+                    db.Entry(get).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return true;
+                }
+                catch {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+            
 
 
+        }
         
     }
 }

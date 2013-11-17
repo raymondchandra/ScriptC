@@ -20,9 +20,9 @@ namespace Proyek_Informatika.Models
         public System.DateTime tanggal_selesai { get; set; }
         public string text { get; set; }
         public string description { get; set; }
-        public int skripsi_id { get; set; }
+        public int periode_sidang_id { get; set; }
     
         public virtual akun akun { get; set; }
-        public virtual skripsi skripsi { get; set; }
+        public virtual periode_sidang periode_sidang { get; set; }
     }
 }

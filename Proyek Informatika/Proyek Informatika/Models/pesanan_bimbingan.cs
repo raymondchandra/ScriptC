@@ -15,11 +15,11 @@ namespace Proyek_Informatika.Models
     public partial class pesanan_bimbingan
     {
         public int id { get; set; }
-        public Nullable<int> setuju { get; set; }
+        public string setuju { get; set; }
         public string NIK_dosen { get; set; }
         public string NPM_mahasiswa { get; set; }
         public System.DateTime tanggal_mulai { get; set; }
-        public Nullable<System.DateTime> tanggal_selesai { get; set; }
+        public System.DateTime tanggal_selesai { get; set; }
         public string text { get; set; }
         public string description { get; set; }
     

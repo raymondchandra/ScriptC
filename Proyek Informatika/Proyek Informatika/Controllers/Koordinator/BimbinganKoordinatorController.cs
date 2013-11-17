@@ -39,7 +39,7 @@ namespace Proyek_Informatika.Controllers.Koordinator
             return PartialView(semes);
         }
         [HttpPost]
-        public ActionResult ListMahasiswa(int periode, int jenis_skripsi)
+        public ActionResult ListMahasiswa(int periode = 0,int jenis_skripsi = 0)
         {
             ViewBag.periode = periode;
             ViewBag.jenis_skripsi = jenis_skripsi;

@@ -1,17 +1,16 @@
 ﻿<script>
+    var arr = new Array();
 
     $("#buttonSimpan").click(function () {
         //validasi trus simpan jadwal
         var radio = document.getElementsByName("modeJadwal");
         if ($("#radio_1").is(":checked")) {
-            var penguji2 = $("#penguji2Manual").val();
-            alert(penguji2);
             var values = {
                 npm: $("#npm-label").html(),
                 tanggal: $("#waktuManual").val(),
                 ruang: $("#ruangManual").val(),
                 penguji1: $("#penguji1Manual").val(),
-                penguji2: penguji2
+                penguji2: $("#penguji2Manual").val()
             };
             $.post("SidangKoordinator/SimpanJadwal", values, function (data) {
                 if (data == "True") {
@@ -21,11 +20,26 @@
                 }
             });
         } else {
-            alert("def");
+            var waktu = $("#selWaktu").val().toString().substring(0, $("#selWaktu").val().toString().length - 3);
+            var values = {
+                npm: $("#npm-label").html(),
+                tanggal: $("#selTanggal").val() + " " + waktu,
+                ruang: $("#selRuang").val(),
+                penguji1: $("#selPenguji").val(),
+                penguji2: $("#selPenguji2").val()
+            };
+            $.post("SidangKoordinator/SimpanJadwal", values, function (data) {
+                if (data == "True") {
+                    alert("Data berhasil diubah.");
+                } else {
+                    alert("Data tidak berhasil diubah.");
+                }
+            });
         }
     });
     function init() {
         $("#radio_1").prop('checked', true);
+        changeMode(1);
         $.post("Query/GetDosenList", "", function (data) {
             var get = "";
             $.each(data, function (index, value) {
@@ -60,69 +74,124 @@
 
         $.post("SidangKoordinator/GetPopUpDetails", { npm: $("#npm-label").html() }, function (data) {
             if (data.success) {
-                alert("asdf");
+                $("#penguji1Manual").val(data.penguji1);
+                $("#penguji2Manual").val(data.penguji2);
+                $("#waktuManual").val(data.tanggal);
+                $("#ruangManual").val(data.ruang);
+                $("#selPenguji").val(data.penguji1);
+                var a = data.tanggal.split(" ");
+
+                $.when(selPengujiChange()).done(function () {
+                    $("#selTanggal").val(a[0]);
+                    selTanggalChange();
+                    $("#selWaktu").val(a[1]);
+                    $.when(selWaktuChange()).done(function () {
+                        $("#selRuang").val(data.ruang);
+                        $.when(selRuangChange()).done(function () {
+                            var penguji2 = data.penguji2 == null ? "--" : data.penguji2;
+                            $("#selPenguji2").val(penguji2);
+                        });
+                    });
+                });
             } else {
-                
                 var date = new Date();
                 $("#waktuManual").val((date.getDay() + 1) + "/" + (date.getMonth() + 1) + "/" + date.getFullYear() + " 00:00");
                 //ruang: $("#ruangManual").val(),
 
             }
+        });
+    }
+    function selPengujiChange() {
+        $("#selTanggal").html("");
+        $("#selWaktu").html("");
+        $("#selRuang").html("");
+        $("#selPenguji2").html("");
+        var values = {
+            npm: $("#npm-label").html(),
+            pembimbing: $("#pembimbing-label").html(),
+            penguji: $("#selPenguji").val()
+        };
+        return $.post("SidangKoordinator/GetTanggalSidangList", values, function (data) {
+            var get = "";
+            var i = 0;
+            var temp = "";
+            $.each(data, function (index, value) {
+                var a = value.split(" ");
+                arr[i] = a;
+                i++;
+                if (temp != a[0]) {
+                    temp = a[0];
+                    get += "<option value='" + a[0] + "'>" + a[0] + "</option>";
+                }
+
+            });
+            $("#selTanggal").html(get);
 
         });
     }
 
-    $(document).ready(function () {
-        
-        $("#selPenguji").bind("change", function () {
-            var values = {
-                npm: $("#npm-label").html(),
-                pembimbing: $("#pembimbing-label").html(),
-                penguji: $("#selPenguji").val()
-            };
-            $.post("SidangKoordinator/GetTanggalSidangList", values, function (data) {
-                var get = "";
-                $.each(data, function (index, value) {
-                    var a = value.split(" ");
-                    get += "<option value='" + a[0] + "'>" + a[0] + "</option>";
-                });
-                //                $("#selTanggal").html(get);
-                $("#selWaktu").html(get);
+    function selTanggalChange() {
+        $("#selWaktu").html("");
+        $("#selRuang").html("");
+        $("#selPenguji2").html("");
+        var get = "";
+        for (var i = 0; i < arr.length; i++) {
+            var a = arr[i].toString().split(",");
+            if (a[0] == $("#selTanggal").val()) {
+                get += "<option value='" + a[1] + "'>" + a[1] + "</option>";
+            }
+        }
+        $("#selWaktu").html(get);
+    }
+
+    function selWaktuChange() {
+        $("#selRuang").html("");
+        $("#selPenguji2").html("");
+        var waktu = $(selTanggal).val() + " " + $("#selWaktu").val();
+        var values = {
+            waktu: waktu
+        };
+        return $.post("SidangKoordinator/GetRuangKosong", values, function (data) {
+            var get = "";
+            $.each(data, function (index, value) {
+                get += "<option value='" + value.id + "'>" + value.nama_ruang + "</option>";
             });
+            $("#selRuang").html(get);
+        });
+    }
+
+    function selRuangChange() {
+        $("#selPenguji2").html("");
+        
+        var waktu = $(selTanggal).val() + " " + $("#selWaktu").val();
+        return $.post("SidangKoordinator/GetPenguji2", { npm: $("#npm-label").html(), waktu: waktu }, function (data) {
+
+            var get = "<option value='--'>--</option>";
+            $.each(data, function (index, value) {
+                get += "<option value='" + value.NIK + "'>" + value.nama + "</option>";
+            });
+            $("#selPenguji2").html(get);
+        });
+    }
+
+    $(document).ready(function () {
+
+        $("#selPenguji").bind("change", function () {
+            selPengujiChange();
         });
 
-//        $("#selTanggal").bind("change", function () {
-//            $.post("Query/GetDosenList", "", function (data) {
-//                var get = "";
-//                $.each(data, function (index, value) {
-//                    get += "<option value='" + value.nama + "'>" + value.nama + "</option>";
-//                });
-//                $("#selWaktu").html(get);
-//            });
-//        });
+        $("#selTanggal").bind("change", function () {
+            selTanggalChange();
+        });
 
         $("#selWaktu").bind("change", function () {
-            var values = {
-                waktu: $("#selWaktu").val()
-            };
-            $.post("SidangKoordinator/GetRuangKosong", values, function (data) {
-                var get = "";
-                $.each(data, function (index, value) {
-                    get += "<option value='" + value.id + "'>" + value.nama_ruang + "</option>";
-                });
-                $("#selRuang").html(get);
-            });
+            selWaktuChange();
         });
 
         $("#selRuang").bind("change", function () {
-            $.post("Query/GetDosenList", "", function (data) {
-                var get = "";
-                $.each(data, function (index, value) {
-                    get += "<option value='" + value.nama + "'>" + value.nama + "</option>";
-                });
-                $("#selPenguji2").html(get);
-            });
+            selRuangChange();
         });
+
     });
 
     function changeMode(num) {
@@ -145,6 +214,10 @@
         <tr>
             <td>Nama:</td>
             <td><span id="nama-label"></span></td>
+        </tr>
+        <tr>
+            <td>Topik:</td>
+            <td><span id="topik-label"></span></td>
         </tr>
         <tr>
             <td>Pembimbing:</td>
@@ -185,10 +258,10 @@
             <span>Penguji 1</span><br />
             <select size="10" id="selPenguji" style="width:100px"></select>
         </div>
-        <!--<div style="float:left;">
+        <div style="float:left;">
             <span>Tanggal</span><br />
             <select size="10" id="selTanggal" style="width:300px"></select>
-        </div>-->
+        </div>
         <div style="float:left;">
             <span>Waktu</span><br />
             <select size="10" id="selWaktu" style="width:100px"></select>

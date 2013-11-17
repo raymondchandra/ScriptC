@@ -43,6 +43,11 @@
                     <td>@ViewBag.npm</td>
                 </tr>
                 <tr>
+                    <td style="width: 75px;">Topik</td>
+                    <td style="width: 20px;">:</td>
+                    <td>@ViewBag.topik</td>
+                </tr>
+                <tr>
                     <td>Pembimbing</td>
                     <td>:</td>
                     <td>@ViewBag.pembimbing</td>
@@ -62,7 +67,7 @@
     <div id="openPanel">
         <input type="button" id="openButton" value="Mulai Sidang" class="t-button t-state-default"/>
     </div>
-    <div id="nilaiPanel" style="float: left; width: 550px;">
+    <div id="nilaiPanel" style="float: left; width: 550px;display:none;">
         @( Html.Telerik().TabStrip()
             .Name("SidangTab")
             .Items(parent => {

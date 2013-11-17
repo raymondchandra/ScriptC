@@ -81,7 +81,7 @@ namespace Proyek_Informatika.Controllers.Koordinator
             try
             {
                 db.SaveChanges();
-            }catch(Exception e){
+            }catch{
                 return false;
             }
             return success;
@@ -102,7 +102,7 @@ namespace Proyek_Informatika.Controllers.Koordinator
             {
                 db.SaveChanges();
             }
-            catch (Exception e)
+            catch 
             {
                 return false;  
             }
@@ -117,7 +117,7 @@ namespace Proyek_Informatika.Controllers.Koordinator
             {
                 db.SaveChanges();
             }
-            catch (Exception e)
+            catch
             {
                 return false;
             }

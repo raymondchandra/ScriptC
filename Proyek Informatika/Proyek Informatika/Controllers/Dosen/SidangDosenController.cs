@@ -26,6 +26,11 @@ namespace Proyek_Informatika.Controllers.Dosen
             return PartialView();
         }
 
+        public ActionResult Pengumpulan_Index()
+        {
+            return PartialView();
+        }
+
         public ActionResult Sidang_Index(string role, int skripsi_id)
         {
             ViewBag.role = role;
@@ -43,6 +48,7 @@ namespace Proyek_Informatika.Controllers.Dosen
             var a = db.mahasiswas.Where(x => x.NPM == resultList.NPM_mahasiswa).Select(y => y.nama).SingleOrDefault();
             ViewBag.npm = resultList.NPM_mahasiswa;
             ViewBag.nama = a;
+            //ViewBag.topik = ;
             ViewBag.pembimbing = db.dosens.Where(x => x.NIK == resultList.NIK_dosen_pembimbing).Select(y => y.nama).SingleOrDefault();
             ViewBag.penguji1 = db.dosens.Where(x => x.NIK == resultList.penguji1).Select(y => y.nama).SingleOrDefault();
 
@@ -82,6 +88,7 @@ namespace Proyek_Informatika.Controllers.Dosen
         {
             ViewBag.skripsi_id = skripsi_id;
             var jenis_skripsi_id = db.skripsis.Where(x => x.id == skripsi_id).Select(y => y.jenis).SingleOrDefault();
+            ViewBag.jenis_skripsi_id = jenis_skripsi_id;
             var jmlhNilai = db.nilais.Where(x=>x.id_skripsi == skripsi_id && x.kategori_nilai.tipe == "general" && x.submitted == 1).ToList();
             if (jenis_skripsi_id == 1 && jmlhNilai.Count == 1)
             {
@@ -99,14 +106,16 @@ namespace Proyek_Informatika.Controllers.Dosen
             ViewData["bobot2"] = this.GetBobotGeneral(jenis_skripsi_id);
             return PartialView();
         }
+
         [GridAction]
         public ActionResult _SelectPenilaianSidang()
         {
             var username = Session["username"].ToString();
             var id = db.dosens.Where(x => x.username == username).Select(y => y.NIK).SingleOrDefault();
+            var semester = int.Parse(Session["id-semester"].ToString());
             var resultList = (from table in db.sidangs
                               join table2 in db.skripsis on table.id_skripsi equals table2.id
-                              where ((table.penguji1 == id || table.penguji2 == id || table2.NIK_dosen_pembimbing == id) && table.akses !=2)
+                              where ((table.penguji1 == id || table.penguji2 == id || table2.NIK_dosen_pembimbing == id) && table.akses !=2 && table2.id_semester_pengambilan ==semester)
                               select new{
                                 table2.NPM_mahasiswa,
                                 table2.NIK_dosen_pembimbing,
@@ -215,6 +224,15 @@ namespace Proyek_Informatika.Controllers.Dosen
                 return false;
             }
         }
+
+        public double GetNilaiSkripsi1(int skripsi_id)
+        {
+            
+            var kategori = db.kategori_nilai.Where(x=>x.tipe == "general" && x.jenis_skripsi_id == 1 && x.kategori == "presentasi").Select(y=>y.id).SingleOrDefault();
+            var temp = db.nilais.Where(x => x.id_skripsi == skripsi_id && x.kategori == kategori).Select(y => y.angka).SingleOrDefault();
+            return temp;
+        }
+
         public List<Tuple<int, string, int, int>> GetBobotKategori(string role, int jenis_skripsi_id)
         {
             var listTemp = (from table in db.kategori_nilai
@@ -233,6 +251,7 @@ namespace Proyek_Informatika.Controllers.Dosen
                 
             }
             return listResult;
+   
         }
 
         public List<Tuple<int, string, int, double>> GetBobotGeneral(int jenis_skripsi_id)
@@ -244,21 +263,33 @@ namespace Proyek_Informatika.Controllers.Dosen
                                 table.kategori,table.bobot,table2.angka
                             }).ToList();
             List<Tuple<int, string, int, double>> listResult = new List<Tuple<int, string, int, double>>();
-            var a = listTemp.Where(x => x.kategori == "pembimbing").SingleOrDefault();
-            var b = listTemp.Where(x => x.kategori == "penguji1").SingleOrDefault();
-            var c = listTemp.Where(x => x.kategori == "penguji2").SingleOrDefault();
-            if (a != null)
+            if (jenis_skripsi_id == 1)
             {
-                listResult.Add(new Tuple<int, string, int, double>(1, a.kategori, a.bobot, a.angka));
+                var a = listTemp.Where(x => x.kategori == "presentasi").SingleOrDefault();
+                if (a != null)
+                {
+                    listResult.Add(new Tuple<int, string, int, double>(1, a.kategori, a.bobot, a.angka));
 
+                }
             }
-            if (b != null)
+            else if (jenis_skripsi_id == 2)
             {
-                listResult.Add(new Tuple<int, string, int, double>(2, b.kategori, b.bobot, b.angka));
-            }
-            if (c != null)
-            {
-                listResult.Add(new Tuple<int, string, int, double>(3, c.kategori, c.bobot, c.angka));
+                var a = listTemp.Where(x => x.kategori == "pembimbing").SingleOrDefault();
+                var b = listTemp.Where(x => x.kategori == "penguji1").SingleOrDefault();
+                var c = listTemp.Where(x => x.kategori == "penguji2").SingleOrDefault();
+                if (a != null)
+                {
+                    listResult.Add(new Tuple<int, string, int, double>(1, a.kategori, a.bobot, a.angka));
+
+                }
+                if (b != null)
+                {
+                    listResult.Add(new Tuple<int, string, int, double>(2, b.kategori, b.bobot, b.angka));
+                }
+                if (c != null)
+                {
+                    listResult.Add(new Tuple<int, string, int, double>(3, c.kategori, c.bobot, c.angka));
+                }
             }
             return listResult;
         }
@@ -279,6 +310,41 @@ namespace Proyek_Informatika.Controllers.Dosen
                 newNilai.NIK_pengisi = db.dosens.Where(x=>x.username == username).Select(y=>y.NIK).SingleOrDefault();
                 db.nilais.Add(newNilai);
             }else{
+                nilai newNilai = cekNilai.SingleOrDefault();
+                newNilai.angka = nilai;
+                db.Entry(newNilai).State = EntityState.Modified;
+            }
+            try
+            {
+                db.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+
+        public bool SimpanNilaiSkripsi1( float nilai, int skripsi_id)
+        {
+            var jenis_skripsi = db.skripsis.Where(x => x.id == skripsi_id).Select(y => y.jenis).SingleOrDefault();
+            var kategori = db.kategori_nilai.Where(x => x.jenis_skripsi_id == jenis_skripsi && x.tipe=="general" && x.kategori =="presentasi").Select(y => y.id).SingleOrDefault();
+            var cekNilai = (from table in db.nilais
+                            where (table.kategori == kategori && table.id_skripsi == skripsi_id)
+                            select table).ToList();
+            if (cekNilai.Count == 0)
+            {
+                nilai newNilai = new nilai();
+                newNilai.angka = nilai;
+                newNilai.kategori = kategori;
+                newNilai.id_skripsi = skripsi_id;
+                var username = Session["username"].ToString();
+                newNilai.NIK_pengisi = db.dosens.Where(x => x.username == username).Select(y => y.NIK).SingleOrDefault();
+                db.nilais.Add(newNilai);
+            }
+            else
+            {
                 nilai newNilai = cekNilai.SingleOrDefault();
                 newNilai.angka = nilai;
                 db.Entry(newNilai).State = EntityState.Modified;

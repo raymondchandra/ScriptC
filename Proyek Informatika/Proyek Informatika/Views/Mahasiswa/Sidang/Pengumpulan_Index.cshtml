@@ -1,0 +1,13 @@
+﻿
+    <script>
+        $(document).ready(function () {
+            $.post("Sidang/Pengumpulan", { tipeId: '@ViewBag.tipeId' }, function (data) {
+                $("#jadwalPengumpulan").html(data);
+            });
+        });
+    </script>
+    
+    <div class="layer">
+    <h1>Pengumpulan Jadwal Tidak Kosong</h1>
+    <div id="jadwalPengumpulan"></div>
+</div>

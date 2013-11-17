@@ -14,12 +14,19 @@ namespace Proyek_Informatika.Models
     
     public partial class periode_sidang
     {
+        public periode_sidang()
+        {
+            this.jadwal_tidak_kosong = new HashSet<jadwal_tidak_kosong>();
+        }
+    
         public int id { get; set; }
         public int semester_id { get; set; }
         public string tipe_sidang { get; set; }
         public System.DateTime start_date { get; set; }
         public System.DateTime end_date { get; set; }
+        public string status { get; set; }
     
+        public virtual ICollection<jadwal_tidak_kosong> jadwal_tidak_kosong { get; set; }
         public virtual semester semester { get; set; }
     }
 }

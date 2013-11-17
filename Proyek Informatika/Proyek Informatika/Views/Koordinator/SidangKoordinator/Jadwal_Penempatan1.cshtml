@@ -4,20 +4,17 @@
             var detailWindow = $("#editPopUp").data("tWindow");
             detailWindow.center().open();
             $("#npm-label").html(e.response.npm);
+            $("#topik-label").html(e.response.topik);
             $("#nama-label").html(e.response.nama);
             $("#pembimbing-label").html(e.response.pembimbing);
             init();
         } else if(e.name=="Reset"){
-            alert("hahahahaha");
+            alert("Jadwal telah direset");
         }
     }
 </script>
 
 <h3>Penempatan Mahasiswa</h3>
-@{
-    if (ViewBag.show)
-    {
-        <text>
         @(Html.Telerik().Grid<Proyek_Informatika.Models.mahasiswa>()
             .HtmlAttributes(new { style = "width:100%" })
             .Name("PengaturanJadwal")
@@ -63,12 +60,5 @@
             .Modal(true)
             .Scrollable(true)
             .LoadContentFrom("Jadwal_Penempatan_PopUp", "SidangKoordinator"))
-        </text>   
-    }else{
-        <text>
-            <p>
-                Tidak bs menempatkan di bukan semester.. blablaballallala
-            </p>
-        </text> 
-    }
-}
+    
+

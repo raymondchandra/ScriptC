@@ -11,6 +11,20 @@ namespace Proyek_Informatika.Controllers.Utilities
     {
         private SkripsiAutoContainer db = new SkripsiAutoContainer();
         
+
+        public static bool IsAktif(string username){
+            SkripsiAutoContainer db = new SkripsiAutoContainer();
+            var check = db.mahasiswas.Where(x => x.username == username).ToList() ;
+            if (check.Count != 1)
+            {
+                return false;
+            }
+            else
+            {
+                var getRow = check.SingleOrDefault();
+                return (getRow.status == "aktif");
+            }
+        }
         [HttpPost]
         public JsonResult GetDosenList()
         {

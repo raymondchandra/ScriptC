@@ -8,12 +8,18 @@
         hitungPersentase("penguji");
     });
 
-    function OnCompletePembimbing() {
+    function OnCompletePembimbing(e) {
+        if (e.name == "update") {
+            $("#KategoriPembimbing .t-refresh").trigger('click');
+        }
         hitungPersentase("pembimbing");
     }
 
-    function OnCompletePenguji() {
-        hitungPersentase("penguji");
+    function OnCompletePenguji(e) {
+        if (e.name == "update") {
+            $("#KategoriPenguji .t-refresh").trigger('click');
+        }
+         hitungPersentase("penguji");
     }
 
     function getBobot(pemberiNilai) {
@@ -28,14 +34,16 @@
         $.post("SidangKoordinator/GetBobot", { tipe: tipe, jenis_skripsi_id: 2 }, function (data) {
             $("#textBobot" + pemberiNilai).val(data);
             $("#labelBobot" + pemberiNilai).html(data);
+            $("#labelBobot" + pemberiNilai).show();
+            $("#imgBobot" + pemberiNilai).hide();
             hitungTotal();
         });
     }
     function hitungPersentase(pemberiNilai) {
         $.post("SidangKoordinator/HitungPersentase", { pemberiNilai: pemberiNilai, skripsi: 2 }, function (data) {
-            if (data > 100) {
-                alert("Persentase Bobot tidak boleh melebihi 100 %");
-            }
+//            if (data > 100) {
+//                alert("Persentase Bobot tidak boleh melebihi 100 %");
+//            }
             if (pemberiNilai == "pembimbing") {
                 $("#totalBobotPembimbing").html(data + " %");
             } else if (pemberiNilai == "penguji") {
@@ -50,7 +58,6 @@
             $("#labelBobot" + pemberiNilai).hide();
             $("#save" + pemberiNilai).val("Simpan");
         } else if ($("#save" + pemberiNilai).val() == "Simpan") {
-            debugger;
             $("#textBobot" + pemberiNilai).hide();
             $("#labelBobot" + pemberiNilai).show();
             $("#save" + pemberiNilai).val("Ubah");
@@ -72,19 +79,23 @@
                 if (data == "True") {
                     $("#labelBobot" + pemberiNilai).html($("#textBobot" + pemberiNilai).val());
                 } else {
+                    alert("Komposisi Nilai tidak boleh melebihi 100 %");
                     $("#textBobot" + pemberiNilai).val($("#labelBobot" + pemberiNilai).html());
                 }
+                hitungTotal();
             });
-            hitungTotal();
+            
         }
     }
 
     function hitungTotal() {
         var result = parseInt($("#textBobot1").val()) + parseInt($("#textBobot2").val()) + parseInt($("#textBobot3").val());
-        $("#totalBobot").html(result);
-        if (result > 100) {
-            alert("Komposisi Nilai tidak boleh melebihi 100 %");
+        if (!isNaN(result)) {
+            $("#totalBobot").html(result);
         }
+//        if (result > 100) {
+//            alert("Komposisi Nilai tidak boleh melebihi 100 %");
+//        }
     }
 </script>
 <h2>
@@ -107,8 +118,9 @@
                     Pembimbing</label>
             </td>
             <td class="txtcenter">
-                <span id="labelBobot1"></span>
+                <span id="labelBobot1" style="display:none;"></span>
                 <input type="text" id="textBobot1" style="display: none;" class="grid_14"/>
+                <img src="@Url.Content("~/Content/images/loading.gif")" id="imgBobot1" alt="load" />
             </td>
             <td class="txtcenter">
                 <input type="button" id="save1" value="Ubah" onclick="turnEditing(1)" style="width: 70px;" class="t-button"/>
@@ -120,8 +132,9 @@
                     Penguji 1</label>
             </td>
             <td class="txtcenter">
-                <span id="labelBobot2"></span>
+                <span id="labelBobot2" style="display:none;"></span>
                 <input type="text" id="textBobot2" style="display: none;" class="grid_14"/>
+                <img src="@Url.Content("~/Content/images/loading.gif")" id="imgBobot2" alt="load" />
             </td>
             <td class="txtcenter">
                 <input type="button" id="save2" value="Ubah" onclick="turnEditing(2)" style="width: 70px;" class="t-button"/>
@@ -133,8 +146,9 @@
                     Penguji 2</label>
             </td>
             <td class="txtcenter">
-                <span id="labelBobot3"></span>
+                <span id="labelBobot3" style="display:none;"></span>
                 <input type="text" id="textBobot3" style="display: none;" class="grid_14"/>
+                <img src="@Url.Content("~/Content/images/loading.gif")" id="imgBobot3" alt="load" />
             </td>
             <td class="txtcenter">
                 <input type="button" id="save3" value="Ubah" onclick="turnEditing(3)" style="width: 70px;" class="t-button"/>
@@ -145,6 +159,7 @@
                 Total
             </td>
             <td id="totalBobot">
+                <img src="@Url.Content("~/Content/images/loading.gif")" id="imgBobot" alt="load" />
             </td>
             <td>
             </td>

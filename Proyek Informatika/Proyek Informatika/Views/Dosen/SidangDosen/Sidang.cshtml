@@ -39,22 +39,47 @@
 
     function save(){
         var success = true;
-        for (var i = 1; i <= @count; i++) {
-            if(!isNaN(parseFloat($("#total" + i).html()))){
 
-                var values = {
-                    nilai : parseFloat($("#total" + i).html()),
-                    skripsi_id : '@ViewBag.skripsi_id',
-                    urutan : i
-                };
-                $.post("SidangDosen/SimpanNilai",values,function(data){
-                    itt++;
-                    if(itt==@count){
-                        hitungTotal();
+        @{
+            if(ViewBag.jenis_skripsi == 1){
+                <text>
+                    var nilai = $("#skripsi1Input").val();
+                    if(!isNaN(parseFloat(nilai))){
+
+                        var values = {
+                            nilai : parseFloat(nilai),
+                            skripsi_id : '@ViewBag.skripsi_id'
+                        };
+                        $.post("SidangDosen/SimpanNilaiSkripsi1",values,function(data){
+                           //alert(data);
+                        });
+                    }else{
+                        success = false;
                     }
-                });
-            }else{
-                success = false;
+                </text>
+            }
+            else if (ViewBag.jenis_skripsi == 2)
+            {
+                <text>
+                    for (var i = 1; i <= @count; i++) {
+                        if(!isNaN(parseFloat($("#total" + i).html()))){
+
+                            var values = {
+                                nilai : parseFloat($("#total" + i).html()),
+                                skripsi_id : '@ViewBag.skripsi_id',
+                                urutan : i
+                            };
+                            $.post("SidangDosen/SimpanNilai",values,function(data){
+                                itt++;
+                                if(itt==@count){
+                                    hitungTotal();
+                                }
+                            });
+                        }else{
+                            success = false;
+                        }
+                    }
+                </text>
             }
         }
         if(success){
@@ -97,11 +122,26 @@
                     $("#tab1").html("Dosen reviewer tidak dapat memberi nilai.");
                 </text>
             }
+            if(ViewBag.jenis_skripsi == 1){
+                <text>
+                    $("#skripsi1").show();
+
+                    $.post("SidangDosen/GetNilaiSkripsi1",{skripsi_id : @ViewBag.skripsi_id},function(data){
+                        $("#skripsi1Input").val(data);
+                    });
+                </text>
+            }else if(ViewBag.jenis_skripsi == 2){
+                <text>
+                    $("#skripsi2").show();
+                </text>
+            }
         }
+
+        
     });
 </script>
 <div id="tab1">
-    <table>
+    <table id="skripsi2" style="display:none;">
         <tr>
             <th style="width:175px">Komponen Penilaian</th>
             <th style="width:80px">Nilai</th>
@@ -131,6 +171,12 @@
             <th id="total"></th>
         </tr>
     </table><br>
+    <table id="skripsi1" style="display:none;">
+        <tr>
+            <th>Nilai :</th>
+            <th><input type="text" id="skripsi1Input" name="skripsi1Input"/></th>
+        </tr>
+    </table>
     <input type="button" class="t-button t-state-default" id="submitButton" value="Kirim" />&nbsp 
     <input type="button" class="t-button t-state-default" id="saveButton" value="Simpan" />&nbsp 
     <input type="button" class="t-button t-state-default" id="backButton" value="Kembali" />
