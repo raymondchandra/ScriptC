@@ -1,6 +1,6 @@
 USE [skripsi_automation]
 GO
-/****** Object:  Table [dbo].[semester]    Script Date: 11/15/2013 19:24:57 ******/
+/****** Object:  Table [dbo].[semester]    Script Date: 11/18/2013 12:55:34 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -27,7 +27,7 @@ INSERT [dbo].[semester] ([id], [periode_semester], [isCurrent]) VALUES (4, N'Gan
 INSERT [dbo].[semester] ([id], [periode_semester], [isCurrent]) VALUES (5, N'Genap 2014/2015', 0)
 INSERT [dbo].[semester] ([id], [periode_semester], [isCurrent]) VALUES (6, N'Ganjil 2015/2016', 0)
 SET IDENTITY_INSERT [dbo].[semester] OFF
-/****** Object:  Table [dbo].[ruang]    Script Date: 11/15/2013 19:24:57 ******/
+/****** Object:  Table [dbo].[ruang]    Script Date: 11/18/2013 12:55:34 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -49,7 +49,7 @@ SET IDENTITY_INSERT [dbo].[ruang] ON
 INSERT [dbo].[ruang] ([id], [nama_ruang]) VALUES (1, N'9114')
 INSERT [dbo].[ruang] ([id], [nama_ruang]) VALUES (2, N'9014')
 SET IDENTITY_INSERT [dbo].[ruang] OFF
-/****** Object:  Table [dbo].[peran]    Script Date: 11/15/2013 19:24:57 ******/
+/****** Object:  Table [dbo].[peran]    Script Date: 11/18/2013 12:55:34 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -72,7 +72,7 @@ INSERT [dbo].[peran] ([id], [nama_peran]) VALUES (1, N'koordinator')
 INSERT [dbo].[peran] ([id], [nama_peran]) VALUES (2, N'dosen')
 INSERT [dbo].[peran] ([id], [nama_peran]) VALUES (3, N'mahasiswa')
 SET IDENTITY_INSERT [dbo].[peran] OFF
-/****** Object:  Table [dbo].[file]    Script Date: 11/15/2013 19:24:57 ******/
+/****** Object:  Table [dbo].[file]    Script Date: 11/18/2013 12:55:34 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -94,7 +94,7 @@ GO
 SET IDENTITY_INSERT [dbo].[file] ON
 INSERT [dbo].[file] ([id_file], [nama_file], [path]) VALUES (1, N'tes', N'benchbook.pdf')
 SET IDENTITY_INSERT [dbo].[file] OFF
-/****** Object:  Table [dbo].[jenis_skripsi]    Script Date: 11/15/2013 19:24:57 ******/
+/****** Object:  Table [dbo].[jenis_skripsi]    Script Date: 11/18/2013 12:55:34 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -116,7 +116,7 @@ SET IDENTITY_INSERT [dbo].[jenis_skripsi] ON
 INSERT [dbo].[jenis_skripsi] ([id], [nama_jenis]) VALUES (1, N'Skripsi 1')
 INSERT [dbo].[jenis_skripsi] ([id], [nama_jenis]) VALUES (2, N'Skripsi 2')
 SET IDENTITY_INSERT [dbo].[jenis_skripsi] OFF
-/****** Object:  Table [dbo].[periode_sidang]    Script Date: 11/15/2013 19:24:57 ******/
+/****** Object:  Table [dbo].[periode_sidang]    Script Date: 11/18/2013 12:55:34 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -141,7 +141,7 @@ GO
 SET IDENTITY_INSERT [dbo].[periode_sidang] ON
 INSERT [dbo].[periode_sidang] ([id], [semester_id], [tipe_sidang], [start_date], [end_date], [status]) VALUES (1, 2, N'Presentasi', CAST(0x0000A26900000000 AS DateTime), CAST(0x0000A27700000000 AS DateTime), NULL)
 SET IDENTITY_INSERT [dbo].[periode_sidang] OFF
-/****** Object:  Table [dbo].[kategori_nilai]    Script Date: 11/15/2013 19:24:57 ******/
+/****** Object:  Table [dbo].[kategori_nilai]    Script Date: 11/18/2013 12:55:34 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -168,15 +168,22 @@ INSERT [dbo].[kategori_nilai] ([id], [urutan], [kategori], [bobot], [tipe], [jen
 INSERT [dbo].[kategori_nilai] ([id], [urutan], [kategori], [bobot], [tipe], [jenis_skripsi_id]) VALUES (2, 2, N'Kelengkapan Materi', 20, N'pembimbing', 1)
 INSERT [dbo].[kategori_nilai] ([id], [urutan], [kategori], [bobot], [tipe], [jenis_skripsi_id]) VALUES (3, 3, N'Penguasaan Materi', 30, N'pembimbing', 1)
 INSERT [dbo].[kategori_nilai] ([id], [urutan], [kategori], [bobot], [tipe], [jenis_skripsi_id]) VALUES (4, 4, N'Proses Bimbingan', 30, N'pembimbing', 1)
-INSERT [dbo].[kategori_nilai] ([id], [urutan], [kategori], [bobot], [tipe], [jenis_skripsi_id]) VALUES (5, NULL, N'pembimbing', 20, N'general', 1)
+INSERT [dbo].[kategori_nilai] ([id], [urutan], [kategori], [bobot], [tipe], [jenis_skripsi_id]) VALUES (5, NULL, N'pembimbing', 0, N'general', 1)
 INSERT [dbo].[kategori_nilai] ([id], [urutan], [kategori], [bobot], [tipe], [jenis_skripsi_id]) VALUES (6, NULL, N'pembimbing', 20, N'general', 2)
 INSERT [dbo].[kategori_nilai] ([id], [urutan], [kategori], [bobot], [tipe], [jenis_skripsi_id]) VALUES (9, NULL, N'penguji1', 40, N'general', 2)
 INSERT [dbo].[kategori_nilai] ([id], [urutan], [kategori], [bobot], [tipe], [jenis_skripsi_id]) VALUES (10, NULL, N'penguji2', 40, N'general', 2)
 INSERT [dbo].[kategori_nilai] ([id], [urutan], [kategori], [bobot], [tipe], [jenis_skripsi_id]) VALUES (12, NULL, N'nilaiAkhir', 100, N'final', 1)
 INSERT [dbo].[kategori_nilai] ([id], [urutan], [kategori], [bobot], [tipe], [jenis_skripsi_id]) VALUES (13, NULL, N'nilaiAkhir', 100, N'final', 2)
-INSERT [dbo].[kategori_nilai] ([id], [urutan], [kategori], [bobot], [tipe], [jenis_skripsi_id]) VALUES (14, 1, N'Tata tulis', 20, N'pembimbing', 2)
+INSERT [dbo].[kategori_nilai] ([id], [urutan], [kategori], [bobot], [tipe], [jenis_skripsi_id]) VALUES (14, 1, N'Tata tulis', 11, N'pembimbing', 2)
+INSERT [dbo].[kategori_nilai] ([id], [urutan], [kategori], [bobot], [tipe], [jenis_skripsi_id]) VALUES (15, NULL, N'report1', 48, N'general', 1)
+INSERT [dbo].[kategori_nilai] ([id], [urutan], [kategori], [bobot], [tipe], [jenis_skripsi_id]) VALUES (16, NULL, N'report2', 10, N'general', 1)
+INSERT [dbo].[kategori_nilai] ([id], [urutan], [kategori], [bobot], [tipe], [jenis_skripsi_id]) VALUES (17, NULL, N'presentasi', 10, N'general', 1)
+INSERT [dbo].[kategori_nilai] ([id], [urutan], [kategori], [bobot], [tipe], [jenis_skripsi_id]) VALUES (18, 2, N'a', 27, N'pembimbing', 2)
+INSERT [dbo].[kategori_nilai] ([id], [urutan], [kategori], [bobot], [tipe], [jenis_skripsi_id]) VALUES (19, 3, N'asdf', 44, N'pembimbing', 2)
+INSERT [dbo].[kategori_nilai] ([id], [urutan], [kategori], [bobot], [tipe], [jenis_skripsi_id]) VALUES (20, 4, N'fff', 10, N'pembimbing', 2)
+INSERT [dbo].[kategori_nilai] ([id], [urutan], [kategori], [bobot], [tipe], [jenis_skripsi_id]) VALUES (21, 5, N'asdf', 3, N'pembimbing', 2)
 SET IDENTITY_INSERT [dbo].[kategori_nilai] OFF
-/****** Object:  Table [dbo].[jadwal_semester]    Script Date: 11/15/2013 19:24:57 ******/
+/****** Object:  Table [dbo].[jadwal_semester]    Script Date: 11/18/2013 12:55:34 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -201,7 +208,7 @@ SET IDENTITY_INSERT [dbo].[jadwal_semester] ON
 INSERT [dbo].[jadwal_semester] ([id], [tanggal], [isi], [id_semester], [jenis_skripsi_id]) VALUES (1, CAST(0x0000A26D00000000 AS DateTime), N'test', 5, 1)
 INSERT [dbo].[jadwal_semester] ([id], [tanggal], [isi], [id_semester], [jenis_skripsi_id]) VALUES (2, CAST(0x0000A27700000000 AS DateTime), N'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 5, 1)
 SET IDENTITY_INSERT [dbo].[jadwal_semester] OFF
-/****** Object:  Table [dbo].[akun]    Script Date: 11/15/2013 19:24:57 ******/
+/****** Object:  Table [dbo].[akun]    Script Date: 11/18/2013 12:55:34 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -222,13 +229,14 @@ CREATE TABLE [dbo].[akun](
 GO
 SET ANSI_PADDING OFF
 GO
-INSERT [dbo].[akun] ([username], [password], [aktif], [last_login], [peran]) VALUES (N'2010730069', N'dc647eb65e6711e155375218212b3964', 1, CAST(0x0000A277013F0774 AS DateTime), 3)
+INSERT [dbo].[akun] ([username], [password], [aktif], [last_login], [peran]) VALUES (N'2010730069', N'dc647eb65e6711e155375218212b3964', 1, CAST(0x0000A27800B57F92 AS DateTime), 3)
 INSERT [dbo].[akun] ([username], [password], [aktif], [last_login], [peran]) VALUES (N'2010730070', N'dc647eb65e6711e155375218212b3964', 1, CAST(0x0000A275010066A4 AS DateTime), 3)
-INSERT [dbo].[akun] ([username], [password], [aktif], [last_login], [peran]) VALUES (N'Admin', N'dc647eb65e6711e155375218212b3964', 1, CAST(0x0000A27400EDC767 AS DateTime), 1)
+INSERT [dbo].[akun] ([username], [password], [aktif], [last_login], [peran]) VALUES (N'7310071', N'3dfeaa4a4bb49edc11a28359dad242fe', 1, NULL, 3)
+INSERT [dbo].[akun] ([username], [password], [aktif], [last_login], [peran]) VALUES (N'Admin', N'dc647eb65e6711e155375218212b3964', 1, CAST(0x0000A27901152B7A AS DateTime), 1)
 INSERT [dbo].[akun] ([username], [password], [aktif], [last_login], [peran]) VALUES (N'Chyntia', N'dc647eb65e6711e155375218212b3964', 1, CAST(0x0000A269008AEE3F AS DateTime), 3)
-INSERT [dbo].[akun] ([username], [password], [aktif], [last_login], [peran]) VALUES (N'Lionov', N'dc647eb65e6711e155375218212b3964', 1, CAST(0x0000A27700F0D571 AS DateTime), 2)
+INSERT [dbo].[akun] ([username], [password], [aktif], [last_login], [peran]) VALUES (N'Lionov', N'dc647eb65e6711e155375218212b3964', 1, CAST(0x0000A27900F193C9 AS DateTime), 2)
 INSERT [dbo].[akun] ([username], [password], [aktif], [last_login], [peran]) VALUES (N'Verliyantina', N'dc647eb65e6711e155375218212b3964', 1, CAST(0x0000A27400ECA311 AS DateTime), 2)
-/****** Object:  Table [dbo].[mahasiswa]    Script Date: 11/15/2013 19:24:57 ******/
+/****** Object:  Table [dbo].[mahasiswa]    Script Date: 11/18/2013 12:55:34 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -253,8 +261,9 @@ SET ANSI_PADDING OFF
 GO
 INSERT [dbo].[mahasiswa] ([NPM], [nama], [email], [nomor_telepon], [foto], [username], [status]) VALUES (N'2010730069', N' ', N'2010730069@student.unpar.ac.id', NULL, NULL, N'2010730069', N'aktif')
 INSERT [dbo].[mahasiswa] ([NPM], [nama], [email], [nomor_telepon], [foto], [username], [status]) VALUES (N'2010730070', N' ', N'2010730070@student.unpar.ac.id', NULL, NULL, N'2010730070', N'nonaktif')
+INSERT [dbo].[mahasiswa] ([NPM], [nama], [email], [nomor_telepon], [foto], [username], [status]) VALUES (N'2010730071', N' ', N'7310071@student.unpar.ac.id', NULL, NULL, N'7310071', N'nonaktif')
 INSERT [dbo].[mahasiswa] ([NPM], [nama], [email], [nomor_telepon], [foto], [username], [status]) VALUES (N'2011730057', N'Chyntia Dewi', N'7311057@student.unpar.ac.id', N'12345678', N'img', N'Chyntia', N'aktif')
-/****** Object:  Table [dbo].[pengumuman]    Script Date: 11/15/2013 19:24:57 ******/
+/****** Object:  Table [dbo].[pengumuman]    Script Date: 11/18/2013 12:55:34 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -282,7 +291,7 @@ INSERT [dbo].[pengumuman] ([id], [tanggal], [isi], [target], [judul], [pembuat])
 INSERT [dbo].[pengumuman] ([id], [tanggal], [isi], [target], [judul], [pembuat]) VALUES (34, CAST(0x0000A27100B0A13F AS DateTime), N'<p>Jadwal presentasi kemajuan skripsi 1 sudah dipos di website ini. Harap mahasiswa skripsi 1 dan para dosen melihat pengumuman tersebut.&nbsp;</p><ul style="font-family:Arial, Helvetica, sans;font-size:11px;line-height:normal;text-align:justify;"><li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li><li>Mauris nec metus lacinia, iaculis ipsum ac, tempus dui.</li></ul><p></p>', 10, N'Jadwal Presentasi Kemajuan Skripsi 1', N'Admin')
 INSERT [dbo].[pengumuman] ([id], [tanggal], [isi], [target], [judul], [pembuat]) VALUES (35, CAST(0x0000A27100B14939 AS DateTime), N'<p>Dear mahasiswa,</p><p>Mohon maaf karena bimbingan minggu ini terpaksa ditiadakan berkaitan dengan adanya seminar. Bimbingan minggu depan akan berlangsung seperti biasa.</p><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>', 6, N'Bimbingan Minggu ini Ditiadakan', N'Verliyantina')
 SET IDENTITY_INSERT [dbo].[pengumuman] OFF
-/****** Object:  Table [dbo].[jadwal_tidak_kosong]    Script Date: 11/15/2013 19:24:57 ******/
+/****** Object:  Table [dbo].[jadwal_tidak_kosong]    Script Date: 11/18/2013 12:55:34 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -309,7 +318,7 @@ SET IDENTITY_INSERT [dbo].[jadwal_tidak_kosong] ON
 INSERT [dbo].[jadwal_tidak_kosong] ([id], [username], [tanggal_mulai], [tanggal_selesai], [text], [description], [periode_sidang_id]) VALUES (5, N'2010730069', CAST(0x0000A269009C8E20 AS DateTime), CAST(0x0000A269009DEDB0 AS DateTime), N'New event', NULL, 1)
 INSERT [dbo].[jadwal_tidak_kosong] ([id], [username], [tanggal_mulai], [tanggal_selesai], [text], [description], [periode_sidang_id]) VALUES (6, N'Lionov', CAST(0x0000A269008D72F0 AS DateTime), CAST(0x0000A269008ED280 AS DateTime), N'New event', NULL, 1)
 SET IDENTITY_INSERT [dbo].[jadwal_tidak_kosong] OFF
-/****** Object:  Table [dbo].[dosen]    Script Date: 11/15/2013 19:24:57 ******/
+/****** Object:  Table [dbo].[dosen]    Script Date: 11/18/2013 12:55:34 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -332,7 +341,7 @@ SET ANSI_PADDING OFF
 GO
 INSERT [dbo].[dosen] ([NIK], [nama], [username], [email], [foto]) VALUES (N'11252', N'Lionov Without Last Name', N'Lionov', N'lionov@gmail.com', NULL)
 INSERT [dbo].[dosen] ([NIK], [nama], [username], [email], [foto]) VALUES (N'20100001', N'Verliyantina, S. Kom., M. T.', N'Verliyantina', N'verliyantina@gmail.com', NULL)
-/****** Object:  Table [dbo].[calendar_event]    Script Date: 11/15/2013 19:24:57 ******/
+/****** Object:  Table [dbo].[calendar_event]    Script Date: 11/18/2013 12:55:34 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -359,8 +368,10 @@ SET ANSI_PADDING OFF
 GO
 SET IDENTITY_INSERT [dbo].[calendar_event] ON
 INSERT [dbo].[calendar_event] ([id], [text], [description], [start_date], [end_date], [username], [place], [priority], [type]) VALUES (1, N'New event', NULL, CAST(0x0000A2750032CFD0 AS DateTime), CAST(0x0000A27500342F60 AS DateTime), N'Verliyantina', NULL, NULL, N'')
+INSERT [dbo].[calendar_event] ([id], [text], [description], [start_date], [end_date], [username], [place], [priority], [type]) VALUES (2, N'New event', N'', CAST(0x0000A27600000000 AS DateTime), CAST(0x0000A27600015F90 AS DateTime), N'Lionov', N'', N'high', N'')
+INSERT [dbo].[calendar_event] ([id], [text], [description], [start_date], [end_date], [username], [place], [priority], [type]) VALUES (3, N'New event', NULL, CAST(0x0000A276002932E0 AS DateTime), CAST(0x0000A276002A9270 AS DateTime), N'Lionov', NULL, NULL, N'')
 SET IDENTITY_INSERT [dbo].[calendar_event] OFF
-/****** Object:  Table [dbo].[pesanan_bimbingan]    Script Date: 11/15/2013 19:24:57 ******/
+/****** Object:  Table [dbo].[pesanan_bimbingan]    Script Date: 11/18/2013 12:55:34 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -369,11 +380,11 @@ SET ANSI_PADDING ON
 GO
 CREATE TABLE [dbo].[pesanan_bimbingan](
 	[id] [int] IDENTITY(1,1) NOT NULL,
-	[setuju] [int] NULL,
+	[setuju] [varchar](50) NOT NULL,
 	[NIK_dosen] [varchar](15) NOT NULL,
 	[NPM_mahasiswa] [varchar](15) NOT NULL,
 	[tanggal_mulai] [datetime] NOT NULL,
-	[tanggal_selesai] [datetime] NULL,
+	[tanggal_selesai] [datetime] NOT NULL,
 	[text] [varchar](1000) NULL,
 	[description] [varchar](1000) NULL,
  CONSTRAINT [pk_id] PRIMARY KEY CLUSTERED 
@@ -384,7 +395,12 @@ CREATE TABLE [dbo].[pesanan_bimbingan](
 GO
 SET ANSI_PADDING OFF
 GO
-/****** Object:  Table [dbo].[topik]    Script Date: 11/15/2013 19:24:57 ******/
+SET IDENTITY_INSERT [dbo].[pesanan_bimbingan] ON
+INSERT [dbo].[pesanan_bimbingan] ([id], [setuju], [NIK_dosen], [NPM_mahasiswa], [tanggal_mulai], [tanggal_selesai], [text], [description]) VALUES (7, N'menunggu', N'11252', N'2010730069', CAST(0x0000A27601038D50 AS DateTime), CAST(0x0000A2760104ECE0 AS DateTime), N'New event', NULL)
+INSERT [dbo].[pesanan_bimbingan] ([id], [setuju], [NIK_dosen], [NPM_mahasiswa], [tanggal_mulai], [tanggal_selesai], [text], [description]) VALUES (14, N'menunggu', N'11252', N'2010730069', CAST(0x0000A27C00903210 AS DateTime), CAST(0x0000A27C009191A0 AS DateTime), N'New event', N'null')
+INSERT [dbo].[pesanan_bimbingan] ([id], [setuju], [NIK_dosen], [NPM_mahasiswa], [tanggal_mulai], [tanggal_selesai], [text], [description]) VALUES (15, N'menunggu', N'11252', N'2010730069', CAST(0x0000A27B0092F130 AS DateTime), CAST(0x0000A27B009450C0 AS DateTime), N'New event', N'null')
+SET IDENTITY_INSERT [dbo].[pesanan_bimbingan] OFF
+/****** Object:  Table [dbo].[topik]    Script Date: 11/18/2013 12:55:34 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -411,9 +427,9 @@ INSERT [dbo].[topik] ([id], [judul], [deskripsi], [keterangan], [NIK_pembimbing]
 INSERT [dbo].[topik] ([id], [judul], [deskripsi], [keterangan], [NIK_pembimbing], [id_semester]) VALUES (2, N'Median Trajectories', N'Median Trajectories adalah algoritma yang...', N'tersedia', N'11252', 1)
 INSERT [dbo].[topik] ([id], [judul], [deskripsi], [keterangan], [NIK_pembimbing], [id_semester]) VALUES (3, N'Voronoi diagram', N'lorem ipsum', N'tidak tersedia', N'11252', 2)
 INSERT [dbo].[topik] ([id], [judul], [deskripsi], [keterangan], [NIK_pembimbing], [id_semester]) VALUES (4, N'bikin topik baru', NULL, N'tidak tersedia', N'11252', 2)
-INSERT [dbo].[topik] ([id], [judul], [deskripsi], [keterangan], [NIK_pembimbing], [id_semester]) VALUES (5, N'test', N'a', N'tersedia', N'11252', 2)
+INSERT [dbo].[topik] ([id], [judul], [deskripsi], [keterangan], [NIK_pembimbing], [id_semester]) VALUES (5, N'testa', N'a', N'tidak tersedia', N'11252', 2)
 SET IDENTITY_INSERT [dbo].[topik] OFF
-/****** Object:  Table [dbo].[skripsi]    Script Date: 11/15/2013 19:24:57 ******/
+/****** Object:  Table [dbo].[skripsi]    Script Date: 11/18/2013 12:55:34 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -440,8 +456,9 @@ GO
 SET IDENTITY_INSERT [dbo].[skripsi] ON
 INSERT [dbo].[skripsi] ([id], [jenis], [pengambilan_ke], [NIK_dosen_pembimbing], [NPM_mahasiswa], [id_semester_pengambilan], [id_topik], [nilai_akhir]) VALUES (1, 1, 1, N'11252', N'2010730069', 2, 3, NULL)
 INSERT [dbo].[skripsi] ([id], [jenis], [pengambilan_ke], [NIK_dosen_pembimbing], [NPM_mahasiswa], [id_semester_pengambilan], [id_topik], [nilai_akhir]) VALUES (2, 1, 1, N'11252', N'2010730070', 2, 4, NULL)
+INSERT [dbo].[skripsi] ([id], [jenis], [pengambilan_ke], [NIK_dosen_pembimbing], [NPM_mahasiswa], [id_semester_pengambilan], [id_topik], [nilai_akhir]) VALUES (3, 1, 1, N'11252', N'2010730071', 2, 5, NULL)
 SET IDENTITY_INSERT [dbo].[skripsi] OFF
-/****** Object:  Table [dbo].[sidang]    Script Date: 11/15/2013 19:24:57 ******/
+/****** Object:  Table [dbo].[sidang]    Script Date: 11/18/2013 12:55:34 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -465,9 +482,9 @@ GO
 SET ANSI_PADDING OFF
 GO
 SET IDENTITY_INSERT [dbo].[sidang] ON
-INSERT [dbo].[sidang] ([id], [tanggal], [ruang], [id_skripsi], [penguji1], [penguji2], [akses]) VALUES (5, CAST(0x0000A26900000000 AS DateTime), 1, 1, N'20100001', NULL, 2)
+INSERT [dbo].[sidang] ([id], [tanggal], [ruang], [id_skripsi], [penguji1], [penguji2], [akses]) VALUES (6, CAST(0x0000A26A009450C0 AS DateTime), 2, 1, N'20100001', NULL, 2)
 SET IDENTITY_INSERT [dbo].[sidang] OFF
-/****** Object:  Table [dbo].[bimbingan]    Script Date: 11/15/2013 19:24:57 ******/
+/****** Object:  Table [dbo].[bimbingan]    Script Date: 11/18/2013 12:55:34 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -491,7 +508,7 @@ GO
 SET IDENTITY_INSERT [dbo].[bimbingan] ON
 INSERT [dbo].[bimbingan] ([id], [isi], [deskripsi], [id_skripsi], [tanggal]) VALUES (1, N'tes', N'asdfsf', 1, CAST(0x0000A29100000000 AS DateTime))
 SET IDENTITY_INSERT [dbo].[bimbingan] OFF
-/****** Object:  Table [dbo].[nilai]    Script Date: 11/15/2013 19:24:57 ******/
+/****** Object:  Table [dbo].[nilai]    Script Date: 11/18/2013 12:55:34 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -518,10 +535,10 @@ INSERT [dbo].[nilai] ([id], [id_skripsi], [angka], [NIK_pengisi], [kategori], [s
 INSERT [dbo].[nilai] ([id], [id_skripsi], [angka], [NIK_pengisi], [kategori], [submitted]) VALUES (3, 1, 0, N'11252', 3, 1)
 INSERT [dbo].[nilai] ([id], [id_skripsi], [angka], [NIK_pengisi], [kategori], [submitted]) VALUES (4, 1, 0, N'11252', 4, 1)
 INSERT [dbo].[nilai] ([id], [id_skripsi], [angka], [NIK_pengisi], [kategori], [submitted]) VALUES (5, 1, 0, N'11252', 2, 1)
-INSERT [dbo].[nilai] ([id], [id_skripsi], [angka], [NIK_pengisi], [kategori], [submitted]) VALUES (10, 1, 6.4, N'11252', 5, 1)
-INSERT [dbo].[nilai] ([id], [id_skripsi], [angka], [NIK_pengisi], [kategori], [submitted]) VALUES (11, 1, 1.28, N'20100001', 12, 1)
+INSERT [dbo].[nilai] ([id], [id_skripsi], [angka], [NIK_pengisi], [kategori], [submitted]) VALUES (11, 1, 32, N'20100001', 12, 1)
+INSERT [dbo].[nilai] ([id], [id_skripsi], [angka], [NIK_pengisi], [kategori], [submitted]) VALUES (12, 1, 32, N'11252', 17, 1)
 SET IDENTITY_INSERT [dbo].[nilai] OFF
-/****** Object:  Table [dbo].[laporan]    Script Date: 11/15/2013 19:24:57 ******/
+/****** Object:  Table [dbo].[laporan]    Script Date: 11/18/2013 12:55:34 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -546,7 +563,7 @@ GO
 SET IDENTITY_INSERT [dbo].[laporan] ON
 INSERT [dbo].[laporan] ([id], [jenis], [deskripsi], [tanggal_pengumpulan], [id_skripsi], [nama_file]) VALUES (1, N'KK', N'abcd', CAST(0x0000A274009AEBAE AS DateTime), 1, N'benchbook.pdf')
 SET IDENTITY_INSERT [dbo].[laporan] OFF
-/****** Object:  Table [dbo].[revisi]    Script Date: 11/15/2013 19:24:57 ******/
+/****** Object:  Table [dbo].[revisi]    Script Date: 11/18/2013 12:55:34 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -565,181 +582,181 @@ CREATE TABLE [dbo].[revisi](
 GO
 SET ANSI_PADDING OFF
 GO
-/****** Object:  ForeignKey [FK_akun_peran]    Script Date: 11/15/2013 19:24:57 ******/
+/****** Object:  ForeignKey [FK_akun_peran]    Script Date: 11/18/2013 12:55:34 ******/
 ALTER TABLE [dbo].[akun]  WITH CHECK ADD  CONSTRAINT [FK_akun_peran] FOREIGN KEY([peran])
 REFERENCES [dbo].[peran] ([id])
 GO
 ALTER TABLE [dbo].[akun] CHECK CONSTRAINT [FK_akun_peran]
 GO
-/****** Object:  ForeignKey [bimbingan_fk]    Script Date: 11/15/2013 19:24:57 ******/
+/****** Object:  ForeignKey [bimbingan_fk]    Script Date: 11/18/2013 12:55:34 ******/
 ALTER TABLE [dbo].[bimbingan]  WITH CHECK ADD  CONSTRAINT [bimbingan_fk] FOREIGN KEY([id_skripsi])
 REFERENCES [dbo].[skripsi] ([id])
 GO
 ALTER TABLE [dbo].[bimbingan] CHECK CONSTRAINT [bimbingan_fk]
 GO
-/****** Object:  ForeignKey [calendar_event_fk_username]    Script Date: 11/15/2013 19:24:57 ******/
+/****** Object:  ForeignKey [calendar_event_fk_username]    Script Date: 11/18/2013 12:55:34 ******/
 ALTER TABLE [dbo].[calendar_event]  WITH CHECK ADD  CONSTRAINT [calendar_event_fk_username] FOREIGN KEY([username])
 REFERENCES [dbo].[akun] ([username])
 GO
 ALTER TABLE [dbo].[calendar_event] CHECK CONSTRAINT [calendar_event_fk_username]
 GO
-/****** Object:  ForeignKey [dosen_fk]    Script Date: 11/15/2013 19:24:57 ******/
+/****** Object:  ForeignKey [dosen_fk]    Script Date: 11/18/2013 12:55:34 ******/
 ALTER TABLE [dbo].[dosen]  WITH CHECK ADD  CONSTRAINT [dosen_fk] FOREIGN KEY([username])
 REFERENCES [dbo].[akun] ([username])
 GO
 ALTER TABLE [dbo].[dosen] CHECK CONSTRAINT [dosen_fk]
 GO
-/****** Object:  ForeignKey [FK_jadwal_semester_jenis_skripsi]    Script Date: 11/15/2013 19:24:57 ******/
+/****** Object:  ForeignKey [FK_jadwal_semester_jenis_skripsi]    Script Date: 11/18/2013 12:55:34 ******/
 ALTER TABLE [dbo].[jadwal_semester]  WITH CHECK ADD  CONSTRAINT [FK_jadwal_semester_jenis_skripsi] FOREIGN KEY([jenis_skripsi_id])
 REFERENCES [dbo].[jenis_skripsi] ([id])
 GO
 ALTER TABLE [dbo].[jadwal_semester] CHECK CONSTRAINT [FK_jadwal_semester_jenis_skripsi]
 GO
-/****** Object:  ForeignKey [fk_jadwal_semester_semester]    Script Date: 11/15/2013 19:24:57 ******/
+/****** Object:  ForeignKey [fk_jadwal_semester_semester]    Script Date: 11/18/2013 12:55:34 ******/
 ALTER TABLE [dbo].[jadwal_semester]  WITH CHECK ADD  CONSTRAINT [fk_jadwal_semester_semester] FOREIGN KEY([id_semester])
 REFERENCES [dbo].[semester] ([id])
 GO
 ALTER TABLE [dbo].[jadwal_semester] CHECK CONSTRAINT [fk_jadwal_semester_semester]
 GO
-/****** Object:  ForeignKey [FK_jadwal_tidak_kosong_akun]    Script Date: 11/15/2013 19:24:57 ******/
+/****** Object:  ForeignKey [FK_jadwal_tidak_kosong_akun]    Script Date: 11/18/2013 12:55:34 ******/
 ALTER TABLE [dbo].[jadwal_tidak_kosong]  WITH CHECK ADD  CONSTRAINT [FK_jadwal_tidak_kosong_akun] FOREIGN KEY([username])
 REFERENCES [dbo].[akun] ([username])
 GO
 ALTER TABLE [dbo].[jadwal_tidak_kosong] CHECK CONSTRAINT [FK_jadwal_tidak_kosong_akun]
 GO
-/****** Object:  ForeignKey [FK_jadwal_tidak_kosong_periode_sidang]    Script Date: 11/15/2013 19:24:57 ******/
+/****** Object:  ForeignKey [FK_jadwal_tidak_kosong_periode_sidang]    Script Date: 11/18/2013 12:55:34 ******/
 ALTER TABLE [dbo].[jadwal_tidak_kosong]  WITH CHECK ADD  CONSTRAINT [FK_jadwal_tidak_kosong_periode_sidang] FOREIGN KEY([periode_sidang_id])
 REFERENCES [dbo].[periode_sidang] ([id])
 GO
 ALTER TABLE [dbo].[jadwal_tidak_kosong] CHECK CONSTRAINT [FK_jadwal_tidak_kosong_periode_sidang]
 GO
-/****** Object:  ForeignKey [FK_kategori_nilai_jenis_skripsi]    Script Date: 11/15/2013 19:24:57 ******/
+/****** Object:  ForeignKey [FK_kategori_nilai_jenis_skripsi]    Script Date: 11/18/2013 12:55:34 ******/
 ALTER TABLE [dbo].[kategori_nilai]  WITH CHECK ADD  CONSTRAINT [FK_kategori_nilai_jenis_skripsi] FOREIGN KEY([jenis_skripsi_id])
 REFERENCES [dbo].[jenis_skripsi] ([id])
 GO
 ALTER TABLE [dbo].[kategori_nilai] CHECK CONSTRAINT [FK_kategori_nilai_jenis_skripsi]
 GO
-/****** Object:  ForeignKey [laporan_fk]    Script Date: 11/15/2013 19:24:57 ******/
+/****** Object:  ForeignKey [laporan_fk]    Script Date: 11/18/2013 12:55:34 ******/
 ALTER TABLE [dbo].[laporan]  WITH CHECK ADD  CONSTRAINT [laporan_fk] FOREIGN KEY([id_skripsi])
 REFERENCES [dbo].[skripsi] ([id])
 GO
 ALTER TABLE [dbo].[laporan] CHECK CONSTRAINT [laporan_fk]
 GO
-/****** Object:  ForeignKey [mahasiswa_fk]    Script Date: 11/15/2013 19:24:57 ******/
+/****** Object:  ForeignKey [mahasiswa_fk]    Script Date: 11/18/2013 12:55:34 ******/
 ALTER TABLE [dbo].[mahasiswa]  WITH CHECK ADD  CONSTRAINT [mahasiswa_fk] FOREIGN KEY([username])
 REFERENCES [dbo].[akun] ([username])
 GO
 ALTER TABLE [dbo].[mahasiswa] CHECK CONSTRAINT [mahasiswa_fk]
 GO
-/****** Object:  ForeignKey [FK_nilai_kategori_nilai]    Script Date: 11/15/2013 19:24:57 ******/
+/****** Object:  ForeignKey [FK_nilai_kategori_nilai]    Script Date: 11/18/2013 12:55:34 ******/
 ALTER TABLE [dbo].[nilai]  WITH CHECK ADD  CONSTRAINT [FK_nilai_kategori_nilai] FOREIGN KEY([kategori])
 REFERENCES [dbo].[kategori_nilai] ([id])
 GO
 ALTER TABLE [dbo].[nilai] CHECK CONSTRAINT [FK_nilai_kategori_nilai]
 GO
-/****** Object:  ForeignKey [nilai_fk_id_skripsi]    Script Date: 11/15/2013 19:24:57 ******/
+/****** Object:  ForeignKey [nilai_fk_id_skripsi]    Script Date: 11/18/2013 12:55:34 ******/
 ALTER TABLE [dbo].[nilai]  WITH CHECK ADD  CONSTRAINT [nilai_fk_id_skripsi] FOREIGN KEY([id_skripsi])
 REFERENCES [dbo].[skripsi] ([id])
 GO
 ALTER TABLE [dbo].[nilai] CHECK CONSTRAINT [nilai_fk_id_skripsi]
 GO
-/****** Object:  ForeignKey [nilai_fk_NIK_pengisi]    Script Date: 11/15/2013 19:24:57 ******/
+/****** Object:  ForeignKey [nilai_fk_NIK_pengisi]    Script Date: 11/18/2013 12:55:34 ******/
 ALTER TABLE [dbo].[nilai]  WITH CHECK ADD  CONSTRAINT [nilai_fk_NIK_pengisi] FOREIGN KEY([NIK_pengisi])
 REFERENCES [dbo].[dosen] ([NIK])
 GO
 ALTER TABLE [dbo].[nilai] CHECK CONSTRAINT [nilai_fk_NIK_pengisi]
 GO
-/****** Object:  ForeignKey [FK_pengumuman_akun]    Script Date: 11/15/2013 19:24:57 ******/
+/****** Object:  ForeignKey [FK_pengumuman_akun]    Script Date: 11/18/2013 12:55:34 ******/
 ALTER TABLE [dbo].[pengumuman]  WITH CHECK ADD  CONSTRAINT [FK_pengumuman_akun] FOREIGN KEY([pembuat])
 REFERENCES [dbo].[akun] ([username])
 GO
 ALTER TABLE [dbo].[pengumuman] CHECK CONSTRAINT [FK_pengumuman_akun]
 GO
-/****** Object:  ForeignKey [FK_periode_sidang_semester]    Script Date: 11/15/2013 19:24:57 ******/
+/****** Object:  ForeignKey [FK_periode_sidang_semester]    Script Date: 11/18/2013 12:55:34 ******/
 ALTER TABLE [dbo].[periode_sidang]  WITH CHECK ADD  CONSTRAINT [FK_periode_sidang_semester] FOREIGN KEY([semester_id])
 REFERENCES [dbo].[semester] ([id])
 GO
 ALTER TABLE [dbo].[periode_sidang] CHECK CONSTRAINT [FK_periode_sidang_semester]
 GO
-/****** Object:  ForeignKey [fk_dosen]    Script Date: 11/15/2013 19:24:57 ******/
+/****** Object:  ForeignKey [fk_dosen]    Script Date: 11/18/2013 12:55:34 ******/
 ALTER TABLE [dbo].[pesanan_bimbingan]  WITH CHECK ADD  CONSTRAINT [fk_dosen] FOREIGN KEY([NIK_dosen])
 REFERENCES [dbo].[dosen] ([NIK])
 GO
 ALTER TABLE [dbo].[pesanan_bimbingan] CHECK CONSTRAINT [fk_dosen]
 GO
-/****** Object:  ForeignKey [fk_mahasiswa]    Script Date: 11/15/2013 19:24:57 ******/
+/****** Object:  ForeignKey [fk_mahasiswa]    Script Date: 11/18/2013 12:55:34 ******/
 ALTER TABLE [dbo].[pesanan_bimbingan]  WITH CHECK ADD  CONSTRAINT [fk_mahasiswa] FOREIGN KEY([NPM_mahasiswa])
 REFERENCES [dbo].[mahasiswa] ([NPM])
 GO
 ALTER TABLE [dbo].[pesanan_bimbingan] CHECK CONSTRAINT [fk_mahasiswa]
 GO
-/****** Object:  ForeignKey [revisi_fk]    Script Date: 11/15/2013 19:24:57 ******/
+/****** Object:  ForeignKey [revisi_fk]    Script Date: 11/18/2013 12:55:34 ******/
 ALTER TABLE [dbo].[revisi]  WITH CHECK ADD  CONSTRAINT [revisi_fk] FOREIGN KEY([id_sidang])
 REFERENCES [dbo].[sidang] ([id])
 GO
 ALTER TABLE [dbo].[revisi] CHECK CONSTRAINT [revisi_fk]
 GO
-/****** Object:  ForeignKey [FK_sidang_dosen]    Script Date: 11/15/2013 19:24:57 ******/
+/****** Object:  ForeignKey [FK_sidang_dosen]    Script Date: 11/18/2013 12:55:34 ******/
 ALTER TABLE [dbo].[sidang]  WITH CHECK ADD  CONSTRAINT [FK_sidang_dosen] FOREIGN KEY([penguji1])
 REFERENCES [dbo].[dosen] ([NIK])
 GO
 ALTER TABLE [dbo].[sidang] CHECK CONSTRAINT [FK_sidang_dosen]
 GO
-/****** Object:  ForeignKey [FK_sidang_dosen1]    Script Date: 11/15/2013 19:24:57 ******/
+/****** Object:  ForeignKey [FK_sidang_dosen1]    Script Date: 11/18/2013 12:55:34 ******/
 ALTER TABLE [dbo].[sidang]  WITH CHECK ADD  CONSTRAINT [FK_sidang_dosen1] FOREIGN KEY([penguji2])
 REFERENCES [dbo].[dosen] ([NIK])
 GO
 ALTER TABLE [dbo].[sidang] CHECK CONSTRAINT [FK_sidang_dosen1]
 GO
-/****** Object:  ForeignKey [FK_sidang_ruang]    Script Date: 11/15/2013 19:24:57 ******/
+/****** Object:  ForeignKey [FK_sidang_ruang]    Script Date: 11/18/2013 12:55:34 ******/
 ALTER TABLE [dbo].[sidang]  WITH CHECK ADD  CONSTRAINT [FK_sidang_ruang] FOREIGN KEY([ruang])
 REFERENCES [dbo].[ruang] ([id])
 GO
 ALTER TABLE [dbo].[sidang] CHECK CONSTRAINT [FK_sidang_ruang]
 GO
-/****** Object:  ForeignKey [sidang_fk_id_skripsi]    Script Date: 11/15/2013 19:24:57 ******/
+/****** Object:  ForeignKey [sidang_fk_id_skripsi]    Script Date: 11/18/2013 12:55:34 ******/
 ALTER TABLE [dbo].[sidang]  WITH CHECK ADD  CONSTRAINT [sidang_fk_id_skripsi] FOREIGN KEY([id_skripsi])
 REFERENCES [dbo].[skripsi] ([id])
 GO
 ALTER TABLE [dbo].[sidang] CHECK CONSTRAINT [sidang_fk_id_skripsi]
 GO
-/****** Object:  ForeignKey [FK_skripsi_jenis_skripsi]    Script Date: 11/15/2013 19:24:57 ******/
+/****** Object:  ForeignKey [FK_skripsi_jenis_skripsi]    Script Date: 11/18/2013 12:55:34 ******/
 ALTER TABLE [dbo].[skripsi]  WITH CHECK ADD  CONSTRAINT [FK_skripsi_jenis_skripsi] FOREIGN KEY([jenis])
 REFERENCES [dbo].[jenis_skripsi] ([id])
 GO
 ALTER TABLE [dbo].[skripsi] CHECK CONSTRAINT [FK_skripsi_jenis_skripsi]
 GO
-/****** Object:  ForeignKey [fk_skripsi_semester]    Script Date: 11/15/2013 19:24:57 ******/
+/****** Object:  ForeignKey [fk_skripsi_semester]    Script Date: 11/18/2013 12:55:34 ******/
 ALTER TABLE [dbo].[skripsi]  WITH CHECK ADD  CONSTRAINT [fk_skripsi_semester] FOREIGN KEY([id_semester_pengambilan])
 REFERENCES [dbo].[semester] ([id])
 GO
 ALTER TABLE [dbo].[skripsi] CHECK CONSTRAINT [fk_skripsi_semester]
 GO
-/****** Object:  ForeignKey [FK_skripsi_topik]    Script Date: 11/15/2013 19:24:57 ******/
+/****** Object:  ForeignKey [FK_skripsi_topik]    Script Date: 11/18/2013 12:55:34 ******/
 ALTER TABLE [dbo].[skripsi]  WITH CHECK ADD  CONSTRAINT [FK_skripsi_topik] FOREIGN KEY([id_topik])
 REFERENCES [dbo].[topik] ([id])
 GO
 ALTER TABLE [dbo].[skripsi] CHECK CONSTRAINT [FK_skripsi_topik]
 GO
-/****** Object:  ForeignKey [skripsi_fk]    Script Date: 11/15/2013 19:24:57 ******/
+/****** Object:  ForeignKey [skripsi_fk]    Script Date: 11/18/2013 12:55:34 ******/
 ALTER TABLE [dbo].[skripsi]  WITH CHECK ADD  CONSTRAINT [skripsi_fk] FOREIGN KEY([NIK_dosen_pembimbing])
 REFERENCES [dbo].[dosen] ([NIK])
 GO
 ALTER TABLE [dbo].[skripsi] CHECK CONSTRAINT [skripsi_fk]
 GO
-/****** Object:  ForeignKey [skripsi_fk2]    Script Date: 11/15/2013 19:24:57 ******/
+/****** Object:  ForeignKey [skripsi_fk2]    Script Date: 11/18/2013 12:55:34 ******/
 ALTER TABLE [dbo].[skripsi]  WITH CHECK ADD  CONSTRAINT [skripsi_fk2] FOREIGN KEY([NPM_mahasiswa])
 REFERENCES [dbo].[mahasiswa] ([NPM])
 GO
 ALTER TABLE [dbo].[skripsi] CHECK CONSTRAINT [skripsi_fk2]
 GO
-/****** Object:  ForeignKey [FK_topik_dosen]    Script Date: 11/15/2013 19:24:57 ******/
+/****** Object:  ForeignKey [FK_topik_dosen]    Script Date: 11/18/2013 12:55:34 ******/
 ALTER TABLE [dbo].[topik]  WITH CHECK ADD  CONSTRAINT [FK_topik_dosen] FOREIGN KEY([NIK_pembimbing])
 REFERENCES [dbo].[dosen] ([NIK])
 GO
 ALTER TABLE [dbo].[topik] CHECK CONSTRAINT [FK_topik_dosen]
 GO
-/****** Object:  ForeignKey [FK_topik_semester]    Script Date: 11/15/2013 19:24:57 ******/
+/****** Object:  ForeignKey [FK_topik_semester]    Script Date: 11/18/2013 12:55:34 ******/
 ALTER TABLE [dbo].[topik]  WITH CHECK ADD  CONSTRAINT [FK_topik_semester] FOREIGN KEY([id_semester])
 REFERENCES [dbo].[semester] ([id])
 GO
