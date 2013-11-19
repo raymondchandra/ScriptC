@@ -1,5 +1,4 @@
-﻿
-<script type="text/javascript" charset="utf-8">
+﻿<script type="text/javascript" charset="utf-8">
     var current;
     $(document).ready(function () {
         $("#tipeSidang").bind("change", function () {
@@ -15,14 +14,23 @@
         });
     });
 </script>
-
 <div class="layer">
-    <h1>Lihat Jadwal Sidang</h1>
-    <span>Tipe Sidang :</span>
-    <select id="tipeSidang">
-        <option>Presentasi</option>
-        <option>Akhir</option>
-    </select><br />
-    <div id="jadwal"></div>
+    <h1>
+        Lihat Jadwal Sidang</h1>
+    <!---------------------------------------->
+    <div class="editor-label grid_15">
+        <label>
+            Tipe Sidang
+        </label>
+    </div>
+    <br class="clear" />
+    <div class="editor-field grid_15">
+        <select id="tipeSidang" class="grid_6">
+            <option>Presentasi</option>
+            <option>Akhir</option>
+        </select>
+    </div>
+    <br class="clear" />
+    <div id="jadwal">
+    </div>
 </div>
-

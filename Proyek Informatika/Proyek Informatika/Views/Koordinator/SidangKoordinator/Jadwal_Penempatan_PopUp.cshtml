@@ -60,7 +60,7 @@
                 }
 
             });
-            
+
             $("#penguji2Manual").html(get);
         });
 
@@ -162,7 +162,7 @@
 
     function selRuangChange() {
         $("#selPenguji2").html("");
-        
+
         var waktu = $(selTanggal).val() + " " + $("#selWaktu").val();
         return $.post("SidangKoordinator/GetPenguji2", { npm: $("#npm-label").html(), waktu: waktu }, function (data) {
 
@@ -195,86 +195,214 @@
     });
 
     function changeMode(num) {
-        if(num==1){
+        if (num == 1) {
             $("#mode1").show();
             $("#mode2").hide();
-        }else if(num==2){
+        } else if (num == 2) {
             $("#mode2").show();
             $("#mode1").hide();
         }
     }
 </script>
-
-<div id="popup" style="width:700px;">
-    <table>
-        <tr>
-            <td>NPM:</td>
-            <td><span id="npm-label"></span></td>
-        </tr>
-        <tr>
-            <td>Nama:</td>
-            <td><span id="nama-label"></span></td>
-        </tr>
-        <tr>
-            <td>Topik:</td>
-            <td><span id="topik-label"></span></td>
-        </tr>
-        <tr>
-            <td>Pembimbing:</td>
-            <td><span id="pembimbing-label"></span></td>
-        </tr>
-        <tr>
-            <td>Mode :</td>
-            <td>
-                <input type="radio" name="modeJadwal" onclick="changeMode(1)" id="radio_1" checked="checked" />Manual
-                <input type="radio" name="modeJadwal" onclick="changeMode(2)" id="radio_2" />Semi-Automatic
-            </td>
-        </tr>
-    </table>
-    <div id="mode1">
-        <table>
-            <tr>
-                <td>Penguji 1:</td>
-                <td><select id="penguji1Manual"></select></td>
-            </tr>
-            <tr>
-                <td>Penguji 2:</td>
-                <td><select id="penguji2Manual"></select></td>
-            </tr>
-            <tr>
-                <td>Waktu:</td>
-                <td>@(Html.Telerik().DateTimePicker().Name("waktuManual").Value(DateTime.Now))</td>
-            </tr>
-            <tr>
-                <td>Ruang:</td>
-                <td><select id="ruangManual"></select></td>
-            </tr>
-        </table>
-        <span >*peringatan : mode ini tidak melakukan validasi jadwal</span><br />
-        
+<div id="popup" class="container_15">
+    <div class="grid_4 alpha">
+        <!---------------------------------------->
+        <div class="editor-label grid_15">
+            <label>
+                NPM
+            </label>
+        </div>
+        <br class="clear" />
+        <div class="editor-field grid_15">
+            <span id="npm-label"></span>&nbsp;
+        </div>
+        <br class="clear" />
+        <!---------------------------------------->
+        <div class="editor-label grid_15">
+            <label>
+                Nama
+            </label>
+        </div>
+        <br class="clear" />
+        <div class="editor-field grid_15">
+            <span id="nama-label"></span>&nbsp;
+        </div>
+        <br class="clear" />
+        <!---------------------------------------->
+        <div class="editor-label grid_15">
+            <label>
+                Topik
+            </label>
+        </div>
+        <br class="clear" />
+        <div class="editor-field grid_15">
+            <span id="topik-label"></span>&nbsp;
+        </div>
+        <br class="clear" />
+        <!---------------------------------------->
+        <div class="editor-label grid_15">
+            <label>
+                Pembimbing
+            </label>
+        </div>
+        <br class="clear" />
+        <div class="editor-field grid_15">
+            <span id="pembimbing-label"></span>&nbsp;
+        </div>
+        <br class="clear" />
+        <!---------------------------------------->
     </div>
-    <div style="overflow:hidden;display:none;" id="mode2">
-        <div style="float:left;">
-            <span>Penguji 1</span><br />
-            <select size="10" id="selPenguji" style="width:100px"></select>
+    <div class="grid_11 omega">
+        <!---------------------------------------->
+        <div class="editor-label grid_15">
+            <label>
+                Mode
+            </label>
         </div>
-        <div style="float:left;">
-            <span>Tanggal</span><br />
-            <select size="10" id="selTanggal" style="width:300px"></select>
+        <br class="clear" />
+        <div class="editor-field grid_15">
+            <input type="radio" name="modeJadwal" onclick="changeMode(1)" id="radio_1" checked="checked" />Manual
+            <input type="radio" name="modeJadwal" onclick="changeMode(2)" id="radio_2" />Semi-Automatic
         </div>
-        <div style="float:left;">
-            <span>Waktu</span><br />
-            <select size="10" id="selWaktu" style="width:100px"></select>
+        <br class="clear" />
+        <!---------------------------------------->
+        <div id="mode1">
+            <!---------------------------------------->
+            <div class="editor-label grid_15">
+                <label>
+                    Penguji 1
+                </label>
+            </div>
+            <br class="clear" />
+            <div class="editor-field grid_15">
+                <select id="penguji1Manual" class="grid_8">
+                </select>
+            </div>
+            <br class="clear" />
+            <!---------------------------------------->
+            <div class="editor-label grid_15">
+                <label>
+                    Penguji 2
+                </label>
+            </div>
+            <br class="clear" />
+            <div class="editor-field grid_15">
+                <select id="penguji2Manual" class="grid_8">
+                </select>
+            </div>
+            <br class="clear" />
+            <!---------------------------------------->
+            <div class="editor-label grid_15">
+                <label>
+                    Waktu
+                </label>
+            </div>
+            <br class="clear" />
+            <div class="editor-field grid_15">
+                @(Html.Telerik().DateTimePicker().Name("waktuManual").Value(DateTime.Now).HtmlAttributes(new { @class = "grid_8", style = "margin-left:0;" }))
+            </div>
+            <br class="clear" />
+            <!---------------------------------------->
+            <div class="editor-label grid_15">
+                <label>
+                    Ruang
+                </label>
+            </div>
+            <br class="clear" />
+            <div class="editor-field grid_15">
+                <select id="ruangManual" class="grid_8">
+                </select>
+            </div>
+            <br class="clear" />
+            <ul class="warning">
+                <li>Peringatan : Mode ini tidak melakukan validasi jadwal.</li></ul>
+         
+            <!---------------------------------------->
         </div>
-        <div style="float:left;">
-            <span>Ruang</span><br />
-            <select size="10" id="selRuang" style="width:100px"></select>
+        <div style="overflow: hidden; display: none;" id="mode2">
+            <!---------------------------------------->
+            <div class="grid_15">
+                <div class="grid_7 alpha">
+                    <!---------------------------------------->
+                    <div class="editor-label grid_15">
+                        <label>
+                            Penguji 1
+                        </label>
+                    </div>
+                    <br class="clear" />
+                    <div class="editor-field grid_15">
+                        <select size="5" id="selPenguji" class="grid_15">
+                        </select>
+                    </div>
+                    <br class="clear" />
+                </div>
+                <div class="grid_1">
+                    &nbsp;
+                </div>
+                <div class="grid_7 omega">
+                    <!---------------------------------------->
+                    <div class="editor-label grid_15">
+                        <label>
+                            Penguji 2
+                        </label>
+                    </div>
+                    <br class="clear" />
+                    <div class="editor-field grid_15">
+                        <select size="5" id="selPenguji2" class="grid_15">
+                        </select>
+                    </div>
+                    <br class="clear" />
+                </div>
+            </div>
+            <div class="grid_15">
+                <div class="grid_5 alpha">
+                    <!---------------------------------------->
+                    <div class="editor-label grid_15">
+                        <label>
+                            Tanggal
+                        </label>
+                    </div>
+                    <br class="clear" />
+                    <div class="editor-field grid_15">
+                        <select size="5" id="selTanggal" class="grid_15">
+                        </select>
+                    </div>
+                    <br class="clear" />
+                </div>
+                <div class="grid_5">
+                    <!---------------------------------------->
+                    <div class="editor-label grid_15">
+                        <label>
+                            Waktu
+                        </label>
+                    </div>
+                    <br class="clear" />
+                    <div class="editor-field grid_15">
+                        <select size="5" id="selWaktu" class="grid_15">
+                        </select>
+                    </div>
+                    <br class="clear" />
+                </div>
+                <div class="grid_5 omega">
+                    <!---------------------------------------->
+                    <div class="editor-label grid_15">
+                        <label>
+                            Ruang
+                        </label>
+                    </div>
+                    <br class="clear" />
+                    <div class="editor-field grid_15">
+                        <select size="5" id="selRuang" class="grid_15">
+                        </select>
+                    </div>
+                    <br class="clear" />
+                </div>
+            </div>
         </div>
-
-        <div style="float:left;">
-            <span>Penguji 2</span><br />
-            <select size="10" id="selPenguji2" style="width:100px"></select>
-        </div>
-    </div><br />
-    <input type="button" value="Simpan" id="buttonSimpan" class="t-button t-state-default" />
+    </div>
+    <br class="clear" />
+    <!---------------------------------------->
+    <div class="button-block grid_15 txtcenter">
+        <input type="button" value="Simpan" id="buttonSimpan" class="t-button t-state-default" />
+    </div>
 </div>

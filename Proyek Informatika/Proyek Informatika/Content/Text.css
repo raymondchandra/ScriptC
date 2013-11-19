@@ -87,7 +87,7 @@ a:hover
 .blue .tf td, .blue .th td
 {
     text-align: center;
-    letter-spacing:1px;
+    letter-spacing: 1px;
     font-family: "Lucida Bright" , Georgia, serif;
 }
 
@@ -144,6 +144,12 @@ a:hover
 #content
 {
     font-size: 14px;
+}
+
+fieldset.detail legend
+{
+    font-size: 10px;
+    font-weight: bold;
 }
 
 /* Specific 

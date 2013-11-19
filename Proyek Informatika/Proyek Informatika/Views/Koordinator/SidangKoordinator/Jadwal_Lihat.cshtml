@@ -1,5 +1,4 @@
-﻿
-<script type="text/javascript" charset="utf-8">
+﻿<script type="text/javascript" charset="utf-8">
 
     $(document).ready(function () {
 
@@ -31,18 +30,37 @@
         });
     });
 </script>
-
 <div class="layer">
-    <h1>Lihat Jadwal Sidang</h1>
-    <span>Periode Semester :</span>
-    <select id="selSemester">
-        <option></option>
-    </select> <br />
-    <span>Tipe Sidang</span>
-    <select id="tipeSidang">
-        <option>Presentasi</option>
-        <option>Akhir</option>
-    </select><br />
-    <div id="jadwal"></div>
+    <h1>
+        Lihat Jadwal Sidang</h1>
+    <!---------------------------------------->
+    <div class="editor-label grid_15">
+        <label>
+            Periode Semester
+        </label>
+    </div>
+    <br class="clear" />
+    <div class="editor-field grid_15">
+        <select id="selSemester" class="grid_6">
+            <option></option>
+        </select>
+    </div>
+    <br class="clear" />
+    <!---------------------------------------->
+    <div class="editor-label grid_15">
+        <label>
+            Tipe Sidang
+        </label>
+    </div>
+    <br class="clear" />
+    <div class="editor-field grid_15">
+        <select id="tipeSidang" class="grid_6">
+            <option>Presentasi</option>
+            <option>Akhir</option>
+        </select>
+    </div>
+    <br class="clear" />
+    <!---------------------------------------->
+    <div id="jadwal">
+    </div>
 </div>
-

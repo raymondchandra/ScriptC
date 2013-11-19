@@ -28,6 +28,13 @@
         })
         .DataBinding(dataBinding => dataBinding.Ajax()
             .Select("_SelectTopik", "Home"))
+            .DetailView(det => det.ClientTemplate(
+                "<fieldset class='detail'>" +
+                "<legend>Deskripsi</legend>" +
+                "<div><#= deskripsi #>" +
+                "</div>" +
+                "</fieldset>"
+            ))
         .Columns(columns =>
         {
             columns.Bound(c => c.id).Hidden();
@@ -37,7 +44,7 @@
             columns.Bound(c => c.keterangan).Width(150).Title("Keterangan");
             columns.Command(c => c.Custom("lihatDetail")
                 .Text("Detail")
-                .Ajax(true)).Width(100);
+                .Ajax(true)).Width(100).Hidden(); 
         })
         .ClientEvents(ev => ev.OnCommand("onCommand"))
         .Pageable(p => p.PageSize(15))
@@ -55,8 +62,6 @@
         .Width(500)
         .Height(300)
         .Scrollable(true)
-        .Content(@<text>
-    <span class="detail">
-    </span></text>)
+        .Content(@<text> <span class="detail"></span></text>)
     )
 </div>

@@ -75,6 +75,8 @@ namespace Proyek_Informatika.Controllers.Mahasiswa
             {
                 db.SaveChanges();
             }
+
+            this.setAktif();
             return "Nama berhasil disimpan.";
         }
 
@@ -109,10 +111,32 @@ namespace Proyek_Informatika.Controllers.Mahasiswa
             {
                 db.SaveChanges();
             }
+
+            this.setAktif();
             return "Telepon berhasil disimpan.";
         }
 
         #endregion
+
+        public void setAktif()
+        {
+            string username = (string)Session["username"];
+            mahasiswa m = db.mahasiswas.Where(mahasiswaTemp => mahasiswaTemp.username == username).First();
+            if (m.status == "nonaktif")
+            {
+                if (m.nama != null && m.nama != "")
+                {
+                    if (m.nomor_telepon != null && m.nomor_telepon != "")
+                    {
+                        m.status = "aktif";
+                        if (TryUpdateModel(m))
+                        {
+                            db.SaveChanges();
+                        }
+                    }
+                }
+            }
+        }
 
         #region sejarah
         protected ViewResult bindingTable(int id)

@@ -1,23 +1,32 @@
-﻿
-    <script>
-        $(document).ready(function () {
+﻿<script>
+    $(document).ready(function () {
+        $.post("Sidang/Pengumpulan", { tipeId: $("#tipeSidang").val() }, function (data) {
+            $("#jadwalPengumpulan").html(data);
+        });
+        $("#tipeSidang").bind("change", function () {
             $.post("Sidang/Pengumpulan", { tipeId: $("#tipeSidang").val() }, function (data) {
                 $("#jadwalPengumpulan").html(data);
             });
-            $("#tipeSidang").bind("change", function () {
-                $.post("Sidang/Pengumpulan", { tipeId: $("#tipeSidang").val() }, function (data) {
-                    $("#jadwalPengumpulan").html(data);
-                });
-            });
         });
-    </script>
-    <div class="layer">
-        <h1>Pengumpulan Jadwal Tidak Kosong</h1>
-        <span>Tipe Sidang</span>
-    <select id="tipeSidang">
-        <option value="1" selected="selected">Presentasi</option>
-        <option value="2">Akhir</option>
-    </select><br />
-
-    <div id="jadwalPengumpulan"></div>
+    });
+</script>
+<div class="layer">
+    <h1>
+        Pengumpulan Jadwal Tidak Kosong</h1>
+    <!---------------------------------------->
+    <div class="editor-label grid_15">
+        <label>
+            Tipe Sidang
+        </label>
     </div>
+    <br class="clear" />
+    <div class="editor-field grid_15">
+        <select id="tipeSidang"  class="grid_6">
+            <option value="1" selected="selected">Presentasi</option>
+            <option value="2">Akhir</option>
+        </select>
+    </div>
+    <br class="clear" />
+    <div id="jadwalPengumpulan">
+    </div>
+</div>

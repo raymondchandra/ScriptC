@@ -82,23 +82,26 @@
         .DataBinding(dataBinding => dataBinding.Ajax()
             .Select("_SelectTopik", "Home")
             .Delete("_DeleteTopik", "Home"))
+            .DetailView(det => det.ClientTemplate(
+               "<fieldset class='detail'>" +
+               "<legend>Deskripsi</legend>" +
+               "<div><#= deskripsi #>" +
+               "</div>" +
+               "</fieldset>"
+           ))
         .Columns(columns =>
         {
             columns.Bound(c => c.id).Hidden();
             columns.Bound(c => c.judul).Width(300).Title("Topik");
             columns.Bound(c => c.deskripsi).Hidden();
-            columns.Bound(c => c.pembimbing).Width(140).Title("Pembimbing");
-            columns.Bound(c => c.keterangan).Width(140).Title("Keterangan");
-            columns.Command(c => c.Custom("lihatDetail")
-                .Text("Detail")
-                .Ajax(true)).Width(95);
-            columns.Command(c => c.Custom("editDetail")
-                .Text("Edit")
-                .Ajax(true)).Width(95);
-            columns.Command(commands =>
+            columns.Bound(c => c.pembimbing).Width(150).Title("Pembimbing");
+            columns.Bound(c => c.keterangan).Width(150).Title("Keterangan");
+            columns.Command(c =>
             {
-                commands.Delete().ButtonType(type);
-            }).Width(95);
+                //c.Custom("lihatDetail").Ajax(true).Text("Detail");
+                c.Custom("editDetail").Ajax(true).Text("Edit");
+                c.Delete().ButtonType(type);
+            }).Width(200);
         })
         .ClientEvents(ev => ev.OnCommand("onCommand").OnComplete("onCommand"))
         .Editable(editing => editing.Mode(mode))

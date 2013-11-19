@@ -24,15 +24,20 @@
 
     function onCommand(e) {
         if (e.name == "lihatDetail") {
-            var text = "<table class='window-content'>";
-            text += "<tr><td rowspan='6' style='width: 130px'><img class='avatar' src='" + e.row.cells[7].innerHTML + "'/></td>";
-            text += "<td class='label'>NPM</td><td>&nbsp:&nbsp</td><td>" + e.row.cells[1].innerHTML + "</td></tr>";
-            text += "<tr><td class='label'>Nama</td><td>&nbsp:&nbsp</td><td>" + e.row.cells[2].innerHTML + "</td></tr>";
-            text += "<tr><td class='label'>Email</td><td>&nbsp:&nbsp</td><td>" + e.row.cells[3].innerHTML + "</td></tr>";
-            text += "<tr><td class='label'>Telepon</td><td>&nbsp:&nbsp</td><td>" + e.row.cells[4].innerHTML + "</td></tr>";
-            text += "<tr><td class='label'>Status</td><td>&nbsp:&nbsp</td><td>" + e.row.cells[5].innerHTML + "</td></tr>";
-            text += "<tr><td class='label'>Topik</td><td>&nbsp:&nbsp</td><td>" + e.row.cells[6].innerHTML + "</td></tr>";
-            text += "</table>";
+            var text = ""; //"<table class='window-content'>";
+            text += "<div class='grid_5'><img class='avatar' src='" + e.row.cells[7].innerHTML + "'/></div><div class='grid_10'>";
+            text += "<div class='editor-label grid_15'><label>NPM</label></div><br class='clear' /><div class='editor-field grid_15 row'>" + e.row.cells[1].innerHTML + "</div><br class='clear' />";
+            text += "<div class='editor-label grid_15'><label>Nama</label></div><br class='clear' /><div class='editor-field grid_15 row'>" + e.row.cells[2].innerHTML + "</div><br class='clear' />";
+            text += "<div class='editor-label grid_15'><label>Email</label></div><br class='clear' /><div class='editor-field grid_15 row'>" + e.row.cells[3].innerHTML + "</div><br class='clear' />";
+            text += "<div class='editor-label grid_15'><label>Telepon</label></div><br class='clear' /><div class='editor-field grid_15 row'>" + e.row.cells[4].innerHTML + "</div><br class='clear' /></div><br class='clear' />";
+            text += "<div class='editor-label grid_15'><label>Status</label></div><br class='clear' /><div class='editor-field grid_15 row'>" + e.row.cells[5].innerHTML + "</div><br class='clear' />";
+            text += "<div class='editor-label grid_15'><label>Topik</label></div><br class='clear' /><div class='editor-field grid_15 row'>" + e.row.cells[6].innerHTML + "</div><br class='clear' />";
+             //text += "<tr><td class='label'>Nama</td><td>&nbsp:&nbsp</td><td>" + e.row.cells[2].innerHTML + "</td></tr>";
+            //text += "<tr><td class='label'>Email</td><td>&nbsp:&nbsp</td><td>" + e.row.cells[3].innerHTML + "</td></tr>";
+            //text += "<tr><td class='label'>Telepon</td><td>&nbsp:&nbsp</td><td>" + e.row.cells[4].innerHTML + "</td></tr>";
+            //text += "<tr><td class='label'>Status</td><td>&nbsp:&nbsp</td><td>" + e.row.cells[5].innerHTML + "</td></tr>";
+            //text += "<tr><td class='label'>Topik</td><td>&nbsp:&nbsp</td><td>" + e.row.cells[6].innerHTML + "</td></tr>";
+            //text += "</table>";
             $(".detail").html(text);
             var windowZ = $("#mahasiswaDetail").data("tWindow");
             windowZ.center().open();
@@ -70,7 +75,7 @@
         </div>
         <br class="clear" />
         <div class="editor-field grid_15">
-            <input id="mahasiswa-npm-1" name="npm-1" class="grid_10" type="text" />
+            <input id="mahasiswa-npm-1" name="npm-1" class="grid_5" type="text" />
         </div>
         <br class="clear" />
         <div class="editor-label grid_15">
@@ -79,7 +84,7 @@
         </div>
         <br class="clear" />
         <div class="editor-field grid_15">
-            <select id="mahsiswa-topik-1" name="topik-1" class="grid_10">
+            <select id="mahsiswa-topik-1" name="topik-1" class="grid_10" size="5">
                 <option></option>
             </select>
         </div>
@@ -132,16 +137,12 @@
             columns.Bound(c => c.status).Hidden();
             columns.Bound(c => c.topik).Width(300).Title("Topik");
             columns.Bound(c => c.fotoMahasiswa).Hidden();
-            columns.Command(c => c.Custom("lihatDetail")
-                .Text("Detail")
-                .Ajax(true)).Width(95);
-            columns.Command(c => c.Custom("editDetail")
-                .Text("Edit")
-                .Ajax(true)).Width(95);
-            columns.Command(commands =>
-            {
-                commands.Delete().ButtonType(type);
-            }).Width(95);
+            columns.Command(c => 
+            {    
+                c.Custom("lihatDetail").Text("Detail").Ajax(true);
+                c.Custom("editDetail").Text("Edit").Ajax(true);            
+                c.Delete().ButtonType(type);
+            }).Width(300);
         })
         .ClientEvents(ev => ev.OnCommand("onCommand").OnComplete("onCommand"))
         .Editable(editing => editing.Mode(mode))

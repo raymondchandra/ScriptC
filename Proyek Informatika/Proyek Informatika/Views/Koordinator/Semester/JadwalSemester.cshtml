@@ -1,9 +1,9 @@
 ﻿<script type="text/javascript">
     function changeSemester(direction) {
         //confirm user's choice
-        if(direction == "prev"){
-            var con = confirm("Change to previous semester?");            
-        }else if(direction == "next"){
+        if (direction == "prev") {
+            var con = confirm("Change to previous semester?");
+        } else if (direction == "next") {
             var con = confirm("Change to next semester?");
         }
         //update view
@@ -23,90 +23,189 @@
             event_date: $("#schedule_date").val()
         };
         $.post("Semester/addSchedule", values, function (success) {
-            if(success == 'True') $('#content').load("Semester/JadwalSemester");
-        });        
+            if (success == 'True') $('#content').load("Semester/JadwalSemester");
+        });
     });
 
     function deleteJadwal(id_jadwal, isi) {
         var con = confirm("Delete '" + isi + "' from database?");
-        if (con == true) 
-        {
+        if (con == true) {
             $.post("Semester/removeSchedule", { jadwal_id: id_jadwal }, function (success) {
                 if (success == 'True') $('#content').load("Semester/JadwalSemester");
             });
         }
     }
-</script> 
-
+</script>
 <div class="layer">
-    <div id="semester_name"><h1>Periode @ViewData["semester_name"]</h1></div>
-    <input type="button" value="Previous Semester" onclick="changeSemester('prev')" />
-    <input type="button" value="Next Semester" onclick="changeSemester('next')"/>
-    
-    <h3>Jadwal Skripsi 1</h3><!---------------------------------------------------------------------------------------------------------->
-    
-    <div id="table_semester_schedule1" class="table_semester">
-        <table>
-        <tr>
-            <td><strong>Kegiatan</strong></td>
-            <td><strong>Tanggal</strong></td>
-            <td><strong>Waktu</strong></td>
-        </tr>
-        @foreach(Proyek_Informatika.Models.jadwal_semester j in (ViewBag.schedule_skripsi1 as IEnumerable<Proyek_Informatika.Models.jadwal_semester>))
-        {
-            <tr>
-                <td>@j.isi</td>
-                <td>@j.tanggal.Date.ToString("ddd, dd MMMM yyyy")</td>
-                <td>@j.tanggal.TimeOfDay</td>
-                <td><img class="button_delete_jadwal" src="../../../../Content/images/icon_close.png" onclick="deleteJadwal('@j.id', '@j.isi')"/></td>
-            </tr>
-        }
-        </table>
+    <div id="semester_name">
+        <h1>
+            Periode @ViewData["semester_name"]</h1>
     </div>
-
-    <h3>Jadwal Skripsi 2</h3><!---------------------------------------------------------------------------------------------------------->
-    
-    <div id="table_semester_schedule2" class="table_semester">
-        <table>
-        <tr>
-            <td><strong>Kegiatan</strong></td>
-            <td><strong>Tanggal</strong></td>
-            <td><strong>Waktu</strong></td>
-        </tr>
-        @foreach(Proyek_Informatika.Models.jadwal_semester j in (ViewData["schedule_skripsi2"] as IEnumerable<Proyek_Informatika.Models.jadwal_semester>)){
-            <tr>
-                <td>@j.isi</td>
-                <td>@j.tanggal.Date.ToString("ddd, dd MMMM yyyy") </td>
-                <td>@j.tanggal.TimeOfDay</td>
-                <td><img class="button_delete_jadwal" src="../../../../Content/images/icon_close.png" onclick="deleteJadwal('@j.id', '@j.isi')"/></td>
-            </tr>
-        }
-        </table>
+    @{ Html.Telerik().TabStrip()
+.Name("TabStripSemester")
+.Items(tabstrip =>
+{
+    tabstrip.Add()
+        .Text("Skripsi 1")
+        .Content(@<text>
+        <!---------------------------------------------------------------------------------------------------------->
+        <h3>
+            Jadwal Skripsi 1</h3>
+        <div class="grid_15">
+            @if ((ViewBag.schedule_skripsi1 as IEnumerable<Proyek_Informatika.Models.jadwal_semester>).Count() == 0)
+            {
+                <ul class='warning'>
+                    <li>Belum ada jadwal kegiatan. </li>
+                </ul>
+            }
+            else
+            {
+            
+                <table class="blue" style="width: 100%;">
+                    <tr class="th">
+                        <td style="width: 55%;">
+                            Kegiatan
+                        </td>
+                        <td style="width: 15%;">
+                            Tanggal
+                        </td>
+                        <td style="width: 15%;">
+                            Waktu
+                        </td>
+                        <td style="width: 15%;">
+                            &nbsp;
+                        </td>
+                    </tr>
+                    @foreach (Proyek_Informatika.Models.jadwal_semester j in (ViewBag.schedule_skripsi1 as IEnumerable<Proyek_Informatika.Models.jadwal_semester>))
+                    {
+                        <tr>
+                            <td>@j.isi
+                            </td>
+                            <td>@j.tanggal.Date.ToString("ddd, dd MMMM yyyy")
+                            </td>
+                            <td>@j.tanggal.TimeOfDay
+                            </td>
+                            <td>
+                                <input type="button" value="Delete" class="t-button" onclick="deleteJadwal('@j.id', '@j.isi')"/>
+                            </td>
+                        </tr>
+                    }
+                </table>
+            }
+        </div>
+        <br class="clear" />
+        <br />
+        </text>);
+    tabstrip.Add()
+        .Text("Skripsi 2")
+        .Content(@<text>
+        <!---------------------------------------------------------------------------------------------------------->
+        <h3>
+            Jadwal Skripsi 2</h3>
+        <div class="grid_15">
+            @if ((ViewData["schedule_skripsi2"] as IEnumerable<Proyek_Informatika.Models.jadwal_semester>).Count() == 0)
+            {
+                <ul class='warning'>
+                    <li>Belum ada jadwal kegiatan. </li>
+                </ul>
+            }
+            else
+            {
+                <table class="blue" style="width: 100%;">
+                    <tr class="th">
+                        <td style="width: 55%;">
+                            Kegiatan
+                        </td>
+                        <td style="width: 15%;">
+                            Tanggal
+                        </td>
+                        <td style="width: 15%;">
+                            Waktu
+                        </td>
+                        <td style="width: 15%;">
+                            &nbsp;
+                        </td>
+                    </tr>
+                    @foreach (Proyek_Informatika.Models.jadwal_semester j in (ViewData["schedule_skripsi2"] as IEnumerable<Proyek_Informatika.Models.jadwal_semester>))
+                    {
+                        <tr>
+                            <td>@j.isi
+                            </td>
+                            <td>@j.tanggal.Date.ToString("ddd, dd MMMM yyyy")
+                            </td>
+                            <td>@j.tanggal.TimeOfDay
+                            </td>
+                            <td>
+                                <input type="button" value="Delete" class="t-button" onclick="deleteJadwal('@j.id', '@j.isi')"/>
+                            </td>
+                        </tr>
+                    }
+                </table>
+            }
+        </div>
+        <br class="clear" />
+        <br />
+        </text>);
+    tabstrip.Add()
+        .Text("Tambah Kegiatan")
+        .Content(@<text>
+        <!---------------------------------------------------------------------------------------------------------->
+        <fieldset>
+            <legend>Tambah Kegiatan</legend>
+            <form>
+            <!---------------------------------------->
+            <div class="grid_4">
+                <div class="editor-label grid_15">
+                    <label>
+                        Mata Kuliah
+                    </label>
+                </div>
+                <br class="clear" />
+                <div class="editor-field grid_15">
+                    <select id="schedule_skripsi" class="grid_15">
+                        <option value="1">Skripsi 1</option>
+                        <option value="2">Skripsi 2</option>
+                    </select>
+                </div>
+            </div>
+            <div class="grid_5 omega">
+                <div class="editor-label grid_15">
+                    <label>
+                        Tanggal / Waktu
+                    </label>
+                </div>
+                <br class="clear" />
+                <div class="editor-field grid_15">
+                    @(Html.Telerik().DateTimePicker().Name("schedule_date").HtmlAttributes(new { @class = "grid_15", style = "margin-left:0;" }))
+                </div>
+            </div>
+            <br class="clear" />
+            <!---------------------------------------->
+            <div class="editor-label grid_15">
+                <label>
+                    Kegiatan
+                </label>
+            </div>
+            <br class="clear" />
+            <div class="editor-field grid_15">
+                <input type="text" id="schedule_name" class="grid_9" />
+            </div>
+            <br class="clear" />
+            <!---------------------------------------->
+            <div class="button-block grid_15">
+                <input type="button" id="button_add" value="Tambah" class="t-button" />
+            </div>
+            </form>
+        </fieldset>
+        <br />
+        </text>);
+})
+.SelectedIndex(0)
+.Render();
+    }
+    <!---------------------------------------->
+    <div class="button-block wide">
+        <input type="button" value="Previous Semester" onclick="changeSemester('prev')" class="t-button" />
+        <input type="button" value="Next Semester" onclick="changeSemester('next')" class="t-button right" />
     </div>
-    
-    <h3>Tambah kegiatan</h3><!---------------------------------------------------------------------------------------------------------->
-    
-	<form>
-		<table>			
-		<tr>
-			<td>Mata kuliah</td>
-            <td>
-				<select id="schedule_skripsi">
-				<option value="1">Skripsi 1</option>
-				<option value="2">Skripsi 2</option>
-				</select>
-			</td>
-            <td>Tanggal/Waktu</td>
-            <td>@(Html.Telerik().DateTimePicker().Name("schedule_date"))</td>
-		</tr>
-		<tr>
-			<td>Nama event</td>
-            <td colspan="3"><input type="text" id="schedule_name" size=55/></td>
-		</tr>		
-        <tr>
-            <td colspan="4" align="right"><input type="button" id="button_add" value="Tambah"/></td>
-        </tr>
-		</table>			
-	</form>
-	
 </div>

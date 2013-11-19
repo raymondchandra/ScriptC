@@ -2,9 +2,9 @@
 @using Proyek_Informatika.Models
 <script type="text/javascript">
     $("#simpanButton").click(function () {
-        
+
         var r = confirm("Apakah anda yakin?");
-        if(r){
+        if (r) {
             var values = {
                 semester_id: '@ViewBag.semester_id',
                 tipe_sidang: $("#tipeSidang").val(),
@@ -19,7 +19,7 @@
                 }
             });
         }
-        
+
     });
     $("#bukaButton").click(function () {
         if ($("#bukaButton").val() == "Mulai Pengumpulan Jadwal") {
@@ -28,8 +28,8 @@
                     $("#bukaButton").val("Akhiri Pengumpulan Jadwal");
                 }
             });
-            
-           
+
+
         } else if ($("#bukaButton").val() == "Akhiri Pengumpulan Jadwal") {
 
             $.post("SidangKoordinator/Mulai_Pengumpulan", { mulai: false, semester_id: '@ViewBag.semester_id', tipe: $("#tipeSidang").val() }, function (data) {
@@ -40,8 +40,8 @@
         }
     });
     function getStartEnd(tipe) {
-        $.post("SidangKoordinator/GetStartDate", { semester_id:'@ViewBag.semester_id' , tipe: tipe }, function (data) { $("#start_date").val(data); });
-        $.post("SidangKoordinator/GetEndDate", { semester_id:'@ViewBag.semester_id' , tipe: tipe }, function (data) { $("#end_date").val(data); });
+        $.post("SidangKoordinator/GetStartDate", { semester_id: '@ViewBag.semester_id', tipe: tipe }, function (data) { $("#start_date").val(data); });
+        $.post("SidangKoordinator/GetEndDate", { semester_id: '@ViewBag.semester_id', tipe: tipe }, function (data) { $("#end_date").val(data); });
     }
 
     $(document).ready(function () {
@@ -51,26 +51,49 @@
         });
     });
 </script>
-
 <fieldset id="settingJadwalSidang">
     <legend>Pengaturan </legend>
-    <span>Sidang :</span>
-    <select id="tipeSidang">
-        <option>Presentasi</option>
-        <option>Akhir</option>
-    </select><br />
-    <span>Tanggal : </span>
-    @(Html.Telerik().DatePicker()
-        .Name("start_date")
-        //.Value(DateTime.Now)
+    <div class="editor-label grid_15">
+        <label>
+            Sidang
+        </label>
+    </div>
+    <br class="clear" />
+    <div class="editor-field grid_15">
+        <select id="tipeSidang" class="grid_7">
+            <option>Presentasi</option>
+            <option>Akhir</option>
+        </select>
+    </div>
+    <br class="clear" />
+    <!---------------------------------------->
+    <div class="editor-label grid_15">
+        <label>
+            Tanggal
+        </label>
+    </div>
+    <br class="clear" />
+    <div class="editor-field grid_15">
+        @(Html.Telerik().DatePicker()
+        .Name("start_date").HtmlAttributes(new { @class = "left" })
+                //.Value(DateTime.Now)
     )
-    <span> sampai </span>
-    @(Html.Telerik().DatePicker()
-        .Name("end_date")
-        //.Value(DateTime.Now)
-    )<br />
-    <input type="button" value="Simpan" id="simpanButton" class="t-button t-state-default" />
+        <div class="editor-label left grid_2 txtcenter">
+            <label>
+                sampai
+            </label>
+        </div>
+        @(Html.Telerik().DatePicker()
+        .Name("end_date").HtmlAttributes(new { @class = "left" })
+                //.Value(DateTime.Now)
+    )
+    </div>
+    <br class="clear" />
+    <div class="button-block grid_15">
+        <input type="button" value="Simpan" id="simpanButton" class="t-button t-state-default" /></div>
 </fieldset>
-<div style="text-align:center;">
-    <input type="button" value="Mulai Pengumpulan Jadwal" id="bukaButton" class="t-button t-state-default" style="width:300px;height:70px;"/>
+<div class="txtcenter">
+    <input type="button" value="Mulai Pengumpulan Jadwal" id="bukaButton" class="t-button t-state-default"
+        style="width: 300px; height: 70px;" />
 </div>
+<br />
