@@ -83,6 +83,10 @@ namespace Proyek_Informatika.Controllers.Dosen
             {
                 return "Registrasi mahasiswa gagal! \nField NPM tidak valid! \nField NPM yang valid memiliki 10 karakter!";
             }
+            else if (model.idTopik == 0)
+            {
+                return "Registrasi mahasiswa gagal! \nBelum ada topik yang dipilih.";
+            }
             skripsi s = new skripsi();
             s.jenis = 1;
             s.pengambilan_ke = 1;

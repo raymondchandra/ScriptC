@@ -45,10 +45,10 @@
                     }).HtmlAttributes(new { style = "text-align: center" }).Width(150).Title("Commands");
             })
                 .ClientEvents(events => events.OnComplete("actionButton"))
-            .Pageable(p => p.PageSize(15))
+            .Pageable(p => p.PageSize(20))
             .Sortable()
             .Filterable()
-            .Scrollable(c => c.Enabled(true))
+            .Scrollable(c => c.Enabled(true).Height(600))
             .Selectable()
             .Groupable()
         )

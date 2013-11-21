@@ -22,8 +22,8 @@
             columns.Bound(c => c.mahasiswa).Width(100).Title("Nama");
             columns.Bound(c => c.nilai).Width(100).Title("Nilai Akhir");
         })
-        .Pageable(p => p.PageSize(15))
-        .Scrollable(c => c.Enabled(true))
+        .Pageable(p => p.PageSize(20))
+        .Scrollable(c => c.Enabled(true).Height(600))
         .Sortable()
         .Filterable()
         .Selectable()

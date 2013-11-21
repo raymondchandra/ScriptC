@@ -54,9 +54,7 @@
         <div class="grid_15">
             @if ((ViewBag.schedule_skripsi1 as IEnumerable<Proyek_Informatika.Models.jadwal_semester>).Count() == 0)
             {
-                <ul class='warning'>
-                    <li>Belum ada jadwal kegiatan. </li>
-                </ul>
+                <div class='warning'>Belum ada jadwal kegiatan. </div>
             }
             else
             {
@@ -105,9 +103,7 @@
         <div class="grid_15">
             @if ((ViewData["schedule_skripsi2"] as IEnumerable<Proyek_Informatika.Models.jadwal_semester>).Count() == 0)
             {
-                <ul class='warning'>
-                    <li>Belum ada jadwal kegiatan. </li>
-                </ul>
+                <div class='warning'>Belum ada jadwal kegiatan. </div>
             }
             else
             {
@@ -205,7 +201,7 @@
     }
     <!---------------------------------------->
     <div class="button-block wide">
-        <input type="button" value="Previous Semester" onclick="changeSemester('prev')" class="t-button" />
-        <input type="button" value="Next Semester" onclick="changeSemester('next')" class="t-button right" />
+        <input type="button" value="Semester Sebelumnya" onclick="changeSemester('prev')" class="t-button" />
+        <input type="button" value="Semester Selanjutnya" onclick="changeSemester('next')" class="t-button right" />
     </div>
 </div>

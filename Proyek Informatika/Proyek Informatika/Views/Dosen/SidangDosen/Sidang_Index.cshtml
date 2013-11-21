@@ -1,7 +1,8 @@
 ﻿@{
     ViewBag.Title = "Penilaian Sidang";
     var koordinator = false;
-    if(ViewBag.role == "penguji1"){
+    if (ViewBag.role == "penguji1")
+    {
         koordinator = true;
     }
 
@@ -27,61 +28,99 @@
         });
     });
 </script>
-
 <div class="layer">
-    <h1>Penilaian Sidang</h1>
-    <div style="float: left; width: 300px;">
-        <table>
-                <tr>
-                    <td style="width: 75px;">Nama</td>
-                    <td style="width: 20px;">:</td>
-                    <td>@ViewBag.nama</td>
-                </tr>
-                <tr>
-                    <td style="width: 75px;">NPM</td>
-                    <td style="width: 20px;">:</td>
-                    <td>@ViewBag.npm</td>
-                </tr>
-                <tr>
-                    <td style="width: 75px;">Topik</td>
-                    <td style="width: 20px;">:</td>
-                    <td>@ViewBag.topik</td>
-                </tr>
-                <tr>
-                    <td>Pembimbing</td>
-                    <td>:</td>
-                    <td>@ViewBag.pembimbing</td>
-                </tr>
-                <tr>
-                    <td>Penguji 1</td>
-                    <td>:</td>
-                    <td>@ViewBag.penguji1</td>
-                </tr>
-                <tr>
-                    <td>Penguji 2</td>
-                    <td>:</td>
-                    <td>@ViewBag.penguji2</td>
-                </tr>
-            </table>
+    <h1>
+        Penilaian Sidang</h1>
+    <div class="grid_5 alpha">
+        <!---------------------------------------->
+        <div class="editor-label grid_15">
+            <label>
+                Nama
+            </label>
+        </div>
+        <br class="clear" />
+        <div class="editor-field grid_15">
+            @ViewBag.nama &nbsp;
+        </div>
+        <br class="clear" />
+        <!---------------------------------------->
+        <div class="editor-label grid_15">
+            <label>
+                NPM
+            </label>
+        </div>
+        <br class="clear" />
+        <div class="editor-field grid_15">
+            @ViewBag.npm &nbsp;
+        </div>
+        <br class="clear" />
+        <!---------------------------------------->
+        <div class="editor-label grid_15">
+            <label>
+                Topik
+            </label>
+        </div>
+        <br class="clear" />
+        <div class="editor-field grid_15">
+            @ViewBag.topik &nbsp;
+        </div>
+        <br class="clear" />
+        <!---------------------------------------->
+        <div class="editor-label grid_15">
+            <label>
+                Pembimbing
+            </label>
+        </div>
+        <br class="clear" />
+        <div class="editor-field grid_15">
+            @ViewBag.pembimbing &nbsp;
+        </div>
+        <br class="clear" />
+        <!---------------------------------------->
+        <div class="editor-label grid_15">
+            <label>
+                Penguji 1
+            </label>
+        </div>
+        <br class="clear" />
+        <div class="editor-field grid_15">
+            @ViewBag.penguji1 &nbsp;
+        </div>
+        <br class="clear" />
+        <!---------------------------------------->
+        <div class="editor-label grid_15">
+            <label>
+                Penguji 2
+            </label>
+        </div>
+        <br class="clear" />
+        <div class="editor-field grid_15">
+            @ViewBag.penguji2 &nbsp;
+        </div>
+        <br class="clear" />
     </div>
-    <div id="openPanel">
-        <input type="button" id="openButton" value="Mulai Sidang" class="t-button t-state-default"/>
-    </div>
-    <div id="nilaiPanel" style="float: left; width: 550px;display:none;">
-        @( Html.Telerik().TabStrip()
+    <div class="grid_10 omega">
+        <div id="openPanel">
+            <br/><br/><br/><br/><br/>
+            <input type="button" id="openButton" value="Mulai Sidang" class="t-button t-state-default big-button" />
+        </div>
+        <div id="nilaiPanel" class="grid_15" style="display: none;">
+            @( Html.Telerik().TabStrip()
             .Name("SidangTab")
-            .Items(parent => {
+            .Items(parent =>
+            {
                 parent.Add()
                     .Text("Sidang")
-                    .LoadContentFrom("Sidang", "SidangDosen", new { role = ViewBag.role, skripsi_id = ViewBag.skripsi_id})
+                    .LoadContentFrom("Sidang", "SidangDosen", new { role = ViewBag.role, skripsi_id = ViewBag.skripsi_id })
                     .Selected(true);
 
                 parent.Add()
                     .Text("Koordinator Sidang")
                     .LoadContentFrom("Sidang_Koordinator", "SidangDosen", new { role = ViewBag.role, skripsi_id = ViewBag.skripsi_id })
                     .Visible(koordinator);
-            
+
             })
         )
+        </div>
     </div>
 </div>

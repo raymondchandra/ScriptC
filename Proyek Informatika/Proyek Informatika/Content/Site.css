@@ -205,6 +205,12 @@ a#file
     padding: 2px;
 }
 
+.warning
+{
+    padding: 5px;
+    display: block;
+    float: left;
+}
 
 /* #Forms
 ================================================== */
@@ -230,8 +236,7 @@ input[type="text"], input[type="password"], input[type="email"], textarea, selec
     font: 13px "HelveticaNeue" , "Helvetica Neue" , Helvetica, Arial, sans-serif;
     letter-spacing: 1px;
     color: #777;
-    margin: 0;
-    /*display: block; margin-bottom: 20px;*/
+    margin: 0; /*display: block; margin-bottom: 20px;*/
     background: #fff;
 }
 
@@ -293,4 +298,15 @@ div.t-widget.t-datepicker
     margin: 0;
 }
 
-   
+.big-button
+{
+
+    height: 50px;
+    vertical-align: middle;
+    text-align: center;
+}
+div.t-content.t-state-active
+{
+    overflow: auto;
+    padding: 20px;
+}

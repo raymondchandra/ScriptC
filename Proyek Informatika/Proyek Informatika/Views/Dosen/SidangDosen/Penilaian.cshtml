@@ -3,26 +3,25 @@
 }
 <script type="text/javascript">
     function goToSidang(e) {
-       if (e.name == "akses") {
-           var skripsi_id = e.response.id;
-           $.post("SidangDosen/GetRole", { skripsi_id: skripsi_id }, function (data) {
-               $.post("SidangDosen/CekSidangAkses", { skripsi_id: skripsi_id, role: data }, function (ret) {
-                   if (ret == 1) {
-                       $('#content').load('SidangDosen/Sidang_Index?role=' + data + '&skripsi_id=' + skripsi_id);
-                   } else if (ret == 2) {
-                       alert("Sidang belum dapat diakses. Koordinator sidang harus memberikan akses terlebih dahulu.");
-                   } else if (ret == 3) {
-                       alert("Bobot pengujian belum tersedia. Silahkan melapor kepada koordinator skripsi.");
-                   }
-               });
+        if (e.name == "akses") {
+            var skripsi_id = e.response.id;
+            $.post("SidangDosen/GetRole", { skripsi_id: skripsi_id }, function (data) {
+                $.post("SidangDosen/CekSidangAkses", { skripsi_id: skripsi_id, role: data }, function (ret) {
+                    if (ret == 1) {
+                        $('#content').load('SidangDosen/Sidang_Index?role=' + data + '&skripsi_id=' + skripsi_id);
+                    } else if (ret == 2) {
+                        alert("Sidang belum dapat diakses. Koordinator sidang harus memberikan akses terlebih dahulu.");
+                    } else if (ret == 3) {
+                        alert("Bobot pengujian belum tersedia. Silahkan melapor kepada koordinator skripsi.");
+                    }
+                });
 
-           });
+            });
         }
-        
+
     }
 </script>
 <div class="layer">
-
     <h1>
         Penilaian Sidang</h1>
     @(Html.Telerik().Grid<Proyek_Informatika.Models.PenilaianSidangContainer>()
@@ -34,11 +33,11 @@
         .DataBinding(dataBinding => dataBinding.Ajax().Select("_SelectPenilaianSidang", "SidangDosen"))
         .Columns(columns =>
         {
-            columns.Bound(o => o.NPM).Width(100);
-            columns.Bound(o => o.nama).Width(150);
-            columns.Bound(o => o.pembimbing).Width(150);
-            columns.Bound(o => o.penguji1).Width(150);
-            columns.Bound(o => o.penguji2).Width(150);
+            columns.Bound(o => o.NPM).Width(100).Title("NPM");
+            columns.Bound(o => o.nama).Width(150).Title("Mahasiswa");
+            columns.Bound(o => o.pembimbing).Width(150).Title("Pembimbing");
+            columns.Bound(o => o.penguji1).Width(150).Title("Penguji 1");
+            columns.Bound(o => o.penguji2).Width(150).Title("Penguji 2");
 
             columns.Command(comm => comm.Custom("akses")
                     .Text("Penilaian")
@@ -46,10 +45,10 @@
                     .Action("AksesSidang", "SidangDosen"))
                     .Width(100);
         })
-        .Pageable(p => p.PageSize(15))
+        .Pageable(p => p.PageSize(20))
         .Sortable()
         .Filterable()
-        .Scrollable(c => c.Enabled(true))
+        .Scrollable(c => c.Enabled(true).Height(600))
         .Selectable()
         .Groupable()
                 .ClientEvents(ev => ev.OnComplete("goToSidang"))

@@ -5,12 +5,15 @@
 <script>
     $(document).ready(function () { 
         @{
-            if(ViewBag.showhide){
+            if (ViewBag.showhide)
+            {
                 <text>
                 $("#showhide").show();
                 $("#showhide2").hide();
                 </text>
-            }else{
+            }
+            else
+            {
                 <text>
                 $("#showhide").hide();
                 $("#showhide2").show();
@@ -69,58 +72,91 @@
     
 </script>
 
-<input type="button" class="t-button t-state-default" id="refreshButton" value="Refresh" />
-<fieldset id="showhide" style="display:none;">
+<input type="button" class="t-button t-state-default" id="refreshButton" value="Refresh" /><br/>
+<fieldset id="showhide" style="display: none;">
     <legend>Ringkasan Penilaian Sidang</legend>
     @{
         if (ViewBag.jenis_skripsi_id == 1)
         {
             foreach (var item in bobotData2)
             {
-                <text>
-                <span>Presentasi : </span><span id="totalSkripsi1">@item.Item4</span>
-                </text>
+        <text>
+        <!---------------------------------------->
+        <div class="editor-label grid_4">
+            <label>
+                Presentasi
+            </label>
+        </div>
+        <div class="editor-label grid_1">
+            <label>
+                :
+            </label>
+        </div>
+        <div class="editor-field grid_10">
+            <span id="totalSkripsi1">@item.Item4</span>
+        </div>
+        <br class="clear" />
+        </text>
             }
         }
-            
+
         else if (ViewBag.jenis_skripsi_id == 2)
         {
-            <text>
-            <table style="text-align:left;">
-                <tr>
-                    <th style="width:175px">Penilaian</th>
-                    <th style="width:80px">Nilai</th>
-                    <th style="width:80px">Bobot</th>
-                    <th style="width:80px">Total</th>
-                </tr>
-                @{
+        <text>
+        <table class="blue grid_15">
+            <tr class="th">
+                <td style="width: 40%">
+                    Penilaian
+                </td>
+                <td style="width: 20%">
+                    Nilai
+                </td>
+                <td style="width: 20%">
+                    Bobot
+                </td>
+                <td style="width: 20%">
+                    Total
+                </td>
+            </tr>
+            @{
                     
-                    foreach (var item in bobotData2)
-                    {
-                        <text>
-                        <tr>
-                            <td>@item.Item2</td>
-                            <td id="nilaiAll@(item.Item1)">@item.Item4</td>
-                            <td id="bobotAll@(item.Item1)">@item.Item3</td>
-                            <td id="totalAll@(item.Item1)"></td>
-                        </tr>
-                        </text>
-                    }
-                    
-                }
-                
+            foreach (var item in bobotData2)
+            {
+                <text>
                 <tr>
-                    <th>Total</th>
-                    <th></th>
-                    <th></th>
-                    <th id="totalAkhir"></th>
+                    <td>@item.Item2
+                    </td>
+                    <td id="nilaiAll@(item.Item1)">@item.Item4
+                    </td>
+                    <td id="bobotAll@(item.Item1)">@item.Item3
+                    </td>
+                    <td id="totalAll@(item.Item1)">
+                    </td>
                 </tr>
-            </table>
-            </text>   
+                </text>
+            }
+                    
+            }
+            <tr class="tf">
+                <td>
+                    Total
+                </td>
+                <td>
+                </td>
+                <td>
+                </td>
+                <td id="totalAkhir">
+                </td>
+            </tr>
+        </table>
+        </text>   
         }
         
     }
-        <br>
+    <br>
     <input type="button" class="t-button t-state-default" id="finishButton" value="Akhiri Sidang" />
 </fieldset>
-<div id="showhide2" style="display:none;"><p>Belum semua pemberi nilai mengirimkan nilainya.</p></div>
+<div id="showhide2" style="display: none;">
+    <div class='warning'>
+        Belum semua pemberi nilai mengirimkan nilainya.</div>
+</div>

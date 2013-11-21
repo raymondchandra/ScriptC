@@ -41,7 +41,8 @@
         var success = true;
 
         @{
-            if(ViewBag.jenis_skripsi == 1){
+            if (ViewBag.jenis_skripsi == 1)
+            {
                 <text>
                     var nilai = $("#skripsi1Input").val();
                     if(!isNaN(parseFloat(nilai))){
@@ -117,12 +118,14 @@
             change(i);
         }
         @{
-            if(ViewBag.jenis_skripsi == 1 && ViewBag.role == "penguji1"){
+            if (ViewBag.jenis_skripsi == 1 && ViewBag.role == "penguji1")
+            {
                 <text>
-                    $("#tab1").html("Dosen reviewer tidak dapat memberi nilai.");
+                    $("#tab1").html("<br/><div class='warning'>Dosen reviewer tidak dapat memberi nilai.</div>");
                 </text>
             }
-            if(ViewBag.jenis_skripsi == 1){
+            if (ViewBag.jenis_skripsi == 1)
+            {
                 <text>
                     $("#skripsi1").show();
 
@@ -130,7 +133,9 @@
                         $("#skripsi1Input").val(data);
                     });
                 </text>
-            }else if(ViewBag.jenis_skripsi == 2){
+            }
+            else if (ViewBag.jenis_skripsi == 2)
+            {
                 <text>
                     $("#skripsi2").show();
                 </text>
@@ -141,43 +146,75 @@
     });
 </script>
 <div id="tab1">
-    <table id="skripsi2" style="display:none;">
-        <tr>
-            <th style="width:175px">Komponen Penilaian</th>
-            <th style="width:80px">Nilai</th>
-            <th style="width:80px">Bobot</th>
-            <th style="width:80px">Total</th>
+    <table id="skripsi2" style="display: none;">
+        <tr class="th">
+            <td style="width: 40%">
+                Komponen Penilaian
+            </td>
+            <td style="width: 20%">
+                Nilai
+            </td>
+            <td style="width: 20%">
+                Bobot
+            </td>
+            <td style="width: 20%">
+                Total
+            </td>
         </tr>
         @{
                     
             foreach (var item in bobotData)
             {
-                <text>
-                <tr>
-                    <td>@item.Item2</td>
-                    <td><input type="text" style="width:50px" id="nilai@(item.Item1)" onkeyup="change(@item.Item1)" value="@(item.Item4)"></td>
-                    <td id="bobot@(item.Item1)">@item.Item3</td>
-                    <td id="total@(item.Item1)"></td>
-                </tr>
-                </text>
+            <text>
+            <tr>
+                <td>@item.Item2
+                </td>
+                <td>
+                    <input type="text" style="width:50px" id="nilai@(item.Item1)" onkeyup="change(@item.Item1)" value="@(item.Item4)">
+                </td>
+                <td id="bobot@(item.Item1)">@item.Item3
+                </td>
+                <td id="total@(item.Item1)">
+                </td>
+            </tr>
+            </text>
             }
                     
         }
-                
-        <tr>
-            <th>Total</th>
-            <th></th>
-            <th></th>
-            <th id="total"></th>
-        </tr>
-    </table><br>
-    <table id="skripsi1" style="display:none;">
-        <tr>
-            <th>Nilai :</th>
-            <th><input type="text" id="skripsi1Input" name="skripsi1Input"/></th>
+        <tr class="tf">
+            <td>
+                Total
+            </td>
+            <td>
+            </td>
+            <td>
+            </td>
+            <td id="total">
+            </td>
         </tr>
     </table>
-    <input type="button" class="t-button t-state-default" id="submitButton" value="Kirim" />&nbsp 
-    <input type="button" class="t-button t-state-default" id="saveButton" value="Simpan" />&nbsp 
-    <input type="button" class="t-button t-state-default" id="backButton" value="Kembali" />
+    <!---------------------------------------->
+    <div id="skripsi1" style="display: none;">
+        <div class="editor-label grid_4">
+            <label>
+                Nilai
+            </label>
+        </div>
+        <div class="editor-label grid_1">
+            <label>
+                :
+            </label>
+        </div>
+        <div class="editor-field grid_10">
+            <input type="text" id="skripsi1Input" name="skripsi1Input" class="grid_2" />
+        </div>
+    </div>
+    <!---------------------------------------->
+    <br class="clear" />
+    <div class="button-block grid_15">
+        <input type="button" class="t-button t-state-default" id="submitButton" value="Kirim" />&nbsp
+        <input type="button" class="t-button t-state-default" id="saveButton" value="Simpan" />&nbsp
+        <input type="button" class="t-button t-state-default" id="backButton" value="Kembali" />
+    </div>
+    <br />
 </div>

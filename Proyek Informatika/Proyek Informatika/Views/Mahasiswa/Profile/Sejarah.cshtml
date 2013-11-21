@@ -22,8 +22,8 @@
             columns.Bound(c => c.pembimbing).Width(100).Title("Pembimbing");
             columns.Bound(c => c.nilai).Width(100).Title("Nilai Akhir");
         })
-        .Pageable(p => p.PageSize(15))
-        .Scrollable(c => c.Enabled(true))
+        .Pageable(p => p.PageSize(10))
+        .Scrollable(c => c.Enabled(true).Height(300))
         .Sortable()
         .Filterable()
         .Selectable()

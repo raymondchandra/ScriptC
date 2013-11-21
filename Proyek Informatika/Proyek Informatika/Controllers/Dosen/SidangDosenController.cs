@@ -103,7 +103,7 @@ namespace Proyek_Informatika.Controllers.Dosen
                 ViewBag.showhide = false;
             }
             
-            ViewData["bobot2"] = this.GetBobotGeneral(jenis_skripsi_id);
+            ViewData["bobot2"] = this.GetBobotGeneral(skripsi_id,jenis_skripsi_id);
             return PartialView();
         }
 
@@ -254,11 +254,11 @@ namespace Proyek_Informatika.Controllers.Dosen
    
         }
 
-        public List<Tuple<int, string, int, double>> GetBobotGeneral(int jenis_skripsi_id)
+        public List<Tuple<int, string, int, double>> GetBobotGeneral(int skripsi_id, int jenis_skripsi_id)
         {
             var listTemp = (from table in db.kategori_nilai
                             join table2 in db.nilais on table.id equals table2.kategori
-                            where (table.tipe == "general" && table.jenis_skripsi_id == jenis_skripsi_id)
+                            where (table.tipe == "general" && table.jenis_skripsi_id == jenis_skripsi_id && skripsi_id == table2.id_skripsi)
                             select new { 
                                 table.kategori,table.bobot,table2.angka
                             }).ToList();

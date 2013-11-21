@@ -299,7 +299,7 @@ namespace Proyek_Informatika.Controllers.Koordinator
                     {
                         dateList.Add(start);
                     }
-                    while (start.ToString() != end.ToString())
+                    while (start.CompareTo(end) < 0)
                     {
                         if (start.Hour < 7)
                         {
@@ -307,12 +307,13 @@ namespace Proyek_Informatika.Controllers.Koordinator
                         }
                         else if (start.Hour >= 7 && start.Hour <= 16)
                         {
-                            DateTime temp = start.AddHours(1);
-                            dateList.Add(temp);
+                            start = start.AddHours(1);
+                            dateList.Add(start);
                         }
                         else if (start.Hour > 16)
                         {
-                            start = new DateTime(start.Year, start.Month, start.Day + 1, 7, 0, 0);
+                            DateTime temp = start.AddDays(1);
+                            start = new DateTime(temp.Year, temp.Month, temp.Day, 7, 0, 0);
                         }
                     }
                }
@@ -344,8 +345,8 @@ namespace Proyek_Informatika.Controllers.Koordinator
                     }
                     else if (start.Hour >= 7 && start.Hour <= 16)
                     {
-                        DateTime temp = start.AddHours(1);
-                        dateList.Add(temp);
+                        start = start.AddHours(1);
+                        dateList.Add(start);
                     }
                     else if (start.Hour > 16)
                     {

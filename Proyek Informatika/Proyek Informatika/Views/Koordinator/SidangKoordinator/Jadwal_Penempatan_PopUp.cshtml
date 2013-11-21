@@ -82,16 +82,20 @@
                 var a = data.tanggal.split(" ");
 
                 $.when(selPengujiChange()).done(function () {
+                    alert(a[0]);
                     $("#selTanggal").val(a[0]);
-                    selTanggalChange();
-                    $("#selWaktu").val(a[1]);
-                    $.when(selWaktuChange()).done(function () {
-                        $("#selRuang").val(data.ruang);
-                        $.when(selRuangChange()).done(function () {
-                            var penguji2 = data.penguji2 == null ? "--" : data.penguji2;
-                            $("#selPenguji2").val(penguji2);
+                    alert($("#selTanggal").val());
+                    $.when(selTanggalChange()).done(function () {
+                        $("#selWaktu").val(a[1]);
+                        $.when(selWaktuChange()).done(function () {
+                            $("#selRuang").val(data.ruang);
+                            $.when(selRuangChange()).done(function () {
+                                var penguji2 = data.penguji2 == null ? "--" : data.penguji2;
+                                $("#selPenguji2").val(penguji2);
+                            });
                         });
                     });
+
                 });
             } else {
                 var date = new Date();
@@ -147,7 +151,9 @@
     function selWaktuChange() {
         $("#selRuang").html("");
         $("#selPenguji2").html("");
+        
         var waktu = $(selTanggal).val() + " " + $("#selWaktu").val();
+        alert(waktu);
         var values = {
             waktu: waktu
         };
@@ -313,9 +319,8 @@
                 <select id="ruangManual" class="grid_8">
                 </select>
             </div>
-            <br class="clear" />
-            <ul class="warning">
-                <li>Peringatan : Mode ini tidak melakukan validasi jadwal.</li></ul>
+            <br class="clear" /><div class='warning'>Peringatan : Mode ini tidak melakukan validasi jadwal.</div>
+
          
             <!---------------------------------------->
         </div>
