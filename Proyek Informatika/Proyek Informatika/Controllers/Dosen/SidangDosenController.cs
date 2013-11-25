@@ -129,9 +129,9 @@ namespace Proyek_Informatika.Controllers.Dosen
             foreach (var item in resultList)
             {
                 var nama = db.mahasiswas.Where(x=>x.NPM == item.NPM_mahasiswa).Select(y=>y.nama).SingleOrDefault();
-                var pembimbing = db.dosens.Where(x=>x.NIK == item.NIK_dosen_pembimbing).Select(y=>y.nama).SingleOrDefault();
-                var penguji1 = db.dosens.Where(x=>x.NIK == item.penguji1).Select(y=>y.nama).SingleOrDefault();
-                var penguji2 = db.dosens.Where(x=>x.NIK == item.penguji2).Select(y=>y.nama).SingleOrDefault();
+                var pembimbing = db.dosens.Where(x=>x.NIK == item.NIK_dosen_pembimbing).Select(y=>y.inisial).SingleOrDefault();
+                var penguji1 = db.dosens.Where(x=>x.NIK == item.penguji1).Select(y=>y.inisial).SingleOrDefault();
+                var penguji2 = db.dosens.Where(x=>x.NIK == item.penguji2).Select(y=>y.inisial).SingleOrDefault();
                 var ruang = db.ruangs.Where(x=>x.id == item.ruang).Select(y=>y.nama_ruang).SingleOrDefault();
                 PenilaianSidangContainer newRow = new PenilaianSidangContainer();
                 newRow.nama = nama;

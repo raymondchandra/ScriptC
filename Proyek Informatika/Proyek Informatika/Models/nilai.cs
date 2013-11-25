@@ -22,7 +22,7 @@ namespace Proyek_Informatika.Models
         public byte submitted { get; set; }
     
         public virtual kategori_nilai kategori_nilai { get; set; }
-        public virtual dosen dosen { get; set; }
         public virtual skripsi skripsi { get; set; }
+        public virtual dosen dosen { get; set; }
     }
 }

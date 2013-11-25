@@ -82,7 +82,7 @@ namespace Proyek_Informatika.Controllers
         private bool ValidateUser(string username, string password)
         {
             password = EncodePassword(password);
-            akun a = db.akuns.Where(akunTemp => akunTemp.username == username).SingleOrDefault();
+            akun a = db.akuns.Where(akunTemp => akunTemp.username == username && akunTemp.aktif == 1).SingleOrDefault();
             if (a != null)
             {
 
@@ -253,56 +253,28 @@ namespace Proyek_Informatika.Controllers
             return PartialView();
         }
 
-        protected ViewResult bindingAkun(int id)
+        public ViewResult bindingAkun(int id)
         {
-            List<Akun> listAkun = new List<Akun>();
+            List<akun> list_akun = (from a in db.akuns where a.peran != 1 select a).ToList();
+            List<AlbertContainer.AkunForGrid> list_akun2 = new List<AlbertContainer.AkunForGrid>();
 
-            Akun x = new Akun()
+            foreach (akun a in list_akun)
             {
-                username = "KoLiong19",
-                aktif = "Aktif",
-                last_login = "12/Sep/2013 17:00",
-                peran = "Pembimbing"
-            };
-            listAkun.Add(x);
-            x = new Akun()
-            {
-                username = "KoLiong20",
-                aktif = "Aktif",
-                last_login = "15/Oct/2013 13:45",
-                peran = "Koordinator"
-            };
-            listAkun.Add(x);
-            x = new Akun()
-            {
-                username = "RayWuBestStudent",
-                aktif = "Aktif",
-                last_login = "20/Sep/2013 14:30",
-                peran = "Mahasiswa"
-            };
-            listAkun.Add(x);
-            x = new Akun()
-            {
-                username = "Hanzz",
-                aktif = "-",
-                last_login = "01/Jan/2013 13:55",
-                peran = "Mahasiswa"
-            };
-            listAkun.Add(x);
-            x = new Akun()
-            {
-                username = "albertusalvin",
-                aktif = "Aktif",
-                last_login = "01/Oct/2013 16:30",
-                peran = "Mahasiswa"
-            };
-            listAkun.Add(x);
+                list_akun2.Add(new AlbertContainer.AkunForGrid
+                {
+                    username = a.username,
+                    password = a.password,
+                    aktif = (a.aktif == 1 ? "Aktif" : "Non-aktif"),
+                    last_login = a.last_login,
+                    peran = db.perans.Where(p => p.id == a.peran).FirstOrDefault().nama_peran
+                });
+            }
 
-            return View(new GridModel<Akun>
-            {
-                Data = listAkun
+            return View(new GridModel<AlbertContainer.AkunForGrid> { 
+                Data = list_akun2
             });
         }
+               
         [GridAction]
         public ActionResult _SelectAkun()
         {
@@ -330,6 +302,33 @@ namespace Proyek_Informatika.Controllers
         {
 
             return bindingAkun(id);
+        }
+
+        public ActionResult Change_Status(string username)
+        {
+            akun a = db.akuns.FirstOrDefault(o => o.username == username);
+            if(a.aktif == 1) a.aktif = 0;
+            else a.aktif = 1;
+
+            if (TryUpdateModel(a))
+            {
+                db.SaveChanges();
+                return Json(new { success = true });
+            }
+            else return Json(new { success = false });            
+        }
+
+        public ActionResult Reset_Password(string username)
+        {
+            akun a = db.akuns.FirstOrDefault(o => o.username == username);
+            a.password = this.EncodePassword(a.username);
+
+            if (TryUpdateModel(a))
+            {
+                db.SaveChanges();
+                return Json(new { success = true });
+            }
+            else return Json(new { success = false });
         }
 
 

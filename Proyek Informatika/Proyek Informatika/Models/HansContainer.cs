@@ -84,4 +84,9 @@ namespace Proyek_Informatika.Models
             string a;
         }
     }
+    public class NilaiDosen 
+    {
+        public int bobot;
+        public int nilai;
+    }
 }

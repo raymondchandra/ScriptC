@@ -29,8 +29,17 @@ namespace Proyek_Informatika.Controllers.Koordinator
         {            
             bool success = true;
             var current = db.semesters.Where(x => x.isCurrent == 1).ToList();
+            int id = current.First().id;
 
-            if (current.Count != 1) //semester table is empty, insert new row.
+            //check if all skripsis already marked. If not, can't change semester.
+            var curr_skripsis = db.skripsis.Where(s => s.id_semester_pengambilan == id).ToList();
+            foreach (skripsi s in curr_skripsis)
+            {
+                if (s.nilai_akhir == null) return false;
+            }
+
+            //semester table is empty, insert new row.
+            if (current.Count != 1)
             {
                 semester newsemester = new semester();
                 newsemester.periode_semester = "Ganjil 2013/2014";
@@ -43,12 +52,15 @@ namespace Proyek_Informatika.Controllers.Koordinator
                 }
                 return true;
             }
-
-            int id = current.First().id;
+            
             if (prevnext == "prev")
             {
+                //change to previous semester
                 var prev = db.semesters.Where(x => x.id == id - 1).ToList();
                 if(prev.Count == 0) return false;
+
+                //deactivate all mahasiswa
+                if(!this.deactivateAllMahasiswa()) return false;
 
                 current.First().isCurrent = 0;                
                 prev.First().isCurrent = 1;
@@ -57,9 +69,11 @@ namespace Proyek_Informatika.Controllers.Koordinator
             }
             else
             {
+                //change to next semeser
                 var next = db.semesters.Where(x => x.id == id + 1).ToList();
-                if(next.Count == 0) //no next semester in database. create new semester.
+                if(next.Count == 0) 
                 {
+                    //no next semester in database. create new semester.
                     semester newsemester = new semester();
                     newsemester.id = id + 1;
                     newsemester.periode_semester = this.nextSemesterName(current.First().periode_semester);
@@ -71,6 +85,9 @@ namespace Proyek_Informatika.Controllers.Koordinator
                 }
                 else
                 {
+                    //deactivate all mahasiswa
+                    if (!this.deactivateAllMahasiswa()) return false;
+
                     current.First().isCurrent = 0;                
                     next.First().isCurrent = 1;
                     db.Entry(current.First()).State = EntityState.Modified;
@@ -142,6 +159,26 @@ namespace Proyek_Informatika.Controllers.Koordinator
                 semester_name.Append((year + 1).ToString());
             }
             return semester_name.ToString();
+        }
+
+        private bool deactivateAllMahasiswa()
+        {
+            var list_mahasiswa = db.mahasiswas.Where(m => m.status.Equals("aktif")).ToList();
+            foreach (mahasiswa m in list_mahasiswa)
+            {
+                m.status = "nonaktif";
+                db.Entry(m).State = EntityState.Modified;
+            }
+
+            try
+            {
+                db.SaveChanges();                
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+            return true;
         }
     }
 }

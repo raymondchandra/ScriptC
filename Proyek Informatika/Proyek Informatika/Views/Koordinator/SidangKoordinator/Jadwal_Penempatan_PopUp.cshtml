@@ -104,6 +104,27 @@
 
             }
         });
+		$.post("SidangKoordinator/GetBatasPeriode", { npm: $("#npm-label").html(), date: "min" }, function (data) {
+            var dateTimePicker = $('#waktuManual').data("tDateTimePicker");
+            var value = new Date();
+            value.setFullYear(data.year);
+            value.setMonth(data.month - 1);
+            value.setDate(data.date);
+            value.setHours(data.hour);
+            value.setMinutes(data.minute);
+            dateTimePicker.min(value);
+
+        });   
+		$.post("SidangKoordinator/GetBatasPeriode", { npm: $("#npm-label").html(), date: "max" }, function (data) {
+            var dateTimePicker = $('#waktuManual').data("tDateTimePicker");
+            var value = new Date();
+            value.setFullYear(data.year);
+            value.setMonth(data.month - 1);
+            value.setDate(data.date);
+            value.setHours(data.hour);
+            value.setMinutes(data.minute);
+            dateTimePicker.max(value);
+        });
     }
     function selPengujiChange() {
         $("#selTanggal").html("");

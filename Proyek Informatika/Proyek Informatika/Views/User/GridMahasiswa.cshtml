@@ -1,0 +1,324 @@
+﻿<script type="text/javascript">
+    function Set_Detail_In_Aktivasi(json) {
+        $("#foto_aktivasi").attr("src", json.foto);
+        $("#npm_aktivasi").text(json.npm);
+        $("#nama_aktivasi").text(json.nama);
+        $("#status_aktivasi").text(json.status);
+        $("#jenis_aktivasi").text(json.jenis);
+        $("#topik_aktivasi").text(json.topik);
+        $("#pembimbing_aktivasi").text(json.pembimbing);
+        $("#pengambilan_aktivasi").text(json.pengambilan);
+        $("#periode_aktivasi").text(json.periode_pengambilan);
+        if (json.nilai != null) $("#nilai_aktivasi").text(json.nilai);
+        else $("#nilai_aktivasi").text("-");
+
+        $("#button_simpan").show();
+        $("#errMessage").hide();
+        //radio buttons
+        $(".radio").show();
+        $(".radio input").each(function () {
+            $(this).prop("checked", false);
+        });
+        if (json.nilai == null || json.jenis == "Lulus") {
+            $(".radio").hide();
+            $("#button_simpan").hide();
+            $("#errMessage").show();
+        } else {
+            if (json.nilai == "E") {
+                $("#radio_melanjutkan").hide();
+            }
+            if (json.pengambilan == 2 || json.nilai == "A" || json.nilai == "B" || json.nilai == "C") {
+                $("#radio_mengulang").hide();
+            }
+        }
+
+        //form ganti topik
+        $.post("Query/GetTopikList", "", function (data) {
+            var get = "";
+            $.each(data, function (index, value) {
+                get += "<option value='" + value.id + "'>" + value.judul + "</option>";
+            });
+            $("#form_ganti_topik select").html(get);
+        });
+        $("#nama_pembimbing").text("");
+        $("#form_ganti_topik").hide();
+    }
+
+    function Grid_onComplete(e) {
+        if (e.name == "LihatDetail") {
+            //SHOW POPUP DETAIL
+            var json = e.response;
+            var popup = $("#Window_Detail_Mahasiswa").data("tWindow");
+            $("#foto").attr("src", json.foto);
+            $("#npm").text(json.npm);
+            $("#nama").text(json.nama);
+            $("#status").text(json.status);
+            $("#topik").text(json.topik);
+            $("#pembimbing").text(json.pembimbing);
+            $("#pengambilan").text(json.pengambilan);
+            $("#jenis").text(json.jenis);
+            $("#periode").text(json.periode_pengambilan);
+            if (json.nilai != null) $("#nilai").text(json.nilai);
+            else $("#nilai").text("-");
+            popup.center().open();
+        }
+        else if (e.name == "Aktivasi") {
+            //SHOW POPUP AKTIVASI
+            var json = e.response;
+            Set_Detail_In_Aktivasi(json);
+            var popup = $("#Window_Aktivasi_Mahasiswa").data("tWindow");
+            popup.center().open();
+        }
+    }
+
+    //RADIO melanjutkan
+    $("#radio_melanjutkan input").click(function () {
+        $("#form_ganti_topik").hide();
+    });
+
+    //RADIO mengulang
+    $("#radio_mengulang input").click(function () {
+        $("#form_ganti_topik").hide();
+    });
+
+    //RADIO mengganti topik
+    $("#radio_mengganti_topik input").click(function () {
+        $("#form_ganti_topik").show();
+    });
+    
+    //DROPDOWN select topik (show dosen pembimbing's name)
+    $("#form_ganti_topik select").change(function () {
+        $.post("Query/GetNamaPembimbing", { id_topik: $("#form_ganti_topik select option:selected").val() }, function (data) {
+            $("#nama_pembimbing").text(data);
+        });
+    }).trigger("change");
+
+    //BUTTON simpan
+    $("#button_simpan").click(function () {
+        //route to controller
+        var action = $(".radio input:checked").val();
+        if (action == "melanjutkan") {
+            var npm = $("#npm_aktivasi").text();
+            $.post("User/Aktivasi_Melanjutkan", { npm: npm }, function (success) {
+                alert((success == "True" ? "Berhasil" : "Gagal"));
+            });
+        } else if (action == "mengulang") {
+            var npm = $("#npm_aktivasi").text();
+            $.post("User/Aktivasi_Mengulang", { npm: npm }, function (success) {
+                alert((success == "True" ? "Berhasil" : "Gagal"));
+            });
+        } else if (action == "mengganti_topik") {
+            var npm = $("#npm_aktivasi").text();
+            var id_topik = $("#form_ganti_topik select option:selected").val();
+            $.post("User/Aktivasi_Melanjutkan", { npm: npm, id_topik: id_topik }, function (success) {
+                alert((success == "True" ? "Berhasil" : "Gagal"));
+            });
+        }
+
+        //update data displayed in popup
+        var npm = $("#npm_aktivasi").text();
+        $.get("User/LihatDetail", { npm: npm }, function (json) {
+            Set_Detail_In_Aktivasi(json);
+        });
+    });
+</script>
+
+<!--GRID MAHASISWA-->
+@(Html.Telerik().Grid<Proyek_Informatika.Models.AlbertContainer.MahasiswaForGrid>()
+    .HtmlAttributes(new { style = "width:100%" })
+    .Name("GridMahasiswa")
+    .ClientEvents(events => events.OnComplete("Grid_onComplete"))
+
+    .DataBinding(dataBinding => dataBinding
+        .Ajax()
+        .Select("_SelectMahasiswaKoor", "User", new {semester = ViewBag.id_selected_semester })
+        .Update("_SaveMahasiswa", "User", new { semester = ViewBag.id_selected_semester })
+        .Delete("_DeleteMahasiswa", "User", new { semester = ViewBag.id_selected_semester }))
+    .Columns(columns =>
+    {
+        //columns.Bound(o => o.foto).Width(200).Title("Foto");
+        columns.Bound(o => o.NPM).Width(80).Title("NPM");
+        columns.Bound(o => o.nama).Width(100).Title("Nama");
+        columns.Bound(o => o.dosen_pembimbing).Width(80).Title("Pembimbing");
+        columns.Bound(o => o.periode_pengambilan).Width(70).Title("Periode");
+        columns.Bound(o => o.jenis_skripsi).Width(70).Title("Jenis");
+        columns.Bound(o => o.pengambilan_ke).Width(40).Title("Ke");
+        columns.Bound(o => o.status).Width(60).Title("Status");
+        columns.Command(commands =>
+            {
+                commands
+                    .Custom("LihatDetail")
+                    .Text("Detail")
+                    .Ajax(true)
+                    .Action("LihatDetail", "User")
+                    .DataRouteValues(route => { route.Add(m => m.NPM).RouteKey("npm"); });
+                commands
+                .Custom("Aktivasi")
+                .Text("Aktivasi")
+                .Ajax(true)
+                .Action("LihatDetail", "User")
+                .DataRouteValues(route => { route.Add(m => m.NPM).RouteKey("npm"); });
+            }).Width(70).Title("Aksi");
+            
+    })
+        //.ClientEvents(
+        //    events => events
+        //        .OnComplete("OnComplete") --> popup window
+        //)
+    .Pageable(p => p.PageSize(15))
+    .Sortable()
+    .Filterable()
+        //.Editable(editing => editing.Mode(GridEditMode.PopUp))
+    .Scrollable(c => c.Enabled(true))
+    .Selectable()
+    .Groupable()
+)
+
+<!--POP-UP WINDOW DETAIL MAHASISWA-->
+@(Html.Telerik().Window()
+    .Name("Window_Detail_Mahasiswa")
+    .Visible(false)
+    .Title("Detail Mahasiswa")
+    .Modal(true)
+    .Width(800)
+    .Height(600)
+    .Content(@<text>
+            <div id="detail-mahasiswa">
+                <table>
+                    <tr>
+                        <td rowspan="9"><img id="foto" /></td>
+                        <td>NPM</td>
+                        <td>&nbsp:&nbsp</td>
+                        <td><span id="npm"></span></td>   
+                    </tr>
+                    <tr>
+                        <td>Nama</td>
+                        <td>&nbsp:&nbsp</td>
+                        <td><span id="nama"></span></td>
+                    </tr>
+                    <tr>
+                        <td>Status</td>
+                        <td>&nbsp:&nbsp</td>
+                        <td><span id="status"></span></td>
+                    </tr>
+                    <tr>
+                        <td>Jenis skripsi</td>
+                        <td>&nbsp:&nbsp</td>
+                        <td><span id="jenis"></span></td>
+                    </tr>
+                    <tr>
+                        <td>Pengambilan ke</td>
+                        <td>&nbsp:&nbsp</td> 
+                        <td><span id="pengambilan"></span></td>
+                    </tr>
+                    <tr>
+                        <td>Periode pengambilan</td>
+                        <td>&nbsp:&nbsp</td> 
+                        <td><span id="periode"></span></td>
+                    </tr>
+                    <tr>
+                        <td>Topik</td>
+                        <td>&nbsp:&nbsp</td> 
+                        <td><em><span id="topik"></span></em></td>
+                    </tr>
+                    <tr>
+                        <td>Pembimbing</td>
+                        <td>&nbsp:&nbsp</td>
+                        <td><span id="pembimbing"></span></td>
+                    </tr>
+                    <tr>
+                        <td>Nilai akhir</td>
+                        <td>&nbsp:&nbsp</td>
+                        <td><span id="nilai"></span></td>
+                    </tr>                    
+                </table>
+            </div>
+            </text>)
+)
+
+<!--POP-UP WINDOW AKTIVASI MAHASISWA-->
+@(Html.Telerik().Window()
+    .Name("Window_Aktivasi_Mahasiswa")
+    .Visible(false)
+    .Title("Aktivasi Mahasiswa")
+    .Modal(true)
+    .Width(800)
+    .Height(600)
+    .Content(@<text>
+            <!--Informasi mahasiswa-->
+            <div id="detail-mahasiswa-aktivasi">
+                <table>
+                    <tr>
+                        <td rowspan="9"><img id="foto_aktivasi" /></td>
+                        <td>NPM</td>
+                        <td>&nbsp:&nbsp</td>
+                        <td><span id="npm_aktivasi"></span></td>   
+                    </tr>
+                    <tr>
+                        <td>Nama</td>
+                        <td>&nbsp:&nbsp</td>
+                        <td><span id="nama_aktivasi"></span></td>
+                    </tr>
+                    <tr>
+                        <td>Status</td>
+                        <td>&nbsp:&nbsp</td>
+                        <td><span id="status_aktivasi"></span></td>
+                    </tr>
+                    <tr>
+                        <td>Jenis skripsi</td>
+                        <td>&nbsp:&nbsp</td>
+                        <td><span id="jenis_aktivasi"></span></td>
+                    </tr>
+                    <tr>
+                        <td>Pengambilan ke</td>
+                        <td>&nbsp:&nbsp</td> 
+                        <td><span id="pengambilan_aktivasi"></span></td>
+                    </tr>
+                    <tr>
+                        <td>Periode pengambilan</td>
+                        <td>&nbsp:&nbsp</td> 
+                        <td><span id="periode_aktivasi"></span></td>
+                    </tr>
+                    <tr>
+                        <td>Topik</td>
+                        <td>&nbsp:&nbsp</td> 
+                        <td><em><span id="topik_aktivasi"></span></em></td>
+                    </tr>
+                    <tr>
+                        <td>Pembimbing</td>
+                        <td>&nbsp:&nbsp</td>
+                        <td><span id="pembimbing_aktivasi"></span></td>
+                    </tr>
+                    <tr>
+                        <td>Nilai akhir</td>
+                        <td>&nbsp:&nbsp</td>
+                        <td><span id="nilai_aktivasi"></span></td>
+                    </tr>                    
+                </table>
+            </div>
+            <!--Aksi-->
+            <form>
+                <span id="radio_melanjutkan" class="radio"><input type="radio" name="aksi" value="melanjutkan" /><span>Melanjutkan</span></span>
+                <span id="radio_mengulang" class="radio"><input type="radio" name="aksi" value="mengulang" /><span>Mengulang</span></span>
+                <span id="radio_mengganti_topik" class="radio"><input type="radio" name="aksi" value="mengganti_topik" /><span>Mengganti topik</span></span>
+            </form>
+            <!--Form ganti topik-->
+            <div id="form_ganti_topik">
+                <table>
+                    <tr>
+                        <td>Topik</td>
+                        <td>&nbsp:&nbsp</td>
+                        <td><select></select></td>
+                    </tr>
+                    <tr>
+                        <td>Pembimbing</td>
+                        <td>&nbsp:&nbsp</td>
+                        <td><span id="nama_pembimbing"></span></td>
+                    </tr>
+                </table>
+            </div>
+            <input id="button_simpan" type="button" value="Simpan" />
+            <span id="errMessage">Syarat tidak memenuhi untuk melakukan aktivasi.</span>
+            </text>)
+)
+

@@ -1,39 +1,60 @@
 ﻿@{
     ViewBag.Title = "DaftarDosen";
 }
-
+<script>
+    function Grid_onComplete(e) {
+        if (e.name == "Aktivasi") {
+            if (e.response.success == true) {
+                $("#DosenGrid .t-refresh").trigger("click");
+            }
+            else {
+                alert("Gagal mengubah status");
+            }
+        }
+    }
+</script>
 <div class="layer">
     <h1>Daftar Dosen</h1>
 
-    @(Html.Telerik().Grid<Proyek_Informatika.Models.DosenPembimbing>()
-        .HtmlAttributes(new { style = "width:100%" })
-        .Name("DaftarDosen")
-                
-        .DataBinding(dataBinding => dataBinding.Ajax()
-                                                    .Select("_SelectDosen", "User")
-                                                    .Insert("_InsertDosen", "User")
-                                                    .Update("_SaveDosen", "User")
-                                                    .Delete("_DeleteDosen", "User"))
-        .Columns(columns =>
+@(Html.Telerik().Grid<Proyek_Informatika.Models.DosenContainer>()
+    .HtmlAttributes(new { style = "width:100%;" })
+    .Name("DosenGrid")
+        .ClientEvents(events => events.OnComplete("Grid_onComplete"))
+    .DataKeys(keys =>
+    {
+        keys.Add(p => p.NIK);
+    })
+    .ToolBar(commands => commands.Insert().ButtonType(GridButtonType.Text).ImageHtmlAttributes(new { style = "margin-left:0" }))
+    .DataBinding(dataBinding => dataBinding.Ajax()
+                        .Select("_SelectDosen", "User")
+                        .Insert("_InsertDosen", "User")
+                        .Update("_SaveDosen", "User"))
+                        //.Delete("_DeleteDosen", "User"))
+    .Columns(columns =>
+    {
+        columns.Bound(o => o.foto).ClientTemplate("<img width='100' height='110'  src='<#= foto #>' />").Title("foto").Width(100);
+        columns.Bound(o => o.NIK).Title("NIK").Width(90);
+        columns.Bound(o => o.nama).Title("Nama").Width(220);
+        columns.Bound(o => o.inisial).Title("Inisial").Width(70);
+        columns.Bound(o => o.email).Title("Email").Width(220);
+        columns.Bound(o => o.username).Title("Username").Width(100);
+        columns.Bound(o => o.aktif).Title("Status").Width(80);
+        columns.Command(commands =>
         {
-            columns.Bound(o => o.NIK).Width(200).Title("NIK");            
-            columns.Bound(o => o.nama).Width(100).Title("Nama");
-            columns.Bound(o => o.email).Width(100).Title("Email");
-            //columns.Bound(o => o.NPM_mhs).Width(100).Title("NPM Mahasiswa");
-            //columns.Bound(o => o.nama_mhs).Width(100).Title("Nama Mahasiswa");                        
-            //columns.Bound(o => o.status).Width(100).Title("Status");
-            //columns.Bound(o => o.topik).Width(100).Title("Topik");            
-        })
-            //.ClientEvents(
-            //    events => events
-            //        .OnComplete("OnComplete") --> popup window
-            //)
-        .Pageable(p => p.PageSize(15))
-        .Sortable()
-        .Filterable()
-            //.Editable(editing => editing.Mode(GridEditMode.PopUp))
-        .Scrollable(c => c.Enabled(true))
-        .Selectable()
-        .Groupable()
+            commands.Edit().ButtonType(GridButtonType.Text);
+            //commands.Delete().ButtonType(GridButtonType.Text);
+        }).Width(100).Title("");
+        columns.Command(commands => commands
+                .Custom("Aktivasi")
+                .Text("Ubah status")
+                .Ajax(true)
+                .Action("Change_Status_Dosen", "User")
+                .DataRouteValues(route => { route.Add(a => a.NIK).RouteKey("NIK"); })).Width(100);
+    })
+    .Pageable()
+    .Scrollable()
+    .Sortable()
+    .Editable(editing => editing.Mode(GridEditMode.InLine))
+    .Filterable()
 )
 </div>

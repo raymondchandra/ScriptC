@@ -1,0 +1,47 @@
+﻿
+
+@{
+    List<Tuple<string,int, double>> nilais = ViewData["nilai"] as List<Tuple<string, int, double>>;
+
+    }
+
+
+<h2>Komposisi Nilai</h2>
+<div class="container_15">
+    <table class="blue" style="width: 50%;">
+        <tr class="th">
+            <td style="width: 40%;">
+                Penilaian
+            </td>
+            <td style="width: 30%;">
+                Bobot (%)
+            </td>
+            <td>
+                Nilai
+            </td>
+            <td>
+                Subtotal
+            </td>
+        </tr>
+        @{
+            int i = 1;
+    foreach (var item in nilais)
+    {
+        <text>
+            <tr>
+                <td>
+                    
+                    @item.Item1
+                </td>
+                <td>
+                    @item.Item2
+                </td>
+                <td>
+                    @item.Item3
+                </td>
+            </tr>
+        </text>
+    }
+    }
+    </table>
+    </div>

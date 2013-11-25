@@ -219,7 +219,7 @@ namespace Proyek_Informatika.Controllers.Koordinator
         public JsonResult GetDosenList()
         {
 
-            var listResultTemp = db.dosens.Select(x => x.nama).ToList();
+            var listResultTemp = db.dosens.Where(x=>x.aktif==1).Select(x => x.nama).ToList();
             return Json(listResultTemp);
         }
 
@@ -387,7 +387,7 @@ namespace Proyek_Informatika.Controllers.Koordinator
 
         public JsonResult GetPenguji2(string npm, string waktu)
         {
-            var dosenList = db.dosens.ToList(); //pas waktu itu bisa nguji
+            var dosenList = db.dosens.Where(x=>x.aktif == 1).ToList(); //pas waktu itu bisa nguji
             List<object> result = new List<object>();
             foreach (var item in dosenList)
             {
@@ -509,10 +509,10 @@ namespace Proyek_Informatika.Controllers.Koordinator
                             where table2.id == result.id_skripsi
                             select new{table.nama,table.NPM,table2.NIK_dosen_pembimbing}).SingleOrDefault();
                 string text = mahasiswa.NPM;
-                var pembimbing = db.dosens.Where(x => x.NIK == mahasiswa.NIK_dosen_pembimbing).Select(y => y.nama).SingleOrDefault();
+                var pembimbing = db.dosens.Where(x => x.NIK == mahasiswa.NIK_dosen_pembimbing).Select(y => y.inisial).SingleOrDefault();
                 var ruang = db.ruangs.Where(x => x.id == result.ruang).Select(y => y.nama_ruang).SingleOrDefault();
-                var penguji1 = db.dosens.Where(x => x.NIK == result.penguji1).Select(y => y.nama).SingleOrDefault();
-                var penguji2 = db.dosens.Where(x => x.NIK == result.penguji2).Select(y => y.nama).SingleOrDefault();
+                var penguji1 = db.dosens.Where(x => x.NIK == result.penguji1).Select(y => y.inisial).SingleOrDefault();
+                var penguji2 = db.dosens.Where(x => x.NIK == result.penguji2).Select(y => y.inisial).SingleOrDefault();
                 listResult.Add(new
                 {
 
@@ -900,10 +900,43 @@ namespace Proyek_Informatika.Controllers.Koordinator
             {
                 return false;
             }
+        }   
+
+		public JsonResult GetBatasPeriode(string npm, string date)
+        {
+            var semester = int.Parse(Session["id-semester"].ToString());
+            var tipe_sidang = db.skripsis.Where(x=>x.NPM_mahasiswa == npm && semester == x.id_semester_pengambilan).Select(y=>y.jenis).SingleOrDefault();
+            string tipe;
+            if(tipe_sidang == 1){
+              tipe  = "Presentasi";
+            }else{
+               tipe = "Akhir";
+            }
+            var periode = db.periode_sidang.Where(x => x.semester_id == semester && x.tipe_sidang == tipe).SingleOrDefault();
+            if (date == "min")
+            {
+
+                return Json(new
+                {
+                    year = periode.start_date.Year,
+                    month = periode.start_date.Month,
+                    date = periode.start_date.Day,
+                    hour = periode.start_date.Hour,
+                    minute = periode.start_date.Minute
+                });
+            }
+            else
+            {
+                return Json(new
+                {
+                    year = periode.end_date.Year,
+                    month = periode.end_date.Month,
+                    date = periode.end_date.Day,
+                    hour = periode.end_date.Hour,
+                    minute = periode.end_date.Minute
+                });
+            }
             
-
-
         }
-        
     }
 }

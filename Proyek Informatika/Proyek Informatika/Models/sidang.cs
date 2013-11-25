@@ -23,8 +23,8 @@ namespace Proyek_Informatika.Models
         public byte akses { get; set; }
     
         public virtual ruang ruang1 { get; set; }
+        public virtual skripsi skripsi { get; set; }
         public virtual dosen dosen { get; set; }
         public virtual dosen dosen1 { get; set; }
-        public virtual skripsi skripsi { get; set; }
     }
 }

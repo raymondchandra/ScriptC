@@ -93,6 +93,8 @@ function onSelectMenuKoordinator(e) {
         $('#content').load('User/DaftarDosen');
     } else if (item.find('> .t-link').text() == "Daftar Akun") {
         $('#content').load('Account/DaftarAkun');
+    } else if (item.find('> .t-link').text() == "Ubah Password") {
+        $('#content').load('ProfileDosen/Pengaturan');
     } else if (item.find('> .t-link').text() == "Bimbingan") {
         $('#content').load('BimbinganKoordinator/Index');
     } else if (item.find('> .t-link').text() == "Pengumpulan") {

@@ -55,6 +55,8 @@ namespace Proyek_Informatika
         {
             ViewEngines.Engines.Clear();
             ViewEngines.Engines.Add(new MyRazorViewEngine());
+            ViewEngines.Engines.Add(new MyWebFormViewEngine());
+            
             AreaRegistration.RegisterAllAreas();
 
             RegisterGlobalFilters(GlobalFilters.Filters);

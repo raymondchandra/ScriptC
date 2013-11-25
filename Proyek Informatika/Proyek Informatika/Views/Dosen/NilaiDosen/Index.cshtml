@@ -1,0 +1,45 @@
+﻿<script type="text/javascript">
+    function aksi(e) {
+        if (e.name == "showForm") {
+            $.post("NilaiDosen/FormBimbingan?id_skripsi=" + e.dataItem.id, function (data) {
+                
+             });
+        }
+    }
+</script>
+<div class = "layer">
+ @(Html.Telerik().Grid<Proyek_Informatika.Models.DosenMuridBimbinganContainer>()
+        .Name("RekapBimbinganDosen")
+        .Columns(columns =>
+        {
+            columns.Bound(o => o.npm).Width(100).Title("NPM");
+            columns.Bound(o => o.namaMahasiswa).Width(100).Title("Nama Mahasiswa");
+            columns.Bound(o => o.judul).Width(100).Title("Judul");
+            columns.Command(com =>
+            {
+                com.Custom("showForm").Ajax(true).Text("Edit Nilai");
+            }).Width(50).Title("Aksi");
+        })
+        .DataBinding(bin => bin.Ajax().Select("SelectMahasiswa", "NilaiDosen"))
+        .ClientEvents(ev => { 
+            ev.OnCommand("aksi");
+        })
+        .Pageable(p => p.PageSize(15))
+        .Sortable()
+        .Filterable()
+        .Scrollable(c => c.Enabled(true))
+        .Selectable()
+        .Groupable())
+        
+        
+</div>
+@(Html.Telerik().Window()
+                .Name("contentWindow")
+                .Title("Mahasiswa")
+                .Content(@<text><div id = "contents"></div></text>)
+                    .Width(800)
+                    .Height(600)
+                    .Draggable(true)
+                    .Modal(true)
+                    .Visible(false)
+                )

@@ -11,7 +11,6 @@ namespace Proyek_Informatika.Controllers.Utilities
     {
         private SkripsiAutoContainer db = new SkripsiAutoContainer();
         
-
         public static bool IsAktif(string username){
             SkripsiAutoContainer db = new SkripsiAutoContainer();
             var check = db.mahasiswas.Where(x => x.username == username).ToList() ;
@@ -30,6 +29,7 @@ namespace Proyek_Informatika.Controllers.Utilities
         {
 
             var listResultTemp = (from table in db.dosens
+                                  where (table.aktif == 1)
                                   select new
                                   {
                                       NIK = table.NIK,
@@ -76,5 +76,24 @@ namespace Proyek_Informatika.Controllers.Utilities
             return getCurrentFromDb;
         }
 
+		public JsonResult GetTopikList()
+        {
+            var list_topik = (from t in db.topiks 
+                              where t.keterangan.Equals("tersedia")
+                              select new
+                              {
+                                  id = t.id,
+                                  judul = t.judul
+                              }).Distinct().ToList();
+
+            return Json(list_topik);
+        }
+
+        public string GetNamaPembimbing(int id_topik)
+        {
+            var nik = db.topiks.SingleOrDefault(t => t.id == id_topik).NIK_pembimbing;
+            var nama = db.dosens.SingleOrDefault(d => d.NIK == nik).nama;
+            return nama;
+        }
     }
 }

@@ -2,15 +2,19 @@
     function changeSemester(direction) {
         //confirm user's choice
         if (direction == "prev") {
-            var con = confirm("Change to previous semester?");
+            var con = confirm("Ubah ke semester sebelumnya?");
         } else if (direction == "next") {
-            var con = confirm("Change to next semester?");
+            var con = confirm("Ubah ke semester selanjutnya?");
         }
         //update view
         if (con == true) {
             $.post("Semester/changeSemester", { prevnext: direction }, function (success) {
                 if (success == 'True') {
+
                     $('#content').load('Semester/JadwalSemester');
+                    $.post("Home/SetIdSemester", "", function (data) {
+                        $(".semester").html(data);
+                    });
                 }
             });
         }
