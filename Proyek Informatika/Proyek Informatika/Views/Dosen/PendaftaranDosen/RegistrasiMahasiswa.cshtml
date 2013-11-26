@@ -63,8 +63,9 @@
             };
             $.post("PendaftaranDosen/_InsertMahasiswa1", values, function (data) {
                 alert(data);
+                $('#content').load('PendaftaranDosen/RegistrasiMahasiswa');
             });
-            $('#content').load('PendaftaranDosen/RegistrasiMahasiswa');
+            
         })
     </script>
     <fieldset>

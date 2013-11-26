@@ -255,7 +255,7 @@ namespace Proyek_Informatika.Controllers
 
         public ViewResult bindingAkun(int id)
         {
-            List<akun> list_akun = (from a in db.akuns where a.peran != 1 select a).ToList();
+            List<akun> list_akun = (from a in db.akuns where (a.peran != 1 && a.aktif != 3) select a).ToList();
             List<AlbertContainer.AkunForGrid> list_akun2 = new List<AlbertContainer.AkunForGrid>();
 
             foreach (akun a in list_akun)

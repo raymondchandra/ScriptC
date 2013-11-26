@@ -12,11 +12,22 @@
             alert("Jadwal telah direset");
         }
     }
+
+    $(document).ready(function () {
+        $.post("SidangKoordinator/GetStatusPeriodeSidang", "", function (data) {
+            if (data == "open") {
+                $("#PengaturanJadwal").show();
+            } else {
+                $("#error").html("Pengumpulan Sidang belum selesai.");
+            }
+
+        });
+    });
 </script>
 
 <h3>Penempatan Mahasiswa</h3>
         @(Html.Telerik().Grid<Proyek_Informatika.Models.mahasiswa>()
-            .HtmlAttributes(new { style = "width:100%" })
+            .HtmlAttributes(new { style = "width:100%;display:none;" })
             .Name("PengaturanJadwal")
             .DataKeys(keys =>
             {
@@ -63,4 +74,5 @@
             .Height(400)
             .LoadContentFrom("Jadwal_Penempatan_PopUp", "SidangKoordinator"))
     
+    <span id="error"></span>
 

@@ -5,36 +5,40 @@
         //validasi trus simpan jadwal
         var radio = document.getElementsByName("modeJadwal");
         if ($("#radio_1").is(":checked")) {
-            var values = {
-                npm: $("#npm-label").html(),
-                tanggal: $("#waktuManual").val(),
-                ruang: $("#ruangManual").val(),
-                penguji1: $("#penguji1Manual").val(),
-                penguji2: $("#penguji2Manual").val()
-            };
-            $.post("SidangKoordinator/SimpanJadwal", values, function (data) {
-                if (data == "True") {
-                    alert("Data berhasil diubah.");
-                } else {
-                    alert("Data tidak berhasil diubah.");
-                }
-            });
+            if ($("#penguji1Manual").val() != "" && $("#penguji2Manual").val() != "" && $("ruangManual").val() != "") {
+                var values = {
+                    npm: $("#npm-label").html(),
+                    tanggal: $("#waktuManual").val(),
+                    ruang: $("#ruangManual").val(),
+                    penguji1: $("#penguji1Manual").val(),
+                    penguji2: $("#penguji2Manual").val()
+                };
+                $.post("SidangKoordinator/SimpanJadwal", values, function (data) {
+                    if (data == "True") {
+                        alert("Data berhasil diubah.");
+                    } else {
+                        alert("Data tidak berhasil diubah.");
+                    }
+                });
+            }
         } else {
-            var waktu = $("#selWaktu").val().toString().substring(0, $("#selWaktu").val().toString().length - 3);
-            var values = {
-                npm: $("#npm-label").html(),
-                tanggal: $("#selTanggal").val() + " " + waktu,
-                ruang: $("#selRuang").val(),
-                penguji1: $("#selPenguji").val(),
-                penguji2: $("#selPenguji2").val()
-            };
-            $.post("SidangKoordinator/SimpanJadwal", values, function (data) {
-                if (data == "True") {
-                    alert("Data berhasil diubah.");
-                } else {
-                    alert("Data tidak berhasil diubah.");
-                }
-            });
+            if ($("#selWaktu").val() != "" && $("#selTanggal").val() != "" && $("#selRuang").val() != "" && $("#selPenguji").val() != "" && $("#selPenguji2").val() != "") {
+                var waktu = $("#selWaktu").val().toString().substring(0, $("#selWaktu").val().toString().length - 3);
+                var values = {
+                    npm: $("#npm-label").html(),
+                    tanggal: $("#selTanggal").val() + " " + waktu,
+                    ruang: $("#selRuang").val(),
+                    penguji1: $("#selPenguji").val(),
+                    penguji2: $("#selPenguji2").val()
+                };
+                $.post("SidangKoordinator/SimpanJadwal", values, function (data) {
+                    if (data == "True") {
+                        alert("Data berhasil diubah.");
+                    } else {
+                        alert("Data tidak berhasil diubah.");
+                    }
+                });
+            }
         }
     });
     function init() {

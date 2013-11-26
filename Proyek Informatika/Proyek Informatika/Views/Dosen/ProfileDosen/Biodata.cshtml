@@ -40,23 +40,24 @@
         var values = { nama: $("#viewInLine1a").val() }
         $.post("ProfileDosen/SaveNama", values, function (data) {
             alert(data);
+            $('#content').load('ProfileDosen/Biodata');
         });
-        $('#content').load('ProfileDosen/Biodata');
     })
     $("#save-email").click(function () {
         var values = { email: $("#viewInLine2a").val() }
         $.post("ProfileDosen/SaveEmail", values, function (data) {
             alert(data);
+            $('#content').load('ProfileDosen/Biodata');
         });
-        $('#content').load('ProfileDosen/Biodata');
     })
     function onComplete(e) {
         $('#content').load('ProfileDosen/Biodata');
     }
     $("#remove-foto").click(function () {
         $.post("ProfileDosen/RemoveFoto", "", function (data) {
+            $('#content').load('ProfileDosen/Biodata');
         });
-        $('#content').load('ProfileDosen/Biodata');
+        
     })
 </script>
 <div class="layer">

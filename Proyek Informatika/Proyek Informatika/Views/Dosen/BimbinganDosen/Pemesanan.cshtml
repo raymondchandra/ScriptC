@@ -10,12 +10,12 @@
 <style>
     .dhx_cal_larea
     {
-        height:230px!important;
+        height:330px!important;
     }
     
     .dhx_cal_light
     {
-        height:285px!important;
+        height:385px!important;
     }
     
     .dhx_cal_event.high div, .dhx_cal_event_line.high{
@@ -58,6 +58,8 @@
 
         //label
         scheduler.locale.labels.section_text = 'Judul';
+        scheduler.locale.labels.section_npm = 'NPM';
+        scheduler.locale.labels.section_nama = 'Nama';
         scheduler.locale.labels.section_description = 'Deskripsi';
         scheduler.locale.labels.section_select = 'Konfirmasi';
 
@@ -69,6 +71,8 @@
  
         scheduler.config.lightbox.sections = [
             { name: "text", height: 25, map_to: "text", type: "textarea", focus: true },
+            { name: "npm", height: 25, map_to: "npm", type: "textarea" },
+            { name: "nama", height: 25, map_to: "nama", type: "textarea" },
             { name: "description", height: 75, map_to: "description", type: "textarea" },
             { name: "select", height:40, map_to:"setuju", type:"select", options:alert_opts},
             { name: "time", height: 0, type: "time", map_to: "auto" }

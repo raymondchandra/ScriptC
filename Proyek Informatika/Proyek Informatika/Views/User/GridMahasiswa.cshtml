@@ -44,30 +44,37 @@
         $("#form_ganti_topik").hide();
     }
 
+
     function Grid_onComplete(e) {
-        if (e.name == "LihatDetail") {
-            //SHOW POPUP DETAIL
-            var json = e.response;
-            var popup = $("#Window_Detail_Mahasiswa").data("tWindow");
-            $("#foto").attr("src", json.foto);
-            $("#npm").text(json.npm);
-            $("#nama").text(json.nama);
-            $("#status").text(json.status);
-            $("#topik").text(json.topik);
-            $("#pembimbing").text(json.pembimbing);
-            $("#pengambilan").text(json.pengambilan);
-            $("#jenis").text(json.jenis);
-            $("#periode").text(json.periode_pengambilan);
-            if (json.nilai != null) $("#nilai").text(json.nilai);
-            else $("#nilai").text("-");
-            popup.center().open();
-        }
-        else if (e.name == "Aktivasi") {
-            //SHOW POPUP AKTIVASI
-            var json = e.response;
-            Set_Detail_In_Aktivasi(json);
-            var popup = $("#Window_Aktivasi_Mahasiswa").data("tWindow");
-            popup.center().open();
+        if (e.name == "LihatDetail" || e.name == "Aktivasi") {
+            if (e.response.success == true) {
+                if (e.name == "LihatDetail") {
+                    //SHOW POPUP DETAIL
+                    var json = e.response;
+                    var popup = $("#Window_Detail_Mahasiswa").data("tWindow");
+                    $("#foto").attr("src", json.foto);
+                    $("#npm").text(json.npm);
+                    $("#nama").text(json.nama);
+                    $("#status").text(json.status);
+                    $("#topik").text(json.topik);
+                    $("#pembimbing").text(json.pembimbing);
+                    $("#pengambilan").text(json.pengambilan);
+                    $("#jenis").text(json.jenis);
+                    $("#periode").text(json.periode_pengambilan);
+                    if (json.nilai != null) $("#nilai").text(json.nilai);
+                    else $("#nilai").text("-");
+                    popup.center().open();
+                }
+                else if (e.name == "Aktivasi") {
+                    //SHOW POPUP AKTIVASI
+                    var json = e.response;
+                    Set_Detail_In_Aktivasi(json);
+                    var popup = $("#Window_Aktivasi_Mahasiswa").data("tWindow");
+                    popup.center().open();
+                }
+            } else {
+                alert("Tidak berhasil melakukan aksi.");
+            }
         }
     }
 

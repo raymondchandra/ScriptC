@@ -938,5 +938,12 @@ namespace Proyek_Informatika.Controllers.Koordinator
             }
             
         }
+
+        public string GetStatusPeriodeSidang()
+        {
+            var semester = int.Parse(Session["id-semester"].ToString());
+            string periode_sidang = db.periode_sidang.Where(x => x.semester_id == semester).Select(y => y.status).SingleOrDefault();
+            return periode_sidang ?? "null";
+        }
     }
 }

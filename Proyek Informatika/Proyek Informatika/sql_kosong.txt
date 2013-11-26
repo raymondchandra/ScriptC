@@ -296,7 +296,7 @@ SET ANSI_PADDING ON
 GO
 CREATE TABLE [dbo].[dosen](
 	[NIK] [varchar](15) NOT NULL,
-	[nama] [varchar](30) NOT NULL,
+	[nama] [varchar](50) NOT NULL,
 	[inisial] [varchar](15) NULL,
 	[username] [varchar](15) NOT NULL,
 	[email] [varchar](30) NULL,

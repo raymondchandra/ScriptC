@@ -32,29 +32,26 @@
                         //.Delete("_DeleteDosen", "User"))
     .Columns(columns =>
     {
-        columns.Bound(o => o.foto).ClientTemplate("<img width='100' height='110'  src='<#= foto #>' />").Title("foto").Width(100);
+        columns.Bound(o => o.foto).ClientTemplate("<img width='100' height='110'  src='<#= foto #>' />").Title("foto").Width(100).ReadOnly();
         columns.Bound(o => o.NIK).Title("NIK").Width(90);
-        columns.Bound(o => o.nama).Title("Nama").Width(220);
-        columns.Bound(o => o.inisial).Title("Inisial").Width(70);
-        columns.Bound(o => o.email).Title("Email").Width(220);
+        columns.Bound(o => o.nama).Title("Nama").Width(150);
+        columns.Bound(o => o.inisial).Title("Inisial").Width(60);
+        columns.Bound(o => o.email).Title("Email").Width(170).ReadOnly();
         columns.Bound(o => o.username).Title("Username").Width(100);
-        columns.Bound(o => o.aktif).Title("Status").Width(80);
+        columns.Bound(o => o.aktif).Title("Status").Width(70).ReadOnly();
         columns.Command(commands =>
         {
             commands.Edit().ButtonType(GridButtonType.Text);
-            //commands.Delete().ButtonType(GridButtonType.Text);
-        }).Width(100).Title("");
-        columns.Command(commands => commands
-                .Custom("Aktivasi")
-                .Text("Ubah status")
-                .Ajax(true)
+            commands.Custom("Aktivasi").Text("Ubah status").Ajax(true)
                 .Action("Change_Status_Dosen", "User")
-                .DataRouteValues(route => { route.Add(a => a.NIK).RouteKey("NIK"); })).Width(100);
+                .DataRouteValues(route => { route.Add(a => a.NIK).RouteKey("NIK"); });
+            //commands.Delete().ButtonType(GridButtonType.Text);
+        }).Width(100).Title("Aksi");
     })
     .Pageable()
     .Scrollable()
     .Sortable()
-    .Editable(editing => editing.Mode(GridEditMode.InLine))
+    //.Editable(editing => editing.Mode(GridEditMode.InLine))
     .Filterable()
 )
 </div>

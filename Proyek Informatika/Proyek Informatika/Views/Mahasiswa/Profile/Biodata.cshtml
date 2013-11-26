@@ -52,30 +52,38 @@
         var values = { nama: $("#viewInLine1a").val() }
         $.post("Profile/SaveNama", values, function (data) {
             alert(data);
+            $('#content').load('Profile/Biodata');
         });
-        $('#content').load('Profile/Biodata');
+        
     })
     $("#save-email").click(function () {
         var values = { email: $("#viewInLine2a").val() }
         $.post("Profile/SaveEmail", values, function (data) {
             alert(data);
+            $('#content').load('Profile/Biodata');
         });
-        $('#content').load('Profile/Biodata');
+        
     })
     $("#save-telepon").click(function () {
-        var values = { nomor_telepon: $("#viewInLine3a").val() }
-        $.post("Profile/SaveTelepon", values, function (data) {
-            alert(data);
-        });
-        $('#content').load('Profile/Biodata');
+        if (!isNaN($("#viewInLine3a").val())) {
+            var values = { nomor_telepon: $("#viewInLine3a").val() }
+            $.post("Profile/SaveTelepon", values, function (data) {
+                alert(data);
+                $('#content').load('Profile/Biodata');
+            });
+        } else {
+            alert("Not a number.");
+        }
+
     })
     function onComplete(e) {
         $('#content').load('Profile/Biodata');
     }
     $("#remove-foto").click(function () {
         $.post("Profile/RemoveFoto", "", function (data) {
+            $('#content').load('Profile/Biodata');
         });
-        $('#content').load('Profile/Biodata');
+        
     })
 </script>
 <div class="layer">
