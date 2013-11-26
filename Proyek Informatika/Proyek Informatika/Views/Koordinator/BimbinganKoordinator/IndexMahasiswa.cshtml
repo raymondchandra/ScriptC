@@ -1,20 +1,18 @@
 ﻿@model Proyek_Informatika.Models.EnumSemesterSkripsiContainer
-
 <script type="text/javascript">
-    
     function changeContent(e) {
-        var cbPeriode = $("#DropPeriode").data("tDropDownList");
-        var cbSemester = $("#DropSkripsi").data("tDropDownList");
+        var periode = $("#DropPeriode").data("tDropDownList");
+        var semester = $("#DropSkripsi").data("tDropDownList");
 
-        var val = {id_periode : cbPeriode.value(), id_jenis_skripsi: cbSemester.value() };
-        $.post("BimbinganDosen/MahasiswaBimbingan", val, function (data) {
-            $("#listMahasiswaContainer").html(data);
+        var value = { periode: periode.value(), jenis_skripsi: semester.value() };
+        $.post("BimbinganKoordinator/ListMahasiswa", value, function (data) {
+            $("#bimbinganContainer").html(data);
         });
     }
 </script>
 <div class="layer">
-    <h1>Daftar Mahasiswa Bimbingan</h1>
-    @(Html.Telerik().DropDownList()
+    <h1>Rekap Bimbingan</h1>
+   @(Html.Telerik().DropDownList()
     .Name("DropPeriode")
     .BindTo(new SelectList(Model.jenis_semester,"id","periode_semester",Model.selected_value))
             .ClientEvents(c => c.OnChange("changeContent"))
@@ -27,7 +25,6 @@
         c.OnLoad("changeContent");
     })
     )
-    <div id= "listMahasiswaContainer">
-    </div>
+    <div id="bimbinganContainer"></div>
     
 </div>

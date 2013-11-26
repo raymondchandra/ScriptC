@@ -15,28 +15,38 @@
 //                windowBimbingan.center().open();
 //            });
 //        });
-//    });
+    //    });
+    $(document).ready(function () {
+        updateJumlah();
+    });
+    function updateJumlah() {
+        $.post("BimbinganDosen/JumlahBimbingan?id_skripsi="+@(ViewBag.id), function (data) {
+            $("#jumlah").html(data);
+        });
+    }
     function detilBimbingan(e) {
-        alert("kartu bimbingan");
         var windowZ;
-        if (e.name == "showDetil") {
-            $("#container").html(e.dataItem.deskripsi);
-            windowZ = $("#formBimbingans").data("tWindow");
-            windowZ.center().open();
-        }
-        else if (e.name == "editDetil") {
-            var values = { id_bimbingan: e.dataItem.id };
-            $.post("BimbinganDosen/EditorBimbingan", values, function (data) {
-                $("#container").html(data);
-                windowZ = $("#formBimbingans").data("tWindow");
-                windowZ.center().open();
-            });
+//        if (e.name == "showDetil") {
+//            $("#container").html(e.dataItem.deskripsi);
+//            windowZ = $("#formBimbingans").data("tWindow");
+//            windowZ.center().open();
+//        }
+        
+//        else if (e.name == "editDetil") {
+//            
+//            var values = { id_bimbingan: e.dataItem.id };
+//            $.post("BimbinganDosen/EditorBimbingan", values, function (data) {
+//                $("#container").html(data);
+//                windowZ = $("#formBimbingans").data("tWindow");
+//                windowZ.center().open();
+//            });
 
-        }
-        else if (e.name == "addBimbingan") {
-        var value = {id_skripsi : '@ViewBag.id'};
+//        }
+        if (e.name == "addBimbingan") {
+            var value = {id_skripsi : '@ViewBag.id'};
             $.post("BimbinganDosen/InsertBimbingans",value, function (data) { });
             $(".t-grid .t-refresh").trigger('click');
+            updateJumlah();
         }
     }
 </script>
@@ -61,7 +71,7 @@
             <tr>
                 <td>Jumlah Bimbingan</td>
                 <td>:</td>
-                <td>@(ViewBag.jumlahBimbingan)</td>
+                <td><span id="jumlah">@(ViewBag.jumlahBimbingan)</span></td>
             </tr>
         </table><br/><br />
  @(Html.Telerik().Grid<Proyek_Informatika.Models.bimbingan>()
@@ -75,31 +85,43 @@
         {
             columns.Bound(o => o.tanggal).Width(75).Title("Tanggal");
             columns.Bound(o => o.isi).Width(150).Title("Bahasan");
-            columns.Command(com =>
+            if (ViewBag.status == "aktif")
             {
-                com.Edit().ButtonType(GridButtonType.Image);
-                com.Delete().ButtonType(GridButtonType.Image);
-                //com.Custom("showDetil").Text("Tampilkan").Ajax(true).ButtonType(GridButtonType.Image);
-            }).Width(50).Title("Aksi");
+                columns.Command(com =>
+                {
+
+                    com.Edit().ButtonType(GridButtonType.Image);
+                    com.Delete().ButtonType(GridButtonType.Image);
+                }).Width(50).Title("Aksi");
+            }
+            
         })
-             .ToolBar(t => t.Custom().Name("addBimbingan").Ajax(true).Text("Tambah Bimbingan"))
-               .DataBinding(dat => 
+        .ToolBar(
+        t => {
+            if (ViewBag.status == "aktif")
+            {
+                t.Custom().Name("addBimbingan").Ajax(true).Text("Tambah Bimbingan").HtmlAttributes(new { id = "toolbarBimbingan" });
+            }
+            }
+            )
+
+               .DataBinding(dat =>
                {
-                   dat.Ajax().Select("_SelectKartu", "BimbinganDosen", new {id_skripsi = ViewBag.id});
+                   dat.Ajax().Select("_SelectKartu", "BimbinganDosen", new { id_skripsi = ViewBag.id });
                    dat.Ajax().Update("EditBimbingan", "BimbinganDosen");
                    dat.Ajax().Delete("DeleteBimbingan", "BimbinganDosen");
-                   
+
                })
-        .DetailView(det=>det.ClientTemplate(
+        .DetailView(det => det.ClientTemplate(
               "<fieldset>" +
                   "<legend>Detil Bahasan</legend>" +
                       "<div class = 'deskripsi'><#= deskripsi #>" +
                       "</div>" +
               "</fieldset>"
             ))
-        
+
         .ClientEvents(ev => ev.OnCommand("detilBimbingan"))
-        .Editable(c=>c.Mode(GridEditMode.PopUp))
+        .Editable(c => c.Mode(GridEditMode.PopUp))
         .Sortable()
         .Filterable()
         .Scrollable()

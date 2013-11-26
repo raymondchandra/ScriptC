@@ -1,4 +1,4 @@
-﻿@model Proyek_Informatika.Models.HansContainer.EnumBimbingan
+﻿@model Proyek_Informatika.Models.EnumBimbingan
 <script type="text/javascript">
 
     function onDataBinding(e) {
@@ -34,13 +34,13 @@
         .Name("RekapBimbinganDosen")
         .Columns(columns =>
         {
-            columns.Bound(o => o.npm).Width(50).Title("NPM");
+            columns.Bound(o => o.npm).Width(100).Title("NPM");
             columns.Bound(o => o.namaMahasiswa).Width(100).Title("Nama Mahasiswa");
-            columns.Bound(o => o.judul).Width(150).Title("Judul");
+            columns.Bound(o => o.judul).Width(100).Title("Judul");
             columns.Command(com =>
             {
-                com.Custom("viewKartu").Ajax(true).Text("Kartu Bimbingan");
-                com.Custom("viewLaporan").Ajax(true).Text("Daftar Laporan");
+                com.Custom("viewKartu").Ajax(true).Text("Lihat Kartu Bimbingan");
+                com.Custom("viewLaporan").Ajax(true).Text("Lihat Daftar Laporan");
             }).Width(50).Title("Aksi");
         })
         .DataBinding(bin => bin.Ajax().Select("_SelectBimbinganMahasiswa", "BimbinganDosen"))

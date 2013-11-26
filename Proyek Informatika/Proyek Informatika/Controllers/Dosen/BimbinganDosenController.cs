@@ -12,11 +12,12 @@ namespace Proyek_Informatika.Controllers.Dosen
         //
         // GET: /Bimbingan/
         SkripsiAutoContainer db = new SkripsiAutoContainer();
-        #region  bimbingan
+
+    #region  bimbingan
 
         public ActionResult Index()
         {
-            HansContainer.EnumSemesterSkripsiContainer semes = new HansContainer.EnumSemesterSkripsiContainer();
+            EnumSemesterSkripsiContainer semes = new EnumSemesterSkripsiContainer();
             var result = from jn in db.jenis_skripsi 
                                   select (new {id = jn.id, nama_jenis =jn.nama_jenis });
             List<jenis_skripsi> temp = new List<jenis_skripsi>();
@@ -41,20 +42,40 @@ namespace Proyek_Informatika.Controllers.Dosen
             return PartialView(semes);
         }
 
-        public ActionResult KartuBimbingan(int id_skripsi)
+        public ActionResult KartuBimbingan(int id_skripsi=0)
         {
-            var result = (from sk in db.skripsis
-                         join mah in db.mahasiswas on sk.NPM_mahasiswa equals mah.NPM
-                         join tp in db.topiks on sk.id_topik equals tp.id
-                         where (sk.id == id_skripsi)
-                         select new DosenMuridBimbinganContainer { id = sk.id, judul = tp.judul, namaMahasiswa = mah.nama, npm = mah.NPM }).Single<DosenMuridBimbinganContainer>();
-            int count = db.bimbingans.Where(x => x.id_skripsi == id_skripsi).Count();
-            ViewBag.jumlahBimbingan = count;
-            ViewBag.nama = result.namaMahasiswa;
-            ViewBag.npm = result.npm;
-            ViewBag.judul = result.judul;
-            ViewBag.id = result.id;
+            try
+            {
+                var result = (from sk in db.skripsis
+                              join mah in db.mahasiswas on sk.NPM_mahasiswa equals mah.NPM
+                              join tp in db.topiks on sk.id_topik equals tp.id
+                              where (sk.id == id_skripsi)
+                              select new DosenMuridBimbinganContainer { id = sk.id, judul = tp.judul, namaMahasiswa = mah.nama, npm = mah.NPM }).Single<DosenMuridBimbinganContainer>();
+                int count = db.bimbingans.Where(x => x.id_skripsi == id_skripsi).Count();
+                ViewBag.jumlahBimbingan = count;
+                ViewBag.nama = result.namaMahasiswa;
+                ViewBag.npm = result.npm;
+                ViewBag.judul = result.judul;
+                ViewBag.id = result.id;
+                var result2 = db.skripsis.Where(x => x.id == id_skripsi).Single();
+                int active = result2.semester.isCurrent;
+                if (active == 0)
+                {
+                    ViewBag.status = "nonaktif";
+                }
+                else
+                {
+                    ViewBag.status = result2.mahasiswa.status;
+                }
+                
+            }
+            catch
+            { }
             return PartialView();
+        }
+        public int JumlahBimbingan(int id_skripsi)
+        {
+            return db.bimbingans.Where(x => x.id_skripsi == id_skripsi).Count();
         }
         public ActionResult IndexBimbingan()
         {
@@ -65,7 +86,7 @@ namespace Proyek_Informatika.Controllers.Dosen
             return PartialView();
         }
         [HttpPost]
-        public ActionResult MahasiswaBimbingan(int id_periode, int id_jenis_skripsi)
+        public ActionResult MahasiswaBimbingan(int id_periode=0, int id_jenis_skripsi=0)
         {
             ViewBag.username = Session["username"].ToString();
             ViewBag.periode = id_periode;
@@ -120,6 +141,7 @@ namespace Proyek_Informatika.Controllers.Dosen
         public ActionResult EditBimbingan(int id)
         {
             bimbingan result = db.bimbingans.Where<bimbingan>(x => x.id == id).Single<bimbingan>();
+            
             TryUpdateModel<bimbingan>(result);
             int tipe = result.id_skripsi;
             db.SaveChanges();
@@ -206,13 +228,13 @@ namespace Proyek_Informatika.Controllers.Dosen
         #endregion
 
         
-
         public ActionResult FormBimbingan()
         {
             return PartialView();
         }
 
-        public ActionResult Pemesanan() {
+        public ActionResult Pemesanan()
+        {
             return PartialView();
         }
 

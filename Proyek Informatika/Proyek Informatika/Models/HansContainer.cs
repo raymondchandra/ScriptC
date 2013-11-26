@@ -9,8 +9,7 @@ using System.Web.Security;
 namespace Proyek_Informatika.Models
 {
     //test
-    public class HansContainer : Controller
-    {
+
         public class DosenMuridBimbinganContainer
         {
             public int id { get; set; }
@@ -83,10 +82,53 @@ namespace Proyek_Informatika.Models
         {
             string a;
         }
-    }
-    public class NilaiDosen 
-    {
-        public int bobot;
-        public int nilai;
-    }
+
+        public class DosenMuridNilaiContainer
+        {
+            public int id { get; set; }
+            public string npm { get; set; }
+            public string namaMahasiswa { get; set; }
+            public string judul { get; set; }
+            public string status { get; set; }
+        }
+        public class KoordinatorNilaiMahasiswa
+        {
+            public int id { get; set; }
+
+            [Required]
+            [DataType(DataType.Text)]
+            [Display(Name = "Periode")]
+            public string periode { get; set; }
+
+            [Required]
+            [DataType(DataType.Text)]
+            [Display(Name = "NIK Dosen")]
+            public string nikDosen { get; set; }
+
+            [DataType(DataType.Text)]
+            [Display(Name = "Nama Dosen")]
+            public string namaDosen { get; set; }
+
+            [DataType(DataType.Text)]
+            [Display(Name = "NPM Mahasiswa")]
+            public string npmMahasiswa { get; set; }
+
+            [DataType(DataType.Text)]
+            [Display(Name = "Nama Mahasiswa")]
+            public string namaMahasiswa { get; set; }
+
+            [DataType(DataType.Text)]
+            [Display(Name = "Judul Skripsi")]
+            public string judul { get; set; }
+
+            public int pengambilanke { get; set; }
+
+            [DataType(DataType.Text)]
+            [Display(Name = "Tipe")]
+            public string tipe { get; set; }
+
+            public double nilai { get; set; }
+
+            public string status { get; set; }
+        }
 }

@@ -15,7 +15,7 @@ namespace Proyek_Informatika.Controllers.Koordinator
         SkripsiAutoContainer db = new SkripsiAutoContainer();
         public ActionResult Index()
         {
-            HansContainer.EnumSemesterSkripsiContainer semes = new HansContainer.EnumSemesterSkripsiContainer();
+            EnumSemesterSkripsiContainer semes = new EnumSemesterSkripsiContainer();
             var result = from jn in db.jenis_skripsi
                          select (new { id = jn.id, nama_jenis = jn.nama_jenis });
             List<jenis_skripsi> temp = new List<jenis_skripsi>();
@@ -40,7 +40,7 @@ namespace Proyek_Informatika.Controllers.Koordinator
             return PartialView(semes);
         }
         [HttpPost]
-        public ActionResult FileMahasiswa(int periode, int jenis_skripsi)
+        public ActionResult FileMahasiswa(int periode=0, int jenis_skripsi=0)
         {
             ViewBag.periode = periode;
             ViewBag.jenis_skripsi = jenis_skripsi;
@@ -53,26 +53,24 @@ namespace Proyek_Informatika.Controllers.Koordinator
         }
         protected ViewResult bindingPengumpulanFile(int periode, int jenis_skripsi)
         {
-            List<HansContainer.KoordinatorPengumpulanContainer> result = (from si in db.skripsis
-                          join mh in db.mahasiswas on si.NPM_mahasiswa equals mh.NPM
-                          join ds in db.dosens on si.NIK_dosen_pembimbing equals ds.NIK
-                          join fl in db.laporans on si.id equals fl.id_skripsi
-                          orderby mh.NPM ascending
-                          select new HansContainer.KoordinatorPengumpulanContainer()
-                          {
-                              id = fl.id,
-                              npmMahasiswa = mh.NPM,
-                              namaMahasiswa = mh.nama,
-                              pembimbing = ds.nama,
-                              dokumen = fl.nama_file,
-                              waktuKumpul = fl.tanggal_pengumpulan,
-                              judul = si.topik.judul,
-                              deskripsi = fl.deskripsi,
-                              skripsi = si.jenis_skripsi.nama_jenis
-                          }).ToList<HansContainer.KoordinatorPengumpulanContainer>();
+            List<KoordinatorPengumpulanContainer> result = (from si in db.laporans
+                         where si.skripsi.jenis == jenis_skripsi && si.skripsi.id_semester_pengambilan == periode
+                         select new KoordinatorPengumpulanContainer() {
+                             id= si.id,
+                             dokumen = si.nama_file,
+                             deskripsi = si.deskripsi,
+                             waktuKumpul = si.tanggal_pengumpulan,
+                             
+                             judul = si.skripsi.topik.judul,
+                             pembimbing = si.skripsi.dosen.nama,
+                             namaMahasiswa = si.skripsi.mahasiswa.nama,
+                             nikDosen = si.skripsi.dosen.NIK,
+                             npmMahasiswa = si.skripsi.mahasiswa.NPM,
+                             skripsi = si.skripsi.jenis_skripsi.nama_jenis
+                             }).ToList();
 
             
-            return View(new GridModel<HansContainer.KoordinatorPengumpulanContainer>() { Data = result });
+            return View(new GridModel<KoordinatorPengumpulanContainer>() { Data = result });
         }
 
 

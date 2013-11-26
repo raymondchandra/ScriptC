@@ -10,26 +10,31 @@
 namespace Proyek_Informatika.Models
 {
     using System;
+    using System.Collections.Generic;
+    using System.Runtime.Serialization;
     using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
-    using System.Runtime.Serialization;
-    
     public partial class bimbingan
     {
         [ScaffoldColumn(false)]
         public int id { get; set; }
-        
+
+        [DisplayName("Pokok Bahasan")]
         public string isi { get; set; }
 
+        [DisplayName("Deskripsi")]
         [DataType(DataType.MultilineText)]
         public string deskripsi { get; set; }
-        
+
         [ScaffoldColumn(false)]
         public int id_skripsi { get; set; }
-        
+
+        [ScaffoldColumn(true)]
+        [ReadOnly(true)]
+        [Editable(false)]
         [DataType(DataType.Date)]
         public System.DateTime tanggal { get; set; }
-    
+
         public virtual skripsi skripsi { get; set; }
     }
 }

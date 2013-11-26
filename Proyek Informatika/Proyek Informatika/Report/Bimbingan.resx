@@ -129,7 +129,7 @@
         RGF0YVNvdXJjZVBhcmFtZXRlcgMAAAACAAAACQQAAAAFBAAAAEtTeXN0ZW0uQ29sbGVjdGlvbnMuR2Vu
         ZXJpYy5MaXN0YDFbW1RlbGVyaWsuUmVwb3J0aW5nLlNxbERhdGFTb3VyY2VQYXJhbWV0ZXIDAAAABl9p
         dGVtcwVfc2l6ZQhfdmVyc2lvbgQAACpUZWxlcmlrLlJlcG9ydGluZy5TcWxEYXRhU291cmNlUGFyYW1l
-        dGVyW10CAAAACAgDAAAACQUAAAABAAAADwAAAAcFAAAAAAEAAAAEAAAABChUZWxlcmlrLlJlcG9ydGlu
+        dGVyW10CAAAACAgDAAAACQUAAAABAAAAEwAAAAcFAAAAAAEAAAAEAAAABChUZWxlcmlrLlJlcG9ydGlu
         Zy5TcWxEYXRhU291cmNlUGFyYW1ldGVyAgAAAAkGAAAADQMMBwAAAE5TeXN0ZW0uRGF0YSwgVmVyc2lv
         bj00LjAuMC4wLCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkM
         CAAAAElTeXN0ZW0sIFZlcnNpb249NC4wLjAuMCwgQ3VsdHVyZT1uZXV0cmFsLCBQdWJsaWNLZXlUb2tl
@@ -145,13 +145,13 @@
     <value>--DECLARE @PeriodeSemester int
 --SET @PeriodeSemester = 2
 
-select d.nama, j.nama_jenis, m.NPM, count(b.id) "bimbingan" from dosen d
+select d.nama,d.inisial, j.nama_jenis, m.NPM, count(b.id) "bimbingan" from dosen d
 	left join skripsi s on s.NIK_dosen_pembimbing = d.NIK
 	left join mahasiswa m on m.NPM = s.NPM_mahasiswa
 	left join bimbingan b on b.id_skripsi = s.id
 	left join jenis_skripsi j on s.jenis = j.id
 	where s.id_semester_pengambilan = @PeriodeSemester
-	group by d.nama, j.nama_jenis, m.NPM</value>
+	group by d.nama,d.inisial, j.nama_jenis, m.NPM</value>
   </data>
   <metadata name="periode_datasource.DefaultValues" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
@@ -181,7 +181,7 @@ select d.nama, j.nama_jenis, m.NPM, count(b.id) "bimbingan" from dosen d
         RGF0YVNvdXJjZVBhcmFtZXRlcgMAAAACAAAACQQAAAAFBAAAAEtTeXN0ZW0uQ29sbGVjdGlvbnMuR2Vu
         ZXJpYy5MaXN0YDFbW1RlbGVyaWsuUmVwb3J0aW5nLlNxbERhdGFTb3VyY2VQYXJhbWV0ZXIDAAAABl9p
         dGVtcwVfc2l6ZQhfdmVyc2lvbgQAACpUZWxlcmlrLlJlcG9ydGluZy5TcWxEYXRhU291cmNlUGFyYW1l
-        dGVyW10CAAAACAgDAAAACQUAAAABAAAABgAAAAcFAAAAAAEAAAAEAAAABChUZWxlcmlrLlJlcG9ydGlu
+        dGVyW10CAAAACAgDAAAACQUAAAABAAAADgAAAAcFAAAAAAEAAAAEAAAABChUZWxlcmlrLlJlcG9ydGlu
         Zy5TcWxEYXRhU291cmNlUGFyYW1ldGVyAgAAAAkGAAAADQMMBwAAAE5TeXN0ZW0uRGF0YSwgVmVyc2lv
         bj00LjAuMC4wLCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkM
         CAAAAElTeXN0ZW0sIFZlcnNpb249NC4wLjAuMCwgQ3VsdHVyZT1uZXV0cmFsLCBQdWJsaWNLZXlUb2tl
@@ -197,7 +197,7 @@ select d.nama, j.nama_jenis, m.NPM, count(b.id) "bimbingan" from dosen d
     <value>--DECLARE @PeriodeSemester int
 --SET @PeriodeSemester = 2
 
-select d.nama, j.nama_jenis, avg(r.[jumlah bimbingan])"avgbimbingan"
+select d.inisial, j.nama_jenis, avg(r.[jumlah bimbingan])"avgbimbingan"
 	from dosen d, 
 	(select ss.NIK_dosen_pembimbing,ss.id_semester_pengambilan, ss.jenis, ss.NPM_mahasiswa, COUNT(bs.id)"jumlah bimbingan" from skripsi ss
 	left join bimbingan bs on bs.id_skripsi = ss.id
@@ -205,7 +205,7 @@ select d.nama, j.nama_jenis, avg(r.[jumlah bimbingan])"avgbimbingan"
 	left join jenis_skripsi j on j.id = r.jenis
 	where d.NIK = r.NIK_dosen_pembimbing and 
 	r.id_semester_pengambilan = @PeriodeSemester
-	group by d.nama, j.nama_jenis</value>
+	group by d.inisial, j.nama_jenis</value>
   </data>
   <metadata name="$this.SnapGridSize" type="Telerik.Reporting.Drawing.Unit, Telerik.Reporting, Version=7.0.13.220, Culture=neutral, PublicKeyToken=a9d7983dfcc261be">
     <value>0.1in</value>

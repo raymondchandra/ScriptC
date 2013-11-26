@@ -78,7 +78,7 @@ namespace Proyek_Informatika.Controllers.Mahasiswa
                 string fileType = getFileType(filename);
                 return File(fs, fileType, filename);
             }
-            catch
+            catch(Exception e)
             {
                 return null;
                 //throw new HttpException(404, "Couldn't find " + filename);
@@ -156,7 +156,7 @@ namespace Proyek_Informatika.Controllers.Mahasiswa
                 db.SaveChanges();
                 return 1;
             }
-            catch
+            catch (Exception ex)
             {
                 return 0;
                 
@@ -260,7 +260,9 @@ namespace Proyek_Informatika.Controllers.Mahasiswa
                     return "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
                 default:
                     return "application/octet-stream";
+                    break;
             };
+            return "";
         }
     }
 }

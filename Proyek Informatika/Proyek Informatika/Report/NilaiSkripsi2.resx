@@ -117,7 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <metadata name="jenis_skripsi_datasource.DefaultValues" mimetype="application/x-microsoft.net.object.binary.base64">
+  <metadata name="biodata_datasource.DefaultValues" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdUZWxlcmlrLlJlcG9ydGluZywgVmVyc2lvbj03LjAuMTMuMjIw
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWE5ZDc5ODNkZmNjMjYxYmUMAwAAAKYBVGVs
@@ -129,8 +129,132 @@
         RGF0YVNvdXJjZVBhcmFtZXRlcgMAAAACAAAACQQAAAAFBAAAAEtTeXN0ZW0uQ29sbGVjdGlvbnMuR2Vu
         ZXJpYy5MaXN0YDFbW1RlbGVyaWsuUmVwb3J0aW5nLlNxbERhdGFTb3VyY2VQYXJhbWV0ZXIDAAAABl9p
         dGVtcwVfc2l6ZQhfdmVyc2lvbgQAACpUZWxlcmlrLlJlcG9ydGluZy5TcWxEYXRhU291cmNlUGFyYW1l
-        dGVyW10CAAAACAgDAAAACQUAAAAAAAAAAgAAAAcFAAAAAAEAAAAAAAAABChUZWxlcmlrLlJlcG9ydGlu
-        Zy5TcWxEYXRhU291cmNlUGFyYW1ldGVyAgAAAAs=
+        dGVyW10CAAAACAgDAAAACQUAAAABAAAACwAAAAcFAAAAAAEAAAAEAAAABChUZWxlcmlrLlJlcG9ydGlu
+        Zy5TcWxEYXRhU291cmNlUGFyYW1ldGVyAgAAAAkGAAAADQMMBwAAAE5TeXN0ZW0uRGF0YSwgVmVyc2lv
+        bj00LjAuMC4wLCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkM
+        CAAAAElTeXN0ZW0sIFZlcnNpb249NC4wLjAuMCwgQ3VsdHVyZT1uZXV0cmFsLCBQdWJsaWNLZXlUb2tl
+        bj1iNzdhNWM1NjE5MzRlMDg5BQYAAAAoVGVsZXJpay5SZXBvcnRpbmcuU3FsRGF0YVNvdXJjZVBhcmFt
+        ZXRlcgQAAAAGZGJUeXBlGERhdGFTb3VyY2VQYXJhbWV0ZXIrbmFtZRlEYXRhU291cmNlUGFyYW1ldGVy
+        K3ZhbHVlI0RhdGFTb3VyY2VQYXJhbWV0ZXIrUHJvcGVydHlDaGFuZ2VkBAECBBJTeXN0ZW0uRGF0YS5E
+        YlR5cGUHAAAAMVN5c3RlbS5Db21wb25lbnRNb2RlbC5Qcm9wZXJ0eUNoYW5nZWRFdmVudEhhbmRsZXII
+        AAAAAgAAAAX3////ElN5c3RlbS5EYXRhLkRiVHlwZQEAAAAHdmFsdWVfXwAIBwAAAAsAAAAGCgAAABBA
+        aWRWYWx1ZVNrcmlwc2kyCgoL
+</value>
+  </metadata>
+  <data name="biodata_datasource.SelectCommand" xml:space="preserve">
+    <value>
+
+SELECT 
+m.nama,
+m.NPM,
+d.NIK,
+d.nama,
+t.judul,
+s.pengambilan_ke,
+se.periode_semester
+
+  FROM skripsi s 
+  join mahasiswa m on m.NPM = s.NPM_mahasiswa
+  join topik t on t.id = s.id_topik 
+  join dosen d on d.NIK = s.NIK_dosen_pembimbing
+join semester se on se.id = s.id_semester_pengambilan
+where s.id = @idValueSkripsi2
+</value>
+  </data>
+  <metadata name="nilaipembimbing_datasource.DefaultValues" mimetype="application/x-microsoft.net.object.binary.base64">
+    <value>
+        AAEAAAD/////AQAAAAAAAAAMAgAAAFdUZWxlcmlrLlJlcG9ydGluZywgVmVyc2lvbj03LjAuMTMuMjIw
+        LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWE5ZDc5ODNkZmNjMjYxYmUMAwAAAKYBVGVs
+        ZXJpay5SZXBvcnRpbmcsIFZlcnNpb249Ny4wLjEzLjIyMCwgQ3VsdHVyZT1uZXV0cmFsLCBQdWJsaWNL
+        ZXlUb2tlbj1hOWQ3OTgzZGZjYzI2MWJlXV0sIG1zY29ybGliLCBWZXJzaW9uPTQuMC4wLjAsIEN1bHR1
+        cmU9bmV1dHJhbCwgUHVibGljS2V5VG9rZW49Yjc3YTVjNTYxOTM0ZTA4OQUBAAAAMlRlbGVyaWsuUmVw
+        b3J0aW5nLlNxbERhdGFTb3VyY2VQYXJhbWV0ZXJDb2xsZWN0aW9uAQAAABJDb2xsZWN0aW9uYDEraXRl
+        bXMES1N5c3RlbS5Db2xsZWN0aW9ucy5HZW5lcmljLkxpc3RgMVtbVGVsZXJpay5SZXBvcnRpbmcuU3Fs
+        RGF0YVNvdXJjZVBhcmFtZXRlcgMAAAACAAAACQQAAAAFBAAAAEtTeXN0ZW0uQ29sbGVjdGlvbnMuR2Vu
+        ZXJpYy5MaXN0YDFbW1RlbGVyaWsuUmVwb3J0aW5nLlNxbERhdGFTb3VyY2VQYXJhbWV0ZXIDAAAABl9p
+        dGVtcwVfc2l6ZQhfdmVyc2lvbgQAACpUZWxlcmlrLlJlcG9ydGluZy5TcWxEYXRhU291cmNlUGFyYW1l
+        dGVyW10CAAAACAgDAAAACQUAAAABAAAABgAAAAcFAAAAAAEAAAAEAAAABChUZWxlcmlrLlJlcG9ydGlu
+        Zy5TcWxEYXRhU291cmNlUGFyYW1ldGVyAgAAAAkGAAAADQMMBwAAAE5TeXN0ZW0uRGF0YSwgVmVyc2lv
+        bj00LjAuMC4wLCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkM
+        CAAAAElTeXN0ZW0sIFZlcnNpb249NC4wLjAuMCwgQ3VsdHVyZT1uZXV0cmFsLCBQdWJsaWNLZXlUb2tl
+        bj1iNzdhNWM1NjE5MzRlMDg5BQYAAAAoVGVsZXJpay5SZXBvcnRpbmcuU3FsRGF0YVNvdXJjZVBhcmFt
+        ZXRlcgQAAAAGZGJUeXBlGERhdGFTb3VyY2VQYXJhbWV0ZXIrbmFtZRlEYXRhU291cmNlUGFyYW1ldGVy
+        K3ZhbHVlI0RhdGFTb3VyY2VQYXJhbWV0ZXIrUHJvcGVydHlDaGFuZ2VkBAECBBJTeXN0ZW0uRGF0YS5E
+        YlR5cGUHAAAAMVN5c3RlbS5Db21wb25lbnRNb2RlbC5Qcm9wZXJ0eUNoYW5nZWRFdmVudEhhbmRsZXII
+        AAAAAgAAAAX3////ElN5c3RlbS5EYXRhLkRiVHlwZQEAAAAHdmFsdWVfXwAIBwAAAAsAAAAGCgAAAAtA
+        aWRfc2tyaXBzaQYLAAAAATMKCw==
+</value>
+  </metadata>
+  <metadata name="nilaipenguji1_datasource.DefaultValues" mimetype="application/x-microsoft.net.object.binary.base64">
+    <value>
+        AAEAAAD/////AQAAAAAAAAAMAgAAAFdUZWxlcmlrLlJlcG9ydGluZywgVmVyc2lvbj03LjAuMTMuMjIw
+        LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWE5ZDc5ODNkZmNjMjYxYmUMAwAAAKYBVGVs
+        ZXJpay5SZXBvcnRpbmcsIFZlcnNpb249Ny4wLjEzLjIyMCwgQ3VsdHVyZT1uZXV0cmFsLCBQdWJsaWNL
+        ZXlUb2tlbj1hOWQ3OTgzZGZjYzI2MWJlXV0sIG1zY29ybGliLCBWZXJzaW9uPTQuMC4wLjAsIEN1bHR1
+        cmU9bmV1dHJhbCwgUHVibGljS2V5VG9rZW49Yjc3YTVjNTYxOTM0ZTA4OQUBAAAAMlRlbGVyaWsuUmVw
+        b3J0aW5nLlNxbERhdGFTb3VyY2VQYXJhbWV0ZXJDb2xsZWN0aW9uAQAAABJDb2xsZWN0aW9uYDEraXRl
+        bXMES1N5c3RlbS5Db2xsZWN0aW9ucy5HZW5lcmljLkxpc3RgMVtbVGVsZXJpay5SZXBvcnRpbmcuU3Fs
+        RGF0YVNvdXJjZVBhcmFtZXRlcgMAAAACAAAACQQAAAAFBAAAAEtTeXN0ZW0uQ29sbGVjdGlvbnMuR2Vu
+        ZXJpYy5MaXN0YDFbW1RlbGVyaWsuUmVwb3J0aW5nLlNxbERhdGFTb3VyY2VQYXJhbWV0ZXIDAAAABl9p
+        dGVtcwVfc2l6ZQhfdmVyc2lvbgQAACpUZWxlcmlrLlJlcG9ydGluZy5TcWxEYXRhU291cmNlUGFyYW1l
+        dGVyW10CAAAACAgDAAAACQUAAAABAAAABAAAAAcFAAAAAAEAAAAEAAAABChUZWxlcmlrLlJlcG9ydGlu
+        Zy5TcWxEYXRhU291cmNlUGFyYW1ldGVyAgAAAAkGAAAADQMMBwAAAE5TeXN0ZW0uRGF0YSwgVmVyc2lv
+        bj00LjAuMC4wLCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkM
+        CAAAAElTeXN0ZW0sIFZlcnNpb249NC4wLjAuMCwgQ3VsdHVyZT1uZXV0cmFsLCBQdWJsaWNLZXlUb2tl
+        bj1iNzdhNWM1NjE5MzRlMDg5BQYAAAAoVGVsZXJpay5SZXBvcnRpbmcuU3FsRGF0YVNvdXJjZVBhcmFt
+        ZXRlcgQAAAAGZGJUeXBlGERhdGFTb3VyY2VQYXJhbWV0ZXIrbmFtZRlEYXRhU291cmNlUGFyYW1ldGVy
+        K3ZhbHVlI0RhdGFTb3VyY2VQYXJhbWV0ZXIrUHJvcGVydHlDaGFuZ2VkBAECBBJTeXN0ZW0uRGF0YS5E
+        YlR5cGUHAAAAMVN5c3RlbS5Db21wb25lbnRNb2RlbC5Qcm9wZXJ0eUNoYW5nZWRFdmVudEhhbmRsZXII
+        AAAAAgAAAAX3////ElN5c3RlbS5EYXRhLkRiVHlwZQEAAAAHdmFsdWVfXwAIBwAAAAsAAAAGCgAAAAtA
+        aWRfc2tyaXBzaQYLAAAAATMKCw==
+</value>
+  </metadata>
+  <metadata name="nilaipenguji2_datasource.DefaultValues" mimetype="application/x-microsoft.net.object.binary.base64">
+    <value>
+        AAEAAAD/////AQAAAAAAAAAMAgAAAFdUZWxlcmlrLlJlcG9ydGluZywgVmVyc2lvbj03LjAuMTMuMjIw
+        LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWE5ZDc5ODNkZmNjMjYxYmUMAwAAAKYBVGVs
+        ZXJpay5SZXBvcnRpbmcsIFZlcnNpb249Ny4wLjEzLjIyMCwgQ3VsdHVyZT1uZXV0cmFsLCBQdWJsaWNL
+        ZXlUb2tlbj1hOWQ3OTgzZGZjYzI2MWJlXV0sIG1zY29ybGliLCBWZXJzaW9uPTQuMC4wLjAsIEN1bHR1
+        cmU9bmV1dHJhbCwgUHVibGljS2V5VG9rZW49Yjc3YTVjNTYxOTM0ZTA4OQUBAAAAMlRlbGVyaWsuUmVw
+        b3J0aW5nLlNxbERhdGFTb3VyY2VQYXJhbWV0ZXJDb2xsZWN0aW9uAQAAABJDb2xsZWN0aW9uYDEraXRl
+        bXMES1N5c3RlbS5Db2xsZWN0aW9ucy5HZW5lcmljLkxpc3RgMVtbVGVsZXJpay5SZXBvcnRpbmcuU3Fs
+        RGF0YVNvdXJjZVBhcmFtZXRlcgMAAAACAAAACQQAAAAFBAAAAEtTeXN0ZW0uQ29sbGVjdGlvbnMuR2Vu
+        ZXJpYy5MaXN0YDFbW1RlbGVyaWsuUmVwb3J0aW5nLlNxbERhdGFTb3VyY2VQYXJhbWV0ZXIDAAAABl9p
+        dGVtcwVfc2l6ZQhfdmVyc2lvbgQAACpUZWxlcmlrLlJlcG9ydGluZy5TcWxEYXRhU291cmNlUGFyYW1l
+        dGVyW10CAAAACAgDAAAACQUAAAABAAAABAAAAAcFAAAAAAEAAAAEAAAABChUZWxlcmlrLlJlcG9ydGlu
+        Zy5TcWxEYXRhU291cmNlUGFyYW1ldGVyAgAAAAkGAAAADQMMBwAAAE5TeXN0ZW0uRGF0YSwgVmVyc2lv
+        bj00LjAuMC4wLCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkM
+        CAAAAElTeXN0ZW0sIFZlcnNpb249NC4wLjAuMCwgQ3VsdHVyZT1uZXV0cmFsLCBQdWJsaWNLZXlUb2tl
+        bj1iNzdhNWM1NjE5MzRlMDg5BQYAAAAoVGVsZXJpay5SZXBvcnRpbmcuU3FsRGF0YVNvdXJjZVBhcmFt
+        ZXRlcgQAAAAGZGJUeXBlGERhdGFTb3VyY2VQYXJhbWV0ZXIrbmFtZRlEYXRhU291cmNlUGFyYW1ldGVy
+        K3ZhbHVlI0RhdGFTb3VyY2VQYXJhbWV0ZXIrUHJvcGVydHlDaGFuZ2VkBAECBBJTeXN0ZW0uRGF0YS5E
+        YlR5cGUHAAAAMVN5c3RlbS5Db21wb25lbnRNb2RlbC5Qcm9wZXJ0eUNoYW5nZWRFdmVudEhhbmRsZXII
+        AAAAAgAAAAX3////ElN5c3RlbS5EYXRhLkRiVHlwZQEAAAAHdmFsdWVfXwAIBwAAAAsAAAAGCgAAAAtA
+        aWRfc2tyaXBzaQYLAAAAATMKCw==
+</value>
+  </metadata>
+  <metadata name="nilaitotal_datasource.DefaultValues" mimetype="application/x-microsoft.net.object.binary.base64">
+    <value>
+        AAEAAAD/////AQAAAAAAAAAMAgAAAFdUZWxlcmlrLlJlcG9ydGluZywgVmVyc2lvbj03LjAuMTMuMjIw
+        LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWE5ZDc5ODNkZmNjMjYxYmUMAwAAAKYBVGVs
+        ZXJpay5SZXBvcnRpbmcsIFZlcnNpb249Ny4wLjEzLjIyMCwgQ3VsdHVyZT1uZXV0cmFsLCBQdWJsaWNL
+        ZXlUb2tlbj1hOWQ3OTgzZGZjYzI2MWJlXV0sIG1zY29ybGliLCBWZXJzaW9uPTQuMC4wLjAsIEN1bHR1
+        cmU9bmV1dHJhbCwgUHVibGljS2V5VG9rZW49Yjc3YTVjNTYxOTM0ZTA4OQUBAAAAMlRlbGVyaWsuUmVw
+        b3J0aW5nLlNxbERhdGFTb3VyY2VQYXJhbWV0ZXJDb2xsZWN0aW9uAQAAABJDb2xsZWN0aW9uYDEraXRl
+        bXMES1N5c3RlbS5Db2xsZWN0aW9ucy5HZW5lcmljLkxpc3RgMVtbVGVsZXJpay5SZXBvcnRpbmcuU3Fs
+        RGF0YVNvdXJjZVBhcmFtZXRlcgMAAAACAAAACQQAAAAFBAAAAEtTeXN0ZW0uQ29sbGVjdGlvbnMuR2Vu
+        ZXJpYy5MaXN0YDFbW1RlbGVyaWsuUmVwb3J0aW5nLlNxbERhdGFTb3VyY2VQYXJhbWV0ZXIDAAAABl9p
+        dGVtcwVfc2l6ZQhfdmVyc2lvbgQAACpUZWxlcmlrLlJlcG9ydGluZy5TcWxEYXRhU291cmNlUGFyYW1l
+        dGVyW10CAAAACAgDAAAACQUAAAABAAAABAAAAAcFAAAAAAEAAAAEAAAABChUZWxlcmlrLlJlcG9ydGlu
+        Zy5TcWxEYXRhU291cmNlUGFyYW1ldGVyAgAAAAkGAAAADQMMBwAAAE5TeXN0ZW0uRGF0YSwgVmVyc2lv
+        bj00LjAuMC4wLCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkM
+        CAAAAElTeXN0ZW0sIFZlcnNpb249NC4wLjAuMCwgQ3VsdHVyZT1uZXV0cmFsLCBQdWJsaWNLZXlUb2tl
+        bj1iNzdhNWM1NjE5MzRlMDg5BQYAAAAoVGVsZXJpay5SZXBvcnRpbmcuU3FsRGF0YVNvdXJjZVBhcmFt
+        ZXRlcgQAAAAGZGJUeXBlGERhdGFTb3VyY2VQYXJhbWV0ZXIrbmFtZRlEYXRhU291cmNlUGFyYW1ldGVy
+        K3ZhbHVlI0RhdGFTb3VyY2VQYXJhbWV0ZXIrUHJvcGVydHlDaGFuZ2VkBAECBBJTeXN0ZW0uRGF0YS5E
+        YlR5cGUHAAAAMVN5c3RlbS5Db21wb25lbnRNb2RlbC5Qcm9wZXJ0eUNoYW5nZWRFdmVudEhhbmRsZXII
+        AAAAAgAAAAX3////ElN5c3RlbS5EYXRhLkRiVHlwZQEAAAAHdmFsdWVfXwAIBwAAAAsAAAAGCgAAAAtA
+        aWRfc2tyaXBzaQYLAAAAATMKCw==
 </value>
   </metadata>
   <metadata name="sqlDataSource1.DefaultValues" mimetype="application/x-microsoft.net.object.binary.base64">
@@ -145,7 +269,7 @@
         RGF0YVNvdXJjZVBhcmFtZXRlcgMAAAACAAAACQQAAAAFBAAAAEtTeXN0ZW0uQ29sbGVjdGlvbnMuR2Vu
         ZXJpYy5MaXN0YDFbW1RlbGVyaWsuUmVwb3J0aW5nLlNxbERhdGFTb3VyY2VQYXJhbWV0ZXIDAAAABl9p
         dGVtcwVfc2l6ZQhfdmVyc2lvbgQAACpUZWxlcmlrLlJlcG9ydGluZy5TcWxEYXRhU291cmNlUGFyYW1l
-        dGVyW10CAAAACAgDAAAACQUAAAABAAAABAAAAAcFAAAAAAEAAAAEAAAABChUZWxlcmlrLlJlcG9ydGlu
+        dGVyW10CAAAACAgDAAAACQUAAAABAAAAAgAAAAcFAAAAAAEAAAAEAAAABChUZWxlcmlrLlJlcG9ydGlu
         Zy5TcWxEYXRhU291cmNlUGFyYW1ldGVyAgAAAAkGAAAADQMMBwAAAE5TeXN0ZW0uRGF0YSwgVmVyc2lv
         bj00LjAuMC4wLCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkM
         CAAAAElTeXN0ZW0sIFZlcnNpb249NC4wLjAuMCwgQ3VsdHVyZT1uZXV0cmFsLCBQdWJsaWNLZXlUb2tl
@@ -153,36 +277,11 @@
         ZXRlcgQAAAAGZGJUeXBlGERhdGFTb3VyY2VQYXJhbWV0ZXIrbmFtZRlEYXRhU291cmNlUGFyYW1ldGVy
         K3ZhbHVlI0RhdGFTb3VyY2VQYXJhbWV0ZXIrUHJvcGVydHlDaGFuZ2VkBAECBBJTeXN0ZW0uRGF0YS5E
         YlR5cGUHAAAAMVN5c3RlbS5Db21wb25lbnRNb2RlbC5Qcm9wZXJ0eUNoYW5nZWRFdmVudEhhbmRsZXII
-        AAAAAgAAAAX3////ElN5c3RlbS5EYXRhLkRiVHlwZQEAAAAHdmFsdWVfXwAIBwAAAAsAAAAGCgAAAA1A
-        SmVuaXNTa3JpcHNpBgsAAAABMQoL
+        AAAAAgAAAAX3////ElN5c3RlbS5EYXRhLkRiVHlwZQEAAAAHdmFsdWVfXwAIBwAAAAsAAAAGCgAAAAtA
+        aWRfc2tyaXBzaQYLAAAAATMKCw==
 </value>
   </metadata>
-  <data name="sqlDataSource1.SelectCommand" xml:space="preserve">
-    <value>--Declare @JenisSkripsi int
---Set @JenisSkripsi = 1
-select se.periode_semester, si.nilai_akhir, si.jumlah_nilai
-from semester se join 
-(
-select id_semester_pengambilan,jenis, nilai_akhir, jumlah_nilai
-from
-(
-select id_semester_pengambilan,jenis , [A],[B],[C],[E] from
-(select id_semester_pengambilan,jenis, nilai_akhir from skripsi where jenis = @JenisSkripsi) as SourceNilai
-pivot
-(
-count(nilai_akhir)
-for nilai_akhir in ([A],[B],[C],[E])
-)as pivottable
-) upnilai
-unpivot
-(jumlah_nilai for nilai_akhir in (A, B,C,E))
-as unpvt
-)si
-on si.id_semester_pengambilan = se.id
-
-</value>
-  </data>
-  <metadata name="nilai_perperiode_datasource.DefaultValues" mimetype="application/x-microsoft.net.object.binary.base64">
+  <metadata name="sqlDataSource2.DefaultValues" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdUZWxlcmlrLlJlcG9ydGluZywgVmVyc2lvbj03LjAuMTMuMjIw
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWE5ZDc5ODNkZmNjMjYxYmUMAwAAAKYBVGVs
@@ -194,83 +293,10 @@ on si.id_semester_pengambilan = se.id
         RGF0YVNvdXJjZVBhcmFtZXRlcgMAAAACAAAACQQAAAAFBAAAAEtTeXN0ZW0uQ29sbGVjdGlvbnMuR2Vu
         ZXJpYy5MaXN0YDFbW1RlbGVyaWsuUmVwb3J0aW5nLlNxbERhdGFTb3VyY2VQYXJhbWV0ZXIDAAAABl9p
         dGVtcwVfc2l6ZQhfdmVyc2lvbgQAACpUZWxlcmlrLlJlcG9ydGluZy5TcWxEYXRhU291cmNlUGFyYW1l
-        dGVyW10CAAAACAgDAAAACQUAAAABAAAACgAAAAcFAAAAAAEAAAAEAAAABChUZWxlcmlrLlJlcG9ydGlu
-        Zy5TcWxEYXRhU291cmNlUGFyYW1ldGVyAgAAAAkGAAAADQMMBwAAAE5TeXN0ZW0uRGF0YSwgVmVyc2lv
-        bj00LjAuMC4wLCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkM
-        CAAAAElTeXN0ZW0sIFZlcnNpb249NC4wLjAuMCwgQ3VsdHVyZT1uZXV0cmFsLCBQdWJsaWNLZXlUb2tl
-        bj1iNzdhNWM1NjE5MzRlMDg5BQYAAAAoVGVsZXJpay5SZXBvcnRpbmcuU3FsRGF0YVNvdXJjZVBhcmFt
-        ZXRlcgQAAAAGZGJUeXBlGERhdGFTb3VyY2VQYXJhbWV0ZXIrbmFtZRlEYXRhU291cmNlUGFyYW1ldGVy
-        K3ZhbHVlI0RhdGFTb3VyY2VQYXJhbWV0ZXIrUHJvcGVydHlDaGFuZ2VkBAECBBJTeXN0ZW0uRGF0YS5E
-        YlR5cGUHAAAAMVN5c3RlbS5Db21wb25lbnRNb2RlbC5Qcm9wZXJ0eUNoYW5nZWRFdmVudEhhbmRsZXII
-        AAAAAgAAAAX3////ElN5c3RlbS5EYXRhLkRiVHlwZQEAAAAHdmFsdWVfXwAIBwAAAAsAAAAGCgAAAA1A
-        SmVuaXNTa3JpcHNpBgsAAAABMQoL
+        dGVyW10CAAAACAgDAAAACQUAAAAAAAAAAAAAAAcFAAAAAAEAAAAAAAAABChUZWxlcmlrLlJlcG9ydGlu
+        Zy5TcWxEYXRhU291cmNlUGFyYW1ldGVyAgAAAAs=
 </value>
   </metadata>
-  <data name="nilai_perperiode_datasource.SelectCommand" xml:space="preserve">
-    <value>--DECLARE @JenisSkripsi int
---SET @JenisSkripsi = 1
-
-select se.periode_semester, si.nilai_akhir, si.jumlah_nilai
-from semester se left join 
-(
-select id_semester_pengambilan,jenis, nilai_akhir, jumlah_nilai
-from
-(
-select id_semester_pengambilan,jenis , [A],[B],[C],[E] from
-(select id_semester_pengambilan,jenis, nilai_akhir from skripsi where jenis = @JenisSkripsi) as SourceNilai
-pivot
-(
-count(nilai_akhir)
-for nilai_akhir in ([A],[B],[C],[E])
-)as pivottable
-) upnilai
-unpivot
-(jumlah_nilai for nilai_akhir in (A, B,C,E))
-as unpvt
-)si
-on si.id_semester_pengambilan = se.id
-
-</value>
-  </data>
-  <metadata name="presentasenilai_perperiode_datasource.DefaultValues" mimetype="application/x-microsoft.net.object.binary.base64">
-    <value>
-        AAEAAAD/////AQAAAAAAAAAMAgAAAFdUZWxlcmlrLlJlcG9ydGluZywgVmVyc2lvbj03LjAuMTMuMjIw
-        LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWE5ZDc5ODNkZmNjMjYxYmUMAwAAAKYBVGVs
-        ZXJpay5SZXBvcnRpbmcsIFZlcnNpb249Ny4wLjEzLjIyMCwgQ3VsdHVyZT1uZXV0cmFsLCBQdWJsaWNL
-        ZXlUb2tlbj1hOWQ3OTgzZGZjYzI2MWJlXV0sIG1zY29ybGliLCBWZXJzaW9uPTQuMC4wLjAsIEN1bHR1
-        cmU9bmV1dHJhbCwgUHVibGljS2V5VG9rZW49Yjc3YTVjNTYxOTM0ZTA4OQUBAAAAMlRlbGVyaWsuUmVw
-        b3J0aW5nLlNxbERhdGFTb3VyY2VQYXJhbWV0ZXJDb2xsZWN0aW9uAQAAABJDb2xsZWN0aW9uYDEraXRl
-        bXMES1N5c3RlbS5Db2xsZWN0aW9ucy5HZW5lcmljLkxpc3RgMVtbVGVsZXJpay5SZXBvcnRpbmcuU3Fs
-        RGF0YVNvdXJjZVBhcmFtZXRlcgMAAAACAAAACQQAAAAFBAAAAEtTeXN0ZW0uQ29sbGVjdGlvbnMuR2Vu
-        ZXJpYy5MaXN0YDFbW1RlbGVyaWsuUmVwb3J0aW5nLlNxbERhdGFTb3VyY2VQYXJhbWV0ZXIDAAAABl9p
-        dGVtcwVfc2l6ZQhfdmVyc2lvbgQAACpUZWxlcmlrLlJlcG9ydGluZy5TcWxEYXRhU291cmNlUGFyYW1l
-        dGVyW10CAAAACAgDAAAACQUAAAABAAAABAAAAAcFAAAAAAEAAAAEAAAABChUZWxlcmlrLlJlcG9ydGlu
-        Zy5TcWxEYXRhU291cmNlUGFyYW1ldGVyAgAAAAkGAAAADQMMBwAAAE5TeXN0ZW0uRGF0YSwgVmVyc2lv
-        bj00LjAuMC4wLCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkM
-        CAAAAElTeXN0ZW0sIFZlcnNpb249NC4wLjAuMCwgQ3VsdHVyZT1uZXV0cmFsLCBQdWJsaWNLZXlUb2tl
-        bj1iNzdhNWM1NjE5MzRlMDg5BQYAAAAoVGVsZXJpay5SZXBvcnRpbmcuU3FsRGF0YVNvdXJjZVBhcmFt
-        ZXRlcgQAAAAGZGJUeXBlGERhdGFTb3VyY2VQYXJhbWV0ZXIrbmFtZRlEYXRhU291cmNlUGFyYW1ldGVy
-        K3ZhbHVlI0RhdGFTb3VyY2VQYXJhbWV0ZXIrUHJvcGVydHlDaGFuZ2VkBAECBBJTeXN0ZW0uRGF0YS5E
-        YlR5cGUHAAAAMVN5c3RlbS5Db21wb25lbnRNb2RlbC5Qcm9wZXJ0eUNoYW5nZWRFdmVudEhhbmRsZXII
-        AAAAAgAAAAX3////ElN5c3RlbS5EYXRhLkRiVHlwZQEAAAAHdmFsdWVfXwAIBwAAAAsAAAAGCgAAAAhA
-        c2tyaXBzaQYLAAAAATEKCw==
-</value>
-  </metadata>
-  <data name="presentasenilai_perperiode_datasource.SelectCommand" xml:space="preserve">
-    <value>--Declare @skripsi int
---Set @skripsi = 1
-
-select se.periode_semester, (l.lulus*100/j.jumlah) as presentase 
-from semester se
-left join 
-(select id_semester_pengambilan, COUNT(nilai_akhir)as lulus from skripsi 
-where (nilai_akhir = 'A' or nilai_akhir = 'B' or nilai_akhir = 'C') and jenis = @skripsi  
-group by id_semester_pengambilan) l on l.id_semester_pengambilan = se.id
-left join
-(select id_semester_pengambilan, COUNT(nilai_akhir)as jumlah from skripsi 
-where jenis = @skripsi  
-group by id_semester_pengambilan)j on l.id_semester_pengambilan = se.id</value>
-  </data>
   <metadata name="$this.SnapGridSize" type="Telerik.Reporting.Drawing.Unit, Telerik.Reporting, Version=7.0.13.220, Culture=neutral, PublicKeyToken=a9d7983dfcc261be">
     <value>0.1in</value>
   </metadata>

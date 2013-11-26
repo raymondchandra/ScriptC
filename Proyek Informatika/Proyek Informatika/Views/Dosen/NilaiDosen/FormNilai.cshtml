@@ -1,13 +1,122 @@
-﻿
-
-@{
-    List<Tuple<string,int, double>> nilais = ViewData["nilai"] as List<Tuple<string, int, double>>;
+﻿@{
+    List<Tuple<string,int,int, double>> nilais = ViewData["nilai"] as List<Tuple<string,int, int, double>>;
 
     }
+<style type="text/css">
+    input[type="text"]
+    {
+        width:50px;
+    }
+    input[type="text"]:disabled
+    {
+        background : transparent;
+        color:Black;
+        border: none;
+        width:50px;
+    }
+</style>
+<script type="text/javascript">
+    $(document).ready(function () {
+        calculate();
+    });
+    function calculate() {
+        var bobot = document.getElementsByName("bobot");
+        var nilai = document.getElementsByName("nilai");
+        var subtotal = document.getElementsByName("subtotal");
+        var total = 0;
+        for (var i = 0; i < bobot.length; i++) {
+            subtotal[i].innerText = ((parseFloat(nilai[i].value) * parseFloat(bobot[i].firstChild.data)) / 100);
+            total += parseFloat(subtotal[i].firstChild.data);
+        }
+        $("[name=total]")[0].innerText = (total.toPrecision(3));
+    }
+    $('[name=nilai]').change(function (event) {
+        calculate();
+    });
+    $("#submitButton").click(function () {
 
+        var kategori = document.getElementsByName("kategori");
+        var nilais = document.getElementsByName("nilai");
+        var berhasil = true;
+        alert("total: " + $("[name=total]")[0].innerText);
+        for (var i = 0; i < kategori.length; i++) {
+            var values = { id: '@ViewBag.id', kategori: kategori[i].value, nilai: nilais[i].value, status: 0, nilaiAkhir: $("[name=total]")[0].innerText };
+            $.post("NilaiDosen/SubmitNilai", values, function (data) {
+                berhasil &= data;
+            });
+        }
+        if (berhasil == true) {
+            alert("Nilai sudah berhasil diubah");
+        }
+
+    });
+    $("#submitFinalizeButton").click(function () {
+        var r = confirm("Nilai yang sudah dikumpulkan harus final, pengubahan kembali harus menghubungi koordinator. Apakah Anda yakin?");
+        if (r) {
+            var kategori = document.getElementsByName("kategori");
+            var nilais = document.getElementsByName("nilai");
+            var berhasil = true;
+            for (var i = 0; i < kategori.length; i++) {
+                var values = { id: '@ViewBag.id', kategori: kategori[i].value, nilai: nilais[i].value, status: 1, nilaiAkhir: $("[name=total]")[0].innerText };
+                $.post("NilaiDosen/SubmitNilai", values, function (data) {
+                    berhasil &= data;
+                });
+            }
+            if (berhasil == true) {
+                alert("Nilai sudah berhasil diubah");
+            }
+            $("#buttonEditor").hide();
+            $("#submitFinalizeButton").hide();
+        }
+    });
+    $("#submitButton").click(function () {
+        
+        
+
+            var kategori = document.getElementsByName("kategori");
+            var nilais = document.getElementsByName("nilai");
+            var berhasil = true;
+            for (var i = 0; i < kategori.length; i++) {
+                var values = { id: '@ViewBag.id', kategori: kategori[i].value, nilai: nilais[i].value };
+                $.post("NilaiDosen/SubmitNilai", values, function (data) {
+                    berhasil &= data;
+                });
+            }
+            $("[name=nilai]").prop('disabled', true);
+            document.getElementById("viewInLine1b").style.display = "none";
+            $("#turnEditingOn").show();
+            if (berhasil == true) {
+                alert("Nilai sudah berhasil diubah");
+            }
+       
+    });
+    $("#turnEditingOn").click(function () {
+        $("[name=nilai]").prop('disabled', false);
+        document.getElementById("viewInLine1b").style.display = "inline";
+        $("#turnEditingOn").hide();
+    });
+    $("#turnEditingOff").click(function () {
+        $("[name=nilai]").prop('disabled', true);
+        document.getElementById("viewInLine1b").style.display = "none";
+        $("#turnEditingOn").show();
+    });
+</script>
 
 <h2>Komposisi Nilai</h2>
 <div class="container_15">
+
+    @{
+        if (ViewBag.status == 0)
+        { 
+            <div id="buttonEditor">
+    <a class="t-button t-button-icon t-grid-edit" id="turnEditingOn"><span class="t-icon t-edit"></span></a>
+    <span id="viewInLine1b" style="display: none;">
+    <a class="t-button t-button-icon t-grid-edit" id="submitButton"><span class="t-icon t-update"></span></a>&nbsp
+                    <!--cancel-->
+    <a class="t-button t-button-icon t-grid-edit" id="turnEditingOff"><span class="t-icon t-cancel"></span></a></span>
+    </div>
+        }
+        }
     <table class="blue" style="width: 50%;">
         <tr class="th">
             <td style="width: 40%;">
@@ -16,7 +125,7 @@
             <td style="width: 30%;">
                 Bobot (%)
             </td>
-            <td>
+            <td style="width:50px">
                 Nilai
             </td>
             <td>
@@ -24,24 +133,39 @@
             </td>
         </tr>
         @{
-            int i = 1;
-    foreach (var item in nilais)
-    {
-        <text>
+            foreach (var item in nilais)
+            {
+                <text>
+                    <tr>
+                        <td>
+                            @item.Item1
+                        </td>
+                        <td>
+                            <input type="hidden" name="kategori" value="@item.Item2"/>
+                            <label name="bobot">@item.Item3</label>
+                        </td>
+                        <td>
+                            <input type="text" name="nilai" disabled="disabled" value="@(String.Format("{0:0.0}",item.Item4))" onkeydown="calculate" />
+                        </td>
+                        <td>
+                            <label name="subtotal"></label>
+                        </td>
+                    </tr>
+                </text>
+            }
+            }
             <tr>
-                <td>
-                    
-                    @item.Item1
-                </td>
-                <td>
-                    @item.Item2
-                </td>
-                <td>
-                    @item.Item3
-                </td>
+                <td  colspan = "3">Total</td>
+                <td><label name= "total"></label></td>
             </tr>
-        </text>
-    }
-    }
+            
     </table>
+    @{
+    if(ViewBag.status == 0)
+    {
+
+    <input type="button" class="t-button t-button-icon t-grid-edit" id="submitFinalizeButton" value ="Submit"/>
+
+    }
+    }
     </div>

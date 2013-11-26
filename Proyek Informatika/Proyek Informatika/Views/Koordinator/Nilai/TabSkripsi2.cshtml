@@ -1,0 +1,31 @@
+﻿
+<script type="text/javascript">
+    $(document).ready(function () {
+    var values = {id: @(ViewBag.id)};
+        $.post("Nilai/NilaiSkripsi2?id="+@(ViewBag.id), function(data){
+            $("#contentLaporan").html(data);
+        });
+    });
+    $("#reopen").click(function(){posting(0);});
+    $("#accept").click(function(){posting(2);});
+
+    function posting(status) 
+    {
+        var values = {id : @(ViewBag.id), status : status};
+            
+        $.post("Nilai/ChangeStatus",values, function(data){
+            if(data == 1)
+            {
+                alert("Status berhasil diubah");
+            }
+            else
+            {
+                alert("Status gagal diubah");
+            }
+        });                
+    }
+</script>
+<span id = "contentLaporan">
+</span>
+    <input type = "button" id="accept" value="Accept"/>
+    <input type = "button" id= "reopen" value="Reopen" />

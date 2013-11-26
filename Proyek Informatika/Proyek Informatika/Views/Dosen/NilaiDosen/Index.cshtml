@@ -1,20 +1,28 @@
 ﻿<script type="text/javascript">
     function aksi(e) {
         if (e.name == "showForm") {
-            $.post("NilaiDosen/FormBimbingan?id_skripsi=" + e.dataItem.id, function (data) {
-                
-             });
+            $.post("NilaiDosen/FormNilai?id_skripsi=" + e.dataItem.id, function (data) {
+                $("#contents").html(data);
+                var form = $("#contentWindow").data("tWindow");
+                form.center().open();
+            });
         }
+    }
+    function onCloseWindow(event) {
+        var table = $(".t-grid .t-refresh").trigger('click');
     }
 </script>
 <div class = "layer">
- @(Html.Telerik().Grid<Proyek_Informatika.Models.DosenMuridBimbinganContainer>()
+    <h1>Nilai Skripsi 1</h1>
+ @(Html.Telerik().Grid<Proyek_Informatika.Models.DosenMuridNilaiContainer>()
         .Name("RekapBimbinganDosen")
         .Columns(columns =>
         {
             columns.Bound(o => o.npm).Width(100).Title("NPM");
             columns.Bound(o => o.namaMahasiswa).Width(100).Title("Nama Mahasiswa");
             columns.Bound(o => o.judul).Width(100).Title("Judul");
+            columns.Bound(o => o.status).Width(75).Title("Status");
+
             columns.Command(com =>
             {
                 com.Custom("showForm").Ajax(true).Text("Edit Nilai");
@@ -42,4 +50,5 @@
                     .Draggable(true)
                     .Modal(true)
                     .Visible(false)
+                    .ClientEvents(c => c.OnClose("onCloseWindow"))
                 )

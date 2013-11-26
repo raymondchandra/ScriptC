@@ -13,9 +13,8 @@
             });
         }
         else if (e.name == "unduhFile") {
-        alert("test: "+e.dataItem.id);
             var values = { id_laporan: e.dataItem.id };
-            window.open("Pengumpulan/GetDownload",values,"_blank");
+            window.open("Pengumpulan/GetDownload?id_laporan="+e.dataItem.id,"_blank");
 
         }
         else if (e.name == "lihatFile") {
@@ -46,15 +45,15 @@
         }
         else if (e.name == "unggah") {
             
-            var window = $('#formUnggah').data("tWindow");
-            window.center().open();
+            var windowU = $('#formUnggah').data("tWindow");
+            windowU.center().open();
         }
     }
     function closeWindow() {
-        var window = $('#formUnggah').data("tWindow");
-        var window2 = $('#editorUnggah').data("tWindow");
-        window.close();
-        window2.close();
+        var windowU = $('#formUnggah').data("tWindow");
+        var windowU2 = $('#editorUnggah').data("tWindow");
+        windowU.close();
+        windowU2.close();
     }
     function refreshTable() {
         var table = $(".t-grid .t-refresh").trigger('click');
@@ -69,8 +68,8 @@
         return true;
     }
     $('#btnFormUnggah').click(function () {
-        var window = $('#formUnggah').data("tWindow");
-        window.center().open();
+        var windowU = $('#formUnggah').data("tWindow");
+        windowU.center().open();
     });
     
 </script>
@@ -78,20 +77,20 @@
     <h1>Berkas-berkas Skripsi</h1>
     @(  Html.Telerik().Window()
         .Name("formUnggah")
-        .Title("Upload File")
+        .Title("Form Pengunggahan File")
         .LoadContentFrom("FormPengumpulan","Pengumpulan")
             .Width(500)
-            .Height(350)
+            .Height(550)
             .Draggable(true)
             .Modal(true)
             .Visible(false)
 )
  @(  Html.Telerik().Window()
         .Name("editorUnggah")
-        .Title("Edit File")
+        .Title("Editor Pengunggahan File")
         .Content(@<text><div id= "editorContent"></div></text>)
             .Width(500)
-            .Height(350)
+            .Height(550)
             .Draggable(true)
             .Modal(true)
             .Visible(false)
@@ -105,27 +104,27 @@
 .Columns(
     col =>
     {
-        col.Bound(o => o.jenis).Title("Nama File").Width(245);
-        col.Bound(o => o.tanggal_pengumpulan).Title("Tanggal Pengumpulan").Width(175);
+        col.Bound(o => o.jenis).Title("Nama File");
+        col.Bound(o => o.tanggal_pengumpulan).Title("Tanggal Pengumpulan");
         col.Command(com =>
         {
-            com.Custom("unduhFile").Text("Download").Ajax(true);
-            com.Custom("lihatFile").Text("View").Ajax(true);
+            com.Custom("unduhFile").Text("Unduh").Ajax(true);
+            com.Custom("lihatFile").Text("Lihat").Ajax(true);
             com.Custom("editFile").Text("Edit").Ajax(true);
-            com.Custom("delFile").Text("Delete").Ajax(true);
-        }).Width(320);
+            com.Custom("delFile").Text("Hapus").Ajax(true);
+        }).Title("Aksi").Width(90);
     }
 )
 .DetailView(det => det.ClientTemplate(
          "<fieldset>" +
-             "<legend>Detil Bahasan</legend>" +
+             "<legend>Deskripsi</legend>" +
                  "<div class = 'deskripsi'><#= deskripsi #>" +
                  "</div>" +
          "</fieldset>"
     ))
 .ClientEvents(events => events.OnCommand("onComplete"))
 .DataBinding(data => data.Ajax().Select("SelectPengumpulan", "Pengumpulan"))
-.ToolBar(t=>t.Custom().Name("unggah").Text("Upload").Ajax(true))
+.ToolBar(t=>t.Custom().Name("unggah").Text("Unggah").Ajax(true))
 .Sortable()
 .Filterable()
 .Scrollable(c => c.Enabled(true))
@@ -137,12 +136,12 @@
 @(Html.Telerik().Window()
                 .Name("viewLaporan")
                 .Visible(false)
-                .Title("View File")
+                .Title("Detil Bimbingan")
                 .Modal(true)
-                .Width(800)
-                .Height(500)
+                .Width(820)
+                .Height(620)
                 .Scrollable(true)
-                .Content(@<text><iframe src="" id="pdfContainer" style="width:100%; height:100%; border:none;"></iframe></text>))
+                .Content(@<text><iframe src="" id="pdfContainer" width ="800" height="600"></iframe></text>))
 
 
 

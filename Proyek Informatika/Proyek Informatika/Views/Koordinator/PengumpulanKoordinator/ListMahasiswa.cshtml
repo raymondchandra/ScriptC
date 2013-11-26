@@ -9,7 +9,7 @@
 
     }
 </script>
-    @(Html.Telerik().Grid<Proyek_Informatika.Models.HansContainer.KoordinatorListMahasiswa>()
+    @(Html.Telerik().Grid<Proyek_Informatika.Models.KoordinatorListMahasiswa>()
         .Name("RekapBimbinganKoordinator")
         .DataBinding(bin => bin.Ajax().Select("SelectPengumpulan", "PengumpulanKoordinator", new {periode = ViewBag.periode, jenis_skripsi = ViewBag.jenis_skripsi}))
         .Columns(columns =>

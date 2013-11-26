@@ -15,15 +15,15 @@ namespace Proyek_Informatika.Controllers.Mahasiswa
         //
         // GET: /Bimbingan/
 
-        public ActionResult Index()
+         public ActionResult Index()
         {
             return View();
         }
+
         public ActionResult Pemesanan()
         {
             return PartialView();
         }
-
         public ActionResult KartuBimbingan()
         {
             return PartialView();
@@ -34,6 +34,7 @@ namespace Proyek_Informatika.Controllers.Mahasiswa
             return PartialView();
         }
 
+        
         [AcceptVerbs(HttpVerbs.Post)]
         [GridAction]
         public ActionResult EditBimbingan(int id)
@@ -47,8 +48,8 @@ namespace Proyek_Informatika.Controllers.Mahasiswa
         [GridAction]
         public ActionResult _SelectKartuBimbingan()
         {
-            int id_skripsi = 1;
-            //int id_skripsi = Int32.Parse(Session["id_skripsi"].ToString());
+            //int id_skripsi = 1;
+            int id_skripsi = Int32.Parse(Session["id-skripsi"].ToString());
             return bindingKartuBimbingan(id_skripsi);
         }
         protected ViewResult bindingKartuBimbingan(int id_skripsi)

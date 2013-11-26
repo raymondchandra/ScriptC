@@ -16,8 +16,12 @@ namespace Proyek_Informatika.Controllers.Koordinator
     {
         //
         // GET: /Nilai/
-
+        SkripsiAutoContainer db = new SkripsiAutoContainer();
         public ActionResult Index()
+        {
+            return PartialView();
+        }
+        public ActionResult Report()
         {
             return PartialView();
         }
@@ -25,122 +29,247 @@ namespace Proyek_Informatika.Controllers.Koordinator
         {
             return PartialView();
         }
-
-        [GridAction]
-        public ActionResult _SelectNilaiSkripsi1()
+        public ActionResult IndexMahasiswa()
         {
-            return bindingNilaiSkripsi1(1);
-        }
-        protected ViewResult bindingNilaiSkripsi1(int id)
-        {
-            List<KoordinatorPenilaian> temp;
-
-            temp = new List<KoordinatorPenilaian>();
-
-            temp.Add(new KoordinatorPenilaian()
+            EnumSemesterSkripsiContainer semes = new EnumSemesterSkripsiContainer();
+            var result = from jn in db.jenis_skripsi
+                         select (new { id = jn.id, nama_jenis = jn.nama_jenis });
+            List<jenis_skripsi> temp = new List<jenis_skripsi>();
+            foreach (var x in result)
             {
-                id = 1,
-                npm = "2010730069",
-                nama = "Cemon",
-                judul = "Graph",
-                nilaiAkhir = 90
-            });
-            return View(new GridModel<KoordinatorPenilaian>() { Data = temp });
-        }
-        public ActionResult NilaiSkripsi1()
-        {
-            return PartialView();
-        }
+                temp.Add(new jenis_skripsi { id = x.id, nama_jenis = x.nama_jenis });
+            }
+            semes.jenis_skripsi = temp;
 
-        public ActionResult NilaiSkripsi2()
-        {
-            return PartialView();
+            List<semester> temp2 = new List<semester>();
+            var result2 = from si in db.semesters
+                          select (new { id = si.id, nama = si.periode_semester, curr = si.isCurrent });
+            foreach (var x in result2)
+            {
+                temp2.Add(new semester { id = x.id, periode_semester = x.nama, isCurrent = x.curr });
+                if (x.curr == 1)
+                {
+                    semes.selected_value = x.id;
+                }
+            }
+            semes.jenis_semester = temp2;
+            return PartialView(semes);
         }
-        public ActionResult DetailNilaiSkripsi1()
+        [HttpPost]
+        public ActionResult ListMahasiswa(int periode=0, int jenis_skripsi=0)
         {
-            return PartialView();
-        }
-
-        public ActionResult DetailNilaiSkripsi2()
-        {
+            ViewBag.periode = periode;
+            ViewBag.jenis_skripsi = jenis_skripsi;
             return PartialView();
         }
 
         [GridAction]
-        public ActionResult _SelectNilaiSkripsi2()
+        public ActionResult SelectNilai(int periode, int jenis_skripsi)
         {
-            return bindingNilaiSkripsi2(1);
+            return bindingNilai(periode, jenis_skripsi);
         }
 
-        protected ViewResult bindingNilaiSkripsi2(int id)
+        protected ViewResult bindingNilai(int periode, int jenis_skripsi)
         {
-            List<KoordinatorPenilaian> temp;
+            var result = from si in db.nilais
+                         where si.skripsi.jenis == jenis_skripsi && si.skripsi.id_semester_pengambilan == periode && si.kategori_nilai.kategori == "nilaiAkhir"
+                         select new KoordinatorNilaiMahasiswa()
+                         {
+                             id = si.skripsi.id,
+                             judul = si.skripsi.topik.judul,
+                             namaDosen = si.skripsi.dosen.nama,
+                             namaMahasiswa = si.skripsi.mahasiswa.nama,
+                             nikDosen = si.skripsi.dosen.NIK,
+                             npmMahasiswa = si.skripsi.mahasiswa.NPM,
+                             periode = si.skripsi.semester.periode_semester,
+                             pengambilanke = si.skripsi.pengambilan_ke,
+                             tipe = si.skripsi.jenis_skripsi.nama_jenis,
+                             nilai = si.angka
+                         };
+            List<KoordinatorNilaiMahasiswa> temp = result.ToList();
 
-            temp = new List<KoordinatorPenilaian>();
-            temp.Add(new KoordinatorPenilaian()
+            foreach (var x in temp)
             {
-                id = 2,
-                npm = "2010730089",
-                nama = "Ari Stop Hanes",
-                judul = "Arima",
-                nilaiAkhir = 86
-            });
-            return View(new GridModel<KoordinatorPenilaian>() { Data = temp });
-        }
-        [GridAction]
-        public ViewResult _SelectDetailSkripsi2(int id)
-        {
-            List<KoordinatorPenilaianSkripsi2> temp;
+                x.status = getStatusNilai(x.id);
+            }
 
-            temp = new List<KoordinatorPenilaianSkripsi2>();
-
-            temp.Add(new KoordinatorPenilaianSkripsi2()
-            {
-                id = 1,
-                penilai = "Thomas Anung",
-                komponen1 = 20,
-                komponen2 = 30,
-                komponen3 = 50,
-                nilai1 = 70,
-                nilai2 = 80,
-                nilai3 = 90
-            });
-            temp.Add(new KoordinatorPenilaianSkripsi2()
-            {
-                id = 2,
-                penilai = "Luciana A.",
-                komponen1 = 40,
-                komponen2 = 20,
-                komponen3 = 40,
-                nilai1 = 60,
-                nilai2 = 85,
-                nilai3 = 87
-            });
-            temp.Add(new KoordinatorPenilaianSkripsi2()
-            {
-                id = 2,
-                penilai = "Oerip S.",
-                komponen1 = 35,
-                komponen2 = 35,
-                komponen3 = 30,
-                nilai1 = 62,
-                nilai2 = 87,
-                nilai3 = 86
-            });
-            return View(new GridModel<KoordinatorPenilaianSkripsi2>() { Data = temp });
+            return View(new GridModel<KoordinatorNilaiMahasiswa> { Data = temp });
         }
 
-        public ActionResult NilaiPembimbing()
+        public ActionResult DetailNilai(int id=0)
         {
+            skripsi result = db.skripsis.Where(x => x.id == id).Single<skripsi>();
+
+            if (result.jenis == 1)
+            {
+                return NilaiSkripsi1(id);
+            }
+            else
+            {
+                return NilaiSkripsi2(id);
+            }
+        }
+
+        public ActionResult NilaiSkripsi1(int id=0)
+        {
+            var result = db.skripsis.Where(x => x.id == id).Single();
+
+            ViewBag.id = id;
+            ViewBag.NPM = result.NPM_mahasiswa;
+            ViewBag.nama = result.mahasiswa.nama;
+            ViewBag.judul = result.topik.judul;
+            ViewBag.pembimbing = result.dosen.nama;
+
+            var resultNilai = db.nilais.Where(x => x.id_skripsi == id && x.kategori_nilai.tipe == "general").OrderBy(x => x.kategori_nilai.urutan);
+
+            List<Tuple<string, int, int, double>> listNilai = new List<Tuple<string, int, int, double>>();
+
+            foreach (var item in resultNilai)
+            {
+                listNilai.Add(new Tuple<string, int, int, double>(item.kategori_nilai.kategori, item.kategori, item.kategori_nilai.bobot, item.angka));
+            }
+            
+            ViewData["nilai"] = listNilai;
+
+            var resultTotal = db.nilais.Where(x => x.id_skripsi == id && x.kategori_nilai.kategori == "nilaiAkhir").Single();
+            ViewBag.total = resultTotal.angka;
             return PartialView();
         }
-        public ActionResult NilaiPenguji1()
+        [HttpPost]
+        public ActionResult NilaiSkripsi2(int id)
         {
+            
+            ViewBag.id = id;
             return PartialView();
         }
-        public ActionResult NilaiPenguji2()
+        public ActionResult TabSkripsi2(int id)
         {
+            ViewBag.id = id;
             return PartialView();
         }
+
+        public int ChangeStatus(int id, byte status)
+        {
+            var result = db.nilais.Where(x => x.id_skripsi == id);
+
+            foreach (var item in result)
+            {
+                item.submitted = status;
+                if (item.kategori_nilai.tipe == "final" && status == 2)
+                {
+                    changeSkripsiTable(item.id_skripsi, item.angka);
+                }
+            }
+
+            try
+            {
+                db.SaveChanges();
+                return 1;
+            }
+            catch
+            {
+                return 0;
+            }
+        }
+
+        public int ChangeAllStatus(int periode, int jenis, byte status)
+        {
+            var result = db.nilais.Where(x => x.skripsi.id_semester_pengambilan == periode && x.skripsi.jenis == jenis);
+
+            foreach (var item in result)
+            {
+                item.submitted = status;
+                if (item.kategori_nilai.tipe == "final" && status == 2)
+                {
+                    changeSkripsiTable(item.id_skripsi, item.angka);
+                }
+            }
+
+            try
+            {
+                db.SaveChanges();
+                return 1;
+            }
+            catch
+            {
+                return 0;
+            }
+        }
+        public int ChangeAllSubmitedStatus(int periode, int jenis, byte status)
+        {
+            var result = db.nilais.Where(x => x.skripsi.id_semester_pengambilan == periode && x.skripsi.jenis == jenis && x.submitted == 1);
+
+            foreach (var item in result)
+            {
+                item.submitted = status;
+                if (item.kategori_nilai.tipe == "final" && status == 2)
+                {
+                    changeSkripsiTable(item.id_skripsi, item.angka);
+                }
+            }
+
+            try
+            {
+                db.SaveChanges();
+                return 1;
+            }
+            catch
+            {
+                return 0;
+            }
+        }
+        private int changeSkripsiTable(int id, double angka)
+        {
+            var result = db.skripsis.Where(x => x.id == id).Single();
+            if (angka > 80)
+            {
+                result.nilai_akhir = "A";
+            }
+            else if( angka > 70)
+            {
+                result.nilai_akhir = "B";
+            }
+            else if (angka > 60)
+            {
+                result.nilai_akhir = "C";
+            }
+            else
+            {
+                result.nilai_akhir = "E";
+            }
+            try
+            {
+                db.SaveChanges();
+                return 1;
+            }
+            catch
+            {
+                return 0;
+            }
+        }
+        private string getStatusNilai(int id)
+        {
+            byte countNilai = db.nilais.Where(x => x.id_skripsi == id && x.kategori_nilai.kategori.Equals( "nilaiAkhir")).SingleOrDefault().submitted;
+
+            if (countNilai== 0)
+            {
+                return "Not Submitted";
+            }
+            else if (countNilai == 1)
+            {
+                return "Submited";
+            }
+            else
+            {
+                return "Finalized";
+            }
+        }
+
+        private string getNik(int id)
+        {
+            string nik = db.skripsis.Where(x => x.id == id).Single().NIK_dosen_pembimbing;
+            return nik;
+        }
+
     }
 }

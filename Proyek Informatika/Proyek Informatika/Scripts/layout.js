@@ -56,7 +56,11 @@ function onSelectMenuDosen(e) {
         $('#content').load('PendaftaranDosen/RegistrasiMahasiswa');
     } else if (item.find('> .t-link').text() == "Daftar Mahasiswa") {
         $('#content').load('BimbinganDosen/Index');
-    } else if (item.find('> .t-link').text() == "Kartu Bimbingan") {
+    }
+	else if (item.find('> .t-link').text() == "Nilai Skripsi 1") {
+        $('#content').load('NilaiDosen/Index');
+    }  
+	else if (item.find('> .t-link').text() == "Kartu Bimbingan") {
         $('#content').load('Bimbingan/KartuBimbingan');
     } else if (item.find('> .t-link').text() == "Pengumpulan") {
         $('#content').load('Pengumpulan/PengumpulanFile');

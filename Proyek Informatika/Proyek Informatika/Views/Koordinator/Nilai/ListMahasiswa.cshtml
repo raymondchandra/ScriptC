@@ -1,0 +1,128 @@
+﻿<script type="text/javascript">
+    function viewNilai(e) {
+        if (e.name == "preview") {
+            var tipe = e.dataItem.tipe;
+            
+            if (tipe == "Skripsi 1") {
+                var values = { id: e.dataItem.id };
+                $.post("Nilai/NilaiSkripsi1", values, function (data) {
+                    var detailWindow = $("#DetailNilai").data("tWindow");
+                    $("#container").html(data);
+                    detailWindow.center().open();
+                });
+            }
+            else {
+                var values = { id: e.dataItem.id };
+                $.post("Nilai/TabSkripsi2", values, function (data) {
+                    var detailWindow = $("#DetailNilai2").data("tWindow");
+                    $("#container2").html(data);
+                    detailWindow.center().open();
+
+                });
+            }
+            
+        }
+
+        RefreshTable(e);
+    }
+    function onComplete(e) {
+        if (e.name == "ApproveAll" || e.name == "ApproveAllSubmited") {
+            if (e.response == 1) {
+                alert("Semua nilai mahasiswa telah berhasil disetujui");
+            }
+            else {
+                alert("Semua nilai mahasiswa telah gagal disetujui");
+            }
+            RefreshTable(e);
+        }
+        else if (e.name == "ReopenAll") {
+            if (e.response == 1) {
+                alert("Semua nilai mahasiswa telah berhasil dibuka kembali");
+            }
+            else {
+                alert("Semua nilai mahasiswa telah gagal dibuka kembali");
+            }
+            RefreshTable(e);
+        }
+    }
+    function RefreshTable(e) {
+        $(".t-grid .t-refresh").trigger('click');
+    }
+
+</script>
+@(Html.Telerik().Grid<Proyek_Informatika.Models.KoordinatorNilaiMahasiswa>()
+        .Name("RekapBimbinganKoordinator")
+        .DataBinding(bin => bin.Ajax().Select("SelectNilai", "Nilai", new { periode = ViewBag.periode, jenis_skripsi = ViewBag.jenis_skripsi }))
+        .Columns(columns =>
+        {
+
+            columns.Bound(o => o.npmMahasiswa).Width(150).Title("NPM Mahasiswa");
+            columns.Bound(o => o.namaMahasiswa).Width(150).Title("Nama Mahasiswa");
+            columns.Bound(o => o.nilai).Width(150).Title("Nilai");
+            columns.Bound(o => o.status).Width(150).Title("Status");
+            columns.Command(comm =>
+            {
+                comm.Custom("preview").Text("Detail").Ajax(true);
+                //comm.Custom("accept").Text("Accept").Ajax(true).Action("ChangeStatus", "Nilai", new {status = 2 }).DataRouteValues(x =>
+                //{
+                //    x.Add(o => o.id).RouteKey("id");
+                //});
+                //comm.Custom("reopen").Text("Reopen").Ajax(true).Action("ChangeStatus", "Nilai", new {status = 0 }).DataRouteValues(x =>
+                //{
+                //    x.Add(o => o.id).RouteKey("id");
+                //});
+            }).Width(150).Title("Aksi");
+        })
+        .DetailView(det => det.ClientTemplate(
+            "<fieldset>" +
+                "<legend>Detil <#= namaMahasiswa #></legend>" +
+                    "<ul style='padding:0;margin:0;list-style:none'>" +
+                        "<li>Nama Mahasiswa: <#= namaMahasiswa #></li>" +
+                        "<li>Nama Pembimbing: <#= namaDosen #></li>" +
+                        "<li>Periode: <#= periode #></li>" +
+                        "<li>Jenis: <#= tipe #></li>" +
+                        "<li>Pengambilan ke: <#= pengambilanke #></li>" +
+                        "<li>Judul: <#= judul #></li>" +
+                    "</ul>" +
+            "</fieldset>"
+            ))
+        .ClientEvents(ev =>
+        {
+            ev.OnCommand("viewNilai").OnComplete("onComplete");
+        })
+        .Pageable(p => p.PageSize(15))
+        .Sortable()
+        .Filterable()
+        .Scrollable(c => c.Enabled(true))
+        .Selectable()
+        .Groupable()
+        .ToolBar(x =>
+        {
+            x.Custom().Name("ApproveAll").Action("ChangeAllStatus", "Nilai", new { periode = ViewBag.periode, jenis = ViewBag.jenis_skripsi, status = 2 }).Text("Accept All").Ajax(true);
+            x.Custom().Name("ReopenAll").Action("ChangeAllStatus", "Nilai", new { periode = ViewBag.periode, jenis = ViewBag.jenis_skripsi, status = 0 }).Text("Reopen All").Ajax(true);
+            x.Custom().Name("ApproveAllSubmited").Action("ChangeAllSubmitedStatus", "Nilai", new { periode = ViewBag.periode, jenis = ViewBag.jenis_skripsi, status = 2 }).Text("Accept All Submited").Ajax(true);
+        })
+        )
+@(Html.Telerik().Window()
+                .Name("DetailNilai")
+                .Visible(false)
+                .Title("Detail Nilai")
+                .Modal(true)
+                .Width(400)
+                .Height(400)
+                .Scrollable(true)
+                .ClientEvents(c=>c.OnClose("RefreshTable"))
+                .Content(@<text><div id="container">
+                </div></text>))
+
+@(Html.Telerik().Window()
+                .Name("DetailNilai2")
+                .Visible(false)
+                .Title("Detail Nilai")
+                .Modal(true)
+                .Width(850)
+                .Height(850)
+                .Scrollable(true)
+                .ClientEvents(c=>c.OnClose("RefreshTable"))
+                .Content(@<text><div id="container2">
+                </div></text>))
