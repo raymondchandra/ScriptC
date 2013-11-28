@@ -5,13 +5,16 @@
             windowZ.center().open();
         }
     }
+    function onEdit(e) {
+        $("#tanggal").prop('disabled', true);
+    }
 </script>
 <div class="layer">
     <h1>Kartu Bimbingan</h1>
 
 <div id="listJadwal">
 @(Html.Telerik().Grid<Proyek_Informatika.Models.bimbingan>()
-        .HtmlAttributes(new { style = "width:900px" })
+        .HtmlAttributes(new { style = "width:900px;" })
         .Name("Topik")
         .DataKeys(keys =>
         {
@@ -44,6 +47,7 @@
         //.ClientEvents(ev => ev.OnCommand("detilBimbingan"))
         .Pageable(p => p.PageSize(15))
         .Sortable()
+        .ClientEvents(c=>c.OnEdit("onEdit"))
         .Filterable()
             .Editable(editing => { 
                 editing.Mode(GridEditMode.InForm);

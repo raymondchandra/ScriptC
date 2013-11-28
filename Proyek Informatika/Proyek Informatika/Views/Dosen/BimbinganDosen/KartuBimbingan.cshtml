@@ -21,7 +21,7 @@
     });
     function updateJumlah() {
         $.post("BimbinganDosen/JumlahBimbingan?id_skripsi="+@(ViewBag.id), function (data) {
-            $("#jumlah").html(data);
+            $("name=jumlah").html(data);
         });
     }
     function detilBimbingan(e) {
@@ -49,6 +49,10 @@
             updateJumlah();
         }
     }
+    function onEdit(e)
+    {
+        $("#tanggal").prop('disabled',true);
+    }
 </script>
 <div class="layer">
     <h1>Murid Bimbingan</h1>
@@ -75,7 +79,7 @@
             </tr>
         </table><br/><br />
  @(Html.Telerik().Grid<Proyek_Informatika.Models.bimbingan>()
-        .HtmlAttributes(new { style = "width:100%" })
+        .HtmlAttributes(new { style = "width:100%; height : 800px;" })
         .Name("KartuBimbinganMahasiswa")
         .DataKeys(keys =>
         {
@@ -120,7 +124,7 @@
               "</fieldset>"
             ))
 
-        .ClientEvents(ev => ev.OnCommand("detilBimbingan"))
+        .ClientEvents(ev => ev.OnCommand("detilBimbingan").OnEdit("onEdit"))
         .Editable(c => c.Mode(GridEditMode.PopUp))
         .Sortable()
         .Filterable()
