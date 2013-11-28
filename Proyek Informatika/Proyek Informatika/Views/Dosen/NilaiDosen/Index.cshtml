@@ -2,8 +2,8 @@
     function aksi(e) {
         if (e.name == "showForm") {
             $.post("NilaiDosen/FormNilai?id_skripsi=" + e.dataItem.id, function (data) {
-                $("#contents").html(data);
-                var form = $("#contentWindow").data("tWindow");
+                $("#contents3").html(data);
+                var form = $("#contentWindow3").data("tWindow");
                 form.center().open();
             });
         }
@@ -12,9 +12,10 @@
         var table = $(".t-grid .t-refresh").trigger('click');
     }
 </script>
-<div class = "layer">
-    <h1>Nilai Skripsi 1</h1>
- @(Html.Telerik().Grid<Proyek_Informatika.Models.DosenMuridNilaiContainer>()
+<div class="layer">
+    <h1>
+        Nilai Skripsi 1</h1>
+    @(Html.Telerik().Grid<Proyek_Informatika.Models.DosenMuridNilaiContainer>()
         .Name("RekapBimbinganDosen")
         .Columns(columns =>
         {
@@ -26,27 +27,27 @@
             columns.Command(com =>
             {
                 com.Custom("showForm").Ajax(true).Text("Edit Nilai");
-            }).Width(50).Title("Aksi");
+            }).Width(50).Title("");
         })
         .DataBinding(bin => bin.Ajax().Select("SelectMahasiswa", "NilaiDosen"))
-        .ClientEvents(ev => { 
+        .ClientEvents(ev =>
+        {
             ev.OnCommand("aksi");
         })
         .Pageable(p => p.PageSize(15))
         .Sortable()
         .Filterable()
-        .Scrollable(c => c.Enabled(true))
+     .Scrollable(c => c.Enabled(true).Height(600))
         .Selectable()
         .Groupable())
-        
-        
 </div>
 @(Html.Telerik().Window()
-                .Name("contentWindow")
-                .Title("Mahasiswa")
-                .Content(@<text><div id = "contents"></div></text>)
-                    .Width(800)
-                    .Height(600)
+                .Name("contentWindow3")
+                .Title("Edit Nilai")
+                .Content(@<text><div id="contents3">
+                </div></text>)
+                    .Width(500)
+                    .Height(300)
                     .Draggable(true)
                     .Modal(true)
                     .Visible(false)

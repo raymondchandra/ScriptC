@@ -20,44 +20,44 @@
     <h1>Daftar Akun</h1>
 
     <!--GRID AKUN-->
-    @(Html.Telerik().Grid<Proyek_Informatika.Models.AlbertContainer.AkunForGrid>()
-        .HtmlAttributes(new { style = "width:100%" })
-        .Name("DaftarAkun")
-        .ClientEvents(events => events.OnComplete("Grid_onComplete"))
-        .DataBinding(dataBinding => dataBinding.Ajax()
-                                            .Select("_SelectAkun", "Account")
-                                            .Insert("_InsertAkun", "Account")
-                                            .Update("_SaveAkun", "Account")
-                                            .Delete("_DeleteAkun", "Account"))
-        .Columns(columns =>
+@(Html.Telerik().Grid<Proyek_Informatika.Models.AlbertContainer.AkunForGrid>()
+    .HtmlAttributes(new { style = "width:100%" })
+    .Name("DaftarAkun")
+    .ClientEvents(events => events.OnComplete("Grid_onComplete"))
+    .DataBinding(dataBinding => dataBinding.Ajax()
+    .Select("_SelectAkun", "Account")
+    .Insert("_InsertAkun", "Account")
+    .Update("_SaveAkun", "Account")
+    .Delete("_DeleteAkun", "Account"))
+    .Columns(columns =>{
+        columns.Bound(o => o.username).Width(150).Title("Username");
+        columns.Bound(o => o.peran).Width(100).Title("Peran");
+        columns.Bound(o => o.aktif).Width(100).Title("Status");
+        columns.Bound(o => o.last_login).Width(100).Title("Last Login");
+        columns.Command(commands =>
         {
-            columns.Bound(o => o.username).Width(100).Title("Username");
-            columns.Bound(o => o.peran).Width(100).Title("Peran");
-            columns.Bound(o => o.aktif).Width(70).Title("Aktif");            
-            columns.Bound(o => o.last_login).Width(100).Title("Last Login");
-            columns.Command(commands => commands
-                .Custom("Aktivasi")
-                .Text("Ubah status")
+            commands.Custom("Aktivasi")
+                .Text("Ubah Status")
                 .Ajax(true)
                 .Action("Change_Status", "Account")
-                .DataRouteValues(route => { route.Add(a => a.username).RouteKey("username"); })).Width(100);
-            columns.Command(commands => commands
-                .Custom("Reset_Password")
-                .Text("Reset password")
+                .DataRouteValues(route => { route.Add(a => a.username).RouteKey("username"); });
+            commands.Custom("Reset_Password")
+                .Text("Reset Password")
                 .Ajax(true)
                 .Action("Reset_Password", "Account")
-                .DataRouteValues(route => { route.Add(a => a.username).RouteKey("username"); })).Width(150);
-        })
-            //.ClientEvents(
-            //    events => events
-            //        .OnComplete("OnComplete") --> popup window
-            //)
-        .Pageable(p => p.PageSize(15))
-        .Sortable()
-        .Filterable()
-            //.Editable(editing => editing.Mode(GridEditMode.PopUp))
-        .Scrollable(c => c.Enabled(true))
-        .Selectable()
-        .Groupable()
-    )
+                .DataRouteValues(route2 => { route2.Add(a => a.username).RouteKey("username"); });
+        }).Width(200);
+    })
+    //.ClientEvents(
+    //    events => events
+    //        .OnComplete("OnComplete") --> popup window
+    //)
+    .Pageable(p => p.PageSize(15))
+    .Sortable()
+    .Filterable()
+    //.Editable(editing => editing.Mode(GridEditMode.PopUp))
+    .Scrollable(c => c.Enabled(true).Height(600))
+    .Selectable()
+    .Groupable()
+)
 </div>

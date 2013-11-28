@@ -52,6 +52,7 @@
                     //SHOW POPUP DETAIL
                     var json = e.response;
                     var popup = $("#Window_Detail_Mahasiswa").data("tWindow");
+                    //alert(json.foto);
                     $("#foto").attr("src", json.foto);
                     $("#npm").text(json.npm);
                     $("#nama").text(json.nama);
@@ -92,7 +93,7 @@
     $("#radio_mengganti_topik input").click(function () {
         $("#form_ganti_topik").show();
     });
-    
+
     //DROPDOWN select topik (show dosen pembimbing's name)
     $("#form_ganti_topik select").change(function () {
         $.post("Query/GetNamaPembimbing", { id_topik: $("#form_ganti_topik select option:selected").val() }, function (data) {
@@ -129,7 +130,6 @@
         });
     });
 </script>
-
 <!--GRID MAHASISWA-->
 @(Html.Telerik().Grid<Proyek_Informatika.Models.AlbertContainer.MahasiswaForGrid>()
     .HtmlAttributes(new { style = "width:100%" })
@@ -138,19 +138,19 @@
 
     .DataBinding(dataBinding => dataBinding
         .Ajax()
-        .Select("_SelectMahasiswaKoor", "User", new {semester = ViewBag.id_selected_semester })
+        .Select("_SelectMahasiswaKoor", "User", new { semester = ViewBag.id_selected_semester })
         .Update("_SaveMahasiswa", "User", new { semester = ViewBag.id_selected_semester })
         .Delete("_DeleteMahasiswa", "User", new { semester = ViewBag.id_selected_semester }))
     .Columns(columns =>
     {
         //columns.Bound(o => o.foto).Width(200).Title("Foto");
-        columns.Bound(o => o.NPM).Width(80).Title("NPM");
-        columns.Bound(o => o.nama).Width(100).Title("Nama");
-        columns.Bound(o => o.dosen_pembimbing).Width(80).Title("Pembimbing");
-        columns.Bound(o => o.periode_pengambilan).Width(70).Title("Periode");
-        columns.Bound(o => o.jenis_skripsi).Width(70).Title("Jenis");
-        columns.Bound(o => o.pengambilan_ke).Width(40).Title("Ke");
-        columns.Bound(o => o.status).Width(60).Title("Status");
+        columns.Bound(o => o.NPM).Width(75).Title("NPM");
+        columns.Bound(o => o.nama).Width(90).Title("Nama");
+        columns.Bound(o => o.dosen_pembimbing).Width(90).Title("Pembimbing");
+        columns.Bound(o => o.periode_pengambilan).Width(75).Title("Periode");
+        columns.Bound(o => o.jenis_skripsi).Width(45).Title("Jenis");
+        columns.Bound(o => o.pengambilan_ke).Width(30).Title("Ke");
+        columns.Bound(o => o.status).Width(45).Title("Status");
         columns.Command(commands =>
             {
                 commands
@@ -165,8 +165,8 @@
                 .Ajax(true)
                 .Action("LihatDetail", "User")
                 .DataRouteValues(route => { route.Add(m => m.NPM).RouteKey("npm"); });
-            }).Width(70).Title("Aksi");
-            
+            }).Width(125).Title("");
+
     })
         //.ClientEvents(
         //    events => events
@@ -176,11 +176,10 @@
     .Sortable()
     .Filterable()
         //.Editable(editing => editing.Mode(GridEditMode.PopUp))
-    .Scrollable(c => c.Enabled(true))
+    .Scrollable(c => c.Enabled(true).Height(600))
     .Selectable()
     .Groupable()
 )
-
 <!--POP-UP WINDOW DETAIL MAHASISWA-->
 @(Html.Telerik().Window()
     .Name("Window_Detail_Mahasiswa")
@@ -188,61 +187,227 @@
     .Title("Detail Mahasiswa")
     .Modal(true)
     .Width(800)
-    .Height(600)
+    .Height(525)
     .Content(@<text>
-            <div id="detail-mahasiswa">
-                <table>
-                    <tr>
-                        <td rowspan="9"><img id="foto" /></td>
-                        <td>NPM</td>
-                        <td>&nbsp:&nbsp</td>
-                        <td><span id="npm"></span></td>   
-                    </tr>
-                    <tr>
-                        <td>Nama</td>
-                        <td>&nbsp:&nbsp</td>
-                        <td><span id="nama"></span></td>
-                    </tr>
-                    <tr>
-                        <td>Status</td>
-                        <td>&nbsp:&nbsp</td>
-                        <td><span id="status"></span></td>
-                    </tr>
-                    <tr>
-                        <td>Jenis skripsi</td>
-                        <td>&nbsp:&nbsp</td>
-                        <td><span id="jenis"></span></td>
-                    </tr>
-                    <tr>
-                        <td>Pengambilan ke</td>
-                        <td>&nbsp:&nbsp</td> 
-                        <td><span id="pengambilan"></span></td>
-                    </tr>
-                    <tr>
-                        <td>Periode pengambilan</td>
-                        <td>&nbsp:&nbsp</td> 
-                        <td><span id="periode"></span></td>
-                    </tr>
-                    <tr>
-                        <td>Topik</td>
-                        <td>&nbsp:&nbsp</td> 
-                        <td><em><span id="topik"></span></em></td>
-                    </tr>
-                    <tr>
-                        <td>Pembimbing</td>
-                        <td>&nbsp:&nbsp</td>
-                        <td><span id="pembimbing"></span></td>
-                    </tr>
-                    <tr>
-                        <td>Nilai akhir</td>
-                        <td>&nbsp:&nbsp</td>
-                        <td><span id="nilai"></span></td>
-                    </tr>                    
-                </table>
+<div id="detail-mahasiswa" class="container_15">
+    <div class="grid_15">
+        <fieldset>
+            <legend>Data Mahasiswa</legend>
+            <div class="grid_5">
+                <img id="foto" src="../../../Content/images/user.png" class="avatar-s right" alt="" />
             </div>
-            </text>)
+            <div class="grid_10">
+                <!---------------------------------------->
+                <div class="editor-label grid_15">
+                    <label>
+                        NPM
+                    </label>
+                </div>
+                <br class="clear" />
+                <div class="editor-field grid_15">
+                    <span id="npm"></span>
+                </div>
+                <br class="clear" />
+                <!---------------------------------------->
+                <div class="editor-label grid_15">
+                    <label>
+                        Nama
+                    </label>
+                </div>
+                <br class="clear" />
+                <div class="editor-field grid_15">
+                    <span id="nama"></span>
+                </div>
+                <br class="clear" />
+                <!---------------------------------------->
+                <div class="editor-label grid_15">
+                    <label>
+                        Status
+                    </label>
+                </div>
+                <br class="clear" />
+                <div class="editor-field grid_15">
+                    <span id="status"></span>
+                </div>
+                <br class="clear" />
+            </div>
+        </fieldset>
+    </div>
+    <br class="clear" />
+    <div class="grid_15">
+        <fieldset>
+            <legend>Data Skripsi</legend>
+            <!---------------------------------------->
+            <div class="grid_7">
+                <div class="editor-label grid_15">
+                    <label>
+                        Jenis Skripsi
+                    </label>
+                </div>
+                <br class="clear" />
+                <div class="editor-field grid_15">
+                    <span id="jenis"></span>&nbsp;(Pengambilan ke-<span id="pengambilan"></span>)
+                </div>
+                <br class="clear" />
+                <!---------------------------------------->
+                <div class="editor-label grid_15">
+                    <label>
+                        Periode Pengambilan
+                    </label>
+                </div>
+                <br class="clear" />
+                <div class="editor-field grid_15">
+                    <span id="periode"></span>
+                </div>
+                <br class="clear" />
+            </div>
+            <div class="grid_8">
+                <!---------------------------------------->
+                <div class="editor-label grid_15">
+                    <label>
+                        Pembimbing
+                    </label>
+                </div>
+                <br class="clear" />
+                <div class="editor-field grid_15">
+                    <span id="pembimbing"></span>
+                </div>
+                <br class="clear" />
+                <!---------------------------------------->
+                <div class="editor-label grid_15">
+                    <label>
+                        Nilai Akhir
+                    </label>
+                </div>
+                <br class="clear" />
+                <div class="editor-field grid_15">
+                    <span id="nilai"></span>
+                </div>
+                <br class="clear" />
+            </div>
+            <br class="clear" />
+            <div class="grid_15">
+                <!---------------------------------------->
+                <div class="editor-label grid_15">
+                    <label>
+                        Topik
+                    </label>
+                </div>
+                <br class="clear" />
+                <div class="editor-field grid_15">
+                    <span id="topik"></span>
+                </div>
+                <br class="clear" />
+            </div>
+        </fieldset>
+    </div>
+    <!--<table>
+        <tr>
+            <td rowspan="9">
+                <img id="foto" src="../../../Content/images/user.png" class="avatar right" alt="" />
+            </td>
+            <td>
+                NPM
+            </td>
+            <td>
+                &nbsp:&nbsp
+            </td>
+            <td>
+                <span id="npm"></span>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Nama
+            </td>
+            <td>
+                &nbsp:&nbsp
+            </td>
+            <td>
+                <span id="nama"></span>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Status
+            </td>
+            <td>
+                &nbsp:&nbsp
+            </td>
+            <td>
+                <span id="status"></span>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Jenis skripsi
+            </td>
+            <td>
+                &nbsp:&nbsp
+            </td>
+            <td>
+                <span id="jenis"></span>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Pengambilan ke
+            </td>
+            <td>
+                &nbsp:&nbsp
+            </td>
+            <td>
+                <span id="pengambilan"></span>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Periode pengambilan
+            </td>
+            <td>
+                &nbsp:&nbsp
+            </td>
+            <td>
+                <span id="periode"></span>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Topik
+            </td>
+            <td>
+                &nbsp:&nbsp
+            </td>
+            <td>
+                <em><span id="topik"></span></em>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Pembimbing
+            </td>
+            <td>
+                &nbsp:&nbsp
+            </td>
+            <td>
+                <span id="pembimbing"></span>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Nilai akhir
+            </td>
+            <td>
+                &nbsp:&nbsp
+            </td>
+            <td>
+                <span id="nilai"></span>
+            </td>
+        </tr>
+    </table>-->
+</div>
+</text>)
 )
-
 <!--POP-UP WINDOW AKTIVASI MAHASISWA-->
 @(Html.Telerik().Window()
     .Name("Window_Aktivasi_Mahasiswa")
@@ -252,80 +417,151 @@
     .Width(800)
     .Height(600)
     .Content(@<text>
-            <!--Informasi mahasiswa-->
-            <div id="detail-mahasiswa-aktivasi">
-                <table>
-                    <tr>
-                        <td rowspan="9"><img id="foto_aktivasi" /></td>
-                        <td>NPM</td>
-                        <td>&nbsp:&nbsp</td>
-                        <td><span id="npm_aktivasi"></span></td>   
-                    </tr>
-                    <tr>
-                        <td>Nama</td>
-                        <td>&nbsp:&nbsp</td>
-                        <td><span id="nama_aktivasi"></span></td>
-                    </tr>
-                    <tr>
-                        <td>Status</td>
-                        <td>&nbsp:&nbsp</td>
-                        <td><span id="status_aktivasi"></span></td>
-                    </tr>
-                    <tr>
-                        <td>Jenis skripsi</td>
-                        <td>&nbsp:&nbsp</td>
-                        <td><span id="jenis_aktivasi"></span></td>
-                    </tr>
-                    <tr>
-                        <td>Pengambilan ke</td>
-                        <td>&nbsp:&nbsp</td> 
-                        <td><span id="pengambilan_aktivasi"></span></td>
-                    </tr>
-                    <tr>
-                        <td>Periode pengambilan</td>
-                        <td>&nbsp:&nbsp</td> 
-                        <td><span id="periode_aktivasi"></span></td>
-                    </tr>
-                    <tr>
-                        <td>Topik</td>
-                        <td>&nbsp:&nbsp</td> 
-                        <td><em><span id="topik_aktivasi"></span></em></td>
-                    </tr>
-                    <tr>
-                        <td>Pembimbing</td>
-                        <td>&nbsp:&nbsp</td>
-                        <td><span id="pembimbing_aktivasi"></span></td>
-                    </tr>
-                    <tr>
-                        <td>Nilai akhir</td>
-                        <td>&nbsp:&nbsp</td>
-                        <td><span id="nilai_aktivasi"></span></td>
-                    </tr>                    
-                </table>
-            </div>
-            <!--Aksi-->
-            <form>
-                <span id="radio_melanjutkan" class="radio"><input type="radio" name="aksi" value="melanjutkan" /><span>Melanjutkan</span></span>
-                <span id="radio_mengulang" class="radio"><input type="radio" name="aksi" value="mengulang" /><span>Mengulang</span></span>
-                <span id="radio_mengganti_topik" class="radio"><input type="radio" name="aksi" value="mengganti_topik" /><span>Mengganti topik</span></span>
-            </form>
-            <!--Form ganti topik-->
-            <div id="form_ganti_topik">
-                <table>
-                    <tr>
-                        <td>Topik</td>
-                        <td>&nbsp:&nbsp</td>
-                        <td><select></select></td>
-                    </tr>
-                    <tr>
-                        <td>Pembimbing</td>
-                        <td>&nbsp:&nbsp</td>
-                        <td><span id="nama_pembimbing"></span></td>
-                    </tr>
-                </table>
-            </div>
-            <input id="button_simpan" type="button" value="Simpan" />
-            <span id="errMessage">Syarat tidak memenuhi untuk melakukan aktivasi.</span>
-            </text>)
+<!--Informasi mahasiswa-->
+<div id="detail-mahasiswa-aktivasi">
+    <table>
+        <tr>
+            <td rowspan="9">
+                <img id="foto_aktivasi" />
+            </td>
+            <td>
+                NPM
+            </td>
+            <td>
+                &nbsp:&nbsp
+            </td>
+            <td>
+                <span id="npm_aktivasi"></span>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Nama
+            </td>
+            <td>
+                &nbsp:&nbsp
+            </td>
+            <td>
+                <span id="nama_aktivasi"></span>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Status
+            </td>
+            <td>
+                &nbsp:&nbsp
+            </td>
+            <td>
+                <span id="status_aktivasi"></span>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Jenis skripsi
+            </td>
+            <td>
+                &nbsp:&nbsp
+            </td>
+            <td>
+                <span id="jenis_aktivasi"></span>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Pengambilan ke
+            </td>
+            <td>
+                &nbsp:&nbsp
+            </td>
+            <td>
+                <span id="pengambilan_aktivasi"></span>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Periode pengambilan
+            </td>
+            <td>
+                &nbsp:&nbsp
+            </td>
+            <td>
+                <span id="periode_aktivasi"></span>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Topik
+            </td>
+            <td>
+                &nbsp:&nbsp
+            </td>
+            <td>
+                <em><span id="topik_aktivasi"></span></em>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Pembimbing
+            </td>
+            <td>
+                &nbsp:&nbsp
+            </td>
+            <td>
+                <span id="pembimbing_aktivasi"></span>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Nilai akhir
+            </td>
+            <td>
+                &nbsp:&nbsp
+            </td>
+            <td>
+                <span id="nilai_aktivasi"></span>
+            </td>
+        </tr>
+    </table>
+</div>
+<!--Aksi-->
+<form>
+<span id="radio_melanjutkan" class="radio">
+    <input type="radio" name="aksi" value="melanjutkan" /><span>Melanjutkan</span></span>
+<span id="radio_mengulang" class="radio">
+    <input type="radio" name="aksi" value="mengulang" /><span>Mengulang</span></span>
+<span id="radio_mengganti_topik" class="radio">
+    <input type="radio" name="aksi" value="mengganti_topik" /><span>Mengganti topik</span></span>
+</form>
+<!--Form ganti topik-->
+<div id="form_ganti_topik">
+    <table>
+        <tr>
+            <td>
+                Topik
+            </td>
+            <td>
+                &nbsp:&nbsp
+            </td>
+            <td>
+                <select>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Pembimbing
+            </td>
+            <td>
+                &nbsp:&nbsp
+            </td>
+            <td>
+                <span id="nama_pembimbing"></span>
+            </td>
+        </tr>
+    </table>
+</div>
+<input id="button_simpan" type="button" value="Simpan" />
+<span id="errMessage">Syarat tidak memenuhi untuk melakukan aktivasi.</span>
+</text>)
 )
-

@@ -6,12 +6,14 @@ using System.Web.Mvc;
 using Telerik.Web.Mvc;
 using Proyek_Informatika.Models;
 using System.Data;
+using relmon.Controllers.Utilities;
 namespace Proyek_Informatika.Controllers
 {
     public class UserController : Controller
     {
         private SkripsiAutoContainer db = new SkripsiAutoContainer();
         private AccountController ac = new AccountController();
+        private UploadController uc = new UploadController();
         //
         // GET: /User/
 
@@ -132,7 +134,7 @@ namespace Proyek_Informatika.Controllers
                 return Json(new
                 {
                     success = true,
-                    foto = mhs.foto,
+                    foto = uc.GetPathFoto(mhs.foto),
                     npm = npm,
                     nama = mhs.nama,
                     status = mhs.status,

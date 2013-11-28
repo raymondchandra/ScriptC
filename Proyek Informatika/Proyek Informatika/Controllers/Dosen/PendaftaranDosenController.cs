@@ -65,7 +65,8 @@ namespace Proyek_Informatika.Controllers.Dosen
                               join s in db.skripsis on m.NPM equals s.NPM_mahasiswa
                               join d in db.dosens on s.NIK_dosen_pembimbing equals d.NIK
                               where d.username == username
-                              where (idSemester - s.id_semester_pengambilan) <= 2 //maks cuti hanya 1 semester
+                              where idSemester == s.id_semester_pengambilan //hanya semester ini semester
+                              where s.jenis == 1
                               select new { m.NPM, m.nama }).ToList();
 
             return Json(listResult);
@@ -205,7 +206,7 @@ namespace Proyek_Informatika.Controllers.Dosen
                 }
                 akun = db.akuns.Where(akunTemp => akunTemp.username == model.NPM).SingleOrDefault();
 
-                m.status = "nonaktif";
+                m.status = "Non Aktif";
 
                 if (TryUpdateModel(m))
                 {
@@ -237,9 +238,27 @@ namespace Proyek_Informatika.Controllers.Dosen
         public ActionResult _DeleteMahasiswa(int id)
         {
             var s = db.skripsis.Where(skripsiTemp => skripsiTemp.id == id).SingleOrDefault();
+            var m = db.mahasiswas.Where(mahasiswaTemp => mahasiswaTemp.NPM == s.NPM_mahasiswa).SingleOrDefault();
+            var t = db.topiks.Where(topikTemp => topikTemp.id == s.id_topik).SingleOrDefault();
+            var a = db.akuns.Where(akunTemp => akunTemp.username == m.username).SingleOrDefault();
+
             if (s != null)
             {
                 db.skripsis.Remove(s);
+                db.SaveChanges();
+            }
+            if (m != null)
+            {
+                db.mahasiswas.Remove(m);
+                db.SaveChanges();
+            }
+            if (t != null)
+            {
+                db.topiks.Remove(t);
+                db.SaveChanges();
+            } if (a != null)
+            {
+                db.akuns.Remove(a);
                 db.SaveChanges();
             }
             return bindingTable();
@@ -257,6 +276,7 @@ namespace Proyek_Informatika.Controllers.Dosen
                                                    join x in db.semesters on s.id_semester_pengambilan equals x.id
                                                    where d.username == username
                                                    where s.id_semester_pengambilan == idSemester
+                                                   where s.jenis == 1
                                                    select new MahasiswaContainer
                                                    {
                                                        NPM = m.NPM,

@@ -58,16 +58,15 @@
             columns.Bound(c => c.judul).Width(300).Title("Judul");
             columns.Bound(c => c.isi).Hidden();
             columns.Bound(c => c.pembuat).Width(180).Title("Pembuat");
-            columns.Bound(c => c.tanggal).Width(100).Title("Tanggal");
+            columns.Bound(c => c.tanggal).Width(180).Title("Tanggal");
             columns.Bound(c => c.target).Hidden();
-            columns.Command(commands => commands.Custom("editPengumuman")
-                .Text("Edit")
-                .Ajax(true)).Width(95);
-            columns.Command(commands =>
-            {
+            columns.Command(commands => {
+                commands.Custom("editPengumuman")
+                    .Text("Edit")
+                    .Ajax(true);        
                 commands.Delete().ButtonType(type);
-            }).Width(95);
-        })
+            }).Width(180);
+        })          
         .ClientEvents(ev => ev.OnCommand("onCommand").OnComplete("onCommand"))
         .Editable(editing => editing.Mode(mode))
         .Pageable(p => p.PageSize(10))

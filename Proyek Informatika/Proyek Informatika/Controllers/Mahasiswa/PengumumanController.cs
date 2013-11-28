@@ -38,7 +38,7 @@ namespace Proyek_Informatika.Controllers.Mahasiswa
 
 
             List<PengumumanContainer> listResult = (from p in db.pengumumen
-                                                    where (p.pembuat == "Admin" || p.pembuat == dosen)
+                                                    where (p.pembuat.ToLower() == "admin" || p.pembuat.ToLower() == dosen.ToLower())
                                                     orderby p.tanggal descending
                                                     select new PengumumanContainer { id = p.id, target = p.target, judul = p.judul, isi = p.isi, pembuat = p.pembuat, tanggal = p.tanggal }).ToList();
 

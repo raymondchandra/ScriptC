@@ -80,7 +80,7 @@ namespace Proyek_Informatika.Controllers
             }
             else
             {
-                nama = db.dosens.Where(d => d.username == model.pembuat).First().nama;
+                nama = db.dosens.Where(d => d.username.ToLower() == model.pembuat.ToLower()).First().nama;
             }
 
             string result = "<div class=\"blokpengumuman\">";
@@ -144,6 +144,10 @@ namespace Proyek_Informatika.Controllers
 
             //update
             topik tpk = db.topiks.Where(topikTemp => topikTemp.id == model.id).First();
+            var skripsi = db.skripsis.Where(skripsiTemp => skripsiTemp.id_topik == tpk.id);
+            if(skripsi.Count()!=0){
+                return "Edit topik gagal! \nTopik sudah diambil oleh mahasiswa!";
+            }
             tpk.judul = model.judul;
             tpk.deskripsi = model.deskripsi;
             if (TryUpdateModel(tpk))
@@ -189,7 +193,6 @@ namespace Proyek_Informatika.Controllers
                 listResult = (from t in db.topiks
                               join d in db.dosens on t.NIK_pembimbing equals d.NIK
                               where t.id_semester == idSemester
-                              where t.keterangan == "tersedia"
                               where d.username == username
                               select new TopikContainer { id = t.id, judul = t.judul, deskripsi = t.deskripsi, keterangan = t.keterangan, pembimbing = d.nama }).ToList();
             }
@@ -198,7 +201,6 @@ namespace Proyek_Informatika.Controllers
                 listResult = (from t in db.topiks
                               join d in db.dosens on t.NIK_pembimbing equals d.NIK
                               where t.id_semester == idSemester
-                              where t.keterangan == "tersedia"
                               select new TopikContainer { id = t.id, judul = t.judul, deskripsi = t.deskripsi, keterangan = t.keterangan, pembimbing = d.nama }).ToList();
             }
 

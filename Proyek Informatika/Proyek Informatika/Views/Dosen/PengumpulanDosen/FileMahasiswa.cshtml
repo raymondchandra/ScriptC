@@ -1,6 +1,5 @@
 ﻿@using Proyek_Informatika.Models
-
-<script type ="text/javascript">
+<script type="text/javascript">
     function OnComplete(e) {
         if (e.name == "unduhFile") {
             window.open("Pengumpulan/GetDownload?id_laporan=" + e.dataItem.id, "_blank");
@@ -26,28 +25,47 @@
         return true;
     }
 </script>
-
-<div class ="layer">
-<h1>File Mahasiswa</h1>
-
- <table>
-            <tr>
-                <td>Nama</td>
-                <td>:</td>
-                <td>@(ViewBag.nama)</td>
-            </tr>
-            <tr>
-                <td>NPM</td>
-                <td>:</td>
-                <td>@(ViewBag.npm)</td>
-            </tr>
-            <tr>
-                <td>Judul</td>
-                <td>:</td>
-                <td>@(ViewBag.judul)</td>
-            </tr>
-        </table><br/><br />
-@(Html.Telerik().Grid<laporan>().HtmlAttributes(new { style = "width:100%" }).Name("TableFileMahasiswa")
+<div class="container_15">
+    <div class="grid_5">
+        <!---------------------------------------->
+        <div class="editor-label grid_15">
+            <label>
+                Nama
+            </label>
+        </div>
+        <br class="clear" />
+        <div class="editor-field grid_15">
+            @(ViewBag.nama)
+        </div>
+        <br class="clear" />
+        <!---------------------------------------->
+        <div class="editor-label grid_15">
+            <label>
+                NPM
+            </label>
+        </div>
+        <br class="clear" />
+        <div class="editor-field grid_15">
+            @(ViewBag.npm)
+        </div>
+        <br class="clear" />
+    </div>
+    <div class="grid_10">
+        <!---------------------------------------->
+        <div class="editor-label grid_15">
+            <label>
+                Judul
+            </label>
+        </div>
+        <br class="clear" />
+        <div class="editor-field grid_15">
+            @(ViewBag.judul)
+        </div>
+        <br class="clear" />
+    </div>
+    <br class="clear" />
+    <br />
+    @(Html.Telerik().Grid<laporan>().HtmlAttributes(new { style = "width:100%" }).Name("TableFileMahasiswa")
 .Columns(
     col =>
     {
@@ -59,20 +77,20 @@
             com.Custom("lihatFile").Text("Lihat").Ajax(true);
             //com.Custom("deskripsi").Text("Deskripsi").Ajax(true);
         })
-        
-        .Title("Aksi")
+
+        .Title("")
         .Width(100);
     }
 )
 .DetailView(det => det.ClientTemplate(
          "<fieldset>" +
-             "<legend>Detil Bahasan</legend>" +
+             "<legend>Detail Bahasan</legend>" +
                  "<div class = 'deskripsi'><#= deskripsi #>" +
                  "</div>" +
          "</fieldset>"
     ))
             .ClientEvents(events => events.OnCommand("OnComplete"))
-.DataBinding(data => data.Ajax().Select("SelectPengumpulan", "PengumpulanDosen", new {id_skripsi = ViewBag.id }))
+.DataBinding(data => data.Ajax().Select("SelectPengumpulan", "PengumpulanDosen", new { id_skripsi = ViewBag.id }))
 .Pageable(p => p.PageSize(15))
 .Sortable()
 .Filterable()
@@ -80,14 +98,13 @@
 .Selectable()
 .Groupable()
 )
-@(Html.Telerik().Window()
+    @(Html.Telerik().Window()
                 .Name("viewLaporan")
                 .Visible(false)
-                .Title("Detil Bimbingan")
+                .Title("Detail Bimbingan")
                 .Modal(true)
                 .Width(820)
                 .Height(620)
                 .Scrollable(true)
-                .Content(@<text><iframe src="" id="pdfContainer" width ="800" height="600"></iframe></text>))
-
+                .Content(@<text><iframe src="" id="pdfContainer" width="800" height="600"></iframe></text>))
 </div>

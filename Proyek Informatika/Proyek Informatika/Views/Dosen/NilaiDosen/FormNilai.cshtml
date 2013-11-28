@@ -1,18 +1,18 @@
 ﻿@{
-    List<Tuple<string,int,int, double>> nilais = ViewData["nilai"] as List<Tuple<string,int, int, double>>;
+    List<Tuple<string, int, int, double>> nilais = ViewData["nilai"] as List<Tuple<string, int, int, double>>;
 
-    }
+}
 <style type="text/css">
     input[type="text"]
     {
-        width:50px;
+        width: 50px;
     }
     input[type="text"]:disabled
     {
-        background : transparent;
-        color:Black;
+        background: transparent;
+        color: Black;
         border: none;
-        width:50px;
+        width: 50px;
     }
 </style>
 <script type="text/javascript">
@@ -70,25 +70,25 @@
         }
     });
     $("#submitButton").click(function () {
-        
-        
 
-            var kategori = document.getElementsByName("kategori");
-            var nilais = document.getElementsByName("nilai");
-            var berhasil = true;
-            for (var i = 0; i < kategori.length; i++) {
-                var values = { id: '@ViewBag.id', kategori: kategori[i].value, nilai: nilais[i].value };
-                $.post("NilaiDosen/SubmitNilai", values, function (data) {
-                    berhasil &= data;
-                });
-            }
-            $("[name=nilai]").prop('disabled', true);
-            document.getElementById("viewInLine1b").style.display = "none";
-            $("#turnEditingOn").show();
-            if (berhasil == true) {
-                alert("Nilai sudah berhasil diubah");
-            }
-       
+
+
+        var kategori = document.getElementsByName("kategori");
+        var nilais = document.getElementsByName("nilai");
+        var berhasil = true;
+        for (var i = 0; i < kategori.length; i++) {
+            var values = { id: '@ViewBag.id', kategori: kategori[i].value, nilai: nilais[i].value };
+            $.post("NilaiDosen/SubmitNilai", values, function (data) {
+                berhasil &= data;
+            });
+        }
+        $("[name=nilai]").prop('disabled', true);
+        document.getElementById("viewInLine1b").style.display = "none";
+        $("#turnEditingOn").show();
+        if (berhasil == true) {
+            alert("Nilai sudah berhasil diubah");
+        }
+
     });
     $("#turnEditingOn").click(function () {
         $("[name=nilai]").prop('disabled', false);
@@ -101,71 +101,77 @@
         $("#turnEditingOn").show();
     });
 </script>
-
-<h2>Komposisi Nilai</h2>
 <div class="container_15">
-
     @{
         if (ViewBag.status == 0)
         { 
-            <div id="buttonEditor">
-    <a class="t-button t-button-icon t-grid-edit" id="turnEditingOn"><span class="t-icon t-edit"></span></a>
-    <span id="viewInLine1b" style="display: none;">
-    <a class="t-button t-button-icon t-grid-edit" id="submitButton"><span class="t-icon t-update"></span></a>&nbsp
-                    <!--cancel-->
-    <a class="t-button t-button-icon t-grid-edit" id="turnEditingOff"><span class="t-icon t-cancel"></span></a></span>
-    </div>
+        <div id="buttonEditor" class="button-block grid_15 right">
+            <a class="t-button t-button-icon t-grid-edit" id="turnEditingOn"><span class="t-icon t-edit">
+            </span></a><span id="viewInLine1b" style="display: none;"><a class="t-button t-button-icon t-grid-edit"
+                id="submitButton"><span class="t-icon t-update"></span></a>&nbsp
+                <!--cancel-->
+                <a class="t-button t-button-icon t-grid-edit" id="turnEditingOff"><span class="t-icon t-cancel">
+                </span></a></span>
+        </div>
         }
-        }
-    <table class="blue" style="width: 50%;">
-        <tr class="th">
-            <td style="width: 40%;">
-                Penilaian
-            </td>
-            <td style="width: 30%;">
-                Bobot (%)
-            </td>
-            <td style="width:50px">
-                Nilai
-            </td>
-            <td>
-                Subtotal
-            </td>
-        </tr>
-        @{
-            foreach (var item in nilais)
-            {
-                <text>
-                    <tr>
-                        <td>
-                            @item.Item1
-                        </td>
-                        <td>
-                            <input type="hidden" name="kategori" value="@item.Item2"/>
-                            <label name="bobot">@item.Item3</label>
-                        </td>
-                        <td>
-                            <input type="text" name="nilai" disabled="disabled" value="@(String.Format("{0:0.0}",item.Item4))" onkeydown="calculate" />
-                        </td>
-                        <td>
-                            <label name="subtotal"></label>
-                        </td>
-                    </tr>
-                </text>
-            }
-            }
-            <tr>
-                <td  colspan = "3">Total</td>
-                <td><label name= "total"></label></td>
+    }
+    <div class="grid_15">
+        <table class="blue" style="width: 100%;">
+            <tr class="th">
+                <td style="width: 34%;">
+                    Penilaian
+                </td>
+                <td style="width: 22%;">
+                    Bobot (%)
+                </td>
+                <td style="width: 22px">
+                    Nilai
+                </td>
+                <td style="width: 22px">
+                    Subtotal
+                </td>
             </tr>
-            
-    </table>
-    @{
-    if(ViewBag.status == 0)
-    {
-
-    <input type="button" class="t-button t-button-icon t-grid-edit" id="submitFinalizeButton" value ="Submit"/>
-
-    }
-    }
+            @{
+                foreach (var item in nilais)
+                {
+                <text>
+                <tr>
+                    <td>
+                        @item.Item1
+                    </td>
+                    <td>
+                        <input type="hidden" name="kategori" value="@item.Item2"/>
+                        <label name="bobot">@item.Item3</label>
+                    </td>
+                    <td>
+                        <input type="text" name="nilai" disabled="disabled" value="@(String.Format("{0:0.0}", item.Item4))" onkeydown="calculate" />
+                    </td>
+                    <td>
+                        <label name="subtotal">
+                        </label>
+                    </td>
+                </tr>
+                </text>
+                }
+            }
+            <tr class="tf">
+                <td colspan="3">
+                    Total
+                </td>
+                <td>
+                    <label name="total">
+                    </label>
+                </td>
+            </tr>
+        </table>
     </div>
+    @{
+        if (ViewBag.status == 0)
+        {
+        <div class="button-block grid_15 txtcenter">
+            <input type="button" class="t-button t-button-icon t-grid-edit" id="submitFinalizeButton"
+                value="Submit" />
+        </div>
+        }
+    }
+</div>

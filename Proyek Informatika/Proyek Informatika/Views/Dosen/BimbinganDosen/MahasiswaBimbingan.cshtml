@@ -19,9 +19,9 @@
         else if (e.name == "viewLaporan") {
             var values = { id_skripsi: e.dataItem.id };
             $.post("PengumpulanDosen/FileMahasiswa", values, function (data) {
-                var detailWindow = $("#contentWindow").data("tWindow");
+                var detailWindow = $("#contentWindow2").data("tWindow");
 
-                $("#contents").html(data);
+                $("#contents2").html(data);
                 detailWindow.center().open();
                 
             });
@@ -34,14 +34,14 @@
         .Name("RekapBimbinganDosen")
         .Columns(columns =>
         {
-            columns.Bound(o => o.npm).Width(100).Title("NPM");
+            columns.Bound(o => o.npm).Width(50).Title("NPM");
             columns.Bound(o => o.namaMahasiswa).Width(100).Title("Nama Mahasiswa");
-            columns.Bound(o => o.judul).Width(100).Title("Judul");
+            columns.Bound(o => o.judul).Width(150).Title("Judul");
             columns.Command(com =>
             {
-                com.Custom("viewKartu").Ajax(true).Text("Lihat Kartu Bimbingan");
-                com.Custom("viewLaporan").Ajax(true).Text("Lihat Daftar Laporan");
-            }).Width(50).Title("Aksi");
+                com.Custom("viewKartu").Ajax(true).Text("Kartu Bimbingan");
+                com.Custom("viewLaporan").Ajax(true).Text("Daftar Laporan");
+            }).Width(150).Title("");
         })
         .DataBinding(bin => bin.Ajax().Select("_SelectBimbinganMahasiswa", "BimbinganDosen"))
         .ClientEvents(ev => { 
@@ -51,18 +51,30 @@
         .Pageable(p => p.PageSize(15))
         .Sortable()
         .Filterable()
-        .Scrollable(c => c.Enabled(true))
+        .Scrollable(c => c.Enabled(true).Height(600))
         .Selectable()
         .Groupable())
         
-        @(Html.Telerik().Window()
-                .Name("contentWindow")
-                .Title("Mahasiswa")
-                .Content(@<text><div id = "contents"></div></text>)
-                    .Width(800)
-                    .Height(600)
-                    .Draggable(true)
-                    .Modal(true)
-                    .Visible(false)
-                )
+@(Html.Telerik().Window()
+    .Name("contentWindow")
+    .Title("Kartu Bimbingan")
+    .Content(@<text><div id = "contents"></div></text>)
+    .Width(800)
+    .Height(475)
+    .Draggable(true)
+    .Modal(true)
+    .Visible(false)
+)
+
+@(Html.Telerik().Window()
+    .Name("contentWindow2")
+    .Title("Daftar Laporan")
+    .Content(@<text><div id = "contents2"></div></text>)
+    .Width(800)
+    .Height(475)
+    .Draggable(true)
+    .Modal(true)
+    .Visible(false)
+)
+
 

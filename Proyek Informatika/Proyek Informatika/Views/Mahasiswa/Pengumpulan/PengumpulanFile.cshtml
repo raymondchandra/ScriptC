@@ -80,7 +80,7 @@
         .Title("Form Pengunggahan File")
         .LoadContentFrom("FormPengumpulan","Pengumpulan")
             .Width(500)
-            .Height(550)
+            .Height(350)
             .Draggable(true)
             .Modal(true)
             .Visible(false)
@@ -90,7 +90,7 @@
         .Title("Editor Pengunggahan File")
         .Content(@<text><div id= "editorContent"></div></text>)
             .Width(500)
-            .Height(550)
+            .Height(350)
             .Draggable(true)
             .Modal(true)
             .Visible(false)
@@ -104,15 +104,15 @@
 .Columns(
     col =>
     {
-        col.Bound(o => o.jenis).Title("Nama File");
-        col.Bound(o => o.tanggal_pengumpulan).Title("Tanggal Pengumpulan");
+        col.Bound(o => o.jenis).Title("Nama File").Width(250);
+        col.Bound(o => o.tanggal_pengumpulan).Title("Tanggal Pengumpulan").Width(200);
         col.Command(com =>
         {
             com.Custom("unduhFile").Text("Unduh").Ajax(true);
             com.Custom("lihatFile").Text("Lihat").Ajax(true);
             com.Custom("editFile").Text("Edit").Ajax(true);
             com.Custom("delFile").Text("Hapus").Ajax(true);
-        }).Title("Aksi").Width(90);
+        }).Title("").Width(350);
     }
 )
 .DetailView(det => det.ClientTemplate(
@@ -127,7 +127,7 @@
 .ToolBar(t=>t.Custom().Name("unggah").Text("Unggah").Ajax(true))
 .Sortable()
 .Filterable()
-.Scrollable(c => c.Enabled(true))
+    .Scrollable(c => c.Enabled(true).Height(450))
 .Selectable()
 .Groupable()
 )

@@ -80,14 +80,14 @@ namespace Proyek_Informatika.Controllers.Dosen
             string username = (string)Session["username"];
             int[] array = { 8, 9, 10, 11, 12, 13, 14, 15 };
             List<PengumumanContainer> listResult = (from p in db.pengumumen
-                                                    where (p.pembuat == "Admin" || p.pembuat == username)
+                                                    where (p.pembuat.ToLower() == "admin" || p.pembuat.ToLower() == username.ToLower())
                                                     orderby p.tanggal descending
                                                     select new PengumumanContainer { id = p.id, target = p.target, judul = p.judul, isi = p.isi, pembuat = p.pembuat, tanggal = p.tanggal }).ToList();
 
             string result = "";
             foreach (PengumumanContainer pc in listResult)
             {
-                if (pc.pembuat == "Admin")
+                if (pc.pembuat.ToLower() == "admin")
                 {
                     if ((Array.IndexOf(array, pc.target) != -1))
                     {
@@ -152,7 +152,7 @@ namespace Proyek_Informatika.Controllers.Dosen
         {
             string username = (string)Session["username"];
             List<PengumumanContainer> listResult = (from p in db.pengumumen
-                                                    where (p.pembuat == username)
+                                                    where (p.pembuat.ToLower() == username.ToLower())
                                                     orderby p.tanggal descending
                                                     select new PengumumanContainer { id = p.id, target = p.target, judul = p.judul, isi = p.isi, pembuat = p.pembuat, tanggal = p.tanggal }).ToList();
 

@@ -1,0 +1,880 @@
+USE [skripsi_automation]
+GO
+/****** Object:  Table [dbo].[semester]    Script Date: 11/28/2013 16:52:04 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[semester](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[periode_semester] [varchar](100) NOT NULL,
+	[isCurrent] [tinyint] NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+SET ANSI_PADDING OFF
+GO
+SET IDENTITY_INSERT [dbo].[semester] ON
+INSERT [dbo].[semester] ([id], [periode_semester], [isCurrent]) VALUES (3, N'Ganjil 2012/2013', 0)
+INSERT [dbo].[semester] ([id], [periode_semester], [isCurrent]) VALUES (4, N'Genap 2012/2013', 1)
+SET IDENTITY_INSERT [dbo].[semester] OFF
+/****** Object:  Table [dbo].[ruang]    Script Date: 11/28/2013 16:52:04 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[ruang](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[nama_ruang] [varchar](10) NOT NULL,
+ CONSTRAINT [PK_ruang] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+SET ANSI_PADDING OFF
+GO
+SET IDENTITY_INSERT [dbo].[ruang] ON
+INSERT [dbo].[ruang] ([id], [nama_ruang]) VALUES (1, N'9114')
+INSERT [dbo].[ruang] ([id], [nama_ruang]) VALUES (2, N'9014')
+SET IDENTITY_INSERT [dbo].[ruang] OFF
+/****** Object:  Table [dbo].[peran]    Script Date: 11/28/2013 16:52:04 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[peran](
+	[id] [tinyint] IDENTITY(1,1) NOT NULL,
+	[nama_peran] [varchar](30) NOT NULL,
+ CONSTRAINT [PK_peran] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+SET ANSI_PADDING OFF
+GO
+SET IDENTITY_INSERT [dbo].[peran] ON
+INSERT [dbo].[peran] ([id], [nama_peran]) VALUES (1, N'koordinator')
+INSERT [dbo].[peran] ([id], [nama_peran]) VALUES (2, N'dosen')
+INSERT [dbo].[peran] ([id], [nama_peran]) VALUES (3, N'mahasiswa')
+SET IDENTITY_INSERT [dbo].[peran] OFF
+/****** Object:  Table [dbo].[file]    Script Date: 11/28/2013 16:52:04 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[file](
+	[id_file] [int] IDENTITY(1,1) NOT NULL,
+	[nama_file] [varchar](50) NOT NULL,
+	[path] [varchar](100) NULL,
+ CONSTRAINT [PK_file] PRIMARY KEY CLUSTERED 
+(
+	[id_file] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+SET ANSI_PADDING OFF
+GO
+SET IDENTITY_INSERT [dbo].[file] ON
+INSERT [dbo].[file] ([id_file], [nama_file], [path]) VALUES (1, N'Template Skripsi FTIS', N'Latex.txt')
+INSERT [dbo].[file] ([id_file], [nama_file], [path]) VALUES (2, N'Contoh Skripsi', N'Latex.txt')
+SET IDENTITY_INSERT [dbo].[file] OFF
+/****** Object:  Table [dbo].[jenis_skripsi]    Script Date: 11/28/2013 16:52:04 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[jenis_skripsi](
+	[id] [tinyint] IDENTITY(1,1) NOT NULL,
+	[nama_jenis] [varchar](30) NULL,
+ CONSTRAINT [PK_jenis_skripsi] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+SET ANSI_PADDING OFF
+GO
+SET IDENTITY_INSERT [dbo].[jenis_skripsi] ON
+INSERT [dbo].[jenis_skripsi] ([id], [nama_jenis]) VALUES (1, N'Skripsi 1')
+INSERT [dbo].[jenis_skripsi] ([id], [nama_jenis]) VALUES (2, N'Skripsi 2')
+INSERT [dbo].[jenis_skripsi] ([id], [nama_jenis]) VALUES (3, N'Lulus')
+SET IDENTITY_INSERT [dbo].[jenis_skripsi] OFF
+/****** Object:  Table [dbo].[periode_sidang]    Script Date: 11/28/2013 16:52:04 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[periode_sidang](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[semester_id] [int] NOT NULL,
+	[tipe_sidang] [varchar](15) NOT NULL,
+	[start_date] [datetime] NOT NULL,
+	[end_date] [datetime] NOT NULL,
+	[status] [varchar](10) NULL,
+ CONSTRAINT [PK_periode_sidang_1] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+SET ANSI_PADDING OFF
+GO
+SET IDENTITY_INSERT [dbo].[periode_sidang] ON
+INSERT [dbo].[periode_sidang] ([id], [semester_id], [tipe_sidang], [start_date], [end_date], [status]) VALUES (1, 3, N'Presentasi', CAST(0x0000A12500000000 AS DateTime), CAST(0x0000A12E00000000 AS DateTime), N'open')
+INSERT [dbo].[periode_sidang] ([id], [semester_id], [tipe_sidang], [start_date], [end_date], [status]) VALUES (2, 4, N'Akhir', CAST(0x0000A1BD00000000 AS DateTime), CAST(0x0000A1CF00000000 AS DateTime), N'open')
+SET IDENTITY_INSERT [dbo].[periode_sidang] OFF
+/****** Object:  Table [dbo].[kategori_nilai]    Script Date: 11/28/2013 16:52:04 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[kategori_nilai](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[urutan] [int] NULL,
+	[kategori] [varchar](50) NOT NULL,
+	[bobot] [int] NOT NULL,
+	[tipe] [varchar](10) NOT NULL,
+	[jenis_skripsi_id] [tinyint] NOT NULL,
+ CONSTRAINT [PK_kategori_nilai] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+SET ANSI_PADDING OFF
+GO
+SET IDENTITY_INSERT [dbo].[kategori_nilai] ON
+INSERT [dbo].[kategori_nilai] ([id], [urutan], [kategori], [bobot], [tipe], [jenis_skripsi_id]) VALUES (6, NULL, N'pembimbing', 20, N'general', 2)
+INSERT [dbo].[kategori_nilai] ([id], [urutan], [kategori], [bobot], [tipe], [jenis_skripsi_id]) VALUES (9, NULL, N'penguji1', 40, N'general', 2)
+INSERT [dbo].[kategori_nilai] ([id], [urutan], [kategori], [bobot], [tipe], [jenis_skripsi_id]) VALUES (10, NULL, N'penguji2', 40, N'general', 2)
+INSERT [dbo].[kategori_nilai] ([id], [urutan], [kategori], [bobot], [tipe], [jenis_skripsi_id]) VALUES (12, NULL, N'nilaiAkhir', 100, N'final', 1)
+INSERT [dbo].[kategori_nilai] ([id], [urutan], [kategori], [bobot], [tipe], [jenis_skripsi_id]) VALUES (13, NULL, N'nilaiAkhir', 100, N'final', 2)
+INSERT [dbo].[kategori_nilai] ([id], [urutan], [kategori], [bobot], [tipe], [jenis_skripsi_id]) VALUES (15, 1, N'report1', 30, N'general', 1)
+INSERT [dbo].[kategori_nilai] ([id], [urutan], [kategori], [bobot], [tipe], [jenis_skripsi_id]) VALUES (16, 2, N'report2', 30, N'general', 1)
+INSERT [dbo].[kategori_nilai] ([id], [urutan], [kategori], [bobot], [tipe], [jenis_skripsi_id]) VALUES (17, 3, N'presentasi', 40, N'general', 1)
+INSERT [dbo].[kategori_nilai] ([id], [urutan], [kategori], [bobot], [tipe], [jenis_skripsi_id]) VALUES (18, 1, N'Tata Tulis Laporan', 20, N'pembimbing', 2)
+INSERT [dbo].[kategori_nilai] ([id], [urutan], [kategori], [bobot], [tipe], [jenis_skripsi_id]) VALUES (19, 2, N'Kelengkapan Materi', 20, N'pembimbing', 2)
+INSERT [dbo].[kategori_nilai] ([id], [urutan], [kategori], [bobot], [tipe], [jenis_skripsi_id]) VALUES (20, 3, N'Penguasaan Mater', 30, N'pembimbing', 2)
+INSERT [dbo].[kategori_nilai] ([id], [urutan], [kategori], [bobot], [tipe], [jenis_skripsi_id]) VALUES (21, 4, N'Proses Bimbingan', 30, N'pembimbing', 2)
+INSERT [dbo].[kategori_nilai] ([id], [urutan], [kategori], [bobot], [tipe], [jenis_skripsi_id]) VALUES (22, 1, N'Tata Tulis Laporan', 15, N'penguji', 2)
+INSERT [dbo].[kategori_nilai] ([id], [urutan], [kategori], [bobot], [tipe], [jenis_skripsi_id]) VALUES (23, 2, N'Kelengkapan Materi', 20, N'penguji', 2)
+INSERT [dbo].[kategori_nilai] ([id], [urutan], [kategori], [bobot], [tipe], [jenis_skripsi_id]) VALUES (24, 3, N'Penguasaan Materi', 30, N'penguji', 2)
+INSERT [dbo].[kategori_nilai] ([id], [urutan], [kategori], [bobot], [tipe], [jenis_skripsi_id]) VALUES (25, 4, N'Komunikasi', 10, N'penguji', 2)
+INSERT [dbo].[kategori_nilai] ([id], [urutan], [kategori], [bobot], [tipe], [jenis_skripsi_id]) VALUES (26, 5, N'Pencapaian Tujuan', 25, N'penguji', 2)
+SET IDENTITY_INSERT [dbo].[kategori_nilai] OFF
+/****** Object:  Table [dbo].[jadwal_semester]    Script Date: 11/28/2013 16:52:04 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[jadwal_semester](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[tanggal] [datetime] NOT NULL,
+	[isi] [varchar](1000) NOT NULL,
+	[id_semester] [int] NOT NULL,
+	[jenis_skripsi_id] [tinyint] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+SET ANSI_PADDING OFF
+GO
+SET IDENTITY_INSERT [dbo].[jadwal_semester] ON
+INSERT [dbo].[jadwal_semester] ([id], [tanggal], [isi], [id_semester], [jenis_skripsi_id]) VALUES (9, CAST(0x0000A0DC00000000 AS DateTime), N'Batas Akhir Penyerahan Kontrak Kerja', 3, 1)
+INSERT [dbo].[jadwal_semester] ([id], [tanggal], [isi], [id_semester], [jenis_skripsi_id]) VALUES (10, CAST(0x0000A0FC00000000 AS DateTime), N'Batas Akhir Penyerahan Progress Report 1', 3, 1)
+INSERT [dbo].[jadwal_semester] ([id], [tanggal], [isi], [id_semester], [jenis_skripsi_id]) VALUES (11, CAST(0x0000A11A00000000 AS DateTime), N'Batas Akhir Penyerahan Progress Report 2', 3, 1)
+INSERT [dbo].[jadwal_semester] ([id], [tanggal], [isi], [id_semester], [jenis_skripsi_id]) VALUES (12, CAST(0x0000A12500000000 AS DateTime), N'Presentasi Kemajuan Skripsi 1', 3, 1)
+INSERT [dbo].[jadwal_semester] ([id], [tanggal], [isi], [id_semester], [jenis_skripsi_id]) VALUES (14, CAST(0x0000A11A00000000 AS DateTime), N'Batas Akhir Pengumpulan Dokumen Sidang', 3, 2)
+INSERT [dbo].[jadwal_semester] ([id], [tanggal], [isi], [id_semester], [jenis_skripsi_id]) VALUES (15, CAST(0x0000A12100000000 AS DateTime), N'Sidang', 3, 2)
+INSERT [dbo].[jadwal_semester] ([id], [tanggal], [isi], [id_semester], [jenis_skripsi_id]) VALUES (16, CAST(0x0000A13800000000 AS DateTime), N'Batas Akhir Pengumpulan Revisi', 3, 2)
+INSERT [dbo].[jadwal_semester] ([id], [tanggal], [isi], [id_semester], [jenis_skripsi_id]) VALUES (19, CAST(0x0000A17400000000 AS DateTime), N'Batas Akhir Penyerahan Kontrak Kerja', 4, 1)
+INSERT [dbo].[jadwal_semester] ([id], [tanggal], [isi], [id_semester], [jenis_skripsi_id]) VALUES (20, CAST(0x0000A19300000000 AS DateTime), N'Batas Akhir Penyerahan Progress Report', 4, 1)
+INSERT [dbo].[jadwal_semester] ([id], [tanggal], [isi], [id_semester], [jenis_skripsi_id]) VALUES (21, CAST(0x0000A19300000000 AS DateTime), N'Batas Akhir Penyerahan Progress Report 2', 4, 1)
+INSERT [dbo].[jadwal_semester] ([id], [tanggal], [isi], [id_semester], [jenis_skripsi_id]) VALUES (22, CAST(0x0000A1B100000000 AS DateTime), N'Presentasi Kemajuan Skripsi 1', 4, 1)
+INSERT [dbo].[jadwal_semester] ([id], [tanggal], [isi], [id_semester], [jenis_skripsi_id]) VALUES (23, CAST(0x0000A1B100000000 AS DateTime), N'Batas Akhir Pengumpulan Dokumen Sidang', 4, 2)
+INSERT [dbo].[jadwal_semester] ([id], [tanggal], [isi], [id_semester], [jenis_skripsi_id]) VALUES (24, CAST(0x0000A1C400000000 AS DateTime), N'Sidang', 4, 2)
+INSERT [dbo].[jadwal_semester] ([id], [tanggal], [isi], [id_semester], [jenis_skripsi_id]) VALUES (25, CAST(0x0000A1D000000000 AS DateTime), N'Batas Akhir Pengumpulan Revisi', 4, 2)
+SET IDENTITY_INSERT [dbo].[jadwal_semester] OFF
+/****** Object:  Table [dbo].[akun]    Script Date: 11/28/2013 16:52:04 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[akun](
+	[username] [varchar](15) NOT NULL,
+	[password] [varchar](max) NOT NULL,
+	[aktif] [tinyint] NOT NULL,
+	[last_login] [datetime] NULL,
+	[peran] [tinyint] NOT NULL,
+ CONSTRAINT [account_pk] PRIMARY KEY CLUSTERED 
+(
+	[username] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+SET ANSI_PADDING OFF
+GO
+INSERT [dbo].[akun] ([username], [password], [aktif], [last_login], [peran]) VALUES (N'7300064', N'59b9bd8ce0c95ae16b4e01fbc9b8d494', 1, CAST(0x0000A2840102BCE9 AS DateTime), 3)
+INSERT [dbo].[akun] ([username], [password], [aktif], [last_login], [peran]) VALUES (N'7303051', N'9767db416eceaafe803b9c576dbbe0b0', 1, CAST(0x0000A28401030D4A AS DateTime), 3)
+INSERT [dbo].[akun] ([username], [password], [aktif], [last_login], [peran]) VALUES (N'7307047', N'7f2e383007c8a968419701d94538a32a', 1, CAST(0x0000A2840106EE81 AS DateTime), 3)
+INSERT [dbo].[akun] ([username], [password], [aktif], [last_login], [peran]) VALUES (N'7307082', N'ab24d9d1fb64cf1c72e401fd39d7df66', 1, CAST(0x0000A284010792BA AS DateTime), 3)
+INSERT [dbo].[akun] ([username], [password], [aktif], [last_login], [peran]) VALUES (N'7308058', N'66376d54d41ac887cf2b9cf746d3275a', 1, CAST(0x0000A2840108C5CC AS DateTime), 3)
+INSERT [dbo].[akun] ([username], [password], [aktif], [last_login], [peran]) VALUES (N'7309007', N'94bb7ebaa18f9ec789182e2068835b24', 1, CAST(0x0000A28401073D72 AS DateTime), 3)
+INSERT [dbo].[akun] ([username], [password], [aktif], [last_login], [peran]) VALUES (N'7309021', N'4112069186c9c0640354f6671f987ba5', 1, CAST(0x0000A28401038FA3 AS DateTime), 3)
+INSERT [dbo].[akun] ([username], [password], [aktif], [last_login], [peran]) VALUES (N'7309032', N'661181b061e48666efe19336eae08205', 1, CAST(0x0000A2840103BE97 AS DateTime), 3)
+INSERT [dbo].[akun] ([username], [password], [aktif], [last_login], [peran]) VALUES (N'7309037', N'5a8934c1f900a99f4f6de62545294c18', 1, CAST(0x0000A28401034143 AS DateTime), 3)
+INSERT [dbo].[akun] ([username], [password], [aktif], [last_login], [peran]) VALUES (N'7398025', N'3e349adaa2f8a941861bbc4304c06deb', 1, CAST(0x0000A28400F76066 AS DateTime), 3)
+INSERT [dbo].[akun] ([username], [password], [aktif], [last_login], [peran]) VALUES (N'7398039', N'2e259664d9415ad6bdbdf5cd154b7972', 1, CAST(0x0000A28400F6377F AS DateTime), 3)
+INSERT [dbo].[akun] ([username], [password], [aktif], [last_login], [peran]) VALUES (N'admin', N'dc647eb65e6711e155375218212b3964', 1, CAST(0x0000A2840114056A AS DateTime), 1)
+INSERT [dbo].[akun] ([username], [password], [aktif], [last_login], [peran]) VALUES (N'anung', N'6bce6e12561f652343603e04fbbfdc9d', 1, CAST(0x0000A2840111F8DE AS DateTime), 2)
+INSERT [dbo].[akun] ([username], [password], [aktif], [last_login], [peran]) VALUES (N'chandra', N'ad845a24a47deecbfa8396e90db75c6a', 1, NULL, 2)
+INSERT [dbo].[akun] ([username], [password], [aktif], [last_login], [peran]) VALUES (N'gede', N'13ad65cc032d4b04927943c33673a65d', 1, CAST(0x0000A28401132DA2 AS DateTime), 2)
+INSERT [dbo].[akun] ([username], [password], [aktif], [last_login], [peran]) VALUES (N'lionov', N'a3339927d0fb14f195a0087c4f00d5b7', 1, CAST(0x0000A284010D0435 AS DateTime), 2)
+INSERT [dbo].[akun] ([username], [password], [aktif], [last_login], [peran]) VALUES (N'mariskha', N'844a7e5d0354c7f4dedceed249485fef', 1, NULL, 2)
+INSERT [dbo].[akun] ([username], [password], [aktif], [last_login], [peran]) VALUES (N'pascal', N'57c2877c1d84c4b49f3289657deca65c', 1, NULL, 2)
+INSERT [dbo].[akun] ([username], [password], [aktif], [last_login], [peran]) VALUES (N'verliyantina', N'7f2d277b04f56004f30ba7492bf0d7f2', 1, CAST(0x0000A28401135229 AS DateTime), 2)
+/****** Object:  Table [dbo].[mahasiswa]    Script Date: 11/28/2013 16:52:04 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[mahasiswa](
+	[NPM] [varchar](15) NOT NULL,
+	[nama] [varchar](30) NOT NULL,
+	[email] [varchar](30) NULL,
+	[nomor_telepon] [varchar](15) NULL,
+	[foto] [varchar](200) NULL,
+	[username] [varchar](15) NOT NULL,
+	[status] [varchar](100) NOT NULL,
+ CONSTRAINT [mahasiswa_pk] PRIMARY KEY CLUSTERED 
+(
+	[NPM] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+SET ANSI_PADDING OFF
+GO
+INSERT [dbo].[mahasiswa] ([NPM], [nama], [email], [nomor_telepon], [foto], [username], [status]) VALUES (N'1998730025', N' Aryanugroho Wargono', N'7398025@student.unpar.ac.id', N'0811234567', NULL, N'7398025', N'aktif')
+INSERT [dbo].[mahasiswa] ([NPM], [nama], [email], [nomor_telepon], [foto], [username], [status]) VALUES (N'1998730039', N' Elisa Dean', N'7398039@student.unpar.ac.id', N'0811234567', NULL, N'7398039', N'aktif')
+INSERT [dbo].[mahasiswa] ([NPM], [nama], [email], [nomor_telepon], [foto], [username], [status]) VALUES (N'2000730064', N' Elvan Chandra', N'7300064@student.unpar.ac.id', N'0811234567', NULL, N'7300064', N'aktif')
+INSERT [dbo].[mahasiswa] ([NPM], [nama], [email], [nomor_telepon], [foto], [username], [status]) VALUES (N'2003730051', N' Handy', N'7303051@student.unpar.ac.id', N'0816534236', NULL, N'7303051', N'aktif')
+INSERT [dbo].[mahasiswa] ([NPM], [nama], [email], [nomor_telepon], [foto], [username], [status]) VALUES (N'2007730047', N' Juzanda Hasnomo Kesumo Hakim', N'7307047@student.unpar.ac.id', N'080989999', NULL, N'7307047', N'aktif')
+INSERT [dbo].[mahasiswa] ([NPM], [nama], [email], [nomor_telepon], [foto], [username], [status]) VALUES (N'2007730082', N' Bima Hadistira', N'7307082@student.unpar.ac.id', N'083234654', NULL, N'7307082', N'aktif')
+INSERT [dbo].[mahasiswa] ([NPM], [nama], [email], [nomor_telepon], [foto], [username], [status]) VALUES (N'2008730058', N' Ilham Gilang Utama', N'7308058@student.unpar.ac.id', N'0812387634', NULL, N'7308058', N'aktif')
+INSERT [dbo].[mahasiswa] ([NPM], [nama], [email], [nomor_telepon], [foto], [username], [status]) VALUES (N'2009730007', N' Silvania Heriyanto', N'7309007@student.unpar.ac.id', N'085871234556', NULL, N'7309007', N'aktif')
+INSERT [dbo].[mahasiswa] ([NPM], [nama], [email], [nomor_telepon], [foto], [username], [status]) VALUES (N'2009730021', N' Kelvin Setiawan', N'7309021@student.unpar.ac.id', N'0812345321', NULL, N'7309021', N'aktif')
+INSERT [dbo].[mahasiswa] ([NPM], [nama], [email], [nomor_telepon], [foto], [username], [status]) VALUES (N'2009730032', N' Ray Naldo', N'7309032@student.unpar.ac.id', N'0832212290', NULL, N'7309032', N'aktif')
+INSERT [dbo].[mahasiswa] ([NPM], [nama], [email], [nomor_telepon], [foto], [username], [status]) VALUES (N'2009730037', N' Billy Lukito', N'7309037@student.unpar.ac.id', N'0858901234', NULL, N'7309037', N'aktif')
+/****** Object:  Table [dbo].[pengumuman]    Script Date: 11/28/2013 16:52:04 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[pengumuman](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[tanggal] [datetime] NOT NULL,
+	[isi] [varchar](max) NOT NULL,
+	[target] [tinyint] NOT NULL,
+	[judul] [varchar](500) NOT NULL,
+	[pembuat] [varchar](15) NOT NULL,
+ CONSTRAINT [pengumuman_pk] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+SET ANSI_PADDING OFF
+GO
+SET IDENTITY_INSERT [dbo].[pengumuman] ON
+INSERT [dbo].[pengumuman] ([id], [tanggal], [isi], [target], [judul], [pembuat]) VALUES (1, CAST(0x0000A28400F0B9DF AS DateTime), N'<ol><li>Install dan download Miktex edisi terbaru (bisa diambil di lab)</li><li>Install Eclipse (source bisa diambil di lab)</li><li>Install Texlipse (lihat di <a href="http://texlipse.sourceforge.net/">sourceforge</a>)</li><li>Install SumatraPDF</li><li>Di Eclipse, buat LaTeX project baru, beri nama baru dan finish</li><li>Akan terdapat file document.tex, tidak ada isinya</li><li>Download template document.tex dari tinyurl dan copy semua isinya ke dalam document.tex yang kosong</li><li>Save&nbsp;</li><li>Klik "Launch The Previewer" (Ctrl + 4), jika lancar SumatraPDF akan menampilkan sebuah file pdf<br />isi document.tex sudah dapat diubah-ubah, lihat di <a href=" http://latex.wikia.com/wiki/Main_Page">wikipedia</a>&nbsp;sebagai petunjuk</li></ol><p style="text-align:center;"><strong>Selamat Mencoba</strong></p>', 3, N'Petunjuk Super Singkat Penggunaan Latex', N'admin')
+INSERT [dbo].[pengumuman] ([id], [tanggal], [isi], [target], [judul], [pembuat]) VALUES (2, CAST(0x0000A28400F00200 AS DateTime), N'<p style="margin-left:30px;">Dear rekan-rekan dosen,</p><p>Sehubungan dengan tahun ajaran baru diharapkan para dosen mengikuti rapat yang akan dilaksanakan pada 32 Desember 2012 di ruang rapat. Rapat akan membicarakan tentang topik skripsi.&nbsp;Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Typi non habent claritatem insitam; est usus legentis in iis qui facit eorum claritatem. Investigationes demonstraverunt lectores legere me lius quod ii legunt saepius.</p><p></p><p style="text-align:right;">Regards,</p>', 8, N'Rapat Dosen', N'admin')
+INSERT [dbo].[pengumuman] ([id], [tanggal], [isi], [target], [judul], [pembuat]) VALUES (3, CAST(0x0000A28400F0AB8C AS DateTime), N'<p style="margin-left:30px;">Dear all,</p><p>PERLU DIPAHAMI DAN DIMENGERTI bahwa :<br />Suatu topik Skripsi/Tugas Akhir hanya dapat diulang MAKSIMAL 1 KALI (pada pengambilan ke-2).<br />Pengambilan ke-3x dapat dimohonkan oleh mahasiswa dan hanya diijinkan untuk dilakukan JIKA DAN HANYA JIKA mendapat persetujuan dari forum rapat jurusan.<br /><br />Perlu diingat bahwa mahasiswa mengajukan "PERMOHONAN" sehingga bisa saja permohonan tersebut dikabulkan, tetapi bisa juga TIDAK DIKABULKAN (artinya anda harus mengambil skpris dengan topik yang baru)</p><p style="text-align:right;">Thanks,</p>', 4, N'Skripsi 2 Hanya Boleh Diulang 1 Kali', N'admin')
+SET IDENTITY_INSERT [dbo].[pengumuman] OFF
+/****** Object:  Table [dbo].[jadwal_tidak_kosong]    Script Date: 11/28/2013 16:52:04 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[jadwal_tidak_kosong](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[username] [varchar](15) NOT NULL,
+	[tanggal_mulai] [datetime] NOT NULL,
+	[tanggal_selesai] [datetime] NOT NULL,
+	[text] [varchar](1000) NULL,
+	[description] [varchar](1000) NULL,
+	[periode_sidang_id] [int] NOT NULL,
+ CONSTRAINT [jadwal_kosong_pk_id] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  Table [dbo].[dosen]    Script Date: 11/28/2013 16:52:04 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[dosen](
+	[NIK] [varchar](15) NOT NULL,
+	[nama] [varchar](50) NOT NULL,
+	[inisial] [varchar](15) NULL,
+	[username] [varchar](15) NOT NULL,
+	[email] [varchar](30) NULL,
+	[foto] [varchar](200) NULL,
+	[aktif] [tinyint] NOT NULL,
+ CONSTRAINT [dosen_pk] PRIMARY KEY CLUSTERED 
+(
+	[NIK] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+SET ANSI_PADDING OFF
+GO
+INSERT [dbo].[dosen] ([NIK], [nama], [inisial], [username], [email], [foto], [aktif]) VALUES (N'11252', N'Lionov', N'LNV', N'lionov', NULL, NULL, 1)
+INSERT [dbo].[dosen] ([NIK], [nama], [inisial], [username], [email], [foto], [aktif]) VALUES (N'11786', N'Thomas Anung Basuki', N'TAB', N'anung', NULL, NULL, 1)
+INSERT [dbo].[dosen] ([NIK], [nama], [inisial], [username], [email], [foto], [aktif]) VALUES (N'19990894', N'Gede Karya', N'GDK', N'gede', NULL, NULL, 1)
+INSERT [dbo].[dosen] ([NIK], [nama], [inisial], [username], [email], [foto], [aktif]) VALUES (N'20100001', N'Verliyantina', N'VER', N'verliyantina', N'verliyantina@gmail.com', NULL, 1)
+INSERT [dbo].[dosen] ([NIK], [nama], [inisial], [username], [email], [foto], [aktif]) VALUES (N'20100037', N'Mariskha Tri Adithia', N'MAR', N'mariskha', NULL, NULL, 1)
+INSERT [dbo].[dosen] ([NIK], [nama], [inisial], [username], [email], [foto], [aktif]) VALUES (N'20120010', N'Pascal Alfadian Nugroho', N'PAS', N'pascal', NULL, NULL, 1)
+INSERT [dbo].[dosen] ([NIK], [nama], [inisial], [username], [email], [foto], [aktif]) VALUES (N'21200', N'Chandra Wijaya', N'CAN', N'chandra', NULL, NULL, 1)
+/****** Object:  Table [dbo].[calendar_event]    Script Date: 11/28/2013 16:52:04 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[calendar_event](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[text] [varchar](1000) NULL,
+	[description] [varchar](1000) NULL,
+	[start_date] [datetime] NOT NULL,
+	[end_date] [datetime] NOT NULL,
+	[username] [varchar](15) NOT NULL,
+	[place] [varchar](50) NULL,
+	[priority] [varchar](10) NULL,
+	[type] [varchar](20) NULL,
+ CONSTRAINT [calendar_event_pk_id] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  Table [dbo].[pesanan_bimbingan]    Script Date: 11/28/2013 16:52:04 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[pesanan_bimbingan](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[setuju] [varchar](50) NOT NULL,
+	[NIK_dosen] [varchar](15) NOT NULL,
+	[NPM_mahasiswa] [varchar](15) NOT NULL,
+	[tanggal_mulai] [datetime] NOT NULL,
+	[tanggal_selesai] [datetime] NOT NULL,
+	[text] [varchar](1000) NULL,
+	[description] [varchar](1000) NULL,
+ CONSTRAINT [pk_id] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  Table [dbo].[topik]    Script Date: 11/28/2013 16:52:04 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[topik](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[judul] [varchar](1000) NOT NULL,
+	[deskripsi] [varchar](1000) NULL,
+	[keterangan] [varchar](50) NOT NULL,
+	[NIK_pembimbing] [varchar](15) NOT NULL,
+	[id_semester] [int] NOT NULL,
+ CONSTRAINT [PK__topik_] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+SET ANSI_PADDING OFF
+GO
+SET IDENTITY_INSERT [dbo].[topik] ON
+INSERT [dbo].[topik] ([id], [judul], [deskripsi], [keterangan], [NIK_pembimbing], [id_semester]) VALUES (1, N'Pembangunan Perangkat Lunak Sistem Akuntansi Pembukuan dengan Pendekatan Berorientasi Obyek', N'Pembangunan perangkat lunak sistem akuntansi pembukuan dengan pendekatan berorientasi obyek adalah...
+', N'tidak tersedia', N'20100001', 3)
+INSERT [dbo].[topik] ([id], [judul], [deskripsi], [keterangan], [NIK_pembimbing], [id_semester]) VALUES (2, N'Perangkat Lunak Pendukung Sistem Evaluasi Diri Program Studi', N'Perangkat lunak pendukung sistem evaluasi diri program studi adalah...
+', N'tidak tersedia', N'20100001', 3)
+INSERT [dbo].[topik] ([id], [judul], [deskripsi], [keterangan], [NIK_pembimbing], [id_semester]) VALUES (3, N'Portal Lowongan Kerja Online untuk Menghubungkan Pencari Kerja dan Perusahaan Penyedia Lapangan Pekerjaan Dengan Studi Kasus : Unpar', N'Portal lowongan kerja online untuk menghubungkan pencari kerja dan perusahaan penyedia lapangan pekerjaan dengan studi kasus : unpar adalah...', N'tersedia', N'20100001', 3)
+INSERT [dbo].[topik] ([id], [judul], [deskripsi], [keterangan], [NIK_pembimbing], [id_semester]) VALUES (4, N'Penggunaan Algoritma Ant System dalam Quadratic Assignment Problem', N'Penggunaan algoritma ant system dalam quadratic assignment problem adalah...
+
+', N'tersedia', N'20100001', 4)
+INSERT [dbo].[topik] ([id], [judul], [deskripsi], [keterangan], [NIK_pembimbing], [id_semester]) VALUES (5, N'Kecerdasan Buatan untuk Bot pada Pogamut Menggunakan Jaringan Saraf Tiruan', N'Kecerdasan buatan untuk bot pada pogamut menggunakan jaringan saraf tiruan adalah...', N'tidak tersedia', N'11252', 4)
+INSERT [dbo].[topik] ([id], [judul], [deskripsi], [keterangan], [NIK_pembimbing], [id_semester]) VALUES (6, N'Simplifikasi Model Tiga Dimensi Menggunakan Metode Vertex Clustering', N'Simplifikasi model tiga dimensi menggunakan metode vertex clustering adalah...', N'tidak tersedia', N'11252', 4)
+INSERT [dbo].[topik] ([id], [judul], [deskripsi], [keterangan], [NIK_pembimbing], [id_semester]) VALUES (7, N'Rekonstruksi Permukaan Objek Tiga Dimensi Menggunakan Alpha Shapes', N'Rekonstruksi permukaan objek tiga dimensi menggunakan alpha shapes adalah...', N'tidak tersedia', N'11252', 4)
+INSERT [dbo].[topik] ([id], [judul], [deskripsi], [keterangan], [NIK_pembimbing], [id_semester]) VALUES (8, N'Pengembangan Pengingat Jadwal Kegiatan Menggunakan J2ME', N'Pengembangan pengingat jadwal kegiatan menggunakan J2ME adalah...', N'tidak tersedia', N'11252', 4)
+INSERT [dbo].[topik] ([id], [judul], [deskripsi], [keterangan], [NIK_pembimbing], [id_semester]) VALUES (9, N'Studi Dan Implementasi Algoritma Aes dengan Empat Mode Operasi Kriptografi Simetrik', N'Studi dan implementasi algoritma AES dengan empat mode operasi kriptografi simetrik adalah...
+', N'tidak tersedia', N'11252', 4)
+INSERT [dbo].[topik] ([id], [judul], [deskripsi], [keterangan], [NIK_pembimbing], [id_semester]) VALUES (10, N'Peringkas Otomatis Artikel Bahasa Indonesia : Studi Kasus Literatur Ilmu Komputer', N'Peringkas otomatis artikel bahasa indonesia : studi kasus literatur ilmu komputer...', N'tersedia', N'11252', 4)
+INSERT [dbo].[topik] ([id], [judul], [deskripsi], [keterangan], [NIK_pembimbing], [id_semester]) VALUES (11, N'Metode Optimasi Lelang dengan Simulasi Monte Carlo', N'Metode optimasi lelang dengan simulasi Monte Carlo adalah...', N'tersedia', N'20100001', 4)
+INSERT [dbo].[topik] ([id], [judul], [deskripsi], [keterangan], [NIK_pembimbing], [id_semester]) VALUES (12, N'Simulator Sistem Pembayaran Biaya Studi pada Sekolah Menengah Atas (SMA) Swasta di Bandung', N'Simulator sistem pembayaran biaya studi pada sekolah menengah atas (SMA) swasta di bandung adalah...', N'tidak tersedia', N'20100001', 4)
+INSERT [dbo].[topik] ([id], [judul], [deskripsi], [keterangan], [NIK_pembimbing], [id_semester]) VALUES (13, N'Pengembangan Sistem E-Distributor untuk Bidang Usaha Sparepart Sepeda Motor', N'Pengembangan sistem e-distributor untuk bidang usaha sparepart sepeda motor...', N'tidak tersedia', N'20100001', 4)
+INSERT [dbo].[topik] ([id], [judul], [deskripsi], [keterangan], [NIK_pembimbing], [id_semester]) VALUES (14, N'Sistem Informasi Perekaman Proses Produksi pada PT Pindad Divisi Kendaraan Fungsi Khusus', N'Sistem informasi perekaman proses produksi pada PT Pindad divisi kendaraan fungsi khusus...', N'tidak tersedia', N'20100001', 4)
+INSERT [dbo].[topik] ([id], [judul], [deskripsi], [keterangan], [NIK_pembimbing], [id_semester]) VALUES (15, N'Sistem Pengumuman Akademik Dan Pelayanan Perpustakaan yang Terintegrasi dengan Sistem Pembayaran Elektronik Mikro di Unpar', N'Sistem pengumuman akademik dan pelayanan perpustakaan yang terintegrasi dengan sistem pembayaran elektronik mikro di unpar adalah...', N'tidak tersedia', N'20100001', 4)
+SET IDENTITY_INSERT [dbo].[topik] OFF
+/****** Object:  Table [dbo].[skripsi]    Script Date: 11/28/2013 16:52:04 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[skripsi](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[jenis] [tinyint] NOT NULL,
+	[pengambilan_ke] [int] NOT NULL,
+	[NIK_dosen_pembimbing] [varchar](15) NOT NULL,
+	[NPM_mahasiswa] [varchar](15) NOT NULL,
+	[id_semester_pengambilan] [int] NOT NULL,
+	[id_topik] [int] NOT NULL,
+	[nilai_akhir] [char](1) NULL,
+ CONSTRAINT [skripsi_pk] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+SET ANSI_PADDING OFF
+GO
+SET IDENTITY_INSERT [dbo].[skripsi] ON
+INSERT [dbo].[skripsi] ([id], [jenis], [pengambilan_ke], [NIK_dosen_pembimbing], [NPM_mahasiswa], [id_semester_pengambilan], [id_topik], [nilai_akhir]) VALUES (1, 1, 1, N'20100001', N'1998730039', 3, 1, N'B')
+INSERT [dbo].[skripsi] ([id], [jenis], [pengambilan_ke], [NIK_dosen_pembimbing], [NPM_mahasiswa], [id_semester_pengambilan], [id_topik], [nilai_akhir]) VALUES (2, 1, 1, N'20100001', N'1998730025', 3, 2, N'A')
+INSERT [dbo].[skripsi] ([id], [jenis], [pengambilan_ke], [NIK_dosen_pembimbing], [NPM_mahasiswa], [id_semester_pengambilan], [id_topik], [nilai_akhir]) VALUES (3, 2, 1, N'20100001', N'1998730025', 4, 2, NULL)
+INSERT [dbo].[skripsi] ([id], [jenis], [pengambilan_ke], [NIK_dosen_pembimbing], [NPM_mahasiswa], [id_semester_pengambilan], [id_topik], [nilai_akhir]) VALUES (4, 2, 1, N'20100001', N'1998730039', 4, 1, NULL)
+INSERT [dbo].[skripsi] ([id], [jenis], [pengambilan_ke], [NIK_dosen_pembimbing], [NPM_mahasiswa], [id_semester_pengambilan], [id_topik], [nilai_akhir]) VALUES (5, 1, 1, N'11252', N'2009730032', 4, 7, N'B')
+INSERT [dbo].[skripsi] ([id], [jenis], [pengambilan_ke], [NIK_dosen_pembimbing], [NPM_mahasiswa], [id_semester_pengambilan], [id_topik], [nilai_akhir]) VALUES (6, 1, 1, N'11252', N'2009730021', 4, 6, N'A')
+INSERT [dbo].[skripsi] ([id], [jenis], [pengambilan_ke], [NIK_dosen_pembimbing], [NPM_mahasiswa], [id_semester_pengambilan], [id_topik], [nilai_akhir]) VALUES (7, 1, 1, N'11252', N'2009730037', 4, 5, N'A')
+INSERT [dbo].[skripsi] ([id], [jenis], [pengambilan_ke], [NIK_dosen_pembimbing], [NPM_mahasiswa], [id_semester_pengambilan], [id_topik], [nilai_akhir]) VALUES (8, 1, 1, N'11252', N'2003730051', 4, 9, N'B')
+INSERT [dbo].[skripsi] ([id], [jenis], [pengambilan_ke], [NIK_dosen_pembimbing], [NPM_mahasiswa], [id_semester_pengambilan], [id_topik], [nilai_akhir]) VALUES (9, 1, 1, N'11252', N'2000730064', 4, 8, N'E')
+INSERT [dbo].[skripsi] ([id], [jenis], [pengambilan_ke], [NIK_dosen_pembimbing], [NPM_mahasiswa], [id_semester_pengambilan], [id_topik], [nilai_akhir]) VALUES (10, 1, 1, N'20100001', N'2007730047', 4, 12, N'E')
+INSERT [dbo].[skripsi] ([id], [jenis], [pengambilan_ke], [NIK_dosen_pembimbing], [NPM_mahasiswa], [id_semester_pengambilan], [id_topik], [nilai_akhir]) VALUES (11, 1, 1, N'20100001', N'2009730007', 4, 13, N'A')
+INSERT [dbo].[skripsi] ([id], [jenis], [pengambilan_ke], [NIK_dosen_pembimbing], [NPM_mahasiswa], [id_semester_pengambilan], [id_topik], [nilai_akhir]) VALUES (12, 1, 1, N'20100001', N'2007730082', 4, 14, N'C')
+INSERT [dbo].[skripsi] ([id], [jenis], [pengambilan_ke], [NIK_dosen_pembimbing], [NPM_mahasiswa], [id_semester_pengambilan], [id_topik], [nilai_akhir]) VALUES (13, 1, 1, N'20100001', N'2008730058', 4, 15, N'A')
+SET IDENTITY_INSERT [dbo].[skripsi] OFF
+/****** Object:  Table [dbo].[sidang]    Script Date: 11/28/2013 16:52:04 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[sidang](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[tanggal] [datetime] NOT NULL,
+	[ruang] [int] NOT NULL,
+	[id_skripsi] [int] NOT NULL,
+	[penguji1] [varchar](15) NOT NULL,
+	[penguji2] [varchar](15) NULL,
+	[akses] [tinyint] NOT NULL,
+ CONSTRAINT [sidang_pk] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+SET ANSI_PADDING OFF
+GO
+SET IDENTITY_INSERT [dbo].[sidang] ON
+INSERT [dbo].[sidang] ([id], [tanggal], [ruang], [id_skripsi], [penguji1], [penguji2], [akses]) VALUES (1, CAST(0x0000A12500000000 AS DateTime), 1, 1, N'19990894', NULL, 1)
+INSERT [dbo].[sidang] ([id], [tanggal], [ruang], [id_skripsi], [penguji1], [penguji2], [akses]) VALUES (2, CAST(0x0000A12700000000 AS DateTime), 2, 2, N'11786', NULL, 1)
+INSERT [dbo].[sidang] ([id], [tanggal], [ruang], [id_skripsi], [penguji1], [penguji2], [akses]) VALUES (3, CAST(0x0000A1BF00000000 AS DateTime), 1, 3, N'11786', N'19990894', 1)
+INSERT [dbo].[sidang] ([id], [tanggal], [ruang], [id_skripsi], [penguji1], [penguji2], [akses]) VALUES (4, CAST(0x0000A1CF00000000 AS DateTime), 2, 4, N'19990894', N'20100037', 1)
+SET IDENTITY_INSERT [dbo].[sidang] OFF
+/****** Object:  Table [dbo].[bimbingan]    Script Date: 11/28/2013 16:52:04 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[bimbingan](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[isi] [varchar](100) NOT NULL,
+	[deskripsi] [varchar](max) NULL,
+	[id_skripsi] [int] NOT NULL,
+	[tanggal] [datetime] NOT NULL,
+ CONSTRAINT [bimbingan_pk] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+SET ANSI_PADDING OFF
+GO
+SET IDENTITY_INSERT [dbo].[bimbingan] ON
+INSERT [dbo].[bimbingan] ([id], [isi], [deskripsi], [id_skripsi], [tanggal]) VALUES (1, N'Pendekatan Berorientasi Objek', NULL, 1, CAST(0x0000A28400F69B55 AS DateTime))
+INSERT [dbo].[bimbingan] ([id], [isi], [deskripsi], [id_skripsi], [tanggal]) VALUES (2, N'Sistem Akuntansi Pembukuan', NULL, 1, CAST(0x0000A28400F6B881 AS DateTime))
+INSERT [dbo].[bimbingan] ([id], [isi], [deskripsi], [id_skripsi], [tanggal]) VALUES (3, N'Analisis Sistem Kini', NULL, 1, CAST(0x0000A28400F6CF78 AS DateTime))
+INSERT [dbo].[bimbingan] ([id], [isi], [deskripsi], [id_skripsi], [tanggal]) VALUES (4, N'Sistem Evaluasi Diri Program Studi', NULL, 2, CAST(0x0000A28400F6EB40 AS DateTime))
+INSERT [dbo].[bimbingan] ([id], [isi], [deskripsi], [id_skripsi], [tanggal]) VALUES (5, N'Perangkat Lunak', NULL, 3, CAST(0x0000A28400FEC3D9 AS DateTime))
+INSERT [dbo].[bimbingan] ([id], [isi], [deskripsi], [id_skripsi], [tanggal]) VALUES (6, N'Pembangunan Perangkat Lunak', NULL, 3, CAST(0x0000A28400FECAFC AS DateTime))
+INSERT [dbo].[bimbingan] ([id], [isi], [deskripsi], [id_skripsi], [tanggal]) VALUES (7, N'Implementasi Rancangan', NULL, 4, CAST(0x0000A28400FEEF2D AS DateTime))
+INSERT [dbo].[bimbingan] ([id], [isi], [deskripsi], [id_skripsi], [tanggal]) VALUES (8, N'Black Box Testing', NULL, 4, CAST(0x0000A28400FF098C AS DateTime))
+INSERT [dbo].[bimbingan] ([id], [isi], [deskripsi], [id_skripsi], [tanggal]) VALUES (9, N'Usability Testing', NULL, 4, CAST(0x0000A28400FF193F AS DateTime))
+INSERT [dbo].[bimbingan] ([id], [isi], [deskripsi], [id_skripsi], [tanggal]) VALUES (10, N'Dokumentasi Perangkat Lunak', NULL, 4, CAST(0x0000A28400FF2690 AS DateTime))
+INSERT [dbo].[bimbingan] ([id], [isi], [deskripsi], [id_skripsi], [tanggal]) VALUES (11, N'Sistem Pembayaran', NULL, 10, CAST(0x0000A284010A0FBF AS DateTime))
+INSERT [dbo].[bimbingan] ([id], [isi], [deskripsi], [id_skripsi], [tanggal]) VALUES (13, N'E-distributtor', NULL, 11, CAST(0x0000A284010A3A64 AS DateTime))
+INSERT [dbo].[bimbingan] ([id], [isi], [deskripsi], [id_skripsi], [tanggal]) VALUES (14, N'Sistem', NULL, 11, CAST(0x0000A284010A3D19 AS DateTime))
+INSERT [dbo].[bimbingan] ([id], [isi], [deskripsi], [id_skripsi], [tanggal]) VALUES (15, N'Bidang Usaha', NULL, 11, CAST(0x0000A284010A4021 AS DateTime))
+INSERT [dbo].[bimbingan] ([id], [isi], [deskripsi], [id_skripsi], [tanggal]) VALUES (16, N'Sistem Informasi', NULL, 12, CAST(0x0000A284010A69D7 AS DateTime))
+INSERT [dbo].[bimbingan] ([id], [isi], [deskripsi], [id_skripsi], [tanggal]) VALUES (17, N'Analisis Sistem Kini', NULL, 12, CAST(0x0000A284010A6E76 AS DateTime))
+INSERT [dbo].[bimbingan] ([id], [isi], [deskripsi], [id_skripsi], [tanggal]) VALUES (18, N'Analisis Sistem Usulan', NULL, 12, CAST(0x0000A284010A83C2 AS DateTime))
+INSERT [dbo].[bimbingan] ([id], [isi], [deskripsi], [id_skripsi], [tanggal]) VALUES (19, N'Perancangan Antarmuka', NULL, 12, CAST(0x0000A284010A8697 AS DateTime))
+INSERT [dbo].[bimbingan] ([id], [isi], [deskripsi], [id_skripsi], [tanggal]) VALUES (20, N'Sistem Pengumuman Akademik', NULL, 13, CAST(0x0000A284010AA6DE AS DateTime))
+INSERT [dbo].[bimbingan] ([id], [isi], [deskripsi], [id_skripsi], [tanggal]) VALUES (21, N'Pengujian', NULL, 3, CAST(0x0000A284010AD30D AS DateTime))
+INSERT [dbo].[bimbingan] ([id], [isi], [deskripsi], [id_skripsi], [tanggal]) VALUES (22, N'Pengubahan Rancangan', NULL, 4, CAST(0x0000A284010AEC88 AS DateTime))
+INSERT [dbo].[bimbingan] ([id], [isi], [deskripsi], [id_skripsi], [tanggal]) VALUES (23, N'Pengujian', NULL, 4, CAST(0x0000A284010B0E62 AS DateTime))
+INSERT [dbo].[bimbingan] ([id], [isi], [deskripsi], [id_skripsi], [tanggal]) VALUES (24, N'Pengujian dengan Client', NULL, 4, CAST(0x0000A284010B2B6E AS DateTime))
+SET IDENTITY_INSERT [dbo].[bimbingan] OFF
+/****** Object:  Table [dbo].[nilai]    Script Date: 11/28/2013 16:52:04 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[nilai](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[id_skripsi] [int] NOT NULL,
+	[angka] [float] NOT NULL,
+	[NIK_pengisi] [varchar](15) NOT NULL,
+	[kategori] [int] NOT NULL,
+	[submitted] [tinyint] NOT NULL,
+ CONSTRAINT [nilai_pk] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+SET ANSI_PADDING OFF
+GO
+SET IDENTITY_INSERT [dbo].[nilai] ON
+INSERT [dbo].[nilai] ([id], [id_skripsi], [angka], [NIK_pengisi], [kategori], [submitted]) VALUES (1, 1, 72.8, N'20100001', 12, 2)
+INSERT [dbo].[nilai] ([id], [id_skripsi], [angka], [NIK_pengisi], [kategori], [submitted]) VALUES (2, 1, 72, N'20100001', 15, 2)
+INSERT [dbo].[nilai] ([id], [id_skripsi], [angka], [NIK_pengisi], [kategori], [submitted]) VALUES (3, 1, 68, N'20100001', 16, 2)
+INSERT [dbo].[nilai] ([id], [id_skripsi], [angka], [NIK_pengisi], [kategori], [submitted]) VALUES (4, 1, 77, N'20100001', 17, 2)
+INSERT [dbo].[nilai] ([id], [id_skripsi], [angka], [NIK_pengisi], [kategori], [submitted]) VALUES (5, 2, 83.3, N'20100001', 12, 2)
+INSERT [dbo].[nilai] ([id], [id_skripsi], [angka], [NIK_pengisi], [kategori], [submitted]) VALUES (6, 2, 75, N'20100001', 15, 2)
+INSERT [dbo].[nilai] ([id], [id_skripsi], [angka], [NIK_pengisi], [kategori], [submitted]) VALUES (7, 2, 88, N'20100001', 16, 2)
+INSERT [dbo].[nilai] ([id], [id_skripsi], [angka], [NIK_pengisi], [kategori], [submitted]) VALUES (8, 2, 86, N'20100001', 17, 2)
+INSERT [dbo].[nilai] ([id], [id_skripsi], [angka], [NIK_pengisi], [kategori], [submitted]) VALUES (9, 10, 54.5, N'20100001', 12, 2)
+INSERT [dbo].[nilai] ([id], [id_skripsi], [angka], [NIK_pengisi], [kategori], [submitted]) VALUES (10, 10, 50, N'20100001', 15, 2)
+INSERT [dbo].[nilai] ([id], [id_skripsi], [angka], [NIK_pengisi], [kategori], [submitted]) VALUES (11, 10, 45, N'20100001', 16, 2)
+INSERT [dbo].[nilai] ([id], [id_skripsi], [angka], [NIK_pengisi], [kategori], [submitted]) VALUES (12, 10, 65, N'20100001', 17, 2)
+INSERT [dbo].[nilai] ([id], [id_skripsi], [angka], [NIK_pengisi], [kategori], [submitted]) VALUES (13, 11, 88.9, N'20100001', 12, 2)
+INSERT [dbo].[nilai] ([id], [id_skripsi], [angka], [NIK_pengisi], [kategori], [submitted]) VALUES (14, 11, 90, N'20100001', 15, 2)
+INSERT [dbo].[nilai] ([id], [id_skripsi], [angka], [NIK_pengisi], [kategori], [submitted]) VALUES (15, 11, 85, N'20100001', 16, 2)
+INSERT [dbo].[nilai] ([id], [id_skripsi], [angka], [NIK_pengisi], [kategori], [submitted]) VALUES (16, 11, 91, N'20100001', 17, 2)
+INSERT [dbo].[nilai] ([id], [id_skripsi], [angka], [NIK_pengisi], [kategori], [submitted]) VALUES (17, 12, 60.5, N'20100001', 12, 2)
+INSERT [dbo].[nilai] ([id], [id_skripsi], [angka], [NIK_pengisi], [kategori], [submitted]) VALUES (18, 12, 60, N'20100001', 15, 2)
+INSERT [dbo].[nilai] ([id], [id_skripsi], [angka], [NIK_pengisi], [kategori], [submitted]) VALUES (19, 12, 75, N'20100001', 16, 2)
+INSERT [dbo].[nilai] ([id], [id_skripsi], [angka], [NIK_pengisi], [kategori], [submitted]) VALUES (20, 12, 50, N'20100001', 17, 2)
+INSERT [dbo].[nilai] ([id], [id_skripsi], [angka], [NIK_pengisi], [kategori], [submitted]) VALUES (21, 13, 84.8, N'20100001', 12, 2)
+INSERT [dbo].[nilai] ([id], [id_skripsi], [angka], [NIK_pengisi], [kategori], [submitted]) VALUES (22, 13, 82, N'20100001', 15, 2)
+INSERT [dbo].[nilai] ([id], [id_skripsi], [angka], [NIK_pengisi], [kategori], [submitted]) VALUES (23, 13, 74, N'20100001', 16, 2)
+INSERT [dbo].[nilai] ([id], [id_skripsi], [angka], [NIK_pengisi], [kategori], [submitted]) VALUES (24, 13, 95, N'20100001', 17, 2)
+INSERT [dbo].[nilai] ([id], [id_skripsi], [angka], [NIK_pengisi], [kategori], [submitted]) VALUES (25, 5, 74.5, N'11252', 12, 2)
+INSERT [dbo].[nilai] ([id], [id_skripsi], [angka], [NIK_pengisi], [kategori], [submitted]) VALUES (26, 5, 70, N'11252', 15, 2)
+INSERT [dbo].[nilai] ([id], [id_skripsi], [angka], [NIK_pengisi], [kategori], [submitted]) VALUES (27, 5, 65, N'11252', 16, 2)
+INSERT [dbo].[nilai] ([id], [id_skripsi], [angka], [NIK_pengisi], [kategori], [submitted]) VALUES (28, 5, 85, N'11252', 17, 2)
+INSERT [dbo].[nilai] ([id], [id_skripsi], [angka], [NIK_pengisi], [kategori], [submitted]) VALUES (29, 8, 71.5, N'11252', 12, 2)
+INSERT [dbo].[nilai] ([id], [id_skripsi], [angka], [NIK_pengisi], [kategori], [submitted]) VALUES (30, 8, 65, N'11252', 15, 2)
+INSERT [dbo].[nilai] ([id], [id_skripsi], [angka], [NIK_pengisi], [kategori], [submitted]) VALUES (31, 8, 80, N'11252', 16, 2)
+INSERT [dbo].[nilai] ([id], [id_skripsi], [angka], [NIK_pengisi], [kategori], [submitted]) VALUES (32, 8, 70, N'11252', 17, 2)
+INSERT [dbo].[nilai] ([id], [id_skripsi], [angka], [NIK_pengisi], [kategori], [submitted]) VALUES (33, 9, 55.5, N'11252', 12, 2)
+INSERT [dbo].[nilai] ([id], [id_skripsi], [angka], [NIK_pengisi], [kategori], [submitted]) VALUES (34, 9, 40, N'11252', 15, 2)
+INSERT [dbo].[nilai] ([id], [id_skripsi], [angka], [NIK_pengisi], [kategori], [submitted]) VALUES (35, 9, 65, N'11252', 16, 2)
+INSERT [dbo].[nilai] ([id], [id_skripsi], [angka], [NIK_pengisi], [kategori], [submitted]) VALUES (36, 9, 60, N'11252', 17, 2)
+INSERT [dbo].[nilai] ([id], [id_skripsi], [angka], [NIK_pengisi], [kategori], [submitted]) VALUES (37, 7, 89.9, N'11252', 12, 2)
+INSERT [dbo].[nilai] ([id], [id_skripsi], [angka], [NIK_pengisi], [kategori], [submitted]) VALUES (38, 7, 90, N'11252', 15, 2)
+INSERT [dbo].[nilai] ([id], [id_skripsi], [angka], [NIK_pengisi], [kategori], [submitted]) VALUES (39, 7, 83, N'11252', 16, 2)
+INSERT [dbo].[nilai] ([id], [id_skripsi], [angka], [NIK_pengisi], [kategori], [submitted]) VALUES (40, 7, 95, N'11252', 17, 2)
+INSERT [dbo].[nilai] ([id], [id_skripsi], [angka], [NIK_pengisi], [kategori], [submitted]) VALUES (41, 6, 81.4, N'11252', 12, 2)
+INSERT [dbo].[nilai] ([id], [id_skripsi], [angka], [NIK_pengisi], [kategori], [submitted]) VALUES (42, 6, 88, N'11252', 15, 2)
+INSERT [dbo].[nilai] ([id], [id_skripsi], [angka], [NIK_pengisi], [kategori], [submitted]) VALUES (43, 6, 70, N'11252', 16, 2)
+INSERT [dbo].[nilai] ([id], [id_skripsi], [angka], [NIK_pengisi], [kategori], [submitted]) VALUES (44, 6, 85, N'11252', 17, 2)
+INSERT [dbo].[nilai] ([id], [id_skripsi], [angka], [NIK_pengisi], [kategori], [submitted]) VALUES (45, 3, 14, N'20100001', 18, 2)
+INSERT [dbo].[nilai] ([id], [id_skripsi], [angka], [NIK_pengisi], [kategori], [submitted]) VALUES (46, 3, 22.5, N'20100001', 21, 2)
+INSERT [dbo].[nilai] ([id], [id_skripsi], [angka], [NIK_pengisi], [kategori], [submitted]) VALUES (47, 3, 13, N'20100001', 19, 2)
+INSERT [dbo].[nilai] ([id], [id_skripsi], [angka], [NIK_pengisi], [kategori], [submitted]) VALUES (48, 3, 18, N'20100001', 20, 2)
+INSERT [dbo].[nilai] ([id], [id_skripsi], [angka], [NIK_pengisi], [kategori], [submitted]) VALUES (49, 3, 67.5, N'20100001', 6, 2)
+INSERT [dbo].[nilai] ([id], [id_skripsi], [angka], [NIK_pengisi], [kategori], [submitted]) VALUES (50, 4, 20, N'20100001', 18, 2)
+INSERT [dbo].[nilai] ([id], [id_skripsi], [angka], [NIK_pengisi], [kategori], [submitted]) VALUES (51, 4, 25.5, N'20100001', 21, 2)
+INSERT [dbo].[nilai] ([id], [id_skripsi], [angka], [NIK_pengisi], [kategori], [submitted]) VALUES (52, 4, 24, N'20100001', 20, 2)
+INSERT [dbo].[nilai] ([id], [id_skripsi], [angka], [NIK_pengisi], [kategori], [submitted]) VALUES (53, 4, 18, N'20100001', 19, 2)
+INSERT [dbo].[nilai] ([id], [id_skripsi], [angka], [NIK_pengisi], [kategori], [submitted]) VALUES (54, 4, 87.5, N'20100001', 6, 2)
+SET IDENTITY_INSERT [dbo].[nilai] OFF
+/****** Object:  Table [dbo].[laporan]    Script Date: 11/28/2013 16:52:04 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[laporan](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[jenis] [varchar](10) NOT NULL,
+	[deskripsi] [varchar](max) NULL,
+	[tanggal_pengumpulan] [datetime] NOT NULL,
+	[id_skripsi] [int] NOT NULL,
+	[nama_file] [varchar](100) NULL,
+ CONSTRAINT [laporan_pk] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  Table [dbo].[revisi]    Script Date: 11/28/2013 16:52:04 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[revisi](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[isi] [varchar](1000) NOT NULL,
+	[id_sidang] [int] NOT NULL,
+ CONSTRAINT [revisi_pk] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  ForeignKey [FK_akun_peran]    Script Date: 11/28/2013 16:52:04 ******/
+ALTER TABLE [dbo].[akun]  WITH CHECK ADD  CONSTRAINT [FK_akun_peran] FOREIGN KEY([peran])
+REFERENCES [dbo].[peran] ([id])
+GO
+ALTER TABLE [dbo].[akun] CHECK CONSTRAINT [FK_akun_peran]
+GO
+/****** Object:  ForeignKey [bimbingan_fk]    Script Date: 11/28/2013 16:52:04 ******/
+ALTER TABLE [dbo].[bimbingan]  WITH CHECK ADD  CONSTRAINT [bimbingan_fk] FOREIGN KEY([id_skripsi])
+REFERENCES [dbo].[skripsi] ([id])
+GO
+ALTER TABLE [dbo].[bimbingan] CHECK CONSTRAINT [bimbingan_fk]
+GO
+/****** Object:  ForeignKey [calendar_event_fk_username]    Script Date: 11/28/2013 16:52:04 ******/
+ALTER TABLE [dbo].[calendar_event]  WITH CHECK ADD  CONSTRAINT [calendar_event_fk_username] FOREIGN KEY([username])
+REFERENCES [dbo].[akun] ([username])
+GO
+ALTER TABLE [dbo].[calendar_event] CHECK CONSTRAINT [calendar_event_fk_username]
+GO
+/****** Object:  ForeignKey [dosen_fk]    Script Date: 11/28/2013 16:52:04 ******/
+ALTER TABLE [dbo].[dosen]  WITH CHECK ADD  CONSTRAINT [dosen_fk] FOREIGN KEY([username])
+REFERENCES [dbo].[akun] ([username])
+GO
+ALTER TABLE [dbo].[dosen] CHECK CONSTRAINT [dosen_fk]
+GO
+/****** Object:  ForeignKey [FK_jadwal_semester_jenis_skripsi]    Script Date: 11/28/2013 16:52:04 ******/
+ALTER TABLE [dbo].[jadwal_semester]  WITH CHECK ADD  CONSTRAINT [FK_jadwal_semester_jenis_skripsi] FOREIGN KEY([jenis_skripsi_id])
+REFERENCES [dbo].[jenis_skripsi] ([id])
+GO
+ALTER TABLE [dbo].[jadwal_semester] CHECK CONSTRAINT [FK_jadwal_semester_jenis_skripsi]
+GO
+/****** Object:  ForeignKey [fk_jadwal_semester_semester]    Script Date: 11/28/2013 16:52:04 ******/
+ALTER TABLE [dbo].[jadwal_semester]  WITH CHECK ADD  CONSTRAINT [fk_jadwal_semester_semester] FOREIGN KEY([id_semester])
+REFERENCES [dbo].[semester] ([id])
+GO
+ALTER TABLE [dbo].[jadwal_semester] CHECK CONSTRAINT [fk_jadwal_semester_semester]
+GO
+/****** Object:  ForeignKey [FK_jadwal_tidak_kosong_akun]    Script Date: 11/28/2013 16:52:04 ******/
+ALTER TABLE [dbo].[jadwal_tidak_kosong]  WITH CHECK ADD  CONSTRAINT [FK_jadwal_tidak_kosong_akun] FOREIGN KEY([username])
+REFERENCES [dbo].[akun] ([username])
+GO
+ALTER TABLE [dbo].[jadwal_tidak_kosong] CHECK CONSTRAINT [FK_jadwal_tidak_kosong_akun]
+GO
+/****** Object:  ForeignKey [FK_jadwal_tidak_kosong_periode_sidang]    Script Date: 11/28/2013 16:52:04 ******/
+ALTER TABLE [dbo].[jadwal_tidak_kosong]  WITH CHECK ADD  CONSTRAINT [FK_jadwal_tidak_kosong_periode_sidang] FOREIGN KEY([periode_sidang_id])
+REFERENCES [dbo].[periode_sidang] ([id])
+GO
+ALTER TABLE [dbo].[jadwal_tidak_kosong] CHECK CONSTRAINT [FK_jadwal_tidak_kosong_periode_sidang]
+GO
+/****** Object:  ForeignKey [FK_kategori_nilai_jenis_skripsi]    Script Date: 11/28/2013 16:52:04 ******/
+ALTER TABLE [dbo].[kategori_nilai]  WITH CHECK ADD  CONSTRAINT [FK_kategori_nilai_jenis_skripsi] FOREIGN KEY([jenis_skripsi_id])
+REFERENCES [dbo].[jenis_skripsi] ([id])
+GO
+ALTER TABLE [dbo].[kategori_nilai] CHECK CONSTRAINT [FK_kategori_nilai_jenis_skripsi]
+GO
+/****** Object:  ForeignKey [laporan_fk]    Script Date: 11/28/2013 16:52:04 ******/
+ALTER TABLE [dbo].[laporan]  WITH CHECK ADD  CONSTRAINT [laporan_fk] FOREIGN KEY([id_skripsi])
+REFERENCES [dbo].[skripsi] ([id])
+GO
+ALTER TABLE [dbo].[laporan] CHECK CONSTRAINT [laporan_fk]
+GO
+/****** Object:  ForeignKey [mahasiswa_fk]    Script Date: 11/28/2013 16:52:04 ******/
+ALTER TABLE [dbo].[mahasiswa]  WITH CHECK ADD  CONSTRAINT [mahasiswa_fk] FOREIGN KEY([username])
+REFERENCES [dbo].[akun] ([username])
+GO
+ALTER TABLE [dbo].[mahasiswa] CHECK CONSTRAINT [mahasiswa_fk]
+GO
+/****** Object:  ForeignKey [FK_nilai_kategori_nilai]    Script Date: 11/28/2013 16:52:04 ******/
+ALTER TABLE [dbo].[nilai]  WITH CHECK ADD  CONSTRAINT [FK_nilai_kategori_nilai] FOREIGN KEY([kategori])
+REFERENCES [dbo].[kategori_nilai] ([id])
+GO
+ALTER TABLE [dbo].[nilai] CHECK CONSTRAINT [FK_nilai_kategori_nilai]
+GO
+/****** Object:  ForeignKey [nilai_fk_id_skripsi]    Script Date: 11/28/2013 16:52:04 ******/
+ALTER TABLE [dbo].[nilai]  WITH CHECK ADD  CONSTRAINT [nilai_fk_id_skripsi] FOREIGN KEY([id_skripsi])
+REFERENCES [dbo].[skripsi] ([id])
+GO
+ALTER TABLE [dbo].[nilai] CHECK CONSTRAINT [nilai_fk_id_skripsi]
+GO
+/****** Object:  ForeignKey [nilai_fk_NIK_pengisi]    Script Date: 11/28/2013 16:52:04 ******/
+ALTER TABLE [dbo].[nilai]  WITH CHECK ADD  CONSTRAINT [nilai_fk_NIK_pengisi] FOREIGN KEY([NIK_pengisi])
+REFERENCES [dbo].[dosen] ([NIK])
+GO
+ALTER TABLE [dbo].[nilai] CHECK CONSTRAINT [nilai_fk_NIK_pengisi]
+GO
+/****** Object:  ForeignKey [FK_pengumuman_akun]    Script Date: 11/28/2013 16:52:04 ******/
+ALTER TABLE [dbo].[pengumuman]  WITH CHECK ADD  CONSTRAINT [FK_pengumuman_akun] FOREIGN KEY([pembuat])
+REFERENCES [dbo].[akun] ([username])
+GO
+ALTER TABLE [dbo].[pengumuman] CHECK CONSTRAINT [FK_pengumuman_akun]
+GO
+/****** Object:  ForeignKey [FK_periode_sidang_semester]    Script Date: 11/28/2013 16:52:04 ******/
+ALTER TABLE [dbo].[periode_sidang]  WITH CHECK ADD  CONSTRAINT [FK_periode_sidang_semester] FOREIGN KEY([semester_id])
+REFERENCES [dbo].[semester] ([id])
+GO
+ALTER TABLE [dbo].[periode_sidang] CHECK CONSTRAINT [FK_periode_sidang_semester]
+GO
+/****** Object:  ForeignKey [fk_dosen]    Script Date: 11/28/2013 16:52:04 ******/
+ALTER TABLE [dbo].[pesanan_bimbingan]  WITH CHECK ADD  CONSTRAINT [fk_dosen] FOREIGN KEY([NIK_dosen])
+REFERENCES [dbo].[dosen] ([NIK])
+GO
+ALTER TABLE [dbo].[pesanan_bimbingan] CHECK CONSTRAINT [fk_dosen]
+GO
+/****** Object:  ForeignKey [fk_mahasiswa]    Script Date: 11/28/2013 16:52:04 ******/
+ALTER TABLE [dbo].[pesanan_bimbingan]  WITH CHECK ADD  CONSTRAINT [fk_mahasiswa] FOREIGN KEY([NPM_mahasiswa])
+REFERENCES [dbo].[mahasiswa] ([NPM])
+GO
+ALTER TABLE [dbo].[pesanan_bimbingan] CHECK CONSTRAINT [fk_mahasiswa]
+GO
+/****** Object:  ForeignKey [FK_sidang_dosen]    Script Date: 11/28/2013 16:52:04 ******/
+ALTER TABLE [dbo].[sidang]  WITH CHECK ADD  CONSTRAINT [FK_sidang_dosen] FOREIGN KEY([penguji1])
+REFERENCES [dbo].[dosen] ([NIK])
+GO
+ALTER TABLE [dbo].[sidang] CHECK CONSTRAINT [FK_sidang_dosen]
+GO
+/****** Object:  ForeignKey [FK_sidang_dosen1]    Script Date: 11/28/2013 16:52:04 ******/
+ALTER TABLE [dbo].[sidang]  WITH CHECK ADD  CONSTRAINT [FK_sidang_dosen1] FOREIGN KEY([penguji2])
+REFERENCES [dbo].[dosen] ([NIK])
+GO
+ALTER TABLE [dbo].[sidang] CHECK CONSTRAINT [FK_sidang_dosen1]
+GO
+/****** Object:  ForeignKey [FK_sidang_ruang]    Script Date: 11/28/2013 16:52:04 ******/
+ALTER TABLE [dbo].[sidang]  WITH CHECK ADD  CONSTRAINT [FK_sidang_ruang] FOREIGN KEY([ruang])
+REFERENCES [dbo].[ruang] ([id])
+GO
+ALTER TABLE [dbo].[sidang] CHECK CONSTRAINT [FK_sidang_ruang]
+GO
+/****** Object:  ForeignKey [sidang_fk_id_skripsi]    Script Date: 11/28/2013 16:52:04 ******/
+ALTER TABLE [dbo].[sidang]  WITH CHECK ADD  CONSTRAINT [sidang_fk_id_skripsi] FOREIGN KEY([id_skripsi])
+REFERENCES [dbo].[skripsi] ([id])
+GO
+ALTER TABLE [dbo].[sidang] CHECK CONSTRAINT [sidang_fk_id_skripsi]
+GO
+/****** Object:  ForeignKey [FK_skripsi_jenis_skripsi]    Script Date: 11/28/2013 16:52:04 ******/
+ALTER TABLE [dbo].[skripsi]  WITH CHECK ADD  CONSTRAINT [FK_skripsi_jenis_skripsi] FOREIGN KEY([jenis])
+REFERENCES [dbo].[jenis_skripsi] ([id])
+GO
+ALTER TABLE [dbo].[skripsi] CHECK CONSTRAINT [FK_skripsi_jenis_skripsi]
+GO
+/****** Object:  ForeignKey [fk_skripsi_semester]    Script Date: 11/28/2013 16:52:04 ******/
+ALTER TABLE [dbo].[skripsi]  WITH CHECK ADD  CONSTRAINT [fk_skripsi_semester] FOREIGN KEY([id_semester_pengambilan])
+REFERENCES [dbo].[semester] ([id])
+GO
+ALTER TABLE [dbo].[skripsi] CHECK CONSTRAINT [fk_skripsi_semester]
+GO
+/****** Object:  ForeignKey [FK_skripsi_topik]    Script Date: 11/28/2013 16:52:04 ******/
+ALTER TABLE [dbo].[skripsi]  WITH CHECK ADD  CONSTRAINT [FK_skripsi_topik] FOREIGN KEY([id_topik])
+REFERENCES [dbo].[topik] ([id])
+GO
+ALTER TABLE [dbo].[skripsi] CHECK CONSTRAINT [FK_skripsi_topik]
+GO
+/****** Object:  ForeignKey [skripsi_fk]    Script Date: 11/28/2013 16:52:04 ******/
+ALTER TABLE [dbo].[skripsi]  WITH CHECK ADD  CONSTRAINT [skripsi_fk] FOREIGN KEY([NIK_dosen_pembimbing])
+REFERENCES [dbo].[dosen] ([NIK])
+GO
+ALTER TABLE [dbo].[skripsi] CHECK CONSTRAINT [skripsi_fk]
+GO
+/****** Object:  ForeignKey [skripsi_fk2]    Script Date: 11/28/2013 16:52:04 ******/
+ALTER TABLE [dbo].[skripsi]  WITH CHECK ADD  CONSTRAINT [skripsi_fk2] FOREIGN KEY([NPM_mahasiswa])
+REFERENCES [dbo].[mahasiswa] ([NPM])
+GO
+ALTER TABLE [dbo].[skripsi] CHECK CONSTRAINT [skripsi_fk2]
+GO
+/****** Object:  ForeignKey [FK_topik_dosen]    Script Date: 11/28/2013 16:52:04 ******/
+ALTER TABLE [dbo].[topik]  WITH CHECK ADD  CONSTRAINT [FK_topik_dosen] FOREIGN KEY([NIK_pembimbing])
+REFERENCES [dbo].[dosen] ([NIK])
+GO
+ALTER TABLE [dbo].[topik] CHECK CONSTRAINT [FK_topik_dosen]
+GO
+/****** Object:  ForeignKey [FK_topik_semester]    Script Date: 11/28/2013 16:52:04 ******/
+ALTER TABLE [dbo].[topik]  WITH CHECK ADD  CONSTRAINT [FK_topik_semester] FOREIGN KEY([id_semester])
+REFERENCES [dbo].[semester] ([id])
+GO
+ALTER TABLE [dbo].[topik] CHECK CONSTRAINT [FK_topik_semester]
+GO
+/****** Object:  ForeignKey [revisi_fk]    Script Date: 11/28/2013 16:52:04 ******/
+ALTER TABLE [dbo].[revisi]  WITH CHECK ADD  CONSTRAINT [revisi_fk] FOREIGN KEY([id_sidang])
+REFERENCES [dbo].[sidang] ([id])
+GO
+ALTER TABLE [dbo].[revisi] CHECK CONSTRAINT [revisi_fk]
+GO

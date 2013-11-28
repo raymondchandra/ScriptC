@@ -18,15 +18,15 @@
             if (data == "open") {
                 $("#PengaturanJadwal2").show();
             } else {
-                $("#error2").html("Pengumpulan Sidang belum selesai.");
+                $("#error2").html("Pengumpulan sidang belum selesai.");
             }
 
         });
     });
 </script>
-
-<h3>Penempatan Mahasiswa</h3>
-        @(Html.Telerik().Grid<Proyek_Informatika.Models.mahasiswa>()
+<h3>
+    Penempatan Mahasiswa</h3>
+@(Html.Telerik().Grid<Proyek_Informatika.Models.mahasiswa>()
             .HtmlAttributes(new { style = "width:100%;display:none" })
             .Name("PengaturanJadwal2")
             .DataKeys(keys =>
@@ -36,13 +36,14 @@
             .DataBinding(dataBinding =>
             {
                 dataBinding.Ajax()
-                    .Select("_SelectJadwalSidang", "SidangKoordinator", new { skripsi = 2});
+                    .Select("_SelectJadwalSidang", "SidangKoordinator", new { skripsi = 2 });
             })
             .Columns(columns =>
             {
                 columns.Bound(o => o.NPM).Width(150).Title("NPM");
                 columns.Bound(o => o.nama).Width(150).Title("Nama");
-                columns.Command(commands => {
+                columns.Command(commands =>
+                {
                     commands.Custom("Edit")
                             .Text("Edit")
                             .DataRouteValues(route => route.Add(o => o.NPM).RouteKey("npm"))
@@ -53,7 +54,7 @@
                             .DataRouteValues(route => route.Add(o => o.NPM).RouteKey("npm"))
                             .Ajax(true)
                             .Action("ResetPenempatan", "SidangKoordinator");
-                    }).HtmlAttributes(new { style = "text-align: center" }).Width(150).Title("Commands");
+                }).HtmlAttributes(new { style = "text-align: center" }).Width(150).Title("Commands");
             })
                 .ClientEvents(events => events.OnComplete("actionButton"))
             .Pageable(p => p.PageSize(20))
@@ -63,15 +64,14 @@
             .Selectable()
             .Groupable()
         )
-
-        @(Html.Telerik().Window()
+@(Html.Telerik().Window()
             .Name("editPopUp")
             .Visible(false)
             .Title("Penentuan Jadwal Sidang")
             .Modal(true)
             .Scrollable(true)
             .Width(800)
-            .Height(400)          
+            .Height(400)
             .LoadContentFrom("Jadwal_Penempatan_PopUp", "SidangKoordinator"))
-
-<span id="error2"></span>
+<div class='warning' id="error2">
+</div>

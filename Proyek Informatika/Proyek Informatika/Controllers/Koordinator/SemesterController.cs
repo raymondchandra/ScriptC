@@ -42,7 +42,7 @@ namespace Proyek_Informatika.Controllers.Koordinator
             if (current.Count != 1)
             {
                 semester newsemester = new semester();
-                newsemester.periode_semester = "Ganjil 2013/2014";
+                newsemester.periode_semester = "Ganjil 2012/2013";
                 newsemester.isCurrent = 1;
                 db.semesters.Add(newsemester);
                 try{
