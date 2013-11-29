@@ -73,11 +73,11 @@ namespace Proyek_Informatika.Controllers.Dosen
             ViewBag.role = role;
             var jenis_skripsi_id = db.skripsis.Where(x => x.id == skripsi_id).Select(y => y.jenis).SingleOrDefault();
             ViewBag.jenis_skripsi = jenis_skripsi_id;
-            string roleMod = role;
-            if(roleMod != "pembimbing"){
-                roleMod = role.Substring(0,role.Length-1);
-            }
-            var bobotTemp = this.GetBobotKategori(roleMod, jenis_skripsi_id);
+            //string roleMod = role;
+            //if(roleMod != "pembimbing"){
+            //    roleMod = role.Substring(0,role.Length-1);
+            //}
+            var bobotTemp = this.GetBobotKategori(role, jenis_skripsi_id);
             List<Tuple<int,string,int,int>> bobotList = new List<Tuple<int,string,int,int>>();
             foreach (var item in bobotTemp)
 	        {
@@ -188,7 +188,7 @@ namespace Proyek_Informatika.Controllers.Dosen
 
         public int CekSidangAkses(int skripsi_id, string role)
         {
-            string tipe = (role=="pembimbing") ? role: "penguji";
+            string tipe = role;
             
             var jenis_skripsi = db.skripsis.Where(x=>x.id == skripsi_id).Select(y=>y.jenis).SingleOrDefault();
             var bobot = db.kategori_nilai.Where(x => x.jenis_skripsi_id == jenis_skripsi && x.tipe == tipe).ToList();
@@ -368,8 +368,9 @@ namespace Proyek_Informatika.Controllers.Dosen
             }
         }
 
-        public bool SimpanNilaiTotal(double nilai, int skripsi_id, string kategori)
+        public bool SimpanNilaiTotal(int skripsi_id, string kategori)
         {
+            double nilai = this.hitungTotal(skripsi_id,kategori);
             var jenis_skripsi = db.skripsis.Where(x => x.id == skripsi_id).Select(y => y.jenis).SingleOrDefault();
             var kategoriID = db.kategori_nilai.Where(x => x.jenis_skripsi_id == jenis_skripsi && x.tipe == "general" && x.kategori == kategori).Select(y => y.id).SingleOrDefault();
             var cekNilai = (from table in db.nilais
@@ -461,6 +462,12 @@ namespace Proyek_Informatika.Controllers.Dosen
             catch {
                 return false;
             }
+        }
+
+        public double hitungTotal(int skripsi_id, string kategori)
+        {
+            var nilai = db.nilais.Where(x => x.kategori_nilai.tipe == kategori && x.id_skripsi == skripsi_id).Sum(x=>x.angka);
+            return nilai;
         }
     }
 }

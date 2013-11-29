@@ -23,7 +23,7 @@ namespace Proyek_Informatika.Models
         public string text { get; set; }
         public string description { get; set; }
     
-        public virtual mahasiswa mahasiswa { get; set; }
         public virtual dosen dosen { get; set; }
+        public virtual mahasiswa mahasiswa { get; set; }
     }
 }

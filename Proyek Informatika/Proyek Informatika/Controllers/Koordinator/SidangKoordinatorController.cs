@@ -676,7 +676,8 @@ namespace Proyek_Informatika.Controllers.Koordinator
         [GridAction]
         public ActionResult _SelectBobot(string tipe, byte jenisSkripsi)
         {
-            return bindingTable(tipe, jenisSkripsi);
+            string tipeConvert = (tipe == "penguji") ? "penguji1" : tipe;
+            return bindingTable(tipeConvert, jenisSkripsi);
         }
 
         [AcceptVerbs(HttpVerbs.Post)]
@@ -684,12 +685,18 @@ namespace Proyek_Informatika.Controllers.Koordinator
         public ActionResult _SaveBobot(int id, string tipe, byte jenisSkripsi)
         {
             var getKategori = db.kategori_nilai.Where(p => p.id == id).First();
+            var getSame = db.kategori_nilai.Where(x => x.urutan == getKategori.urutan && x.jenis_skripsi_id == jenisSkripsi).SingleOrDefault();
+                
             var total = this.HitungPersentase(getKategori.tipe,2);
             var bobotTemp = getKategori.bobot;
             TryUpdateModel(getKategori);
             total = total + getKategori.bobot - bobotTemp;
             if (total <= 100)
             {
+                getSame.bobot = getKategori.bobot;
+                getSame.urutan = getKategori.urutan;
+                getSame.kategori = getKategori.kategori;
+                db.Entry(getSame).State = EntityState.Modified;
                 db.Entry(getKategori).State = EntityState.Modified;
                 db.SaveChanges();
             }
@@ -709,8 +716,19 @@ namespace Proyek_Informatika.Controllers.Koordinator
                 total = total + kategori.bobot;
                 if (total <= 100)
                 {
-                    db.kategori_nilai.Add(kategori);
-                    db.SaveChanges();
+                    if (tipe == "penguji")
+                    {
+                        kategori.tipe = "penguji1";
+                        db.kategori_nilai.Add(kategori);
+                        kategori.tipe = "penguji2";
+                        db.kategori_nilai.Add(kategori);
+                        db.SaveChanges();
+                    }
+                    else
+                    {
+                        db.kategori_nilai.Add(kategori);
+                        db.SaveChanges();
+                    }
                 }
                 
             }
@@ -722,7 +740,11 @@ namespace Proyek_Informatika.Controllers.Koordinator
         public ActionResult _DeleteBobot(int id, string tipe, byte jenisSkripsi)
         {
             var getKategori = db.kategori_nilai.Where(p => p.id == id).First();
-            db.kategori_nilai.Remove(getKategori);
+            var getAll = db.kategori_nilai.Where(x => x.urutan == getKategori.urutan && x.jenis_skripsi_id == jenisSkripsi).ToList();
+            foreach (var item in getAll)
+            {
+                db.kategori_nilai.Remove(item);
+            }
             db.SaveChanges();
             return bindingTable(tipe,jenisSkripsi);
         }

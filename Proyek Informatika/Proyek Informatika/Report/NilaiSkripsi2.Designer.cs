@@ -414,10 +414,10 @@ namespace Proyek_Informatika.Report
             // 
             // crosstab1
             // 
-            this.crosstab1.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Cm(4.2862167358398438D)));
-            this.crosstab1.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Cm(3.3336837291717529D)));
-            this.crosstab1.Body.Rows.Add(new Telerik.Reporting.TableBodyRow(Telerik.Reporting.Drawing.Unit.Inch(0.20833338797092438D)));
-            this.crosstab1.Body.Rows.Add(new Telerik.Reporting.TableBodyRow(Telerik.Reporting.Drawing.Unit.Inch(0.20833346247673035D)));
+            this.crosstab1.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Cm(4.286217212677002D)));
+            this.crosstab1.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Cm(3.333683967590332D)));
+            this.crosstab1.Body.Rows.Add(new Telerik.Reporting.TableBodyRow(Telerik.Reporting.Drawing.Unit.Inch(0.20833340287208557D)));
+            this.crosstab1.Body.Rows.Add(new Telerik.Reporting.TableBodyRow(Telerik.Reporting.Drawing.Unit.Inch(0.20833344757556915D)));
             this.crosstab1.Body.Rows.Add(new Telerik.Reporting.TableBodyRow(Telerik.Reporting.Drawing.Unit.Inch(0.17708343267440796D)));
             this.crosstab1.Body.Rows.Add(new Telerik.Reporting.TableBodyRow(Telerik.Reporting.Drawing.Unit.Inch(0.17708343267440796D)));
             this.crosstab1.Body.Rows.Add(new Telerik.Reporting.TableBodyRow(Telerik.Reporting.Drawing.Unit.Inch(0.17708343267440796D)));
@@ -652,14 +652,14 @@ namespace Proyek_Informatika.Report
             // 
             this.textBox24.Name = "textBox24";
             this.textBox24.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(0.46875011920928955D), Telerik.Reporting.Drawing.Unit.Inch(0.21875D));
-            this.textBox24.Value = "= Fields.angka";
+            this.textBox24.Value = "= Fields.angka * 100 / Fields.bobot";
             // 
             // textBox25
             // 
             this.textBox25.Name = "textBox25";
             this.textBox25.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(0.57291674613952637D), Telerik.Reporting.Drawing.Unit.Inch(0.21875D));
             this.textBox25.StyleName = "";
-            this.textBox25.Value = "= Fields.subtotal";
+            this.textBox25.Value = "= Fields.angka";
             // 
             // textBox30
             // 
@@ -687,7 +687,7 @@ namespace Proyek_Informatika.Report
             this.textBox34.Name = "textBox34";
             this.textBox34.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(0.57291674613952637D), Telerik.Reporting.Drawing.Unit.Inch(0.20833341777324677D));
             this.textBox34.StyleName = "";
-            this.textBox34.Value = "= Sum(Fields.subtotal)";
+            this.textBox34.Value = "= Sum(Fields.angka)";
             // 
             // textBox47
             // 
@@ -776,14 +776,14 @@ namespace Proyek_Informatika.Report
             // 
             this.textBox32.Name = "textBox32";
             this.textBox32.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(0.46875011920928955D), Telerik.Reporting.Drawing.Unit.Inch(0.21875D));
-            this.textBox32.Value = "= Fields.angka";
+            this.textBox32.Value = "= Fields.angka * 100 / Fields.bobot";
             // 
             // textBox35
             // 
             this.textBox35.Name = "textBox35";
             this.textBox35.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(0.57291674613952637D), Telerik.Reporting.Drawing.Unit.Inch(0.21875D));
             this.textBox35.StyleName = "";
-            this.textBox35.Value = "= Fields.subtotal";
+            this.textBox35.Value = "= Fields.angka";
             // 
             // textBox36
             // 
@@ -811,7 +811,7 @@ namespace Proyek_Informatika.Report
             this.textBox39.Name = "textBox39";
             this.textBox39.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(0.57291674613952637D), Telerik.Reporting.Drawing.Unit.Inch(0.20833341777324677D));
             this.textBox39.StyleName = "";
-            this.textBox39.Value = "= Sum(Fields.subtotal)";
+            this.textBox39.Value = "= Sum(Fields.angka)";
             // 
             // textBox40
             // 
@@ -900,14 +900,14 @@ namespace Proyek_Informatika.Report
             // 
             this.textBox49.Name = "textBox49";
             this.textBox49.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(0.46875011920928955D), Telerik.Reporting.Drawing.Unit.Inch(0.21875D));
-            this.textBox49.Value = "= Fields.angka";
+            this.textBox49.Value = "= Fields.angka * 100 / Fields.bobot";
             // 
             // textBox50
             // 
             this.textBox50.Name = "textBox50";
             this.textBox50.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(0.57291674613952637D), Telerik.Reporting.Drawing.Unit.Inch(0.21875D));
             this.textBox50.StyleName = "";
-            this.textBox50.Value = "= Fields.subtotal";
+            this.textBox50.Value = "= Fields.angka";
             // 
             // textBox51
             // 
@@ -935,7 +935,7 @@ namespace Proyek_Informatika.Report
             this.textBox54.Name = "textBox54";
             this.textBox54.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(0.57291674613952637D), Telerik.Reporting.Drawing.Unit.Inch(0.20833341777324677D));
             this.textBox54.StyleName = "";
-            this.textBox54.Value = "= Sum(Fields.subtotal)";
+            this.textBox54.Value = "= Sum(Fields.angka)";
             // 
             // textBox55
             // 
