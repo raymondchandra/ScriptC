@@ -1,4 +1,21 @@
-﻿<div class="layer">
+﻿<script>
+    function onSelectTab(e) {
+        var $item = $(e.item);
+        var $link = $item.find('.t-link');
+        var contentUrl = $link.data('ContentUrl');
+        if (contentUrl == null)
+            return;
+        $.get(contentUrl, function (data) {
+            var tabStrip = $("#TabStrip").data("tTabStrip");
+            $("#TabStrip .t-link").each(function (index) {
+                if ($(this).text() == $link.html()) {
+                    $("#TabStrip-" + (index + 1)).html(data);
+                }
+            });
+        });
+    }
+</script>
+<div class="layer">
     <h1>Pengaturan Jadwal Sidang</h1>
     
     <div style="overflow:hidden;margin-top:10px;">
@@ -14,6 +31,7 @@
                 item.Add().Text("Pengaturan Umum")
                 .LoadContentFrom("Jadwal_Pengaturan", "SidangKoordinator"); ;
             })
+            .ClientEvents(ev=>ev.OnSelect("onSelectTab"))
             .Render(); 
         }
         

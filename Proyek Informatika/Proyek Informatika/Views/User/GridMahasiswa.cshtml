@@ -34,7 +34,7 @@
 
         //form ganti topik
         $.post("Query/GetTopikList", "", function (data) {
-            var get = "";
+            var get = "<option>--</option>";
             $.each(data, function (index, value) {
                 get += "<option value='" + value.id + "'>" + value.judul + "</option>";
             });

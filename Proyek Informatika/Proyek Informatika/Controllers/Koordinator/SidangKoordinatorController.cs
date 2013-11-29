@@ -31,6 +31,9 @@ namespace Proyek_Informatika.Controllers.Koordinator
 
         public bool SimpanPengaturanJadwal(periode_sidang periode_sidang)
         {
+            if(periode_sidang.start_date.CompareTo(periode_sidang.end_date) >0){
+                return false;
+            }
             var temp = db.periode_sidang.Where(x => x.semester_id == periode_sidang.semester_id).ToList();
             if (temp.Count == 0)
             {
@@ -99,9 +102,10 @@ namespace Proyek_Informatika.Controllers.Koordinator
         [GridAction]
         public ActionResult _SelectJadwalSidang(int skripsi)
         {
+            var id_semester = int.Parse(Session["id-semester"].ToString());
             var listResult = (from table in db.mahasiswas
                               join table2 in db.skripsis on table.NPM equals table2.NPM_mahasiswa
-                              where (table2.jenis == skripsi && table.status == "aktif")
+                              where (table2.jenis == skripsi && table.status == "aktif" && table2.id_semester_pengambilan == id_semester)
                               select table).ToList();
             List<mahasiswa> temp = new List<mahasiswa>();
             foreach (var item in listResult)
@@ -128,14 +132,15 @@ namespace Proyek_Informatika.Controllers.Koordinator
                         {
                             npm = table.NPM,
                             nama = table.nama,
-                            pembimbing = table3.nama
+                            pembimbing = table3.nama,
+                            skripsi_id = table2.id
                         }).ToList();
             if (temp.Count() == 1)
             {
                 var result = temp.SingleOrDefault();
                 var topik = (from table in db.topiks
                              join table2 in db.skripsis on table.id equals table2.id_topik
-                             where (table2.NPM_mahasiswa == result.npm)
+                             where (table2.id== result.skripsi_id)
                              select table.judul).SingleOrDefault();
                 return Json(new
                 {
@@ -225,7 +230,11 @@ namespace Proyek_Informatika.Controllers.Koordinator
 
         public JsonResult GetTanggalSidangList(string npm, string pembimbing, string penguji)
         {
+            var id_semester = int.Parse(Session["id-semester"].ToString());
+            var jenis = db.skripsis.Where(x=>x.NPM_mahasiswa == npm && x.id_semester_pengambilan == id_semester).Select(x=>x.jenis).SingleOrDefault();
+            var tipe = (jenis == 1) ? "Presentasi" : "Akhir";
             var periodeList = (from table in db.periode_sidang
+                               where (table.semester_id == id_semester && table.tipe_sidang == tipe)
                           select table).ToList();
             if (periodeList.Count != 0)
             {
@@ -900,8 +909,16 @@ namespace Proyek_Informatika.Controllers.Koordinator
             {
                 return false;
             }
+        }
+        public string PengumpulanIsOpen(int semester_id, string tipe)
+        {
+            var getPeriodeSidang = db.periode_sidang.Where(x => x.semester_id == semester_id && x.tipe_sidang == tipe).SingleOrDefault();
+            if(getPeriodeSidang == null){
+                return "null";
+            }else{
+                return getPeriodeSidang.status;
+            }
         }   
-
 		public JsonResult GetBatasPeriode(string npm, string date)
         {
             var semester = int.Parse(Session["id-semester"].ToString());
@@ -921,8 +938,8 @@ namespace Proyek_Informatika.Controllers.Koordinator
                     year = periode.start_date.Year,
                     month = periode.start_date.Month,
                     date = periode.start_date.Day,
-                    hour = periode.start_date.Hour,
-                    minute = periode.start_date.Minute
+                    hour = 7,
+                    minute = 0
                 });
             }
             else
@@ -932,17 +949,17 @@ namespace Proyek_Informatika.Controllers.Koordinator
                     year = periode.end_date.Year,
                     month = periode.end_date.Month,
                     date = periode.end_date.Day,
-                    hour = periode.end_date.Hour,
-                    minute = periode.end_date.Minute
+                    hour = 16,
+                    minute = 0
                 });
             }
             
         }
 
-        public string GetStatusPeriodeSidang()
+        public string GetStatusPeriodeSidang(string tipe_sidang)
         {
             var semester = int.Parse(Session["id-semester"].ToString());
-            string periode_sidang = db.periode_sidang.Where(x => x.semester_id == semester).Select(y => y.status).SingleOrDefault();
+            string periode_sidang = db.periode_sidang.Where(x => x.semester_id == semester && x.tipe_sidang == tipe_sidang).Select(y => y.status).SingleOrDefault();
             return periode_sidang ?? "null";
         }
     }

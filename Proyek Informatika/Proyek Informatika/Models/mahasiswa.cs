@@ -16,8 +16,8 @@ namespace Proyek_Informatika.Models
     {
         public mahasiswa()
         {
-            this.skripsis = new HashSet<skripsi>();
             this.pesanan_bimbingan = new HashSet<pesanan_bimbingan>();
+            this.skripsis = new HashSet<skripsi>();
         }
     
         public string NPM { get; set; }
@@ -29,7 +29,7 @@ namespace Proyek_Informatika.Models
         public string status { get; set; }
     
         public virtual akun akun { get; set; }
-        public virtual ICollection<skripsi> skripsis { get; set; }
         public virtual ICollection<pesanan_bimbingan> pesanan_bimbingan { get; set; }
+        public virtual ICollection<skripsi> skripsis { get; set; }
     }
 }

@@ -10,11 +10,12 @@
         if (con == true) {
             $.post("Semester/changeSemester", { prevnext: direction }, function (success) {
                 if (success == 'True') {
-
                     $('#content').load('Semester/JadwalSemester');
                     $.post("Home/SetIdSemester", "", function (data) {
                         $(".semester").html(data);
                     });
+                } else {
+                    alert("Belum semua nilai dihitung.");
                 }
             });
         }

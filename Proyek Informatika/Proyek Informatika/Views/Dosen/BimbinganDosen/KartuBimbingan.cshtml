@@ -19,7 +19,7 @@
     });
     function updateJumlah() {
         $.post("BimbinganDosen/JumlahBimbingan?id_skripsi="+@(ViewBag.id), function (data) {
-            $("name=jumlah").html(data);
+            $("#jumlah").html(data);
         });
     }
     function detilBimbingan(e) {

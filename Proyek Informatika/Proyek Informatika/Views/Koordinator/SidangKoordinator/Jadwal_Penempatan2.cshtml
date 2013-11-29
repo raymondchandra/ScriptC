@@ -14,11 +14,13 @@
     }
 
     $(document).ready(function () {
-        $.post("SidangKoordinator/GetStatusPeriodeSidang", "", function (data) {
-            if (data == "open") {
+        $.post("SidangKoordinator/GetStatusPeriodeSidang", {tipe_sidang:"Akhir"}, function (data) {
+            if (data == "close") {
                 $("#PengaturanJadwal2").show();
-            } else {
+            } else if (data == "open") {
                 $("#error2").html("Pengumpulan sidang belum selesai.");
+            } else {
+                $("#error2").html("Pengumpulan sidang belum dimulai.");
             }
 
         });

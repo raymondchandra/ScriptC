@@ -1,46 +1,8 @@
 ﻿<script>
     var arr = new Array();
 
-    $("#buttonSimpan").click(function () {
-        //validasi trus simpan jadwal
-        var radio = document.getElementsByName("modeJadwal");
-        if ($("#radio_1").is(":checked")) {
-            if ($("#penguji1Manual").val() != "" && $("#penguji2Manual").val() != "" && $("ruangManual").val() != "") {
-                var values = {
-                    npm: $("#npm-label").html(),
-                    tanggal: $("#waktuManual").val(),
-                    ruang: $("#ruangManual").val(),
-                    penguji1: $("#penguji1Manual").val(),
-                    penguji2: $("#penguji2Manual").val()
-                };
-                $.post("SidangKoordinator/SimpanJadwal", values, function (data) {
-                    if (data == "True") {
-                        alert("Data berhasil diubah.");
-                    } else {
-                        alert("Data tidak berhasil diubah.");
-                    }
-                });
-            }
-        } else {
-            if ($("#selWaktu").val() != "" && $("#selTanggal").val() != "" && $("#selRuang").val() != "" && $("#selPenguji").val() != "" && $("#selPenguji2").val() != "") {
-                var waktu = $("#selWaktu").val().toString().substring(0, $("#selWaktu").val().toString().length - 3);
-                var values = {
-                    npm: $("#npm-label").html(),
-                    tanggal: $("#selTanggal").val() + " " + waktu,
-                    ruang: $("#selRuang").val(),
-                    penguji1: $("#selPenguji").val(),
-                    penguji2: $("#selPenguji2").val()
-                };
-                $.post("SidangKoordinator/SimpanJadwal", values, function (data) {
-                    if (data == "True") {
-                        alert("Data berhasil diubah.");
-                    } else {
-                        alert("Data tidak berhasil diubah.");
-                    }
-                });
-            }
-        }
-    });
+    
+
     function init() {
         $("#radio_1").prop('checked', true);
         changeMode(1);
@@ -86,9 +48,7 @@
                 var a = data.tanggal.split(" ");
 
                 $.when(selPengujiChange()).done(function () {
-                    alert(a[0]);
                     $("#selTanggal").val(a[0]);
-                    alert($("#selTanggal").val());
                     $.when(selTanggalChange()).done(function () {
                         $("#selWaktu").val(a[1]);
                         $.when(selWaktuChange()).done(function () {
@@ -129,6 +89,9 @@
             value.setMinutes(data.minute);
             dateTimePicker.max(value);
         });
+        var dateTimePicker = $('#waktuManual').data("tDateTimePicker");
+        dateTimePicker.startTime('07:00');
+        dateTimePicker.endTime('16:00');
     }
     function selPengujiChange() {
         $("#selTanggal").html("");
@@ -178,7 +141,6 @@
         $("#selPenguji2").html("");
         
         var waktu = $(selTanggal).val() + " " + $("#selWaktu").val();
-        alert(waktu);
         var values = {
             waktu: waktu
         };
@@ -222,6 +184,55 @@
         $("#selRuang").bind("change", function () {
             selRuangChange();
         });
+        $("#buttonSimpan").unbind("click").bind("click", function () {
+            if ($("#radio_1").is(":checked")) {
+                if ($("#penguji1Manual").val() != "" && $("#penguji2Manual").val() != "" && $("ruangManual").val() != "") {
+                    var values = {
+                        npm: $("#npm-label").html(),
+                        tanggal: $("#waktuManual").val(),
+                        ruang: $("#ruangManual").val(),
+                        penguji1: $("#penguji1Manual").val(),
+                        penguji2: $("#penguji2Manual").val()
+                    };
+                    $.post("SidangKoordinator/SimpanJadwal", values, function (data) {
+                        if (data == "True") {
+                            alert("Data berhasil diubah.");
+                            var detailWindow = $("#editPopUp").data("tWindow");
+                            detailWindow.center().close();
+                        } else {
+                            alert("Data tidak berhasil diubah.");
+                        }
+                    });
+                }
+            } else {
+                if ($("#selWaktu").val() != "" && $("#selTanggal").val() != "" && $("#selRuang").val() != "" && $("#selPenguji").val() != "" && $("#selPenguji2").val() != "") {
+                    var waktu = $("#selWaktu").val().toString().substring(0, $("#selWaktu").val().toString().length - 3);
+                    var values = {
+                        npm: $("#npm-label").html(),
+                        tanggal: $("#selTanggal").val() + " " + waktu,
+                        ruang: $("#selRuang").val(),
+                        penguji1: $("#selPenguji").val(),
+                        penguji2: $("#selPenguji2").val()
+                    };
+                    $.post("SidangKoordinator/SimpanJadwal", values, function (data) {
+                        if (data == "True") {
+                            alert("Data berhasil diubah.");
+                            var detailWindow = $("#editPopUp").data("tWindow");
+                            detailWindow.center().close();
+                        } else {
+                            alert("Data tidak berhasil diubah.");
+                        }
+                    });
+                }
+            }
+        });
+//        $("#buttonSimpan").click(function (e) {
+//            e.preventDefault(); console.log('click');
+//            //validasi trus simpan jadwal
+//            //var radio = document.getElementsByName("modeJadwal");
+//            
+//            return false;
+//        });
 
     });
 
@@ -330,7 +341,7 @@
             </div>
             <br class="clear" />
             <div class="editor-field grid_15">
-                @(Html.Telerik().DateTimePicker().Name("waktuManual").Value(DateTime.Now).HtmlAttributes(new { @class = "grid_8", style = "margin-left:0;" }))
+                @(Html.Telerik().DateTimePicker().Name("waktuManual").Value(DateTime.Now).Interval(60).HtmlAttributes(new { @class = "grid_8", style = "margin-left:0;" }))
             </div>
             <br class="clear" />
             <!---------------------------------------->

@@ -2,7 +2,7 @@
 @using Proyek_Informatika.Models
 <script type="text/javascript">
     $("#simpanButton").click(function () {
-
+        
         var r = confirm("Apakah anda yakin?");
         if (r) {
             var values = {
@@ -14,6 +14,7 @@
             $.post("SidangKoordinator/SimpanPengaturanJadwal", values, function (data) {
                 if (data == "True") {
                     alert("Data berhasil diubah");
+                    $("#bukaButton").prop('disabled', false);
                 } else {
                     alert("Data tidak berhasil diubah");
                 }
@@ -22,7 +23,8 @@
 
     });
     $("#bukaButton").click(function () {
-        if ($("#bukaButton").val() == "Mulai Pengumpulan Jadwal") {
+        if ($("#bukaButton").val() == "Buka Pengumpulan Jadwal") {
+            
             $.post("SidangKoordinator/Mulai_Pengumpulan", { mulai: true, semester_id: '@ViewBag.semester_id', tipe: $("#tipeSidang").val() }, function (data) {
                 if (data == "True") {
                     $("#bukaButton").val("Akhiri Pengumpulan Jadwal");
@@ -34,7 +36,7 @@
 
             $.post("SidangKoordinator/Mulai_Pengumpulan", { mulai: false, semester_id: '@ViewBag.semester_id', tipe: $("#tipeSidang").val() }, function (data) {
                 if (data == "True") {
-                    $("#bukaButton").val("Mulai Pengumpulan Jadwal");
+                    $("#bukaButton").val("Buka Pengumpulan Jadwal");
                 }
             });
         }
@@ -48,7 +50,30 @@
         getStartEnd($("#tipeSidang").val());
         $("#tipeSidang").bind("change", function () {
             getStartEnd($("#tipeSidang").val());
+            $.post("SidangKoordinator/PengumpulanIsOpen", { semester_id: '@ViewBag.semester_id', tipe: $("#tipeSidang").val() }, function (data) {
+                if (data == "open") {
+                    $("#bukaButton").val("Akhiri Pengumpulan Jadwal");
+                } else if (data == "close") {
+                    $("#bukaButton").val("Buka Pengumpulan Jadwal");
+                } else {
+                    $("#bukaButton").prop('disabled', true);
+                }
+            });
         });
+
+
+        $.post("SidangKoordinator/PengumpulanIsOpen", { semester_id: '@ViewBag.semester_id', tipe: $("#tipeSidang").val() }, function (data) {
+            
+            if (data == "open") {
+                $("#bukaButton").val("Akhiri Pengumpulan Jadwal");
+            } else if (data == "close") {
+                $("#bukaButton").val("Buka Pengumpulan Jadwal");
+            } else {
+                $("#bukaButton").prop('disabled', true);
+            }
+        });
+
+
     });
 </script>
 <fieldset id="settingJadwalSidang">
@@ -93,6 +118,6 @@
         <input type="button" value="Simpan" id="simpanButton" class="t-button t-state-default" /></div>
 </fieldset>
 <div class="txtcenter">
-    <input type="button" value="Mulai Pengumpulan Jadwal" id="bukaButton" class="t-button t-state-default big-button" />
+    <input type="button" value="Buka Pengumpulan Jadwal" id="bukaButton" class="t-button t-state-default big-button" />
 </div>
 <br />

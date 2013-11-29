@@ -64,11 +64,15 @@
                 <text>
                     for (var i = 1; i <= @count; i++) {
                         if(!isNaN(parseFloat($("#total" + i).html()))){
-
+                            var role = '@ViewBag.role';
+                            if(role != "pembimbing"){
+                                role = "penguji"
+                            }
                             var values = {
                                 nilai : parseFloat($("#total" + i).html()),
                                 skripsi_id : '@ViewBag.skripsi_id',
-                                urutan : i
+                                urutan : i,
+                                tipe : role
                             };
                             $.post("SidangDosen/SimpanNilai",values,function(data){
                                 itt++;
@@ -92,6 +96,8 @@
     };
 
     function hitungTotal(){
+        $("#total").html("asdf");
+        alert($("#total").html());
         var values = {
             nilai : parseFloat($("#total").html()),
             skripsi_id : '@ViewBag.skripsi_id',

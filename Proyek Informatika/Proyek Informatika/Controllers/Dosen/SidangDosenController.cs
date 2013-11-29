@@ -48,7 +48,10 @@ namespace Proyek_Informatika.Controllers.Dosen
             var a = db.mahasiswas.Where(x => x.NPM == resultList.NPM_mahasiswa).Select(y => y.nama).SingleOrDefault();
             ViewBag.npm = resultList.NPM_mahasiswa;
             ViewBag.nama = a;
-            //ViewBag.topik = ;
+            ViewBag.topik = (from table in db.topiks
+                             join table2 in db.skripsis on table.id equals table2.id_topik
+                             where (table2.id_topik == skripsi_id)
+                             select table.judul).SingleOrDefault();
             ViewBag.pembimbing = db.dosens.Where(x => x.NIK == resultList.NIK_dosen_pembimbing).Select(y => y.nama).SingleOrDefault();
             ViewBag.penguji1 = db.dosens.Where(x => x.NIK == resultList.penguji1).Select(y => y.nama).SingleOrDefault();
 
@@ -70,7 +73,11 @@ namespace Proyek_Informatika.Controllers.Dosen
             ViewBag.role = role;
             var jenis_skripsi_id = db.skripsis.Where(x => x.id == skripsi_id).Select(y => y.jenis).SingleOrDefault();
             ViewBag.jenis_skripsi = jenis_skripsi_id;
-            var bobotTemp = this.GetBobotKategori(role, jenis_skripsi_id);
+            string roleMod = role;
+            if(roleMod != "pembimbing"){
+                roleMod = role.Substring(0,role.Length-1);
+            }
+            var bobotTemp = this.GetBobotKategori(roleMod, jenis_skripsi_id);
             List<Tuple<int,string,int,int>> bobotList = new List<Tuple<int,string,int,int>>();
             foreach (var item in bobotTemp)
 	        {
@@ -188,7 +195,8 @@ namespace Proyek_Informatika.Controllers.Dosen
             var akses = db.sidangs.Where(x => x.id_skripsi == skripsi_id).Select(y => y.akses).SingleOrDefault();
             if(role == "penguji1" && jenis_skripsi == 1){
                 return 1;
-            }else if (bobot.Count == 0)
+            }
+            else if (bobot.Count == 0 && jenis_skripsi == 2)
             {
                 return 3; //ga ad penilaian
             }
@@ -294,10 +302,10 @@ namespace Proyek_Informatika.Controllers.Dosen
             return listResult;
         }
 
-        public bool SimpanNilai(int urutan, float nilai, int skripsi_id)
+        public bool SimpanNilai(int urutan, float nilai, int skripsi_id,string tipe)
         {
             var jenis_skripsi = db.skripsis.Where(x=>x.id == skripsi_id).Select(y=>y.jenis).SingleOrDefault();
-            var kategori = db.kategori_nilai.Where(x=>x.jenis_skripsi_id == jenis_skripsi && x.urutan == urutan).Select(y=>y.id).SingleOrDefault();
+            var kategori = db.kategori_nilai.Where(x=>x.jenis_skripsi_id == jenis_skripsi && x.urutan == urutan && x.tipe == tipe).Select(y=>y.id).SingleOrDefault();
             var cekNilai = (from table in db.nilais
                             where (table.kategori == kategori && table.id_skripsi == skripsi_id)
                             select table).ToList();
