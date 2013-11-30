@@ -14,15 +14,22 @@
         })
         .DataBinding(dataBinding => dataBinding.Ajax()
             .Select("_SelectSejarah", "Profile"))
+
+        .DetailView(det => det.ClientTemplate(
+                "<fieldset class='detail'>" +
+                "<legend>Topik</legend>" +
+                "<#= topik #>" +               
+                "</fieldset>"
+        ))           
         .Columns(columns =>
         {
             columns.Bound(c => c.periode).Width(100).Title("Periode");
             columns.Bound(c => c.jenis).Width(100).Title("Mata Kuliah");
-            columns.Bound(c => c.topik).Width(100).Title("Topik");
+            //columns.Bound(c => c.topik).Width(100).Title("Topik");
             columns.Bound(c => c.pembimbing).Width(100).Title("Pembimbing");
-            columns.Bound(c => c.nilai).Width(100).Title("Nilai Akhir");
+            columns.Bound(c => c.nilai).Width(50).Title("Nilai Akhir");
         })
-        .Pageable(p => p.PageSize(10))
+        .Pageable(p => p.PageSize(5))
         .Scrollable(c => c.Enabled(true).Height(300))
         .Sortable()
         .Filterable()

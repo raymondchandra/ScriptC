@@ -38,7 +38,7 @@
         </table><br/><br />
  @(Html.Telerik().Grid<Proyek_Informatika.Models.bimbingan>()
         .HtmlAttributes(new { style = "width:100%" })
-        .Name("KartuBimbinganMahasiswaKoordinator")
+        .Name("KartuBimbinganMahasiswa")
         .DataKeys(keys =>
         {
             keys.Add(p => p.id);
@@ -47,35 +47,38 @@
         {
             columns.Bound(o => o.tanggal).Width(75).Title("Tanggal");
             columns.Bound(o => o.isi).Width(150).Title("Bahasan");
-            //columns.Command(com =>
-            //{
-            //    com.Custom("showDetilBimbingan").Text("Tampilkan").Ajax(true);
-            //}).Width(50).Title("Aksi");
+            columns.Command(com =>
+            {
+                com.Edit().ButtonType(GridButtonType.Image);
+                com.Delete().ButtonType(GridButtonType.Image);
+                //com.Custom("showDetil").Text("Tampilkan").Ajax(true).ButtonType(GridButtonType.Image);
+            }).Width(50).Title("Aksi");
         })
-             .DetailView(det => det.ClientTemplate(
-                 "<fieldset>" +
-                     "<legend>Detil Bahasan</legend>" +
-                         "<ul style='padding:0;margin:0;list-style:none'>" +
-                             //"<li>Pokok Bahasan: <#= isi #></li>" +
-                             "<li>Detil Bahasan:</li>" +
-                         "</ul>" +
-                         "<div class = 'deskripsi'><#= deskripsi #>"+
-                         "</div>"+
-                 "</fieldset>"))
-        .DataBinding(dat => 
-        {
-            dat.Ajax().Select("_SelectKartu", "BimbinganDosen", new {id_skripsi = ViewBag.id});
-
-        })
+             .ToolBar(t => t.Custom().Name("addBimbingan").Ajax(true).Text("Tambah Bimbingan"))
+               .DataBinding(dat => 
+               {
+                   dat.Ajax().Select("_SelectKartu", "BimbinganDosen", new {id_skripsi = ViewBag.id});
+                   dat.Ajax().Update("EditBimbingan", "BimbinganDosen");
+                   dat.Ajax().Delete("DeleteBimbingan", "BimbinganDosen");
+                   
+               })
+        .DetailView(det=>det.ClientTemplate(
+              "<fieldset>" +
+                  "<legend>Detail Bahasan</legend>" +
+                      "<div class = 'deskripsi'><#= deskripsi #>" +
+                      "</div>" +
+              "</fieldset>"
+            ))
         
-        .ClientEvents(ev => ev.OnCommand("detilBimbingan2"))
-        .Editable(c=>c.Mode(GridEditMode.InForm))
+        .ClientEvents(ev => ev.OnCommand("detilBimbingan"))
+        .Editable(c=>c.Mode(GridEditMode.PopUp))
         .Sortable()
         .Filterable()
         .Scrollable()
         .Selectable()
         .Groupable()
 )
+
 
 
 @(  Html.Telerik().Window()

@@ -35,8 +35,8 @@
         .Columns(columns =>
         {
             columns.Bound(o => o.npm).Width(50).Title("NPM");
-            columns.Bound(o => o.namaMahasiswa).Width(100).Title("Nama Mahasiswa");
-            columns.Bound(o => o.judul).Width(150).Title("Judul");
+            columns.Bound(o => o.namaMahasiswa).Width(100).Title("Nama");
+            columns.Bound(o => o.judul).Width(150).Title("Topik");
             columns.Command(com =>
             {
                 com.Custom("viewKartu").Ajax(true).Text("Kartu Bimbingan");
@@ -48,10 +48,10 @@
             ev.OnCommand("aksia");
             ev.OnDataBinding("onDataBinding");
         })
-        .Pageable(p => p.PageSize(15))
+        .Pageable(p => p.PageSize(10))
         .Sortable()
         .Filterable()
-        .Scrollable(c => c.Enabled(true).Height(600))
+        .Scrollable(c => c.Enabled(true).Height(500))
         .Selectable()
         .Groupable())
         
@@ -60,7 +60,7 @@
     .Title("Kartu Bimbingan")
     .Content(@<text><div id = "contents"></div></text>)
     .Width(800)
-    .Height(475)
+    .Height(550)
     .Draggable(true)
     .Modal(true)
     .Visible(false)
@@ -71,7 +71,7 @@
     .Title("Daftar Laporan")
     .Content(@<text><div id = "contents2"></div></text>)
     .Width(800)
-    .Height(475)
+    .Height(550)
     .Draggable(true)
     .Modal(true)
     .Visible(false)

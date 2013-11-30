@@ -55,14 +55,14 @@
     }
 
     function turnEditing(pemberiNilai) {
-        if ($("#save" + pemberiNilai).val() == "Ubah") {
+        if ($("#save" + pemberiNilai).val() == "Edit") {
             $("#textBobot" + pemberiNilai).show();
             $("#labelBobot" + pemberiNilai).hide();
-            $("#save" + pemberiNilai).val("Simpan");
-        } else if ($("#save" + pemberiNilai).val() == "Simpan") {
+            $("#save" + pemberiNilai).val("Save");
+        } else if ($("#save" + pemberiNilai).val() == "Save") {
             $("#textBobot" + pemberiNilai).hide();
             $("#labelBobot" + pemberiNilai).show();
-            $("#save" + pemberiNilai).val("Ubah");
+            $("#save" + pemberiNilai).val("Edit");
             var tipe;
             if (pemberiNilai == 1) {
                 tipe = "pembimbing";
@@ -125,7 +125,7 @@
                 <img src="@Url.Content("~/Content/images/loading.gif")" id="imgBobot1" alt="load" />
             </td>
             <td class="txtcenter">
-                <input type="button" id="save1" value="Ubah" onclick="turnEditing(1)" style="width: 70px;" class="t-button"/>
+                <input type="button" id="save1" value="Edit" onclick="turnEditing(1)" style="width: 70px;" class="t-button"/>
             </td>
         </tr>
         <tr>
@@ -139,7 +139,7 @@
                 <img src="@Url.Content("~/Content/images/loading.gif")" id="imgBobot2" alt="load" />
             </td>
             <td class="txtcenter">
-                <input type="button" id="save2" value="Ubah" onclick="turnEditing(2)" style="width: 70px;" class="t-button"/>
+                <input type="button" id="save2" value="Edit" onclick="turnEditing(2)" style="width: 70px;" class="t-button"/>
             </td>
         </tr>
         <tr>
@@ -153,7 +153,7 @@
                 <img src="@Url.Content("~/Content/images/loading.gif")" id="imgBobot3" alt="load" />
             </td>
             <td class="txtcenter">
-                <input type="button" id="save3" value="Ubah" onclick="turnEditing(3)" style="width: 70px;" class="t-button"/>
+                <input type="button" id="save3" value="Edit" onclick="turnEditing(3)" style="width: 70px;" class="t-button"/>
             </td>
         </tr>
         <tr class="tf">
@@ -200,17 +200,17 @@
         })
         .Columns(columns =>
         {
-            columns.Bound(o => o.urutan).Title("Urutan");
-            columns.Bound(o => o.kategori).Title("Kategori");
-            columns.Bound(o => o.bobot).Title("Bobot (%)");
+            columns.Bound(o => o.urutan).Title("Urutan").Width(50);
+            columns.Bound(o => o.kategori).Title("Kategori").Width(100);
+            columns.Bound(o => o.bobot).Title("Bobot (%)").Width(60);
             columns.Command(commands =>
             {
                 commands.Edit().ButtonType(GridButtonType.Image);
                 commands.Delete().ButtonType(GridButtonType.Image);
-            }).Width(100).Title("Commands");
+            }).Width(60).Title("");
         })
-        .Pageable()
-        .Scrollable()
+                .Pageable(p => p.PageSize(10))
+                .Scrollable(c => c.Enabled(true).Height(300))
         .Sortable()
         .Editable(editing => editing.Mode(GridEditMode.InLine))
     )</div>
@@ -252,17 +252,17 @@
             })
             .Columns(columns =>
             {
-                columns.Bound(o => o.urutan).Title("Urutan");
-                columns.Bound(o => o.kategori).Title("Kategori");
-                columns.Bound(o => o.bobot).Title("Bobot (%)");
+                columns.Bound(o => o.urutan).Title("Urutan").Width(50);
+                columns.Bound(o => o.kategori).Title("Kategori").Width(100);
+                columns.Bound(o => o.bobot).Title("Bobot (%)").Width(60);
                 columns.Command(commands =>
                 {
                     commands.Edit().ButtonType(GridButtonType.Image);
                     commands.Delete().ButtonType(GridButtonType.Image);
-                }).Width(100).Title("Commands");
+                }).Width(60).Title("");
             })
-            .Pageable()
-            .Scrollable()
+                .Pageable(p => p.PageSize(10))
+                .Scrollable(c => c.Enabled(true).Height(300))
             .Sortable()
             .Editable(editing => editing.Mode(GridEditMode.InLine))
         )

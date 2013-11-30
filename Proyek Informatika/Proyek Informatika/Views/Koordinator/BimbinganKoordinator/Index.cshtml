@@ -1,10 +1,11 @@
 ﻿@inherits System.Web.Mvc.WebViewPage
 <div class ="layer">
+<h1>Rekap Bimbingan</h1>
 @(Html.Telerik().TabStrip()
 .Name("ReportBimbingan")
 .Items(i => {
-    i.Add().Text("List Mahasiswa").LoadContentFrom("IndexMahasiswa", "BimbinganKoordinator").Selected(true);
-    i.Add().Text("Report Bimbingan").LoadContentFrom("Report", "BimbinganKoordinator");
+    i.Add().Text("Daftar Mahasiswa").LoadContentFrom("IndexMahasiswa", "BimbinganKoordinator").Selected(true);
+    i.Add().Text("Laporan Bimbingan").LoadContentFrom("Report", "BimbinganKoordinator");
 })
 )
 </div>

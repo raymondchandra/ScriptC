@@ -121,7 +121,7 @@
 
                     com.Edit().ButtonType(GridButtonType.Image);
                     com.Delete().ButtonType(GridButtonType.Image);
-                }).Width(50).Title("Aksi");
+                }).Width(50).Title("");
             }
 
         })
@@ -142,19 +142,20 @@
                    dat.Ajax().Delete("DeleteBimbingan", "BimbinganDosen");
 
                })
-        .DetailView(det => det.ClientTemplate(
-              "<fieldset>" +
-                  "<legend>Detil Bahasan</legend>" +
-                      "<div class = 'deskripsi'><#= deskripsi #>" +
-                      "</div>" +
-              "</fieldset>"
-            ))
+          .DetailView(det => det.ClientTemplate(
+                "<fieldset class='detail'>" +
+                "<legend>Detail Bahasan</legend>" +
+                "<#= deskripsi #>" +               
+                "</fieldset>"
+        ))              
+
 
         .ClientEvents(ev => ev.OnCommand("detilBimbingan").OnEdit("onEdit"))
         .Editable(c => c.Mode(GridEditMode.PopUp))
         .Sortable()
         .Filterable()
-        .Scrollable()
+          .Pageable(p => p.PageSize(5))      
+        .Scrollable(c => c.Enabled(true).Height(250))
         .Selectable()
         .Groupable()
 )

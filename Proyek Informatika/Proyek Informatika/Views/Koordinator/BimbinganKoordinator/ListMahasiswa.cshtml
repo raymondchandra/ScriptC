@@ -16,37 +16,39 @@
         .Columns(columns =>
         {
             //columns.Bound(o => o.periode).Width(100).Title("Periode");
-            columns.Bound(o => o.nikDosen).Width(100).Title("NIK Dosen");
-            //columns.Bound(o => o.namaDosen).Width(150).Title("Nama Dosen");
-            columns.Bound(o => o.npmMahasiswa).Width(150).Title("NPM Mahasiswa");
-            //columns.Bound(o => o.namaMahasiswa).Width(150).Title("Nama Mahasiswa");
+            //columns.Bound(o => o.nikDosen).Width(100).Title("NIK Dosen");        
+            columns.Bound(o => o.npmMahasiswa).Width(100).Title("NPM");
+            columns.Bound(o => o.namaMahasiswa).Width(150).Title("Mahasiswa");
+            columns.Bound(o => o.namaDosen).Width(150).Title("Pembimbing");
             //columns.Bound(o => o.judul).Width(150).Title("Judul");
             columns.Bound(o => o.jumlahBimbingan).Width(150).Title("Jumlah Bimbingan");
             columns.Command(comm => comm.Custom("detailBimbingan")
-                .Text("Lihat Kartu Bimbingan")
+                .Text("Kartu Bimbingan")
                 .Ajax(true))
-                .Width(150).Title("Aksi");
+                .Width(150).Title("");
 
         })
         .DetailView(det => det.ClientTemplate(
-            "<fieldset>"+
-                "<legend>Detail<#= namaMahasiswa #></legend>"+
-                    "<ul style='padding:0;margin:0;list-style:none'>" +
-                        "<li>Nama Mahasiswa: <#= namaMahasiswa #></li>" +
-                        "<li>Nama Pembimbing: <#= namaDosen #></li>" +
-                        "<li>Periode: <#= periode #></li>" +
-                        "<li>Jenis: <#= tipe #></li>" +
-                        "<li>Pengambilan ke: <#= pengambilanke #></li>" +
-                        "<li>Judul: <#= judul #></li>" +
-                        "<li>Jumlah Bimbingan: <#= jumlahBimbingan #></li>"+
-                    "</ul>" +
-            "</fieldset>"
+                        "<fieldset class='detail'>" +
+                            "<legend>Detail</legend>" +
+                            "<div class='grid_5'>" +
+                                "<div class='editor-label grid_15'><label>NPM</label></div><div class='editor-field grid_15'><#= npmMahasiswa #></div>" +
+                                "<div class='editor-label grid_15'><label>Mahasiswa</label></div><div class='editor-field grid_15'><#= namaMahasiswa #></div>" +
+                                "<div class='editor-label grid_15'><label>Pembimbing</label></div><div class='editor-field grid_15'><#= namaDosen #></div>" +
+                            "</div>" +
+
+                            "<div class='grid_10'>" +
+                                "<div class='editor-label grid_15'><label>Judul Skripsi</label></div><div class='editor-field grid_15'><#= judul #></div>" +
+                                "<div class='editor-label grid_15'><label>Jumlah Bimbingan</label></div><div class='editor-field grid_15'><#= jumlahBimbingan #></div>" +
+                            "</div>" +
+                    "</fieldset>"
             ))
         .ClientEvents(ev => ev.OnCommand("viewKartuBimbingan"))
-        .Pageable(p => p.PageSize(15))
+
         .Sortable()
         .Filterable()
-        .Scrollable(c => c.Enabled(true))
+        .Pageable(p => p.PageSize(10))
+        .Scrollable(c => c.Enabled(true).Height(500))
         .Selectable()
         .Groupable())
 

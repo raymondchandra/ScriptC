@@ -69,12 +69,12 @@
 .Columns(
     col =>
     {
-        col.Bound(o => o.jenis).Title("Nama File");
-        col.Bound(o => o.tanggal_pengumpulan).Title("Tanggal Pengumpulan");
+        col.Bound(o => o.jenis).Title("Nama File").Width(150);
+        col.Bound(o => o.tanggal_pengumpulan).Title("Tanggal Pengumpulan").Width(100);
         col.Command(com =>
         {
-            com.Custom("unduhFile").Text("Unduh").Ajax(true);
-            com.Custom("lihatFile").Text("Lihat").Ajax(true);
+            com.Custom("unduhFile").Text("Download").Ajax(true);
+            com.Custom("lihatFile").Text("View").Ajax(true);
             //com.Custom("deskripsi").Text("Deskripsi").Ajax(true);
         })
 
@@ -82,29 +82,31 @@
         .Width(100);
     }
 )
-.DetailView(det => det.ClientTemplate(
-         "<fieldset>" +
-             "<legend>Detail Bahasan</legend>" +
-                 "<div class = 'deskripsi'><#= deskripsi #>" +
-                 "</div>" +
-         "</fieldset>"
-    ))
+
+        .DetailView(det => det.ClientTemplate(
+                "<fieldset class='detail'>" +
+                "<legend>Detail Bahasan</legend>" +
+                "<#= deskripsi #>" +               
+                "</fieldset>"
+        ))
+
             .ClientEvents(events => events.OnCommand("OnComplete"))
 .DataBinding(data => data.Ajax().Select("SelectPengumpulan", "PengumpulanDosen", new { id_skripsi = ViewBag.id }))
-.Pageable(p => p.PageSize(15))
+
 .Sortable()
 .Filterable()
-.Scrollable(c => c.Enabled(true))
+.Pageable(p => p.PageSize(5))      
+.Scrollable(c => c.Enabled(true).Height(250))
 .Selectable()
 .Groupable()
 )
     @(Html.Telerik().Window()
                 .Name("viewLaporan")
                 .Visible(false)
-                .Title("Detail Bimbingan")
+                .Title("File")
                 .Modal(true)
                 .Width(820)
                 .Height(620)
-                .Scrollable(true)
+                .Scrollable(false)
                 .Content(@<text><iframe src="" id="pdfContainer" width="800" height="600"></iframe></text>))
 </div>

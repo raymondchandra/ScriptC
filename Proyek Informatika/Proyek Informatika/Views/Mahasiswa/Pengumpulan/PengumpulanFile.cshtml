@@ -74,10 +74,10 @@
     
 </script>
 <div class="layer">
-    <h1>Berkas-berkas Skripsi</h1>
+    <h1>File-file Skripsi</h1>
     @(  Html.Telerik().Window()
         .Name("formUnggah")
-        .Title("Form Pengunggahan File")
+        .Title("Upload File")
         .LoadContentFrom("FormPengumpulan","Pengumpulan")
             .Width(500)
             .Height(350)
@@ -87,7 +87,7 @@
 )
  @(  Html.Telerik().Window()
         .Name("editorUnggah")
-        .Title("Editor Pengunggahan File")
+        .Title("Edit File")
         .Content(@<text><div id= "editorContent"></div></text>)
             .Width(500)
             .Height(350)
@@ -108,10 +108,10 @@
         col.Bound(o => o.tanggal_pengumpulan).Title("Tanggal Pengumpulan").Width(200);
         col.Command(com =>
         {
-            com.Custom("unduhFile").Text("Unduh").Ajax(true);
-            com.Custom("lihatFile").Text("Lihat").Ajax(true);
+            com.Custom("unduhFile").Text("Download").Ajax(true);
+            com.Custom("lihatFile").Text("View").Ajax(true);
             com.Custom("editFile").Text("Edit").Ajax(true);
-            com.Custom("delFile").Text("Hapus").Ajax(true);
+            com.Custom("delFile").Text("Delete").Ajax(true);
         }).Title("").Width(350);
     }
 )
@@ -124,10 +124,11 @@
     ))
 .ClientEvents(events => events.OnCommand("onComplete"))
 .DataBinding(data => data.Ajax().Select("SelectPengumpulan", "Pengumpulan"))
-.ToolBar(t=>t.Custom().Name("unggah").Text("Unggah").Ajax(true))
+.ToolBar(t=>t.Custom().Name("unggah").Text("Upload").Ajax(true))
 .Sortable()
 .Filterable()
-    .Scrollable(c => c.Enabled(true).Height(450))
+            .Pageable(p => p.PageSize(10))
+    .Scrollable(c => c.Enabled(true).Height(400))
 .Selectable()
 .Groupable()
 )
@@ -136,11 +137,11 @@
 @(Html.Telerik().Window()
                 .Name("viewLaporan")
                 .Visible(false)
-                .Title("Detil Bimbingan")
+                .Title("File")
                 .Modal(true)
                 .Width(820)
                 .Height(620)
-                .Scrollable(true)
+                .Scrollable(false)
                 .Content(@<text><iframe src="" id="pdfContainer" width ="800" height="600"></iframe></text>))
 
 

@@ -56,13 +56,13 @@
                             .DataRouteValues(route => route.Add(o => o.NPM).RouteKey("npm"))
                             .Ajax(true)
                             .Action("ResetPenempatan", "SidangKoordinator");
-                }).HtmlAttributes(new { style = "text-align: center" }).Width(150).Title("Commands");
+                }).HtmlAttributes(new { style = "text-align: center" }).Width(150).Title("");
             })
                 .ClientEvents(events => events.OnComplete("actionButton"))
-            .Pageable(p => p.PageSize(20))
+            .Pageable(p => p.PageSize(15))
             .Sortable()
             .Filterable()
-            .Scrollable(c => c.Enabled(true).Height(600))
+            .Scrollable(c => c.Enabled(true).Height(500))
             .Selectable()
             .Groupable()
         )

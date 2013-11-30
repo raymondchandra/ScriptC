@@ -145,7 +145,8 @@ namespace Proyek_Informatika.Controllers
             //update
             topik tpk = db.topiks.Where(topikTemp => topikTemp.id == model.id).First();
             var skripsi = db.skripsis.Where(skripsiTemp => skripsiTemp.id_topik == tpk.id);
-            if(skripsi.Count()!=0){
+            if (skripsi.Count() != 0)
+            {
                 return "Edit topik gagal! \nTopik sudah diambil oleh mahasiswa!";
             }
             tpk.judul = model.judul;
@@ -169,8 +170,14 @@ namespace Proyek_Informatika.Controllers
         public ActionResult _DeleteTopik(int id)
         {
             var t = db.topiks.Where(topikTemp => topikTemp.id == id).First();
-            db.topiks.Remove(t);
-            db.SaveChanges();
+
+            var skripsi = db.skripsis.Where(skripsiTemp => skripsiTemp.id_topik == t.id);
+            if (skripsi.Count() == 0)
+            {
+                var b = skripsi.Count();
+                db.topiks.Remove(t);
+                db.SaveChanges();
+            }
             return bindingTable();
         }
 
@@ -186,6 +193,7 @@ namespace Proyek_Informatika.Controllers
                 listResult = (from t in db.topiks
                               join d in db.dosens on t.NIK_pembimbing equals d.NIK
                               where t.id_semester == idSemester
+                              where t.keterangan == "tersedia"
                               select new TopikContainer { id = t.id, judul = t.judul, deskripsi = t.deskripsi, keterangan = t.keterangan, pembimbing = d.nama }).ToList();
             }
             else if (role.ToLower().Equals("dosen"))

@@ -34,22 +34,22 @@
     {
         columns.Bound(o => o.foto).ClientTemplate("<img width='100' height='110'  src='<#= foto #>' />").Title("foto").Width(100).ReadOnly().Hidden();
         columns.Bound(o => o.NIK).Title("NIK").Width(75);
-        columns.Bound(o => o.nama).Title("Nama").Width(100);
-        columns.Bound(o => o.inisial).Title("Inisial").Width(60);
-        columns.Bound(o => o.email).Title("Email").Width(180).ReadOnly();
+        columns.Bound(o => o.nama).Title("Nama").Width(150);
+        columns.Bound(o => o.inisial).Title("Inisial").Width(75);
+        columns.Bound(o => o.email).Title("Email").Width(120).ReadOnly().Hidden();
         columns.Bound(o => o.username).Title("Username").Width(100);
-        columns.Bound(o => o.aktif).Title("Status").Width(60).ReadOnly();
+        columns.Bound(o => o.aktif).Title("Status").Width(75).ReadOnly();
         columns.Command(commands =>
         {
             commands.Edit().ButtonType(GridButtonType.Text);
-            commands.Custom("Aktivasi").Text("Ubah Status").Ajax(true)
+            commands.Custom("Aktivasi").Text("Change Status").Ajax(true)
                 .Action("Change_Status_Dosen", "User")
                 .DataRouteValues(route => { route.Add(a => a.NIK).RouteKey("NIK"); });
             //commands.Delete().ButtonType(GridButtonType.Text);
         }).Width(180).Title("");
     })
-    .Pageable()
-    .Scrollable(c => c.Enabled(true).Height(600))
+            .Pageable(p => p.PageSize(15))
+            .Scrollable(c => c.Enabled(true).Height(500))
     .Sortable()
     //.Editable(editing => editing.Mode(GridEditMode.InLine))
     .Filterable()

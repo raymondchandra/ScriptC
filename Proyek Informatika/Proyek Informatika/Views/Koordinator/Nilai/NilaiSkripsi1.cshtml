@@ -1,8 +1,8 @@
 ﻿@{
-    List<Tuple<string,int,int, double>> nilais = ViewData["nilai"] as List<Tuple<string,int, int, double>>;
+    List<Tuple<string, int, int, double>> nilais = ViewData["nilai"] as List<Tuple<string, int, int, double>>;
 
-    }
-    <script type = "text/javascript">
+}
+<script type="text/javascript">
         $("#reopen").click(function(){posting(0);});
         $("#accept").click(function(){posting(2);});
 
@@ -21,74 +21,119 @@
                 }
             });                
         }
-    </script>
-<div class ="layer">
-    <table>
-        <tr>
-            <td>Nama</td>
-            <td>:</td>
-            <td>@ViewBag.nama</td>
-        </tr>
-        <tr>
-            <td>NPM</td>
-            <td>:</td>
-            <td>@ViewBag.NPM</td>
-        </tr>
-        <tr>
-            <td>Judul</td>
-            <td>:</td>
-            <td>@ViewBag.judul</td>
-        </tr>
-        <tr>
-            <td>Pembimbing</td>
-            <td>:</td>
-            <td>@ViewBag.pembimbing</td>
-        </tr>
-    </table>
-
-    <table class="blue" style="width: 50%;">
-        <tr class="th">
-            <td style="width: 40%;">
-                Penilaian
-            </td>
-            <td style="width: 30%;">
-                Bobot (%)
-            </td>
-            <td>
-                Nilai
-            </td>
-            <td>
-                Subtotal
-            </td>
-        </tr>
-        @{
-            foreach (var item in nilais)
-            {
-                <text>
-                    <tr>
-                        <td>
-                            @item.Item1
-                        </td>
-                        <td>
-                            <input type="hidden" name="kategori" value="@item.Item2"/>
-                            <label >@item.Item3</label>
-                        </td>
-                        <td>
-                            <label >@(String.Format("{0:0.0}",item.Item4))</label>
-                        </td>
-                        <td>
-                            <label >@(String.Format("{0:0.0}",(item.Item4*item.Item3/100)))</label>
-                        </td>
-                    </tr>
-                </text>
-            }
-            }
-            <tr>
-                <td  colspan = "3">Total</td>
-                <td><label name= "total">@ViewBag.total</label></td>
-            </tr>
-            
-    </table>
-    <input type = "button" id="accept" value="Accept"/>
-    <input type = "button" id= "reopen" value="Reopen" />
+</script>
+<div class="container_15">
+    <div class="grid_15">
+        <!---------------------------------------->
+        <div class="editor-label grid_15">
+            <label>
+                Nama
+            </label>
+        </div>
+        <br class="clear" />
+        <div class="editor-field grid_15">
+            @ViewBag.nama
+        </div>
+        <br class="clear" />
+        <!---------------------------------------->
+        <div class="editor-label grid_15">
+            <label>
+                NPM
+            </label>
+        </div>
+        <br class="clear" />
+        <div class="editor-field grid_15">
+            @ViewBag.NPM
+        </div>
+        <br class="clear" />
+        <!---------------------------------------->
+        <div class="editor-label grid_15">
+            <label>
+                Judul
+            </label>
+        </div>
+        <br class="clear" />
+        <div class="editor-field grid_15">
+            @ViewBag.judul
+        </div>
+        <br class="clear" />
+        <!---------------------------------------->
+        <div class="editor-label grid_15">
+            <label>
+                Pembimbing
+            </label>
+        </div>
+        <br class="clear" />
+        <div class="editor-field grid_15">
+            @ViewBag.pembimbing
+        </div>
+        <br class="clear" />
     </div>
+    <br class="clear" />
+    <div class="grid_15">
+        <table class="blue" style="width: 100%;">
+            <tr class="th">
+                <td style="width: 40%;">
+                    Penilaian
+                </td>
+                <td style="width: 20%;">
+                    Bobot (%)
+                </td>
+                <td style="width: 20%;">
+                    Nilai
+                </td>
+                <td style="width: 20%;">
+                    Subtotal
+                </td>
+            </tr>
+            @{
+                foreach (var item in nilais)
+                {
+                <text>
+                <tr>
+                    <td>
+                        <label>
+                            @if (@item.Item1 == "report1")
+                            {
+                                <text>Report 1</text>
+                            }
+                            else if (@item.Item1 == "report2")
+                            {
+                                <text>Report 2</text>
+                            }
+                            else
+                            {
+                                <text>Presentasi</text>
+                            }
+                        </label>
+                    </td>
+                    <td>
+                        <input type="hidden" name="kategori" value="@item.Item2"/>
+                        @item.Item3
+                    </td>
+                    <td>
+                        @(String.Format("{0:0.0}", item.Item4))
+                    </td>
+                    <td>
+                        @(String.Format("{0:0.0}", (item.Item4 * item.Item3 / 100)))
+                    </td>
+                </tr>
+                </text>
+                }
+            }
+            <tr class="tf">
+                <td colspan="3">
+                    Total
+                </td>
+                <td>
+                    <label name="total">@ViewBag.total</label>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <br class="clear" />
+    <!---------------------------------------->
+    <div class="button-block grid_15">
+        <input type="button" id="accept" value="Accept" class="t-button" />
+        <input type="button" id="reopen" value="Reopen" class="t-button" /></div>
+</div>

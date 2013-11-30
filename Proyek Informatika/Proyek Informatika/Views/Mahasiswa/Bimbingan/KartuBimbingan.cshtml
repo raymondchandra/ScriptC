@@ -14,7 +14,7 @@
 
 <div id="listJadwal">
 @(Html.Telerik().Grid<Proyek_Informatika.Models.bimbingan>()
-        .HtmlAttributes(new { style = "width:900px;" })
+        .HtmlAttributes(new { style = "width:100%;" })
         .Name("Topik")
         .DataKeys(keys =>
         {
@@ -30,29 +30,29 @@
                 com.Edit().ButtonType(GridButtonType.Image);
                 //com.Custom("detil").Ajax(true).Text("Deskripsi");
             })
-                .Title("Aksi").Width(90);
+                .Title("").Width(90);
         })
         .DataBinding(dataBinding =>
         {
             dataBinding.Ajax().Select("_SelectKartuBimbingan", "Bimbingan");
             dataBinding.Ajax().Update("EditBimbingan", "Bimbingan");
         })
-        .DetailView(det => det.ClientTemplate(
-                "<fieldset>" +
-                         "<legend>Detail Bahasan</legend>" +
-                             "<div class = 'deskripsi'><#= deskripsi #>" +
-                             "</div>" +
-                     "</fieldset>"
-            ))
+            .DetailView(det => det.ClientTemplate(
+                    "<fieldset class='detail'>" +
+                        "<legend>Detail Bahasan</legend>" +
+                        "<#= deskripsi #>" +
+                    "</fieldset>"
+            ))         
+
         //.ClientEvents(ev => ev.OnCommand("detilBimbingan"))
-        .Pageable(p => p.PageSize(15))
+        .Pageable(p => p.PageSize(10))
         .Sortable()
         .ClientEvents(c=>c.OnEdit("onEdit"))
         .Filterable()
             .Editable(editing => { 
                 editing.Mode(GridEditMode.InForm);
             })
-        .Scrollable(c => c.Enabled(true))
+    .Scrollable(c => c.Enabled(true).Height(400))
         .Selectable()
         .Groupable()
 )

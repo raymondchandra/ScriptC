@@ -10,8 +10,8 @@
         });
     }
 </script>
-<div class="layer">
-    <h1>Rekap Bimbingan</h1>
+
+    
    @(Html.Telerik().DropDownList()
     .Name("DropPeriode")
     .BindTo(new SelectList(Model.jenis_semester,"id","periode_semester",Model.selected_value))
@@ -27,4 +27,3 @@
     )
     <div id="bimbinganContainer"></div>
     
-</div>

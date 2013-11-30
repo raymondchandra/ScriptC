@@ -50,8 +50,8 @@ namespace Proyek_Informatika.Controllers.Dosen
             ViewBag.nama = a;
             ViewBag.topik = (from table in db.topiks
                              join table2 in db.skripsis on table.id equals table2.id_topik
-                             where (table2.id_topik == skripsi_id)
-                             select table.judul).SingleOrDefault();
+                             //where (table2.id_topik == skripsi_id)
+                             select table.judul).First();
             ViewBag.pembimbing = db.dosens.Where(x => x.NIK == resultList.NIK_dosen_pembimbing).Select(y => y.nama).SingleOrDefault();
             ViewBag.penguji1 = db.dosens.Where(x => x.NIK == resultList.penguji1).Select(y => y.nama).SingleOrDefault();
 

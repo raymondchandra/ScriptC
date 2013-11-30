@@ -30,14 +30,14 @@
     .Update("_SaveAkun", "Account")
     .Delete("_DeleteAkun", "Account"))
     .Columns(columns =>{
-        columns.Bound(o => o.username).Width(150).Title("Username");
-        columns.Bound(o => o.peran).Width(100).Title("Peran");
-        columns.Bound(o => o.aktif).Width(100).Title("Status");
-        columns.Bound(o => o.last_login).Width(100).Title("Last Login");
+        columns.Bound(o => o.username).Width(100).Title("Username");
+        columns.Bound(o => o.peran).Width(80).Title("Peran");
+        columns.Bound(o => o.aktif).Width(80).Title("Status");
+        columns.Bound(o => o.last_login).Width(130).Title("Last Login");
         columns.Command(commands =>
         {
             commands.Custom("Aktivasi")
-                .Text("Ubah Status")
+                .Text("Change Status")
                 .Ajax(true)
                 .Action("Change_Status", "Account")
                 .DataRouteValues(route => { route.Add(a => a.username).RouteKey("username"); });
@@ -56,7 +56,7 @@
     .Sortable()
     .Filterable()
     //.Editable(editing => editing.Mode(GridEditMode.PopUp))
-    .Scrollable(c => c.Enabled(true).Height(600))
+    .Scrollable(c => c.Enabled(true).Height(500))
     .Selectable()
     .Groupable()
 )

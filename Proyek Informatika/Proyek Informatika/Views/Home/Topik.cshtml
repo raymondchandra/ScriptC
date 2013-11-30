@@ -31,8 +31,7 @@
             .DetailView(det => det.ClientTemplate(
                 "<fieldset class='detail'>" +
                 "<legend>Deskripsi</legend>" +
-                "<div><#= deskripsi #>" +
-                "</div>" +
+                "<#= deskripsi #>" +
                 "</fieldset>"
             ))
         .Columns(columns =>
@@ -47,8 +46,8 @@
                 .Ajax(true)).Width(100).Hidden();
         })
         .ClientEvents(ev => ev.OnCommand("onCommand"))
-        .Pageable(p => p.PageSize(20))
-        .Scrollable(c => c.Enabled(true).Height(600))
+        .Pageable(p => p.PageSize(10))
+        .Scrollable(c => c.Enabled(true).Height(500))
         .Sortable()
         .Filterable()
         .Selectable()

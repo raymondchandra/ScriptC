@@ -16,9 +16,10 @@
             windowZ.center().open();
         }
         else if (e.name == "editDetail") {
-            $("#id").val(e.row.cells[0].innerHTML);
-            $("#judul").val(e.row.cells[1].innerHTML);
-            $("#deskripsi").val(e.row.cells[2].innerHTML);
+            $("#id").val(e.row.cells[1].innerHTML);
+            //alert(e.row.cells[2].innerHTML);
+            $("#judul").val(e.row.cells[2].innerHTML);
+            $("#deskripsi").val(e.row.cells[3].innerHTML);
             var windowZ = $("#topikUpdate").data("tWindow");
             windowZ.center().open();
         }
@@ -105,8 +106,8 @@
         })
         .ClientEvents(ev => ev.OnCommand("onCommand").OnComplete("onCommand"))
         .Editable(editing => editing.Mode(mode))
-        .Pageable(p => p.PageSize(20))
-        .Scrollable(c => c.Enabled(true).Height(600))
+        .Pageable(p => p.PageSize(15))
+        .Scrollable(c => c.Enabled(true).Height(500))
         .Sortable()
         .Filterable()
         .Selectable()
@@ -124,7 +125,7 @@
     )
     @(Html.Telerik().Window()
         .Name("topikUpdate")
-        .Title("Edit")
+        .Title("Edit Topik")
         .Visible(false)
         .Modal(true)
         .Width(500)

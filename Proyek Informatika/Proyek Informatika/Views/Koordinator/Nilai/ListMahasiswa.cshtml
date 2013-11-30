@@ -56,10 +56,11 @@
         .Columns(columns =>
         {
 
-            columns.Bound(o => o.npmMahasiswa).Width(150).Title("NPM Mahasiswa");
-            columns.Bound(o => o.namaMahasiswa).Width(150).Title("Nama Mahasiswa");
-            columns.Bound(o => o.nilai).Width(150).Title("Nilai");
-            columns.Bound(o => o.status).Width(150).Title("Status");
+            columns.Bound(o => o.npmMahasiswa).Width(100).Title("NPM");
+            columns.Bound(o => o.namaMahasiswa).Width(150).Title("Mahasiswa");
+            columns.Bound(o => o.namaDosen).Width(150).Title("Pembimbing");
+            columns.Bound(o => o.nilai).Width(100).Title("Nilai");
+            columns.Bound(o => o.status).Width(100).Title("Status");
             columns.Command(comm =>
             {
                 comm.Custom("preview").Text("Detail").Ajax(true);
@@ -71,29 +72,33 @@
                 //{
                 //    x.Add(o => o.id).RouteKey("id");
                 //});
-            }).Width(150).Title("Aksi");
+            }).Width(95).Title("");
         })
         .DetailView(det => det.ClientTemplate(
-            "<fieldset>" +
-                "<legend>Detail <#= namaMahasiswa #></legend>" +
-                    "<ul style='padding:0;margin:0;list-style:none'>" +
-                        "<li>Nama Mahasiswa: <#= namaMahasiswa #></li>" +
-                        "<li>Nama Pembimbing: <#= namaDosen #></li>" +
-                        "<li>Periode: <#= periode #></li>" +
-                        "<li>Jenis: <#= tipe #></li>" +
-                        "<li>Pengambilan ke: <#= pengambilanke #></li>" +
-                        "<li>Judul: <#= judul #></li>" +
-                    "</ul>" +
+                "<fieldset class='detail'>" +
+                    "<legend>Detail</legend>" +
+                    "<div class='grid_5'>" +
+                        "<div class='editor-label grid_15'><label>NPM</label></div><div class='editor-field grid_15'><#= npmMahasiswa #></div>" +
+                        "<div class='editor-label grid_15'><label>Mahasiswa</label></div><div class='editor-field grid_15'><#= namaMahasiswa #></div>" +
+                        "<div class='editor-label grid_15'><label>Pembimbing</label></div><div class='editor-field grid_15'><#= namaDosen #></div>" +
+                    "</div>" +
+                    
+                    "<div class='grid_10'>" +
+                        "<div class='editor-label grid_15'><label>Judul Skripsi</label></div><div class='editor-field grid_15'><#= judul #></div>" +
+                        "<div class='editor-label grid_15'><label>Nilai</label></div><div class='editor-field grid_15'><#= nilai #></div>" +
+                        "<div class='editor-label grid_15'><label>Status</label></div><div class='editor-field grid_15'><#= status #></div>" +              
+                    "</div>" +
             "</fieldset>"
             ))
         .ClientEvents(ev =>
         {
             ev.OnCommand("viewNilai").OnComplete("onComplete");
         })
-        .Pageable(p => p.PageSize(15))
+
         .Sortable()
         .Filterable()
-        .Scrollable(c => c.Enabled(true))
+        .Pageable(p => p.PageSize(10))
+        .Scrollable(c => c.Enabled(true).Height(500))
         .Selectable()
         .Groupable()
         .ToolBar(x =>
@@ -108,8 +113,8 @@
                 .Visible(false)
                 .Title("Detail Nilai")
                 .Modal(true)
-                .Width(400)
-                .Height(400)
+                .Width(600)
+                .Height(475)
                 .Scrollable(true)
                 .ClientEvents(c=>c.OnClose("RefreshTable"))
                 .Content(@<text><div id="container">

@@ -85,7 +85,7 @@
         </div>
         <br class="clear" />
         <div class="editor-field grid_15">
-            <select id="mahsiswa-topik-1" name="topik-1" class="grid_10" size="5">
+            <select id="mahsiswa-topik-1" name="topik-1" class="grid_15" size="5">
                 <option></option>
             </select>
         </div>
@@ -136,19 +136,19 @@
             columns.Bound(c => c.emailMahasiswa).Hidden();
             columns.Bound(c => c.teleponMahasiswa).Hidden();
             columns.Bound(c => c.status).Hidden();
-            columns.Bound(c => c.topik).Width(300).Title("Topik");
+            columns.Bound(c => c.topik).Width(335).Title("Topik");
             columns.Bound(c => c.fotoMahasiswa).Hidden();
             columns.Command(c => 
             {    
                 c.Custom("lihatDetail").Text("Detail").Ajax(true);
                 c.Custom("editDetail").Text("Edit").Ajax(true);            
                 c.Delete().ButtonType(type);
-            }).Width(300);
+            }).Width(265);
         })
         .ClientEvents(ev => ev.OnCommand("onCommand").OnComplete("onCommand"))
         .Editable(editing => editing.Mode(mode))
-        .Pageable(p => p.PageSize(20))
-        .Scrollable(c => c.Enabled(true).Height(600))
+        .Pageable(p => p.PageSize(10))
+        .Scrollable(c => c.Enabled(true).Height(500))
         .Sortable()
         .Filterable()
         .Selectable()
@@ -156,11 +156,11 @@
     )
     @(Html.Telerik().Window()
         .Name("mahasiswaDetail")
-        .Title("Mahasiswa")
+        .Title("Detail Mahasiswa")
         .Visible(false)
         .Modal(true)
         .Width(500)
-        .Height(350)
+        .Height(400)
         .Scrollable(true)
         .Content(@<text>
     <p class="detail">
@@ -168,7 +168,7 @@
     )
     @(Html.Telerik().Window()
         .Name("mahasiswaUpdate")
-        .Title("Edit")
+        .Title("Edit Mahasiswa")
         .Visible(false)
         .Modal(true)
         .Width(500)

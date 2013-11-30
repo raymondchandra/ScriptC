@@ -19,10 +19,10 @@
         .Name("RekapBimbinganDosen")
         .Columns(columns =>
         {
-            columns.Bound(o => o.npm).Width(100).Title("NPM");
-            columns.Bound(o => o.namaMahasiswa).Width(100).Title("Nama Mahasiswa");
-            columns.Bound(o => o.judul).Width(100).Title("Judul");
-            columns.Bound(o => o.status).Width(75).Title("Status");
+            columns.Bound(o => o.npm).Width(50).Title("NPM");
+            columns.Bound(o => o.namaMahasiswa).Width(100).Title("Nama");
+            columns.Bound(o => o.judul).Width(150).Title("Topik");
+            columns.Bound(o => o.status).Width(50).Title("Status");
 
             columns.Command(com =>
             {
@@ -34,10 +34,10 @@
         {
             ev.OnCommand("aksi");
         })
-        .Pageable(p => p.PageSize(15))
+                .Pageable(p => p.PageSize(10))
+                .Scrollable(c => c.Enabled(true).Height(500))
         .Sortable()
         .Filterable()
-     .Scrollable(c => c.Enabled(true).Height(600))
         .Selectable()
         .Groupable())
 </div>

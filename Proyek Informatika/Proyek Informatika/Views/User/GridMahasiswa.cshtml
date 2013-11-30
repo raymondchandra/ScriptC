@@ -146,7 +146,7 @@
         //columns.Bound(o => o.foto).Width(200).Title("Foto");
         columns.Bound(o => o.NPM).Width(75).Title("NPM");
         columns.Bound(o => o.nama).Width(90).Title("Nama");
-        columns.Bound(o => o.dosen_pembimbing).Width(90).Title("Pembimbing");
+        columns.Bound(o => o.dosen_pembimbing).Width(75).Title("Pembimbing");
         columns.Bound(o => o.periode_pengambilan).Width(75).Title("Periode");
         columns.Bound(o => o.jenis_skripsi).Width(45).Title("Jenis");
         columns.Bound(o => o.pengambilan_ke).Width(30).Title("Ke");
@@ -176,7 +176,8 @@
     .Sortable()
     .Filterable()
         //.Editable(editing => editing.Mode(GridEditMode.PopUp))
-    .Scrollable(c => c.Enabled(true).Height(600))
+
+            .Scrollable(c => c.Enabled(true).Height(500))
     .Selectable()
     .Groupable()
 )
@@ -187,224 +188,113 @@
     .Title("Detail Mahasiswa")
     .Modal(true)
     .Width(800)
-    .Height(525)
+    .Height(375)
     .Content(@<text>
-<div id="detail-mahasiswa" class="container_15">
-    <div class="grid_15">
-        <fieldset>
+
+<div id="detail-mahasiswa-aktivasi" class="container_15">
+    <div class="grid_5">
+        <fieldset style="height: 300px;margin:0 0 20px 0;">
             <legend>Data Mahasiswa</legend>
-            <div class="grid_5">
-                <img id="foto" src="../../../Content/images/user.png" class="avatar-s right" alt="" />
+            <div class="grid_15">
+                <img id="foto" src="../../../Content/images/user.png" class="avatar-s" alt="" />
             </div>
-            <div class="grid_10">
-                <!---------------------------------------->
-                <div class="editor-label grid_15">
-                    <label>
-                        NPM
-                    </label>
-                </div>
-                <br class="clear" />
-                <div class="editor-field grid_15">
-                    <span id="npm"></span>
-                </div>
-                <br class="clear" />
-                <!---------------------------------------->
-                <div class="editor-label grid_15">
-                    <label>
-                        Nama
-                    </label>
-                </div>
-                <br class="clear" />
-                <div class="editor-field grid_15">
-                    <span id="nama"></span>
-                </div>
-                <br class="clear" />
-                <!---------------------------------------->
-                <div class="editor-label grid_15">
-                    <label>
-                        Status
-                    </label>
-                </div>
-                <br class="clear" />
-                <div class="editor-field grid_15">
-                    <span id="status"></span>
-                </div>
-                <br class="clear" />
-            </div>
-        </fieldset>
-    </div>
-    <br class="clear" />
-    <div class="grid_15">
-        <fieldset>
-            <legend>Data Skripsi</legend>
+            <br class="clear" /><br />
             <!---------------------------------------->
-            <div class="grid_7">
-                <div class="editor-label grid_15">
-                    <label>
-                        Jenis Skripsi
-                    </label>
-                </div>
-                <br class="clear" />
-                <div class="editor-field grid_15">
-                    <span id="jenis"></span>&nbsp;(Pengambilan ke-<span id="pengambilan"></span>)
-                </div>
-                <br class="clear" />
-                <!---------------------------------------->
-                <div class="editor-label grid_15">
-                    <label>
-                        Periode Pengambilan
-                    </label>
-                </div>
-                <br class="clear" />
-                <div class="editor-field grid_15">
-                    <span id="periode"></span>
-                </div>
-                <br class="clear" />
-            </div>
-            <div class="grid_8">
-                <!---------------------------------------->
-                <div class="editor-label grid_15">
-                    <label>
-                        Pembimbing
-                    </label>
-                </div>
-                <br class="clear" />
-                <div class="editor-field grid_15">
-                    <span id="pembimbing"></span>
-                </div>
-                <br class="clear" />
-                <!---------------------------------------->
-                <div class="editor-label grid_15">
-                    <label>
-                        Nilai Akhir
-                    </label>
-                </div>
-                <br class="clear" />
-                <div class="editor-field grid_15">
-                    <span id="nilai"></span>
-                </div>
-                <br class="clear" />
+            <div class="editor-label grid_15">
+                <label>
+                    NPM
+                </label>
             </div>
             <br class="clear" />
-            <div class="grid_15">
-                <!---------------------------------------->
-                <div class="editor-label grid_15">
-                    <label>
-                        Topik
-                    </label>
-                </div>
-                <br class="clear" />
-                <div class="editor-field grid_15">
-                    <span id="topik"></span>
-                </div>
-                <br class="clear" />
+            <div class="editor-field grid_15">
+                <span id="npm"></span>
             </div>
+            <br class="clear" />
+            <!---------------------------------------->
+            <div class="editor-label grid_15">
+                <label>
+                    Nama
+                </label>
+            </div>
+            <br class="clear" />
+            <div class="editor-field grid_15">
+                <span id="nama"></span>
+            </div>
+            <br class="clear" />
+            <!---------------------------------------->
+            <!--<div class="editor-label grid_15">
+                <label>
+                    Status
+                </label>
+            </div>
+            <br class="clear" />
+            <div class="editor-field grid_15">
+                <span id="status_aktivasi"></span>
+            </div>
+            <br class="clear" />-->
         </fieldset>
     </div>
-    <!--<table>
-        <tr>
-            <td rowspan="9">
-                <img id="foto" src="../../../Content/images/user.png" class="avatar right" alt="" />
-            </td>
-            <td>
-                NPM
-            </td>
-            <td>
-                &nbsp:&nbsp
-            </td>
-            <td>
-                <span id="npm"></span>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                Nama
-            </td>
-            <td>
-                &nbsp:&nbsp
-            </td>
-            <td>
-                <span id="nama"></span>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                Status
-            </td>
-            <td>
-                &nbsp:&nbsp
-            </td>
-            <td>
-                <span id="status"></span>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                Jenis skripsi
-            </td>
-            <td>
-                &nbsp:&nbsp
-            </td>
-            <td>
-                <span id="jenis"></span>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                Pengambilan ke
-            </td>
-            <td>
-                &nbsp:&nbsp
-            </td>
-            <td>
-                <span id="pengambilan"></span>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                Periode pengambilan
-            </td>
-            <td>
-                &nbsp:&nbsp
-            </td>
-            <td>
+    <div class="grid_10">
+        <fieldset style="height: 300px;margin:0 0 20px 0;">
+            <legend>Data Skripsi</legend>
+            <!---------------------------------------->
+            <div class="editor-label grid_15">
+                <label>
+                    Periode Pengambilan
+                </label>
+            </div>
+            <br class="clear" />
+            <div class="editor-field grid_15">
                 <span id="periode"></span>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                Topik
-            </td>
-            <td>
-                &nbsp:&nbsp
-            </td>
-            <td>
-                <em><span id="topik"></span></em>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                Pembimbing
-            </td>
-            <td>
-                &nbsp:&nbsp
-            </td>
-            <td>
+            </div>
+            <br class="clear" />
+            <!---------------------------------------->
+            <div class="editor-label grid_15">
+                <label>
+                    Jenis Skripsi
+                </label>
+            </div>
+            <br class="clear" />
+            <div class="editor-field grid_15">
+                <span id="jenis"></span>&nbsp;(Pengambilan ke-<span id="pengambilan"></span>)
+            </div>
+            <br class="clear" />
+            <!---------------------------------------->
+            <div class="editor-label grid_15">
+                <label>
+                    Topik
+                </label>
+            </div>
+            <br class="clear" />
+            <div class="editor-field grid_15">
+                <span id="topik"></span>
+            </div>
+            <br class="clear" />
+            <!---------------------------------------->
+            <div class="editor-label grid_15">
+                <label>
+                    Pembimbing
+                </label>
+            </div>
+            <br class="clear" />
+            <div class="editor-field grid_15">
                 <span id="pembimbing"></span>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                Nilai akhir
-            </td>
-            <td>
-                &nbsp:&nbsp
-            </td>
-            <td>
+            </div>
+            <br class="clear" />
+            <!---------------------------------------->
+            <div class="editor-label grid_15">
+                <label>
+                    Nilai Akhir
+                </label>
+            </div>
+            <br class="clear" />
+            <div class="editor-field grid_15">
                 <span id="nilai"></span>
-            </td>
-        </tr>
-    </table>-->
+            </div>
+            <br class="clear" />
+            <br class="clear" />
+        </fieldset>
+    </div>
 </div>
 </text>)
 )
@@ -415,153 +305,160 @@
     .Title("Aktivasi Mahasiswa")
     .Modal(true)
     .Width(800)
-    .Height(600)
+    .Height(535)
     .Content(@<text>
 <!--Informasi mahasiswa-->
-<div id="detail-mahasiswa-aktivasi">
-    <table>
-        <tr>
-            <td rowspan="9">
-                <img id="foto_aktivasi" />
-            </td>
-            <td>
-                NPM
-            </td>
-            <td>
-                &nbsp:&nbsp
-            </td>
-            <td>
+<div id="detail-mahasiswa-aktivasi" class="container_15">
+    <div class="grid_5">
+        <fieldset style="height: 300px;margin:0 0 20px 0;">
+            <legend>Data Mahasiswa</legend>
+            <div class="grid_15">
+                <img id="foto_aktivasi" src="../../../Content/images/user.png" class="avatar-s" alt="" />
+            </div>
+            <br class="clear" /><br />
+            <!---------------------------------------->
+            <div class="editor-label grid_15">
+                <label>
+                    NPM
+                </label>
+            </div>
+            <br class="clear" />
+            <div class="editor-field grid_15">
                 <span id="npm_aktivasi"></span>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                Nama
-            </td>
-            <td>
-                &nbsp:&nbsp
-            </td>
-            <td>
+            </div>
+            <br class="clear" />
+            <!---------------------------------------->
+            <div class="editor-label grid_15">
+                <label>
+                    Nama
+                </label>
+            </div>
+            <br class="clear" />
+            <div class="editor-field grid_15">
                 <span id="nama_aktivasi"></span>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                Status
-            </td>
-            <td>
-                &nbsp:&nbsp
-            </td>
-            <td>
+            </div>
+            <br class="clear" />
+            <!---------------------------------------->
+            <!--<div class="editor-label grid_15">
+                <label>
+                    Status
+                </label>
+            </div>
+            <br class="clear" />
+            <div class="editor-field grid_15">
                 <span id="status_aktivasi"></span>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                Jenis skripsi
-            </td>
-            <td>
-                &nbsp:&nbsp
-            </td>
-            <td>
-                <span id="jenis_aktivasi"></span>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                Pengambilan ke
-            </td>
-            <td>
-                &nbsp:&nbsp
-            </td>
-            <td>
-                <span id="pengambilan_aktivasi"></span>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                Periode pengambilan
-            </td>
-            <td>
-                &nbsp:&nbsp
-            </td>
-            <td>
+            </div>
+            <br class="clear" />-->
+        </fieldset>
+    </div>
+    <div class="grid_10">
+        <fieldset style="height: 300px;margin:0 0 20px 0;">
+            <legend>Data Skripsi</legend>
+            <!---------------------------------------->
+            <div class="editor-label grid_15">
+                <label>
+                    Periode Pengambilan
+                </label>
+            </div>
+            <br class="clear" />
+            <div class="editor-field grid_15">
                 <span id="periode_aktivasi"></span>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                Topik
-            </td>
-            <td>
-                &nbsp:&nbsp
-            </td>
-            <td>
-                <em><span id="topik_aktivasi"></span></em>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                Pembimbing
-            </td>
-            <td>
-                &nbsp:&nbsp
-            </td>
-            <td>
+            </div>
+            <br class="clear" />
+            <!---------------------------------------->
+            <div class="editor-label grid_15">
+                <label>
+                    Jenis Skripsi
+                </label>
+            </div>
+            <br class="clear" />
+            <div class="editor-field grid_15">
+                <span id="jenis_aktivasi"></span>&nbsp;(Pengambilan ke-<span id="pengambilan_aktivasi"></span>)
+            </div>
+            <br class="clear" />
+            <!---------------------------------------->
+            <div class="editor-label grid_15">
+                <label>
+                    Topik
+                </label>
+            </div>
+            <br class="clear" />
+            <div class="editor-field grid_15">
+                <span id="topik_aktivasi"></span>
+            </div>
+            <br class="clear" />
+            <!---------------------------------------->
+            <div class="editor-label grid_15">
+                <label>
+                    Pembimbing
+                </label>
+            </div>
+            <br class="clear" />
+            <div class="editor-field grid_15">
                 <span id="pembimbing_aktivasi"></span>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                Nilai akhir
-            </td>
-            <td>
-                &nbsp:&nbsp
-            </td>
-            <td>
+            </div>
+            <br class="clear" />
+            <!---------------------------------------->
+            <div class="editor-label grid_15">
+                <label>
+                    Nilai Akhir
+                </label>
+            </div>
+            <br class="clear" />
+            <div class="editor-field grid_15">
                 <span id="nilai_aktivasi"></span>
-            </td>
-        </tr>
-    </table>
+            </div>
+            <br class="clear" />
+            <br class="clear" />
+        </fieldset>
+    </div>
 </div>
 <!--Aksi-->
-<form>
-<span id="radio_melanjutkan" class="radio">
-    <input type="radio" name="aksi" value="melanjutkan" /><span>Melanjutkan</span></span>
-<span id="radio_mengulang" class="radio">
-    <input type="radio" name="aksi" value="mengulang" /><span>Mengulang</span></span>
-<span id="radio_mengganti_topik" class="radio">
-    <input type="radio" name="aksi" value="mengganti_topik" /><span>Mengganti topik</span></span>
-</form>
-<!--Form ganti topik-->
-<div id="form_ganti_topik">
-    <table>
-        <tr>
-            <td>
-                Topik
-            </td>
-            <td>
-                &nbsp:&nbsp
-            </td>
-            <td>
-                <select>
+<div class="container_15">
+    <div class="grid_5">
+        <form>
+        <span id="radio_melanjutkan" class="radio">
+            <input type="radio" name="aksi" value="melanjutkan" /><span>Melanjutkan</span></span>
+        <span id="radio_mengulang" class="radio">
+            <input type="radio" name="aksi" value="mengulang" /><span>Mengulang</span></span>
+        <span id="radio_mengganti_topik" class="radio">
+            <input type="radio" name="aksi" value="mengganti_topik" /><span>Mengganti topik</span></span>
+        </form>
+            <br class="clear" />
+    <input id="button_simpan" type="button" value="Simpan" class="t-button" />
+    </div>
+    <!--Form ganti topik-->
+    <div id="form_ganti_topik" class="grid_10">
+        <fieldset style="margin:0;">
+            <legend>Form Ganti Topik</legend>
+            <!---------------------------------------->
+            <div class="editor-label grid_15">
+                <label>
+                    Topik
+                </label>
+            </div>
+            <br class="clear" />
+            <div class="editor-field grid_15">
+                <select class="grid_15">
                 </select>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                Pembimbing
-            </td>
-            <td>
-                &nbsp:&nbsp
-            </td>
-            <td>
+            </div>
+            <br class="clear" />
+            <!---------------------------------------->
+            <div class="editor-label grid_15">
+                <label>
+                    Pembimbing
+                </label>
+            </div>
+            <br class="clear" />
+            <div class="editor-field grid_15">
                 <span id="nama_pembimbing"></span>
-            </td>
-        </tr>
-    </table>
-</div>
-<input id="button_simpan" type="button" value="Simpan" />
-<span id="errMessage">Syarat tidak memenuhi untuk melakukan aktivasi.</span>
-</text>)
+            </div>
+            <br class="clear" />
+        </fieldset>
+    </div>
+
+    <div class='warning' id="errMessage">
+        Syarat tidak memenuhi untuk melakukan aktivasi.</div>
+    </text>)
 )
+</div>

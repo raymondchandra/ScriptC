@@ -28,15 +28,15 @@
     }
 
     function turnEditing2(kriteria) {
-        if ($("#save2" + kriteria).val() == "Ubah") {
+        if ($("#save2" + kriteria).val() == "Edit") {
             $("#textBobot2" + kriteria).show();
             $("#labelBobot2" + kriteria).hide();
-            $("#save2" + kriteria).val("Simpan");
-        } else if ($("#save2" + kriteria).val() == "Simpan") {
+            $("#save2" + kriteria).val("Save");
+        } else if ($("#save2" + kriteria).val() == "Save") {
 
             $("#textBobot2" + kriteria).hide();
             $("#labelBobot2" + kriteria).show();
-            $("#save2" + kriteria).val("Ubah");
+            $("#save2" + kriteria).val("Edit");
             var tipe;
             if (kriteria == 1) {
                 tipe = "report1";
@@ -99,7 +99,7 @@
                 <img src="@Url.Content("~/Content/images/loading.gif")" id="imgBobot21" alt="load" />
             </td>
             <td class="txtcenter">
-                <input type="button" id="save21" value="Ubah" onclick="turnEditing2(1)" style="width: 70px;" class="t-button"/>
+                <input type="button" id="save21" value="Edit" onclick="turnEditing2(1)" style="width: 70px;" class="t-button"/>
             </td>
         </tr>
         <tr>
@@ -112,7 +112,7 @@
                 <img src="@Url.Content("~/Content/images/loading.gif")" id="imgBobot22" alt="load" />
             </td>
             <td class="txtcenter">
-                <input type="button" id="save22" value="Ubah" onclick="turnEditing2(2)" style="width: 70px;" class="t-button"/>
+                <input type="button" id="save22" value="Edit" onclick="turnEditing2(2)" style="width: 70px;" class="t-button"/>
             </td>
         </tr>
         <tr>
@@ -125,7 +125,7 @@
                 <img src="@Url.Content("~/Content/images/loading.gif")" id="imgBobot23" alt="load" />
             </td>
             <td class="txtcenter">
-                <input type="button" id="save23" value="Ubah" onclick="turnEditing2(3)" style="width: 70px;" class="t-button"/>
+                <input type="button" id="save23" value="Edit" onclick="turnEditing2(3)" style="width: 70px;" class="t-button"/>
             </td>
         </tr>
         <tr class="tf">
