@@ -135,7 +135,7 @@ namespace Proyek_Informatika.Controllers.Dosen
                 }
                 akun = db.akuns.Where(akunTemp => akunTemp.username == model.NPM).SingleOrDefault();
 
-                m.status = "Non-aktif";
+                m.status = "nonaktif";
 
                 if (TryUpdateModel(m))
                 {
