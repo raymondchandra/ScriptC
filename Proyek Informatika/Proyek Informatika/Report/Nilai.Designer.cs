@@ -9,31 +9,33 @@ namespace Proyek_Informatika.Report
         /// </summary>
         private void InitializeComponent()
         {
-            Telerik.Reporting.TableGroup tableGroup1 = new Telerik.Reporting.TableGroup();
-            Telerik.Reporting.TableGroup tableGroup2 = new Telerik.Reporting.TableGroup();
-            Telerik.Reporting.TableGroup tableGroup3 = new Telerik.Reporting.TableGroup();
-            Telerik.Reporting.TableGroup tableGroup4 = new Telerik.Reporting.TableGroup();
-            Telerik.Reporting.TableGroup tableGroup5 = new Telerik.Reporting.TableGroup();
-            Telerik.Reporting.TableGroup tableGroup6 = new Telerik.Reporting.TableGroup();
-            Telerik.Reporting.TableGroup tableGroup7 = new Telerik.Reporting.TableGroup();
-            Telerik.Reporting.TableGroup tableGroup8 = new Telerik.Reporting.TableGroup();
-            Telerik.Reporting.TableGroup tableGroup9 = new Telerik.Reporting.TableGroup();
-            Telerik.Reporting.TableGroup tableGroup10 = new Telerik.Reporting.TableGroup();
-            Telerik.Reporting.TableGroup tableGroup11 = new Telerik.Reporting.TableGroup();
-            Telerik.Reporting.TableGroup tableGroup12 = new Telerik.Reporting.TableGroup();
+            Telerik.Reporting.TableGroup tableGroup373 = new Telerik.Reporting.TableGroup();
+            Telerik.Reporting.TableGroup tableGroup374 = new Telerik.Reporting.TableGroup();
+            Telerik.Reporting.TableGroup tableGroup375 = new Telerik.Reporting.TableGroup();
+            Telerik.Reporting.TableGroup tableGroup376 = new Telerik.Reporting.TableGroup();
+            Telerik.Reporting.TableGroup tableGroup377 = new Telerik.Reporting.TableGroup();
+            Telerik.Reporting.TableGroup tableGroup378 = new Telerik.Reporting.TableGroup();
+            Telerik.Reporting.TableGroup tableGroup379 = new Telerik.Reporting.TableGroup();
+            Telerik.Reporting.TableGroup tableGroup380 = new Telerik.Reporting.TableGroup();
+            Telerik.Reporting.TableGroup tableGroup381 = new Telerik.Reporting.TableGroup();
+            Telerik.Reporting.TableGroup tableGroup382 = new Telerik.Reporting.TableGroup();
+            Telerik.Reporting.TableGroup tableGroup383 = new Telerik.Reporting.TableGroup();
+            Telerik.Reporting.TableGroup tableGroup384 = new Telerik.Reporting.TableGroup();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Nilai));
-            Telerik.Reporting.GraphGroup graphGroup1 = new Telerik.Reporting.GraphGroup();
-            Telerik.Reporting.GraphTitle graphTitle1 = new Telerik.Reporting.GraphTitle();
-            Telerik.Reporting.CategoryScale categoryScale1 = new Telerik.Reporting.CategoryScale();
-            Telerik.Reporting.NumericalScale numericalScale1 = new Telerik.Reporting.NumericalScale();
-            Telerik.Reporting.GraphGroup graphGroup2 = new Telerik.Reporting.GraphGroup();
-            Telerik.Reporting.GraphGroup graphGroup3 = new Telerik.Reporting.GraphGroup();
-            Telerik.Reporting.GraphTitle graphTitle2 = new Telerik.Reporting.GraphTitle();
-            Telerik.Reporting.CategoryScale categoryScale2 = new Telerik.Reporting.CategoryScale();
-            Telerik.Reporting.NumericalScale numericalScale2 = new Telerik.Reporting.NumericalScale();
-            Telerik.Reporting.GraphGroup graphGroup4 = new Telerik.Reporting.GraphGroup();
-            Telerik.Reporting.ReportParameter reportParameter1 = new Telerik.Reporting.ReportParameter();
-            Telerik.Reporting.Drawing.StyleRule styleRule1 = new Telerik.Reporting.Drawing.StyleRule();
+            Telerik.Reporting.GraphGroup graphGroup94 = new Telerik.Reporting.GraphGroup();
+            Telerik.Reporting.GraphTitle graphTitle63 = new Telerik.Reporting.GraphTitle();
+            Telerik.Reporting.CategoryScale categoryScale63 = new Telerik.Reporting.CategoryScale();
+            Telerik.Reporting.NumericalScale numericalScale63 = new Telerik.Reporting.NumericalScale();
+            Telerik.Reporting.GraphGroup graphGroup98 = new Telerik.Reporting.GraphGroup();
+            Telerik.Reporting.GraphGroup graphGroup95 = new Telerik.Reporting.GraphGroup();
+            Telerik.Reporting.GraphGroup graphGroup96 = new Telerik.Reporting.GraphGroup();
+            Telerik.Reporting.GraphTitle graphTitle64 = new Telerik.Reporting.GraphTitle();
+            Telerik.Reporting.CategoryScale categoryScale64 = new Telerik.Reporting.CategoryScale();
+            Telerik.Reporting.NumericalScale numericalScale64 = new Telerik.Reporting.NumericalScale();
+            Telerik.Reporting.GraphGroup graphGroup99 = new Telerik.Reporting.GraphGroup();
+            Telerik.Reporting.GraphGroup graphGroup100 = new Telerik.Reporting.GraphGroup();
+            Telerik.Reporting.ReportParameter reportParameter32 = new Telerik.Reporting.ReportParameter();
+            Telerik.Reporting.Drawing.StyleRule styleRule32 = new Telerik.Reporting.Drawing.StyleRule();
             this.textBox3 = new Telerik.Reporting.TextBox();
             this.textBox5 = new Telerik.Reporting.TextBox();
             this.textBox1 = new Telerik.Reporting.TextBox();
@@ -67,47 +69,51 @@ namespace Proyek_Informatika.Report
             // 
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(2D), Telerik.Reporting.Drawing.Unit.Inch(0.2291666716337204D));
-            this.textBox3.StyleName = "";
+            this.textBox3.Style.BorderColor.Default = System.Drawing.Color.FromArgb(((int)(((byte)(93)))), ((int)(((byte)(140)))), ((int)(((byte)(201)))));
+            this.textBox3.Style.BorderStyle.Default = Telerik.Reporting.Drawing.BorderType.Solid;
             this.textBox3.Value = "=Fields.nilai_akhir";
             // 
             // textBox5
             // 
             this.textBox5.Name = "textBox5";
             this.textBox5.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(2D), Telerik.Reporting.Drawing.Unit.Inch(0.1458333432674408D));
-            this.textBox5.StyleName = "";
-            this.textBox5.Value = "";
+            this.textBox5.Style.BorderColor.Default = System.Drawing.Color.FromArgb(((int)(((byte)(93)))), ((int)(((byte)(140)))), ((int)(((byte)(201)))));
+            this.textBox5.Style.BorderStyle.Default = Telerik.Reporting.Drawing.BorderType.Solid;
             // 
             // textBox1
             // 
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(2D), Telerik.Reporting.Drawing.Unit.Inch(0.37500002980232239D));
-            this.textBox1.StyleName = "";
+            this.textBox1.Style.BorderColor.Default = System.Drawing.Color.FromArgb(((int)(((byte)(93)))), ((int)(((byte)(140)))), ((int)(((byte)(201)))));
+            this.textBox1.Style.BorderStyle.Default = Telerik.Reporting.Drawing.BorderType.Solid;
             this.textBox1.Value = "=Fields.periode_semester";
             // 
             // textBox8
             // 
             this.textBox8.Name = "textBox8";
             this.textBox8.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(4D), Telerik.Reporting.Drawing.Unit.Inch(0.145833358168602D));
-            this.textBox8.StyleName = "";
+            this.textBox8.Style.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(214)))), ((int)(((byte)(229)))), ((int)(((byte)(243)))));
+            this.textBox8.Style.BorderColor.Default = System.Drawing.Color.FromArgb(((int)(((byte)(93)))), ((int)(((byte)(140)))), ((int)(((byte)(201)))));
+            this.textBox8.Style.BorderStyle.Default = Telerik.Reporting.Drawing.BorderType.Solid;
+            this.textBox8.Style.Font.Bold = true;
+            this.textBox8.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Right;
+            this.textBox8.Style.VerticalAlign = Telerik.Reporting.Drawing.VerticalAlign.Middle;
             this.textBox8.Value = "Total Mahasiswa";
             // 
             // textBox6
             // 
             this.textBox6.Name = "textBox6";
             this.textBox6.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(4D), Telerik.Reporting.Drawing.Unit.Inch(0.3229166567325592D));
-            this.textBox6.StyleName = "";
             // 
             // jenis_skripsi_datasource
             // 
-            this.jenis_skripsi_datasource.ConnectionString = "Data Source=RAY\\SQLEXPRESS;Initial Catalog=skripsi_automation;Integrated Security" +
-                "=True;MultipleActiveResultSets=True";
+            this.jenis_skripsi_datasource.ConnectionString = "skripsiautomationReport";
             this.jenis_skripsi_datasource.Name = "jenis_skripsi_datasource";
-            this.jenis_skripsi_datasource.ProviderName = "System.Data.SqlClient";
             this.jenis_skripsi_datasource.SelectCommand = "select id, nama_jenis from jenis_skripsi";
             // 
             // pageHeaderSection1
             // 
-            this.pageHeaderSection1.Height = Telerik.Reporting.Drawing.Unit.Inch(0.99999994039535522D);
+            this.pageHeaderSection1.Height = Telerik.Reporting.Drawing.Unit.Inch(0.099999986588954926D);
             this.pageHeaderSection1.Name = "pageHeaderSection1";
             // 
             // detail
@@ -120,7 +126,7 @@ namespace Proyek_Informatika.Report
             // 
             // crosstab1
             // 
-            this.crosstab1.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Cm(2.5399999618530273D)));
+            this.crosstab1.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Inch(1D)));
             this.crosstab1.Body.Rows.Add(new Telerik.Reporting.TableBodyRow(Telerik.Reporting.Drawing.Unit.Inch(0.2291666567325592D)));
             this.crosstab1.Body.Rows.Add(new Telerik.Reporting.TableBodyRow(Telerik.Reporting.Drawing.Unit.Inch(0.1458333432674408D)));
             this.crosstab1.Body.Rows.Add(new Telerik.Reporting.TableBodyRow(Telerik.Reporting.Drawing.Unit.Inch(0.1458333432674408D)));
@@ -129,8 +135,8 @@ namespace Proyek_Informatika.Report
             this.crosstab1.Body.SetCellContent(1, 0, this.textBox4);
             this.crosstab1.Body.SetCellContent(2, 0, this.textBox7);
             this.crosstab1.Body.SetCellContent(3, 0, this.textBox9);
-            tableGroup1.Name = "ColumnGroup";
-            this.crosstab1.ColumnGroups.Add(tableGroup1);
+            tableGroup373.Name = "ColumnGroup";
+            this.crosstab1.ColumnGroups.Add(tableGroup373);
             this.crosstab1.DataSource = this.sqlDataSource1;
             this.crosstab1.Items.AddRange(new Telerik.Reporting.ReportItemBase[] {
             this.textBox2,
@@ -144,73 +150,77 @@ namespace Proyek_Informatika.Report
             this.textBox6});
             this.crosstab1.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Inch(0.099999986588954926D), Telerik.Reporting.Drawing.Unit.Inch(0.1000000610947609D));
             this.crosstab1.Name = "crosstab1";
-            tableGroup6.Name = "RowGroup";
-            tableGroup5.ChildGroups.Add(tableGroup6);
-            tableGroup5.Name = "Group2";
-            tableGroup5.ReportItem = this.textBox3;
-            tableGroup8.Name = "Group1";
-            tableGroup7.ChildGroups.Add(tableGroup8);
-            tableGroup7.Name = "Group3";
-            tableGroup7.ReportItem = this.textBox5;
-            tableGroup4.ChildGroups.Add(tableGroup5);
-            tableGroup4.ChildGroups.Add(tableGroup7);
-            tableGroup4.Groupings.Add(new Telerik.Reporting.Grouping("=Fields.nilai_akhir"));
-            tableGroup4.Name = "nilai_akhir";
-            tableGroup4.Sortings.Add(new Telerik.Reporting.Sorting("=Fields.nilai_akhir", Telerik.Reporting.SortDirection.Asc));
-            tableGroup3.ChildGroups.Add(tableGroup4);
-            tableGroup3.Name = "Group7";
-            tableGroup3.ReportItem = this.textBox1;
-            tableGroup10.Name = "Group6";
-            tableGroup9.ChildGroups.Add(tableGroup10);
-            tableGroup9.Name = "Group8";
-            tableGroup9.ReportItem = this.textBox8;
-            tableGroup12.Name = "Group5";
-            tableGroup11.ChildGroups.Add(tableGroup12);
-            tableGroup11.Name = "Group4";
-            tableGroup11.ReportItem = this.textBox6;
-            tableGroup2.ChildGroups.Add(tableGroup3);
-            tableGroup2.ChildGroups.Add(tableGroup9);
-            tableGroup2.ChildGroups.Add(tableGroup11);
-            tableGroup2.Groupings.Add(new Telerik.Reporting.Grouping("=Fields.periode_semester"));
-            tableGroup2.Name = "periode_semester";
-            tableGroup2.Sortings.Add(new Telerik.Reporting.Sorting("=Fields.periode_semester", Telerik.Reporting.SortDirection.Asc));
-            this.crosstab1.RowGroups.Add(tableGroup2);
+            tableGroup378.Name = "RowGroup";
+            tableGroup377.ChildGroups.Add(tableGroup378);
+            tableGroup377.Name = "Group2";
+            tableGroup377.ReportItem = this.textBox3;
+            tableGroup380.Name = "Group1";
+            tableGroup379.ChildGroups.Add(tableGroup380);
+            tableGroup379.Name = "Group3";
+            tableGroup379.ReportItem = this.textBox5;
+            tableGroup376.ChildGroups.Add(tableGroup377);
+            tableGroup376.ChildGroups.Add(tableGroup379);
+            tableGroup376.Groupings.Add(new Telerik.Reporting.Grouping("=Fields.nilai_akhir"));
+            tableGroup376.Name = "nilai_akhir";
+            tableGroup376.Sortings.Add(new Telerik.Reporting.Sorting("=Fields.nilai_akhir", Telerik.Reporting.SortDirection.Asc));
+            tableGroup375.ChildGroups.Add(tableGroup376);
+            tableGroup375.Name = "Group7";
+            tableGroup375.ReportItem = this.textBox1;
+            tableGroup382.Name = "Group6";
+            tableGroup381.ChildGroups.Add(tableGroup382);
+            tableGroup381.Name = "Group8";
+            tableGroup381.ReportItem = this.textBox8;
+            tableGroup384.Name = "Group5";
+            tableGroup383.ChildGroups.Add(tableGroup384);
+            tableGroup383.Name = "Group4";
+            tableGroup383.ReportItem = this.textBox6;
+            tableGroup374.ChildGroups.Add(tableGroup375);
+            tableGroup374.ChildGroups.Add(tableGroup381);
+            tableGroup374.ChildGroups.Add(tableGroup383);
+            tableGroup374.Groupings.Add(new Telerik.Reporting.Grouping("=Fields.periode_semester"));
+            tableGroup374.Name = "periode_semester";
+            tableGroup374.Sortings.Add(new Telerik.Reporting.Sorting("=Fields.periode_semester", Telerik.Reporting.SortDirection.Asc));
+            this.crosstab1.RowGroups.Add(tableGroup374);
             this.crosstab1.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(5D), Telerik.Reporting.Drawing.Unit.Inch(0.84375005960464478D));
             // 
             // textBox2
             // 
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(1D), Telerik.Reporting.Drawing.Unit.Inch(0.2291666716337204D));
+            this.textBox2.Style.BorderColor.Default = System.Drawing.Color.FromArgb(((int)(((byte)(93)))), ((int)(((byte)(140)))), ((int)(((byte)(201)))));
+            this.textBox2.Style.BorderStyle.Default = Telerik.Reporting.Drawing.BorderType.Solid;
             this.textBox2.Value = "= Fields.jumlah_nilai";
             // 
             // textBox4
             // 
             this.textBox4.Name = "textBox4";
             this.textBox4.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(1D), Telerik.Reporting.Drawing.Unit.Inch(0.1458333432674408D));
-            this.textBox4.StyleName = "";
-            this.textBox4.Value = "";
+            this.textBox4.Style.BorderColor.Default = System.Drawing.Color.FromArgb(((int)(((byte)(93)))), ((int)(((byte)(140)))), ((int)(((byte)(201)))));
+            this.textBox4.Style.BorderStyle.Default = Telerik.Reporting.Drawing.BorderType.Solid;
             // 
             // textBox7
             // 
             this.textBox7.Name = "textBox7";
             this.textBox7.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(1D), Telerik.Reporting.Drawing.Unit.Inch(0.1458333283662796D));
-            this.textBox7.StyleName = "";
+            this.textBox7.Style.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(214)))), ((int)(((byte)(229)))), ((int)(((byte)(243)))));
+            this.textBox7.Style.BorderColor.Default = System.Drawing.Color.FromArgb(((int)(((byte)(93)))), ((int)(((byte)(140)))), ((int)(((byte)(201)))));
+            this.textBox7.Style.BorderStyle.Default = Telerik.Reporting.Drawing.BorderType.Solid;
+            this.textBox7.Style.Font.Bold = true;
+            this.textBox7.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Right;
+            this.textBox7.Style.VerticalAlign = Telerik.Reporting.Drawing.VerticalAlign.Middle;
             this.textBox7.Value = "= Sum(Fields.jumlah_nilai)";
             // 
             // textBox9
             // 
             this.textBox9.Name = "textBox9";
             this.textBox9.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(1D), Telerik.Reporting.Drawing.Unit.Inch(0.3229166567325592D));
-            this.textBox9.StyleName = "";
             // 
             // sqlDataSource1
             // 
-            this.sqlDataSource1.ConnectionString = "Data Source=RAY\\SQLEXPRESS;Initial Catalog=skripsi_automation;Integrated Security" +
-                "=True;MultipleActiveResultSets=True";
+            this.sqlDataSource1.ConnectionString = "skripsiautomationReport";
             this.sqlDataSource1.Name = "sqlDataSource1";
             this.sqlDataSource1.Parameters.AddRange(new Telerik.Reporting.SqlDataSourceParameter[] {
             new Telerik.Reporting.SqlDataSourceParameter("@JenisSkripsi", System.Data.DbType.Int32, "=Parameters.JenisSkripsi.Value")});
-            this.sqlDataSource1.ProviderName = "System.Data.SqlClient";
             this.sqlDataSource1.SelectCommand = resources.GetString("sqlDataSource1.SelectCommand");
             // 
             // panel1
@@ -224,10 +234,10 @@ namespace Proyek_Informatika.Report
             // 
             // graph1
             // 
-            graphGroup1.Groupings.Add(new Telerik.Reporting.Grouping("=Fields.periode_semester"));
-            graphGroup1.Name = "periode_semesterGroup1";
-            graphGroup1.Sortings.Add(new Telerik.Reporting.Sorting("=Fields.periode_semester", Telerik.Reporting.SortDirection.Asc));
-            this.graph1.CategoryGroups.Add(graphGroup1);
+            graphGroup94.Groupings.Add(new Telerik.Reporting.Grouping("=Fields.periode_semester"));
+            graphGroup94.Name = "periode_semesterGroup1";
+            graphGroup94.Sortings.Add(new Telerik.Reporting.Sorting("=Fields.periode_semester", Telerik.Reporting.SortDirection.Asc));
+            this.graph1.CategoryGroups.Add(graphGroup94);
             this.graph1.CoordinateSystems.Add(this.cartesianCoordinateSystem1);
             this.graph1.DataSource = this.nilai_perperiode_datasource;
             this.graph1.Legend.Style.LineColor = System.Drawing.Color.LightGray;
@@ -237,17 +247,17 @@ namespace Proyek_Informatika.Report
             this.graph1.PlotAreaStyle.LineColor = System.Drawing.Color.LightGray;
             this.graph1.PlotAreaStyle.LineWidth = Telerik.Reporting.Drawing.Unit.Inch(0D);
             this.graph1.Series.Add(this.barSeries1);
-            this.graph1.SeriesGroups.Add(graphGroup2);
+            this.graph1.SeriesGroups.Add(graphGroup98);
             this.graph1.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(5.9998421669006348D), Telerik.Reporting.Drawing.Unit.Inch(4.3999605178833008D));
             this.graph1.Style.Padding.Bottom = Telerik.Reporting.Drawing.Unit.Pixel(10D);
             this.graph1.Style.Padding.Left = Telerik.Reporting.Drawing.Unit.Pixel(10D);
             this.graph1.Style.Padding.Right = Telerik.Reporting.Drawing.Unit.Pixel(10D);
             this.graph1.Style.Padding.Top = Telerik.Reporting.Drawing.Unit.Pixel(10D);
-            graphTitle1.Position = Telerik.Reporting.GraphItemPosition.TopCenter;
-            graphTitle1.Style.LineColor = System.Drawing.Color.LightGray;
-            graphTitle1.Style.LineWidth = Telerik.Reporting.Drawing.Unit.Inch(0D);
-            graphTitle1.Text = "graph1";
-            this.graph1.Titles.Add(graphTitle1);
+            graphTitle63.Position = Telerik.Reporting.GraphItemPosition.TopCenter;
+            graphTitle63.Style.LineColor = System.Drawing.Color.LightGray;
+            graphTitle63.Style.LineWidth = Telerik.Reporting.Drawing.Unit.Inch(0D);
+            graphTitle63.Text = "graph1";
+            this.graph1.Titles.Add(graphTitle63);
             // 
             // cartesianCoordinateSystem1
             // 
@@ -264,8 +274,8 @@ namespace Proyek_Informatika.Report
             this.graphAxis2.MinorGridLineStyle.LineWidth = Telerik.Reporting.Drawing.Unit.Pixel(1D);
             this.graphAxis2.MinorGridLineStyle.Visible = false;
             this.graphAxis2.Name = "graphAxis2";
-            categoryScale1.SpacingSlotCount = 1D;
-            this.graphAxis2.Scale = categoryScale1;
+            categoryScale63.SpacingSlotCount = 1D;
+            this.graphAxis2.Scale = categoryScale63;
             // 
             // graphAxis1
             // 
@@ -275,43 +285,40 @@ namespace Proyek_Informatika.Report
             this.graphAxis1.MinorGridLineStyle.LineWidth = Telerik.Reporting.Drawing.Unit.Pixel(1D);
             this.graphAxis1.MinorGridLineStyle.Visible = false;
             this.graphAxis1.Name = "graphAxis1";
-            numericalScale1.CrossAxisPosition = Telerik.Reporting.GraphScaleCrossAxisPosition.Specific;
-            numericalScale1.CrossAxisValue = 0D;
-            numericalScale1.SpacingSlotCount = 1D;
-            this.graphAxis1.Scale = numericalScale1;
+            numericalScale63.CrossAxisPosition = Telerik.Reporting.GraphScaleCrossAxisPosition.Specific;
+            numericalScale63.CrossAxisValue = 0D;
+            numericalScale63.SpacingSlotCount = 1D;
+            this.graphAxis1.Scale = numericalScale63;
             // 
             // nilai_perperiode_datasource
             // 
-            this.nilai_perperiode_datasource.ConnectionString = "Data Source=RAY\\SQLEXPRESS;Initial Catalog=skripsi_automation;Integrated Security" +
-                "=True;MultipleActiveResultSets=True";
+            this.nilai_perperiode_datasource.ConnectionString = "skripsiautomationReport";
             this.nilai_perperiode_datasource.Name = "nilai_perperiode_datasource";
             this.nilai_perperiode_datasource.Parameters.AddRange(new Telerik.Reporting.SqlDataSourceParameter[] {
             new Telerik.Reporting.SqlDataSourceParameter("@JenisSkripsi", System.Data.DbType.Int32, "=Parameters.JenisSkripsi.Value")});
-            this.nilai_perperiode_datasource.ProviderName = "System.Data.SqlClient";
             this.nilai_perperiode_datasource.SelectCommand = resources.GetString("nilai_perperiode_datasource.SelectCommand");
             // 
             // barSeries1
             // 
-            this.barSeries1.CategoryGroup = graphGroup1;
+            this.barSeries1.CategoryGroup = graphGroup94;
             this.barSeries1.CoordinateSystem = this.cartesianCoordinateSystem1;
             this.barSeries1.DataPointLabel = "=Sum(Fields.jumlah_nilai)";
             this.barSeries1.DataPointLabelStyle.Visible = false;
             this.barSeries1.DataPointStyle.LineWidth = Telerik.Reporting.Drawing.Unit.Inch(0D);
             this.barSeries1.DataPointStyle.Visible = true;
             this.barSeries1.Legend = "=Fields.nilai_akhir";
-            this.barSeries1.LegendFormat = "";
-            graphGroup2.Groupings.Add(new Telerik.Reporting.Grouping("=Fields.nilai_akhir"));
-            graphGroup2.Name = "nilai_akhirGroup1";
-            graphGroup2.Sortings.Add(new Telerik.Reporting.Sorting("=Fields.nilai_akhir", Telerik.Reporting.SortDirection.Asc));
-            this.barSeries1.SeriesGroup = graphGroup2;
+            graphGroup98.Groupings.Add(new Telerik.Reporting.Grouping("=Fields.nilai_akhir"));
+            graphGroup98.Name = "nilai_akhirGroup1";
+            graphGroup98.Sortings.Add(new Telerik.Reporting.Sorting("=Fields.nilai_akhir", Telerik.Reporting.SortDirection.Asc));
+            this.barSeries1.SeriesGroup = graphGroup98;
             this.barSeries1.Y = "=Sum(Fields.jumlah_nilai)";
             // 
             // graph2
             // 
-            graphGroup3.Groupings.Add(new Telerik.Reporting.Grouping("=Fields.periode_semester"));
-            graphGroup3.Name = "periode_semesterGroup2";
-            graphGroup3.Sortings.Add(new Telerik.Reporting.Sorting("=Fields.periode_semester", Telerik.Reporting.SortDirection.Asc));
-            this.graph2.CategoryGroups.Add(graphGroup3);
+            graphGroup95.Groupings.Add(new Telerik.Reporting.Grouping("=Fields.periode_semester"));
+            graphGroup95.Name = "periode_semesterGroup2";
+            graphGroup95.Sortings.Add(new Telerik.Reporting.Sorting("=Fields.periode_semester", Telerik.Reporting.SortDirection.Asc));
+            this.graph2.CategoryGroups.Add(graphGroup95);
             this.graph2.CoordinateSystems.Add(this.cartesianCoordinateSystem2);
             this.graph2.DataSource = this.presentasenilai_perperiode_datasource;
             this.graph2.Legend.Position = Telerik.Reporting.GraphItemPosition.BottomCenter;
@@ -322,17 +329,18 @@ namespace Proyek_Informatika.Report
             this.graph2.PlotAreaStyle.LineColor = System.Drawing.Color.LightGray;
             this.graph2.PlotAreaStyle.LineWidth = Telerik.Reporting.Drawing.Unit.Inch(0D);
             this.graph2.Series.Add(this.barSeries2);
-            this.graph2.SeriesGroups.Add(graphGroup4);
+            graphGroup96.Name = "seriesGroup1";
+            this.graph2.SeriesGroups.Add(graphGroup96);
             this.graph2.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(5.9998817443847656D), Telerik.Reporting.Drawing.Unit.Inch(4.2999997138977051D));
             this.graph2.Style.Padding.Bottom = Telerik.Reporting.Drawing.Unit.Pixel(10D);
             this.graph2.Style.Padding.Left = Telerik.Reporting.Drawing.Unit.Pixel(10D);
             this.graph2.Style.Padding.Right = Telerik.Reporting.Drawing.Unit.Pixel(10D);
             this.graph2.Style.Padding.Top = Telerik.Reporting.Drawing.Unit.Pixel(10D);
-            graphTitle2.Position = Telerik.Reporting.GraphItemPosition.TopCenter;
-            graphTitle2.Style.LineColor = System.Drawing.Color.LightGray;
-            graphTitle2.Style.LineWidth = Telerik.Reporting.Drawing.Unit.Inch(0D);
-            graphTitle2.Text = "graph2";
-            this.graph2.Titles.Add(graphTitle2);
+            graphTitle64.Position = Telerik.Reporting.GraphItemPosition.TopCenter;
+            graphTitle64.Style.LineColor = System.Drawing.Color.LightGray;
+            graphTitle64.Style.LineWidth = Telerik.Reporting.Drawing.Unit.Inch(0D);
+            graphTitle64.Text = "graph2";
+            this.graph2.Titles.Add(graphTitle64);
             // 
             // cartesianCoordinateSystem2
             // 
@@ -349,8 +357,8 @@ namespace Proyek_Informatika.Report
             this.graphAxis4.MinorGridLineStyle.LineWidth = Telerik.Reporting.Drawing.Unit.Pixel(1D);
             this.graphAxis4.MinorGridLineStyle.Visible = false;
             this.graphAxis4.Name = "graphAxis4";
-            categoryScale2.SpacingSlotCount = 1D;
-            this.graphAxis4.Scale = categoryScale2;
+            categoryScale64.SpacingSlotCount = 1D;
+            this.graphAxis4.Scale = categoryScale64;
             this.graphAxis4.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Right;
             this.graphAxis4.Style.Visible = true;
             this.graphAxis4.TitlePlacement = Telerik.Reporting.GraphAxisTitlePlacement.Auto;
@@ -363,33 +371,33 @@ namespace Proyek_Informatika.Report
             this.graphAxis3.MinorGridLineStyle.LineWidth = Telerik.Reporting.Drawing.Unit.Pixel(1D);
             this.graphAxis3.MinorGridLineStyle.Visible = false;
             this.graphAxis3.Name = "graphAxis3";
-            numericalScale2.CrossAxisPosition = Telerik.Reporting.GraphScaleCrossAxisPosition.Specific;
-            numericalScale2.CrossAxisValue = 0D;
-            numericalScale2.SpacingSlotCount = 1D;
-            this.graphAxis3.Scale = numericalScale2;
+            numericalScale64.CrossAxisPosition = Telerik.Reporting.GraphScaleCrossAxisPosition.Specific;
+            numericalScale64.CrossAxisValue = 0D;
+            numericalScale64.SpacingSlotCount = 1D;
+            this.graphAxis3.Scale = numericalScale64;
             // 
             // presentasenilai_perperiode_datasource
             // 
-            this.presentasenilai_perperiode_datasource.ConnectionString = "Data Source=RAY\\SQLEXPRESS;Initial Catalog=skripsi_automation;Integrated Security" +
-                "=True;MultipleActiveResultSets=True";
+            this.presentasenilai_perperiode_datasource.ConnectionString = "skripsiautomationReport";
             this.presentasenilai_perperiode_datasource.Name = "presentasenilai_perperiode_datasource";
             this.presentasenilai_perperiode_datasource.Parameters.AddRange(new Telerik.Reporting.SqlDataSourceParameter[] {
             new Telerik.Reporting.SqlDataSourceParameter("@skripsi", System.Data.DbType.Int32, "=Parameters.JenisSkripsi.Value")});
-            this.presentasenilai_perperiode_datasource.ProviderName = "System.Data.SqlClient";
             this.presentasenilai_perperiode_datasource.SelectCommand = resources.GetString("presentasenilai_perperiode_datasource.SelectCommand");
             // 
             // barSeries2
             // 
-            this.barSeries2.CategoryGroup = graphGroup3;
+            graphGroup99.Groupings.Add(new Telerik.Reporting.Grouping("=Fields.periode_semester"));
+            graphGroup99.Name = "periode_semesterGroup2";
+            graphGroup99.Sortings.Add(new Telerik.Reporting.Sorting("=Fields.periode_semester", Telerik.Reporting.SortDirection.Asc));
+            this.barSeries2.CategoryGroup = graphGroup99;
             this.barSeries2.CoordinateSystem = this.cartesianCoordinateSystem2;
             this.barSeries2.DataPointLabel = "=Sum(Fields.presentase)";
             this.barSeries2.DataPointLabelStyle.Visible = false;
             this.barSeries2.DataPointStyle.LineWidth = Telerik.Reporting.Drawing.Unit.Inch(0D);
             this.barSeries2.DataPointStyle.Visible = true;
             this.barSeries2.Legend = "presentase";
-            this.barSeries2.LegendFormat = "";
-            graphGroup4.Name = "seriesGroup1";
-            this.barSeries2.SeriesGroup = graphGroup4;
+            graphGroup100.Name = "seriesGroup1";
+            this.barSeries2.SeriesGroup = graphGroup100;
             this.barSeries2.Y = "=Sum(Fields.presentase)";
             // 
             // Nilai
@@ -400,23 +408,23 @@ namespace Proyek_Informatika.Report
             this.Name = "Nilai";
             this.PageSettings.Margins = new Telerik.Reporting.Drawing.MarginsU(Telerik.Reporting.Drawing.Unit.Inch(1D), Telerik.Reporting.Drawing.Unit.Inch(1D), Telerik.Reporting.Drawing.Unit.Inch(1D), Telerik.Reporting.Drawing.Unit.Inch(1D));
             this.PageSettings.PaperKind = System.Drawing.Printing.PaperKind.Letter;
-            reportParameter1.AvailableValues.DataSource = this.jenis_skripsi_datasource;
-            reportParameter1.AvailableValues.DisplayMember = "= Fields.nama_jenis";
-            reportParameter1.AvailableValues.ValueMember = "= Fields.id";
-            reportParameter1.Name = "JenisSkripsi";
-            reportParameter1.Text = "Jenis Skripsi";
-            reportParameter1.Type = Telerik.Reporting.ReportParameterType.Integer;
-            reportParameter1.Value = "= Fields.id";
-            reportParameter1.Visible = true;
-            this.ReportParameters.Add(reportParameter1);
+            reportParameter32.AvailableValues.DataSource = this.jenis_skripsi_datasource;
+            reportParameter32.AvailableValues.DisplayMember = "= Fields.nama_jenis";
+            reportParameter32.AvailableValues.ValueMember = "= Fields.id";
+            reportParameter32.Name = "JenisSkripsi";
+            reportParameter32.Text = "Jenis Skripsi";
+            reportParameter32.Type = Telerik.Reporting.ReportParameterType.Integer;
+            reportParameter32.Value = "= Fields.id";
+            reportParameter32.Visible = true;
+            this.ReportParameters.Add(reportParameter32);
             this.Style.BackgroundColor = System.Drawing.Color.White;
-            styleRule1.Selectors.AddRange(new Telerik.Reporting.Drawing.ISelector[] {
+            styleRule32.Selectors.AddRange(new Telerik.Reporting.Drawing.ISelector[] {
             new Telerik.Reporting.Drawing.TypeSelector(typeof(Telerik.Reporting.TextItemBase)),
             new Telerik.Reporting.Drawing.TypeSelector(typeof(Telerik.Reporting.HtmlTextBox))});
-            styleRule1.Style.Padding.Left = Telerik.Reporting.Drawing.Unit.Point(2D);
-            styleRule1.Style.Padding.Right = Telerik.Reporting.Drawing.Unit.Point(2D);
+            styleRule32.Style.Padding.Left = Telerik.Reporting.Drawing.Unit.Point(2D);
+            styleRule32.Style.Padding.Right = Telerik.Reporting.Drawing.Unit.Point(2D);
             this.StyleSheet.AddRange(new Telerik.Reporting.Drawing.StyleRule[] {
-            styleRule1});
+            styleRule32});
             this.Width = Telerik.Reporting.Drawing.Unit.Inch(6D);
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
 

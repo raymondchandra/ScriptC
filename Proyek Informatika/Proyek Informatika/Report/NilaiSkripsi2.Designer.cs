@@ -157,248 +157,307 @@ namespace Proyek_Informatika.Report
             this.textBox68 = new Telerik.Reporting.TextBox();
             this.nilaitotal_datasource = new Telerik.Reporting.SqlDataSource();
             this.sqlDataSource1 = new Telerik.Reporting.SqlDataSource();
-            this.sqlDataSource2 = new Telerik.Reporting.SqlDataSource();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             // 
             // textBox16
             // 
             this.textBox16.Name = "textBox16";
             this.textBox16.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(2.9895451068878174D), Telerik.Reporting.Drawing.Unit.Inch(0.20833337306976318D));
-            this.textBox16.StyleName = "";
+            this.textBox16.Style.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(214)))), ((int)(((byte)(229)))), ((int)(((byte)(243)))));
+            this.textBox16.Style.BorderColor.Default = System.Drawing.Color.FromArgb(((int)(((byte)(93)))), ((int)(((byte)(140)))), ((int)(((byte)(201)))));
+            this.textBox16.Style.BorderStyle.Default = Telerik.Reporting.Drawing.BorderType.Solid;
+            this.textBox16.Style.Font.Bold = true;
+            this.textBox16.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Center;
+            this.textBox16.Style.VerticalAlign = Telerik.Reporting.Drawing.VerticalAlign.Middle;
             this.textBox16.Value = "Biodata Mahasiswa";
             // 
             // textBox4
             // 
             this.textBox4.Name = "textBox4";
             this.textBox4.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(1.4062366485595703D), Telerik.Reporting.Drawing.Unit.Inch(0.20833347737789154D));
+            this.textBox4.Style.BorderColor.Default = System.Drawing.Color.FromArgb(((int)(((byte)(93)))), ((int)(((byte)(140)))), ((int)(((byte)(201)))));
+            this.textBox4.Style.BorderStyle.Default = Telerik.Reporting.Drawing.BorderType.Solid;
             this.textBox4.Value = "= Fields.nama";
             // 
             // textBox1
             // 
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(1.5833078622817993D), Telerik.Reporting.Drawing.Unit.Inch(0.20833353698253632D));
-            this.textBox1.StyleName = "";
+            this.textBox1.Style.BorderColor.Default = System.Drawing.Color.FromArgb(((int)(((byte)(93)))), ((int)(((byte)(140)))), ((int)(((byte)(201)))));
+            this.textBox1.Style.BorderStyle.Default = Telerik.Reporting.Drawing.BorderType.Solid;
             this.textBox1.Value = "NPM";
             // 
             // textBox3
             // 
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(1.4062366485595703D), Telerik.Reporting.Drawing.Unit.Inch(0.17708344757556915D));
-            this.textBox3.StyleName = "";
+            this.textBox3.Style.BorderColor.Default = System.Drawing.Color.FromArgb(((int)(((byte)(93)))), ((int)(((byte)(140)))), ((int)(((byte)(201)))));
+            this.textBox3.Style.BorderStyle.Default = Telerik.Reporting.Drawing.BorderType.Solid;
             this.textBox3.Value = "= Fields.nama";
             // 
             // textBox6
             // 
             this.textBox6.Name = "textBox6";
             this.textBox6.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(1.5833078622817993D), Telerik.Reporting.Drawing.Unit.Inch(0.17708346247673035D));
-            this.textBox6.StyleName = "";
+            this.textBox6.Style.BorderColor.Default = System.Drawing.Color.FromArgb(((int)(((byte)(93)))), ((int)(((byte)(140)))), ((int)(((byte)(201)))));
+            this.textBox6.Style.BorderStyle.Default = Telerik.Reporting.Drawing.BorderType.Solid;
             this.textBox6.Value = "Nama";
             // 
             // textBox8
             // 
             this.textBox8.Name = "textBox8";
             this.textBox8.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(1.4062366485595703D), Telerik.Reporting.Drawing.Unit.Inch(0.17708344757556915D));
-            this.textBox8.StyleName = "";
+            this.textBox8.Style.BorderColor.Default = System.Drawing.Color.FromArgb(((int)(((byte)(93)))), ((int)(((byte)(140)))), ((int)(((byte)(201)))));
+            this.textBox8.Style.BorderStyle.Default = Telerik.Reporting.Drawing.BorderType.Solid;
             this.textBox8.Value = "= Fields.judul";
             // 
             // textBox7
             // 
             this.textBox7.Name = "textBox7";
             this.textBox7.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(1.5833078622817993D), Telerik.Reporting.Drawing.Unit.Inch(0.17708346247673035D));
-            this.textBox7.StyleName = "";
+            this.textBox7.Style.BorderColor.Default = System.Drawing.Color.FromArgb(((int)(((byte)(93)))), ((int)(((byte)(140)))), ((int)(((byte)(201)))));
+            this.textBox7.Style.BorderStyle.Default = Telerik.Reporting.Drawing.BorderType.Solid;
             this.textBox7.Value = "Judul";
             // 
             // textBox11
             // 
             this.textBox11.Name = "textBox11";
             this.textBox11.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(1.4062366485595703D), Telerik.Reporting.Drawing.Unit.Inch(0.17708344757556915D));
-            this.textBox11.StyleName = "";
+            this.textBox11.Style.BorderColor.Default = System.Drawing.Color.FromArgb(((int)(((byte)(93)))), ((int)(((byte)(140)))), ((int)(((byte)(201)))));
+            this.textBox11.Style.BorderStyle.Default = Telerik.Reporting.Drawing.BorderType.Solid;
             this.textBox11.Value = "= Fields.periode_semester";
             // 
             // textBox10
             // 
             this.textBox10.Name = "textBox10";
             this.textBox10.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(1.5833078622817993D), Telerik.Reporting.Drawing.Unit.Inch(0.17708346247673035D));
-            this.textBox10.StyleName = "";
+            this.textBox10.Style.BorderColor.Default = System.Drawing.Color.FromArgb(((int)(((byte)(93)))), ((int)(((byte)(140)))), ((int)(((byte)(201)))));
+            this.textBox10.Style.BorderStyle.Default = Telerik.Reporting.Drawing.BorderType.Solid;
             this.textBox10.Value = "Semester Pengambilan";
             // 
             // textBox14
             // 
             this.textBox14.Name = "textBox14";
             this.textBox14.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(1.4062366485595703D), Telerik.Reporting.Drawing.Unit.Inch(0.17708344757556915D));
-            this.textBox14.StyleName = "";
+            this.textBox14.Style.BorderColor.Default = System.Drawing.Color.FromArgb(((int)(((byte)(93)))), ((int)(((byte)(140)))), ((int)(((byte)(201)))));
+            this.textBox14.Style.BorderStyle.Default = Telerik.Reporting.Drawing.BorderType.Solid;
             this.textBox14.Value = "= Fields.pengambilan_ke";
             // 
             // textBox13
             // 
             this.textBox13.Name = "textBox13";
             this.textBox13.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(1.5833078622817993D), Telerik.Reporting.Drawing.Unit.Inch(0.17708346247673035D));
-            this.textBox13.StyleName = "";
+            this.textBox13.Style.BorderColor.Default = System.Drawing.Color.FromArgb(((int)(((byte)(93)))), ((int)(((byte)(140)))), ((int)(((byte)(201)))));
+            this.textBox13.Style.BorderStyle.Default = Telerik.Reporting.Drawing.BorderType.Solid;
             this.textBox13.Value = "Pengambilan Ke";
             // 
             // textBox45
             // 
             this.textBox45.Name = "textBox45";
             this.textBox45.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(1.8333336114883423D), Telerik.Reporting.Drawing.Unit.Inch(0.21875D));
-            this.textBox45.StyleName = "";
+            this.textBox45.Style.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(214)))), ((int)(((byte)(229)))), ((int)(((byte)(243)))));
+            this.textBox45.Style.BorderColor.Default = System.Drawing.Color.FromArgb(((int)(((byte)(93)))), ((int)(((byte)(140)))), ((int)(((byte)(201)))));
+            this.textBox45.Style.BorderStyle.Default = Telerik.Reporting.Drawing.BorderType.Solid;
+            this.textBox45.Style.Font.Bold = true;
+            this.textBox45.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Center;
+            this.textBox45.Style.VerticalAlign = Telerik.Reporting.Drawing.VerticalAlign.Middle;
             this.textBox45.Value = "Penilaian Pembimbing";
             // 
             // textBox29
             // 
             this.textBox29.Name = "textBox29";
             this.textBox29.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(0.44791680574417114D), Telerik.Reporting.Drawing.Unit.Inch(0.2395833432674408D));
-            this.textBox29.StyleName = "";
+            this.textBox29.Style.BorderColor.Default = System.Drawing.Color.FromArgb(((int)(((byte)(93)))), ((int)(((byte)(140)))), ((int)(((byte)(201)))));
+            this.textBox29.Style.BorderStyle.Default = Telerik.Reporting.Drawing.BorderType.Solid;
             this.textBox29.Value = "Bobot";
             // 
             // textBox27
             // 
             this.textBox27.Name = "textBox27";
             this.textBox27.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(1.3854167461395264D), Telerik.Reporting.Drawing.Unit.Inch(0.2395833432674408D));
-            this.textBox27.StyleName = "";
+            this.textBox27.Style.BorderColor.Default = System.Drawing.Color.FromArgb(((int)(((byte)(93)))), ((int)(((byte)(140)))), ((int)(((byte)(201)))));
+            this.textBox27.Style.BorderStyle.Default = Telerik.Reporting.Drawing.BorderType.Solid;
             this.textBox27.Value = "Kategori";
             // 
             // textBox26
             // 
             this.textBox26.Name = "textBox26";
             this.textBox26.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(0.44791674613952637D), Telerik.Reporting.Drawing.Unit.Inch(0.21875D));
+            this.textBox26.Style.BorderColor.Default = System.Drawing.Color.FromArgb(((int)(((byte)(93)))), ((int)(((byte)(140)))), ((int)(((byte)(201)))));
+            this.textBox26.Style.BorderStyle.Default = Telerik.Reporting.Drawing.BorderType.Solid;
             this.textBox26.Value = "= Fields.bobot";
             // 
             // textBox17
             // 
             this.textBox17.Name = "textBox17";
             this.textBox17.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(1.3854167461395264D), Telerik.Reporting.Drawing.Unit.Inch(0.21875D));
-            this.textBox17.StyleName = "";
+            this.textBox17.Style.BorderColor.Default = System.Drawing.Color.FromArgb(((int)(((byte)(93)))), ((int)(((byte)(140)))), ((int)(((byte)(201)))));
+            this.textBox17.Style.BorderStyle.Default = Telerik.Reporting.Drawing.BorderType.Solid;
             this.textBox17.Value = "=Fields.kategori";
             // 
             // textBox28
             // 
             this.textBox28.Name = "textBox28";
             this.textBox28.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(1.8333336114883423D), Telerik.Reporting.Drawing.Unit.Inch(0.20833341777324677D));
-            this.textBox28.StyleName = "";
+            this.textBox28.Style.BorderColor.Default = System.Drawing.Color.FromArgb(((int)(((byte)(93)))), ((int)(((byte)(140)))), ((int)(((byte)(201)))));
+            this.textBox28.Style.BorderStyle.Default = Telerik.Reporting.Drawing.BorderType.Solid;
             // 
             // textBox48
             // 
             this.textBox48.Name = "textBox48";
             this.textBox48.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(1.8333336114883423D), Telerik.Reporting.Drawing.Unit.Inch(0.21875D));
-            this.textBox48.StyleName = "";
+            this.textBox48.Style.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(214)))), ((int)(((byte)(229)))), ((int)(((byte)(243)))));
+            this.textBox48.Style.BorderColor.Default = System.Drawing.Color.FromArgb(((int)(((byte)(93)))), ((int)(((byte)(140)))), ((int)(((byte)(201)))));
+            this.textBox48.Style.BorderStyle.Default = Telerik.Reporting.Drawing.BorderType.Solid;
+            this.textBox48.Style.Font.Bold = true;
+            this.textBox48.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Center;
+            this.textBox48.Style.VerticalAlign = Telerik.Reporting.Drawing.VerticalAlign.Middle;
             this.textBox48.Value = "Penilaian Penguji 1";
             // 
             // textBox43
             // 
             this.textBox43.Name = "textBox43";
             this.textBox43.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(0.44791680574417114D), Telerik.Reporting.Drawing.Unit.Inch(0.2395833432674408D));
-            this.textBox43.StyleName = "";
+            this.textBox43.Style.BorderColor.Default = System.Drawing.Color.FromArgb(((int)(((byte)(93)))), ((int)(((byte)(140)))), ((int)(((byte)(201)))));
+            this.textBox43.Style.BorderStyle.Default = Telerik.Reporting.Drawing.BorderType.Solid;
             this.textBox43.Value = "Bobot";
             // 
             // textBox44
             // 
             this.textBox44.Name = "textBox44";
             this.textBox44.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(1.3854167461395264D), Telerik.Reporting.Drawing.Unit.Inch(0.2395833432674408D));
-            this.textBox44.StyleName = "";
+            this.textBox44.Style.BorderColor.Default = System.Drawing.Color.FromArgb(((int)(((byte)(93)))), ((int)(((byte)(140)))), ((int)(((byte)(201)))));
+            this.textBox44.Style.BorderStyle.Default = Telerik.Reporting.Drawing.BorderType.Solid;
             this.textBox44.Value = "Kategori";
             // 
             // textBox41
             // 
             this.textBox41.Name = "textBox41";
             this.textBox41.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(0.44791674613952637D), Telerik.Reporting.Drawing.Unit.Inch(0.21875D));
+            this.textBox41.Style.BorderColor.Default = System.Drawing.Color.FromArgb(((int)(((byte)(93)))), ((int)(((byte)(140)))), ((int)(((byte)(201)))));
+            this.textBox41.Style.BorderStyle.Default = Telerik.Reporting.Drawing.BorderType.Solid;
             this.textBox41.Value = "= Fields.bobot";
             // 
             // textBox42
             // 
             this.textBox42.Name = "textBox42";
             this.textBox42.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(1.3854167461395264D), Telerik.Reporting.Drawing.Unit.Inch(0.21875D));
-            this.textBox42.StyleName = "";
+            this.textBox42.Style.BorderColor.Default = System.Drawing.Color.FromArgb(((int)(((byte)(93)))), ((int)(((byte)(140)))), ((int)(((byte)(201)))));
+            this.textBox42.Style.BorderStyle.Default = Telerik.Reporting.Drawing.BorderType.Solid;
             this.textBox42.Value = "=Fields.kategori";
             // 
             // textBox46
             // 
             this.textBox46.Name = "textBox46";
             this.textBox46.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(1.8333336114883423D), Telerik.Reporting.Drawing.Unit.Inch(0.20833341777324677D));
-            this.textBox46.StyleName = "";
+            this.textBox46.Style.BorderColor.Default = System.Drawing.Color.FromArgb(((int)(((byte)(93)))), ((int)(((byte)(140)))), ((int)(((byte)(201)))));
+            this.textBox46.Style.BorderStyle.Default = Telerik.Reporting.Drawing.BorderType.Solid;
             // 
             // textBox61
             // 
             this.textBox61.Name = "textBox61";
             this.textBox61.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(1.8333336114883423D), Telerik.Reporting.Drawing.Unit.Inch(0.21875D));
-            this.textBox61.StyleName = "";
+            this.textBox61.Style.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(214)))), ((int)(((byte)(229)))), ((int)(((byte)(243)))));
+            this.textBox61.Style.BorderColor.Default = System.Drawing.Color.FromArgb(((int)(((byte)(93)))), ((int)(((byte)(140)))), ((int)(((byte)(201)))));
+            this.textBox61.Style.BorderStyle.Default = Telerik.Reporting.Drawing.BorderType.Solid;
+            this.textBox61.Style.Font.Bold = true;
+            this.textBox61.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Center;
+            this.textBox61.Style.VerticalAlign = Telerik.Reporting.Drawing.VerticalAlign.Middle;
             this.textBox61.Value = "Penilaian Penguji 2";
             // 
             // textBox58
             // 
             this.textBox58.Name = "textBox58";
             this.textBox58.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(0.44791680574417114D), Telerik.Reporting.Drawing.Unit.Inch(0.2395833432674408D));
-            this.textBox58.StyleName = "";
+            this.textBox58.Style.BorderColor.Default = System.Drawing.Color.FromArgb(((int)(((byte)(93)))), ((int)(((byte)(140)))), ((int)(((byte)(201)))));
+            this.textBox58.Style.BorderStyle.Default = Telerik.Reporting.Drawing.BorderType.Solid;
             this.textBox58.Value = "Bobot";
             // 
             // textBox59
             // 
             this.textBox59.Name = "textBox59";
             this.textBox59.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(1.3854167461395264D), Telerik.Reporting.Drawing.Unit.Inch(0.2395833432674408D));
-            this.textBox59.StyleName = "";
+            this.textBox59.Style.BorderColor.Default = System.Drawing.Color.FromArgb(((int)(((byte)(93)))), ((int)(((byte)(140)))), ((int)(((byte)(201)))));
+            this.textBox59.Style.BorderStyle.Default = Telerik.Reporting.Drawing.BorderType.Solid;
             this.textBox59.Value = "Kategori";
             // 
             // textBox56
             // 
             this.textBox56.Name = "textBox56";
             this.textBox56.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(0.44791674613952637D), Telerik.Reporting.Drawing.Unit.Inch(0.21875D));
+            this.textBox56.Style.BorderColor.Default = System.Drawing.Color.FromArgb(((int)(((byte)(93)))), ((int)(((byte)(140)))), ((int)(((byte)(201)))));
+            this.textBox56.Style.BorderStyle.Default = Telerik.Reporting.Drawing.BorderType.Solid;
             this.textBox56.Value = "= Fields.bobot";
             // 
             // textBox57
             // 
             this.textBox57.Name = "textBox57";
             this.textBox57.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(1.3854167461395264D), Telerik.Reporting.Drawing.Unit.Inch(0.21875D));
-            this.textBox57.StyleName = "";
+            this.textBox57.Style.BorderColor.Default = System.Drawing.Color.FromArgb(((int)(((byte)(93)))), ((int)(((byte)(140)))), ((int)(((byte)(201)))));
+            this.textBox57.Style.BorderStyle.Default = Telerik.Reporting.Drawing.BorderType.Solid;
             this.textBox57.Value = "=Fields.kategori";
             // 
             // textBox60
             // 
             this.textBox60.Name = "textBox60";
             this.textBox60.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(1.8333336114883423D), Telerik.Reporting.Drawing.Unit.Inch(0.20833341777324677D));
-            this.textBox60.StyleName = "";
+            this.textBox60.Style.BorderColor.Default = System.Drawing.Color.FromArgb(((int)(((byte)(93)))), ((int)(((byte)(140)))), ((int)(((byte)(201)))));
+            this.textBox60.Style.BorderStyle.Default = Telerik.Reporting.Drawing.BorderType.Solid;
             // 
             // textBox69
             // 
             this.textBox69.Name = "textBox69";
             this.textBox69.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(1.8333336114883423D), Telerik.Reporting.Drawing.Unit.Inch(0.21875D));
-            this.textBox69.StyleName = "";
+            this.textBox69.Style.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(214)))), ((int)(((byte)(229)))), ((int)(((byte)(243)))));
+            this.textBox69.Style.BorderColor.Default = System.Drawing.Color.FromArgb(((int)(((byte)(93)))), ((int)(((byte)(140)))), ((int)(((byte)(201)))));
+            this.textBox69.Style.BorderStyle.Default = Telerik.Reporting.Drawing.BorderType.Solid;
+            this.textBox69.Style.Font.Bold = true;
+            this.textBox69.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Center;
+            this.textBox69.Style.VerticalAlign = Telerik.Reporting.Drawing.VerticalAlign.Middle;
             this.textBox69.Value = "Total Penilaian";
             // 
             // textBox71
             // 
             this.textBox71.Name = "textBox71";
             this.textBox71.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(0.44791680574417114D), Telerik.Reporting.Drawing.Unit.Inch(0.2395833432674408D));
-            this.textBox71.StyleName = "";
+            this.textBox71.Style.BorderColor.Default = System.Drawing.Color.FromArgb(((int)(((byte)(93)))), ((int)(((byte)(140)))), ((int)(((byte)(201)))));
+            this.textBox71.Style.BorderStyle.Default = Telerik.Reporting.Drawing.BorderType.Solid;
             this.textBox71.Value = "Bobot";
             // 
             // textBox70
             // 
             this.textBox70.Name = "textBox70";
             this.textBox70.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(1.3854167461395264D), Telerik.Reporting.Drawing.Unit.Inch(0.2395833432674408D));
-            this.textBox70.StyleName = "";
+            this.textBox70.Style.BorderColor.Default = System.Drawing.Color.FromArgb(((int)(((byte)(93)))), ((int)(((byte)(140)))), ((int)(((byte)(201)))));
+            this.textBox70.Style.BorderStyle.Default = Telerik.Reporting.Drawing.BorderType.Solid;
             this.textBox70.Value = "Kategori";
             // 
             // textBox73
             // 
             this.textBox73.Name = "textBox73";
             this.textBox73.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(0.44791674613952637D), Telerik.Reporting.Drawing.Unit.Inch(0.21875D));
+            this.textBox73.Style.BorderColor.Default = System.Drawing.Color.FromArgb(((int)(((byte)(93)))), ((int)(((byte)(140)))), ((int)(((byte)(201)))));
+            this.textBox73.Style.BorderStyle.Default = Telerik.Reporting.Drawing.BorderType.Solid;
             this.textBox73.Value = "= Fields.bobot";
             // 
             // textBox72
             // 
             this.textBox72.Name = "textBox72";
             this.textBox72.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(1.3854167461395264D), Telerik.Reporting.Drawing.Unit.Inch(0.21875D));
-            this.textBox72.StyleName = "";
+            this.textBox72.Style.BorderColor.Default = System.Drawing.Color.FromArgb(((int)(((byte)(93)))), ((int)(((byte)(140)))), ((int)(((byte)(201)))));
+            this.textBox72.Style.BorderStyle.Default = Telerik.Reporting.Drawing.BorderType.Solid;
             this.textBox72.Value = "=Fields.kategori";
             // 
             // textBox74
             // 
             this.textBox74.Name = "textBox74";
             this.textBox74.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(1.8333336114883423D), Telerik.Reporting.Drawing.Unit.Inch(0.20833341777324677D));
-            this.textBox74.StyleName = "";
+            this.textBox74.Style.BorderColor.Default = System.Drawing.Color.FromArgb(((int)(((byte)(93)))), ((int)(((byte)(140)))), ((int)(((byte)(201)))));
+            this.textBox74.Style.BorderStyle.Default = Telerik.Reporting.Drawing.BorderType.Solid;
             // 
             // pageHeaderSection1
             // 
-            this.pageHeaderSection1.Height = Telerik.Reporting.Drawing.Unit.Inch(0.90000009536743164D);
+            this.pageHeaderSection1.Height = Telerik.Reporting.Drawing.Unit.Inch(0.099999986588954926D);
             this.pageHeaderSection1.Name = "pageHeaderSection1";
             // 
             // detail
@@ -414,9 +473,9 @@ namespace Proyek_Informatika.Report
             // 
             // crosstab1
             // 
-            this.crosstab1.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Cm(4.286217212677002D)));
-            this.crosstab1.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Cm(3.333683967590332D)));
-            this.crosstab1.Body.Rows.Add(new Telerik.Reporting.TableBodyRow(Telerik.Reporting.Drawing.Unit.Inch(0.20833340287208557D)));
+            this.crosstab1.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Inch(1.6874871253967285D)));
+            this.crosstab1.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Inch(1.3124740123748779D)));
+            this.crosstab1.Body.Rows.Add(new Telerik.Reporting.TableBodyRow(Telerik.Reporting.Drawing.Unit.Inch(0.20833341777324677D)));
             this.crosstab1.Body.Rows.Add(new Telerik.Reporting.TableBodyRow(Telerik.Reporting.Drawing.Unit.Inch(0.20833344757556915D)));
             this.crosstab1.Body.Rows.Add(new Telerik.Reporting.TableBodyRow(Telerik.Reporting.Drawing.Unit.Inch(0.17708343267440796D)));
             this.crosstab1.Body.Rows.Add(new Telerik.Reporting.TableBodyRow(Telerik.Reporting.Drawing.Unit.Inch(0.17708343267440796D)));
@@ -507,86 +566,100 @@ namespace Proyek_Informatika.Report
             // 
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(1.6874868869781494D), Telerik.Reporting.Drawing.Unit.Inch(0.20833353698253632D));
+            this.textBox2.Style.BorderColor.Default = System.Drawing.Color.FromArgb(((int)(((byte)(93)))), ((int)(((byte)(140)))), ((int)(((byte)(201)))));
+            this.textBox2.Style.BorderStyle.Default = Telerik.Reporting.Drawing.BorderType.Solid;
             this.textBox2.Value = "NIK";
             // 
             // textBox5
             // 
             this.textBox5.Name = "textBox5";
             this.textBox5.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(1.6874868869781494D), Telerik.Reporting.Drawing.Unit.Inch(0.17708346247673035D));
-            this.textBox5.StyleName = "";
+            this.textBox5.Style.BorderColor.Default = System.Drawing.Color.FromArgb(((int)(((byte)(93)))), ((int)(((byte)(140)))), ((int)(((byte)(201)))));
+            this.textBox5.Style.BorderStyle.Default = Telerik.Reporting.Drawing.BorderType.Solid;
             this.textBox5.Value = "Nama";
             // 
             // textBox9
             // 
             this.textBox9.Name = "textBox9";
             this.textBox9.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(1.6874868869781494D), Telerik.Reporting.Drawing.Unit.Inch(0.17708346247673035D));
-            this.textBox9.StyleName = "";
+            this.textBox9.Style.BorderColor.Default = System.Drawing.Color.FromArgb(((int)(((byte)(93)))), ((int)(((byte)(140)))), ((int)(((byte)(201)))));
+            this.textBox9.Style.BorderStyle.Default = Telerik.Reporting.Drawing.BorderType.Solid;
             // 
             // textBox12
             // 
             this.textBox12.Name = "textBox12";
             this.textBox12.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(1.6874868869781494D), Telerik.Reporting.Drawing.Unit.Inch(0.17708346247673035D));
-            this.textBox12.StyleName = "";
+            this.textBox12.Style.BorderColor.Default = System.Drawing.Color.FromArgb(((int)(((byte)(93)))), ((int)(((byte)(140)))), ((int)(((byte)(201)))));
+            this.textBox12.Style.BorderStyle.Default = Telerik.Reporting.Drawing.BorderType.Solid;
             // 
             // textBox15
             // 
             this.textBox15.Name = "textBox15";
             this.textBox15.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(1.6874868869781494D), Telerik.Reporting.Drawing.Unit.Inch(0.17708346247673035D));
-            this.textBox15.StyleName = "";
+            this.textBox15.Style.BorderColor.Default = System.Drawing.Color.FromArgb(((int)(((byte)(93)))), ((int)(((byte)(140)))), ((int)(((byte)(201)))));
+            this.textBox15.Style.BorderStyle.Default = Telerik.Reporting.Drawing.BorderType.Solid;
             // 
             // textBox19
             // 
             this.textBox19.Name = "textBox19";
             this.textBox19.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(1.3124741315841675D), Telerik.Reporting.Drawing.Unit.Inch(0.20833347737789154D));
-            this.textBox19.StyleName = "";
+            this.textBox19.Style.BorderColor.Default = System.Drawing.Color.FromArgb(((int)(((byte)(93)))), ((int)(((byte)(140)))), ((int)(((byte)(201)))));
+            this.textBox19.Style.BorderStyle.Default = Telerik.Reporting.Drawing.BorderType.Solid;
             this.textBox19.Value = "= Fields.NIK";
             // 
             // textBox20
             // 
             this.textBox20.Name = "textBox20";
             this.textBox20.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(1.3124741315841675D), Telerik.Reporting.Drawing.Unit.Inch(0.17708344757556915D));
-            this.textBox20.StyleName = "";
+            this.textBox20.Style.BorderColor.Default = System.Drawing.Color.FromArgb(((int)(((byte)(93)))), ((int)(((byte)(140)))), ((int)(((byte)(201)))));
+            this.textBox20.Style.BorderStyle.Default = Telerik.Reporting.Drawing.BorderType.Solid;
             this.textBox20.Value = "= Fields.nama1";
             // 
             // textBox21
             // 
             this.textBox21.Name = "textBox21";
             this.textBox21.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(1.3124741315841675D), Telerik.Reporting.Drawing.Unit.Inch(0.17708344757556915D));
-            this.textBox21.StyleName = "";
+            this.textBox21.Style.BorderColor.Default = System.Drawing.Color.FromArgb(((int)(((byte)(93)))), ((int)(((byte)(140)))), ((int)(((byte)(201)))));
+            this.textBox21.Style.BorderStyle.Default = Telerik.Reporting.Drawing.BorderType.Solid;
             // 
             // textBox22
             // 
             this.textBox22.Name = "textBox22";
             this.textBox22.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(1.3124741315841675D), Telerik.Reporting.Drawing.Unit.Inch(0.17708344757556915D));
-            this.textBox22.StyleName = "";
+            this.textBox22.Style.BorderColor.Default = System.Drawing.Color.FromArgb(((int)(((byte)(93)))), ((int)(((byte)(140)))), ((int)(((byte)(201)))));
+            this.textBox22.Style.BorderStyle.Default = Telerik.Reporting.Drawing.BorderType.Solid;
             // 
             // textBox23
             // 
             this.textBox23.Name = "textBox23";
             this.textBox23.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(1.3124741315841675D), Telerik.Reporting.Drawing.Unit.Inch(0.17708344757556915D));
-            this.textBox23.StyleName = "";
+            this.textBox23.Style.BorderColor.Default = System.Drawing.Color.FromArgb(((int)(((byte)(93)))), ((int)(((byte)(140)))), ((int)(((byte)(201)))));
+            this.textBox23.Style.BorderStyle.Default = Telerik.Reporting.Drawing.BorderType.Solid;
             // 
             // textBox18
             // 
             this.textBox18.Name = "textBox18";
             this.textBox18.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(2.9999608993530273D), Telerik.Reporting.Drawing.Unit.Inch(0.20833337306976318D));
-            this.textBox18.StyleName = "";
+            this.textBox18.Style.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(214)))), ((int)(((byte)(229)))), ((int)(((byte)(243)))));
+            this.textBox18.Style.BorderColor.Default = System.Drawing.Color.FromArgb(((int)(((byte)(93)))), ((int)(((byte)(140)))), ((int)(((byte)(201)))));
+            this.textBox18.Style.BorderStyle.Default = Telerik.Reporting.Drawing.BorderType.Solid;
+            this.textBox18.Style.Font.Bold = true;
+            this.textBox18.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Center;
+            this.textBox18.Style.VerticalAlign = Telerik.Reporting.Drawing.VerticalAlign.Middle;
             this.textBox18.Value = "Pembimbing";
             // 
             // biodata_datasource
             // 
-            this.biodata_datasource.ConnectionString = "Data Source=RAY\\SQLEXPRESS;Initial Catalog=skripsi_automation;Integrated Security" +
-                "=True;MultipleActiveResultSets=True";
+            this.biodata_datasource.ConnectionString = "skripsiautomationReport";
             this.biodata_datasource.Name = "biodata_datasource";
             this.biodata_datasource.Parameters.AddRange(new Telerik.Reporting.SqlDataSourceParameter[] {
             new Telerik.Reporting.SqlDataSourceParameter("@idValueSkripsi2", System.Data.DbType.Int32, "=Parameters.id_skripsi.Value")});
-            this.biodata_datasource.ProviderName = "System.Data.SqlClient";
             this.biodata_datasource.SelectCommand = resources.GetString("biodata_datasource.SelectCommand");
             // 
             // crosstab2
             // 
-            this.crosstab2.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Cm(1.1906251907348633D)));
-            this.crosstab2.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Cm(1.455208420753479D)));
+            this.crosstab2.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Inch(0.46875005960464478D)));
+            this.crosstab2.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Inch(0.57291680574417114D)));
             this.crosstab2.Body.Rows.Add(new Telerik.Reporting.TableBodyRow(Telerik.Reporting.Drawing.Unit.Inch(0.21875D)));
             this.crosstab2.Body.Rows.Add(new Telerik.Reporting.TableBodyRow(Telerik.Reporting.Drawing.Unit.Inch(0.239583358168602D)));
             this.crosstab2.Body.Rows.Add(new Telerik.Reporting.TableBodyRow(Telerik.Reporting.Drawing.Unit.Inch(0.21875005960464478D)));
@@ -652,65 +725,81 @@ namespace Proyek_Informatika.Report
             // 
             this.textBox24.Name = "textBox24";
             this.textBox24.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(0.46875011920928955D), Telerik.Reporting.Drawing.Unit.Inch(0.21875D));
+            this.textBox24.Style.BorderColor.Default = System.Drawing.Color.FromArgb(((int)(((byte)(93)))), ((int)(((byte)(140)))), ((int)(((byte)(201)))));
+            this.textBox24.Style.BorderStyle.Default = Telerik.Reporting.Drawing.BorderType.Solid;
             this.textBox24.Value = "= Fields.angka * 100 / Fields.bobot";
             // 
             // textBox25
             // 
             this.textBox25.Name = "textBox25";
             this.textBox25.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(0.57291674613952637D), Telerik.Reporting.Drawing.Unit.Inch(0.21875D));
-            this.textBox25.StyleName = "";
+            this.textBox25.Style.BorderColor.Default = System.Drawing.Color.FromArgb(((int)(((byte)(93)))), ((int)(((byte)(140)))), ((int)(((byte)(201)))));
+            this.textBox25.Style.BorderStyle.Default = Telerik.Reporting.Drawing.BorderType.Solid;
             this.textBox25.Value = "= Fields.angka";
             // 
             // textBox30
             // 
             this.textBox30.Name = "textBox30";
             this.textBox30.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(0.46875005960464478D), Telerik.Reporting.Drawing.Unit.Inch(0.2395833432674408D));
-            this.textBox30.StyleName = "";
+            this.textBox30.Style.BorderColor.Default = System.Drawing.Color.FromArgb(((int)(((byte)(93)))), ((int)(((byte)(140)))), ((int)(((byte)(201)))));
+            this.textBox30.Style.BorderStyle.Default = Telerik.Reporting.Drawing.BorderType.Solid;
             this.textBox30.Value = "Angka";
             // 
             // textBox31
             // 
             this.textBox31.Name = "textBox31";
             this.textBox31.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(0.57291674613952637D), Telerik.Reporting.Drawing.Unit.Inch(0.2395833432674408D));
-            this.textBox31.StyleName = "";
+            this.textBox31.Style.BorderColor.Default = System.Drawing.Color.FromArgb(((int)(((byte)(93)))), ((int)(((byte)(140)))), ((int)(((byte)(201)))));
+            this.textBox31.Style.BorderStyle.Default = Telerik.Reporting.Drawing.BorderType.Solid;
             this.textBox31.Value = "Subtotal";
             // 
             // textBox33
             // 
             this.textBox33.Name = "textBox33";
             this.textBox33.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(0.46875011920928955D), Telerik.Reporting.Drawing.Unit.Inch(0.20833341777324677D));
-            this.textBox33.StyleName = "";
-            this.textBox33.Value = "total";
+            this.textBox33.Style.BorderColor.Default = System.Drawing.Color.FromArgb(((int)(((byte)(93)))), ((int)(((byte)(140)))), ((int)(((byte)(201)))));
+            this.textBox33.Style.BorderStyle.Default = Telerik.Reporting.Drawing.BorderType.Solid;
+            this.textBox33.Style.Font.Bold = true;
+            this.textBox33.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Right;
+            this.textBox33.Style.VerticalAlign = Telerik.Reporting.Drawing.VerticalAlign.Middle;
+            this.textBox33.Value = "Total";
             // 
             // textBox34
             // 
             this.textBox34.Name = "textBox34";
             this.textBox34.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(0.57291674613952637D), Telerik.Reporting.Drawing.Unit.Inch(0.20833341777324677D));
-            this.textBox34.StyleName = "";
+            this.textBox34.Style.BorderColor.Default = System.Drawing.Color.FromArgb(((int)(((byte)(93)))), ((int)(((byte)(140)))), ((int)(((byte)(201)))));
+            this.textBox34.Style.BorderStyle.Default = Telerik.Reporting.Drawing.BorderType.Solid;
+            this.textBox34.Style.Font.Bold = true;
+            this.textBox34.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Right;
+            this.textBox34.Style.VerticalAlign = Telerik.Reporting.Drawing.VerticalAlign.Middle;
             this.textBox34.Value = "= Sum(Fields.angka)";
             // 
             // textBox47
             // 
             this.textBox47.Name = "textBox47";
             this.textBox47.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(1.0416668653488159D), Telerik.Reporting.Drawing.Unit.Inch(0.21875D));
-            this.textBox47.StyleName = "";
+            this.textBox47.Style.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(214)))), ((int)(((byte)(229)))), ((int)(((byte)(243)))));
+            this.textBox47.Style.BorderColor.Default = System.Drawing.Color.FromArgb(((int)(((byte)(93)))), ((int)(((byte)(140)))), ((int)(((byte)(201)))));
+            this.textBox47.Style.BorderStyle.Default = Telerik.Reporting.Drawing.BorderType.Solid;
+            this.textBox47.Style.Font.Bold = true;
+            this.textBox47.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Center;
+            this.textBox47.Style.VerticalAlign = Telerik.Reporting.Drawing.VerticalAlign.Middle;
             // 
             // nilaipembimbing_datasource
             // 
-            this.nilaipembimbing_datasource.ConnectionString = "Data Source=RAY\\SQLEXPRESS;Initial Catalog=skripsi_automation;Integrated Security" +
-                "=True;MultipleActiveResultSets=True";
+            this.nilaipembimbing_datasource.ConnectionString = "skripsiautomationReport";
             this.nilaipembimbing_datasource.Name = "nilaipembimbing_datasource";
             this.nilaipembimbing_datasource.Parameters.AddRange(new Telerik.Reporting.SqlDataSourceParameter[] {
             new Telerik.Reporting.SqlDataSourceParameter("@id_skripsi", System.Data.DbType.Int32, "=Parameters.id_skripsi.Value")});
-            this.nilaipembimbing_datasource.ProviderName = "System.Data.SqlClient";
             this.nilaipembimbing_datasource.SelectCommand = "select n.angka, k.bobot, k.kategori, (n.angka * k.bobot /100) as subtotal\r\nfrom n" +
                 "ilai n\r\n\tjoin kategori_nilai k on k.id = n.kategori\r\nwhere n.id_skripsi = @id_sk" +
                 "ripsi and k.tipe= \'pembimbing\'";
             // 
             // crosstab3
             // 
-            this.crosstab3.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Cm(1.1906251907348633D)));
-            this.crosstab3.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Cm(1.455208420753479D)));
+            this.crosstab3.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Inch(0.46875005960464478D)));
+            this.crosstab3.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Inch(0.57291680574417114D)));
             this.crosstab3.Body.Rows.Add(new Telerik.Reporting.TableBodyRow(Telerik.Reporting.Drawing.Unit.Inch(0.21875D)));
             this.crosstab3.Body.Rows.Add(new Telerik.Reporting.TableBodyRow(Telerik.Reporting.Drawing.Unit.Inch(0.239583358168602D)));
             this.crosstab3.Body.Rows.Add(new Telerik.Reporting.TableBodyRow(Telerik.Reporting.Drawing.Unit.Inch(0.21875005960464478D)));
@@ -776,65 +865,81 @@ namespace Proyek_Informatika.Report
             // 
             this.textBox32.Name = "textBox32";
             this.textBox32.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(0.46875011920928955D), Telerik.Reporting.Drawing.Unit.Inch(0.21875D));
+            this.textBox32.Style.BorderColor.Default = System.Drawing.Color.FromArgb(((int)(((byte)(93)))), ((int)(((byte)(140)))), ((int)(((byte)(201)))));
+            this.textBox32.Style.BorderStyle.Default = Telerik.Reporting.Drawing.BorderType.Solid;
             this.textBox32.Value = "= Fields.angka * 100 / Fields.bobot";
             // 
             // textBox35
             // 
             this.textBox35.Name = "textBox35";
             this.textBox35.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(0.57291674613952637D), Telerik.Reporting.Drawing.Unit.Inch(0.21875D));
-            this.textBox35.StyleName = "";
+            this.textBox35.Style.BorderColor.Default = System.Drawing.Color.FromArgb(((int)(((byte)(93)))), ((int)(((byte)(140)))), ((int)(((byte)(201)))));
+            this.textBox35.Style.BorderStyle.Default = Telerik.Reporting.Drawing.BorderType.Solid;
             this.textBox35.Value = "= Fields.angka";
             // 
             // textBox36
             // 
             this.textBox36.Name = "textBox36";
             this.textBox36.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(0.46875005960464478D), Telerik.Reporting.Drawing.Unit.Inch(0.2395833432674408D));
-            this.textBox36.StyleName = "";
+            this.textBox36.Style.BorderColor.Default = System.Drawing.Color.FromArgb(((int)(((byte)(93)))), ((int)(((byte)(140)))), ((int)(((byte)(201)))));
+            this.textBox36.Style.BorderStyle.Default = Telerik.Reporting.Drawing.BorderType.Solid;
             this.textBox36.Value = "Angka";
             // 
             // textBox37
             // 
             this.textBox37.Name = "textBox37";
             this.textBox37.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(0.57291674613952637D), Telerik.Reporting.Drawing.Unit.Inch(0.2395833432674408D));
-            this.textBox37.StyleName = "";
+            this.textBox37.Style.BorderColor.Default = System.Drawing.Color.FromArgb(((int)(((byte)(93)))), ((int)(((byte)(140)))), ((int)(((byte)(201)))));
+            this.textBox37.Style.BorderStyle.Default = Telerik.Reporting.Drawing.BorderType.Solid;
             this.textBox37.Value = "Subtotal";
             // 
             // textBox38
             // 
             this.textBox38.Name = "textBox38";
             this.textBox38.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(0.46875011920928955D), Telerik.Reporting.Drawing.Unit.Inch(0.20833341777324677D));
-            this.textBox38.StyleName = "";
-            this.textBox38.Value = "total";
+            this.textBox38.Style.BorderColor.Default = System.Drawing.Color.FromArgb(((int)(((byte)(93)))), ((int)(((byte)(140)))), ((int)(((byte)(201)))));
+            this.textBox38.Style.BorderStyle.Default = Telerik.Reporting.Drawing.BorderType.Solid;
+            this.textBox38.Style.Font.Bold = true;
+            this.textBox38.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Right;
+            this.textBox38.Style.VerticalAlign = Telerik.Reporting.Drawing.VerticalAlign.Middle;
+            this.textBox38.Value = "Total";
             // 
             // textBox39
             // 
             this.textBox39.Name = "textBox39";
             this.textBox39.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(0.57291674613952637D), Telerik.Reporting.Drawing.Unit.Inch(0.20833341777324677D));
-            this.textBox39.StyleName = "";
+            this.textBox39.Style.BorderColor.Default = System.Drawing.Color.FromArgb(((int)(((byte)(93)))), ((int)(((byte)(140)))), ((int)(((byte)(201)))));
+            this.textBox39.Style.BorderStyle.Default = Telerik.Reporting.Drawing.BorderType.Solid;
+            this.textBox39.Style.Font.Bold = true;
+            this.textBox39.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Right;
+            this.textBox39.Style.VerticalAlign = Telerik.Reporting.Drawing.VerticalAlign.Middle;
             this.textBox39.Value = "= Sum(Fields.angka)";
             // 
             // textBox40
             // 
             this.textBox40.Name = "textBox40";
             this.textBox40.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(1.0416668653488159D), Telerik.Reporting.Drawing.Unit.Inch(0.21875D));
-            this.textBox40.StyleName = "";
+            this.textBox40.Style.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(214)))), ((int)(((byte)(229)))), ((int)(((byte)(243)))));
+            this.textBox40.Style.BorderColor.Default = System.Drawing.Color.FromArgb(((int)(((byte)(93)))), ((int)(((byte)(140)))), ((int)(((byte)(201)))));
+            this.textBox40.Style.BorderStyle.Default = Telerik.Reporting.Drawing.BorderType.Solid;
+            this.textBox40.Style.Font.Bold = true;
+            this.textBox40.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Center;
+            this.textBox40.Style.VerticalAlign = Telerik.Reporting.Drawing.VerticalAlign.Middle;
             // 
             // nilaipenguji1_datasource
             // 
-            this.nilaipenguji1_datasource.ConnectionString = "Data Source=RAY\\SQLEXPRESS;Initial Catalog=skripsi_automation;Integrated Security" +
-                "=True;MultipleActiveResultSets=True";
+            this.nilaipenguji1_datasource.ConnectionString = "skripsiautomationReport";
             this.nilaipenguji1_datasource.Name = "nilaipenguji1_datasource";
             this.nilaipenguji1_datasource.Parameters.AddRange(new Telerik.Reporting.SqlDataSourceParameter[] {
             new Telerik.Reporting.SqlDataSourceParameter("@id_skripsi", System.Data.DbType.Int32, "=Parameters.id_skripsi.Value")});
-            this.nilaipenguji1_datasource.ProviderName = "System.Data.SqlClient";
             this.nilaipenguji1_datasource.SelectCommand = "select n.angka, k.bobot, k.kategori, (n.angka * k.bobot /100) as subtotal\r\nfrom n" +
                 "ilai n\r\n\tjoin kategori_nilai k on k.id = n.kategori\r\nwhere n.id_skripsi = @id_sk" +
                 "ripsi and k.tipe= \'penguji1\'\r\n";
             // 
             // crosstab4
             // 
-            this.crosstab4.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Cm(1.1906251907348633D)));
-            this.crosstab4.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Cm(1.455208420753479D)));
+            this.crosstab4.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Inch(0.46875005960464478D)));
+            this.crosstab4.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Inch(0.57291680574417114D)));
             this.crosstab4.Body.Rows.Add(new Telerik.Reporting.TableBodyRow(Telerik.Reporting.Drawing.Unit.Inch(0.21875D)));
             this.crosstab4.Body.Rows.Add(new Telerik.Reporting.TableBodyRow(Telerik.Reporting.Drawing.Unit.Inch(0.239583358168602D)));
             this.crosstab4.Body.Rows.Add(new Telerik.Reporting.TableBodyRow(Telerik.Reporting.Drawing.Unit.Inch(0.21875005960464478D)));
@@ -900,65 +1005,81 @@ namespace Proyek_Informatika.Report
             // 
             this.textBox49.Name = "textBox49";
             this.textBox49.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(0.46875011920928955D), Telerik.Reporting.Drawing.Unit.Inch(0.21875D));
+            this.textBox49.Style.BorderColor.Default = System.Drawing.Color.FromArgb(((int)(((byte)(93)))), ((int)(((byte)(140)))), ((int)(((byte)(201)))));
+            this.textBox49.Style.BorderStyle.Default = Telerik.Reporting.Drawing.BorderType.Solid;
             this.textBox49.Value = "= Fields.angka * 100 / Fields.bobot";
             // 
             // textBox50
             // 
             this.textBox50.Name = "textBox50";
             this.textBox50.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(0.57291674613952637D), Telerik.Reporting.Drawing.Unit.Inch(0.21875D));
-            this.textBox50.StyleName = "";
+            this.textBox50.Style.BorderColor.Default = System.Drawing.Color.FromArgb(((int)(((byte)(93)))), ((int)(((byte)(140)))), ((int)(((byte)(201)))));
+            this.textBox50.Style.BorderStyle.Default = Telerik.Reporting.Drawing.BorderType.Solid;
             this.textBox50.Value = "= Fields.angka";
             // 
             // textBox51
             // 
             this.textBox51.Name = "textBox51";
             this.textBox51.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(0.46875005960464478D), Telerik.Reporting.Drawing.Unit.Inch(0.2395833432674408D));
-            this.textBox51.StyleName = "";
+            this.textBox51.Style.BorderColor.Default = System.Drawing.Color.FromArgb(((int)(((byte)(93)))), ((int)(((byte)(140)))), ((int)(((byte)(201)))));
+            this.textBox51.Style.BorderStyle.Default = Telerik.Reporting.Drawing.BorderType.Solid;
             this.textBox51.Value = "Angka";
             // 
             // textBox52
             // 
             this.textBox52.Name = "textBox52";
             this.textBox52.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(0.57291674613952637D), Telerik.Reporting.Drawing.Unit.Inch(0.2395833432674408D));
-            this.textBox52.StyleName = "";
+            this.textBox52.Style.BorderColor.Default = System.Drawing.Color.FromArgb(((int)(((byte)(93)))), ((int)(((byte)(140)))), ((int)(((byte)(201)))));
+            this.textBox52.Style.BorderStyle.Default = Telerik.Reporting.Drawing.BorderType.Solid;
             this.textBox52.Value = "Subtotal";
             // 
             // textBox53
             // 
             this.textBox53.Name = "textBox53";
             this.textBox53.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(0.46875011920928955D), Telerik.Reporting.Drawing.Unit.Inch(0.20833341777324677D));
-            this.textBox53.StyleName = "";
-            this.textBox53.Value = "total";
+            this.textBox53.Style.BorderColor.Default = System.Drawing.Color.FromArgb(((int)(((byte)(93)))), ((int)(((byte)(140)))), ((int)(((byte)(201)))));
+            this.textBox53.Style.BorderStyle.Default = Telerik.Reporting.Drawing.BorderType.Solid;
+            this.textBox53.Style.Font.Bold = true;
+            this.textBox53.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Right;
+            this.textBox53.Style.VerticalAlign = Telerik.Reporting.Drawing.VerticalAlign.Middle;
+            this.textBox53.Value = "Total";
             // 
             // textBox54
             // 
             this.textBox54.Name = "textBox54";
             this.textBox54.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(0.57291674613952637D), Telerik.Reporting.Drawing.Unit.Inch(0.20833341777324677D));
-            this.textBox54.StyleName = "";
+            this.textBox54.Style.BorderColor.Default = System.Drawing.Color.FromArgb(((int)(((byte)(93)))), ((int)(((byte)(140)))), ((int)(((byte)(201)))));
+            this.textBox54.Style.BorderStyle.Default = Telerik.Reporting.Drawing.BorderType.Solid;
+            this.textBox54.Style.Font.Bold = true;
+            this.textBox54.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Right;
+            this.textBox54.Style.VerticalAlign = Telerik.Reporting.Drawing.VerticalAlign.Middle;
             this.textBox54.Value = "= Sum(Fields.angka)";
             // 
             // textBox55
             // 
             this.textBox55.Name = "textBox55";
             this.textBox55.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(1.0416668653488159D), Telerik.Reporting.Drawing.Unit.Inch(0.21875D));
-            this.textBox55.StyleName = "";
+            this.textBox55.Style.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(214)))), ((int)(((byte)(229)))), ((int)(((byte)(243)))));
+            this.textBox55.Style.BorderColor.Default = System.Drawing.Color.FromArgb(((int)(((byte)(93)))), ((int)(((byte)(140)))), ((int)(((byte)(201)))));
+            this.textBox55.Style.BorderStyle.Default = Telerik.Reporting.Drawing.BorderType.Solid;
+            this.textBox55.Style.Font.Bold = true;
+            this.textBox55.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Center;
+            this.textBox55.Style.VerticalAlign = Telerik.Reporting.Drawing.VerticalAlign.Middle;
             // 
             // nilaipenguji2_datasource
             // 
-            this.nilaipenguji2_datasource.ConnectionString = "Data Source=RAY\\SQLEXPRESS;Initial Catalog=skripsi_automation;Integrated Security" +
-                "=True;MultipleActiveResultSets=True";
+            this.nilaipenguji2_datasource.ConnectionString = "skripsiautomationReport";
             this.nilaipenguji2_datasource.Name = "nilaipenguji2_datasource";
             this.nilaipenguji2_datasource.Parameters.AddRange(new Telerik.Reporting.SqlDataSourceParameter[] {
             new Telerik.Reporting.SqlDataSourceParameter("@id_skripsi", System.Data.DbType.Int32, "=Parameters.id_skripsi.Value")});
-            this.nilaipenguji2_datasource.ProviderName = "System.Data.SqlClient";
             this.nilaipenguji2_datasource.SelectCommand = "select n.angka, k.bobot, k.kategori, (n.angka * k.bobot /100) as subtotal\r\nfrom n" +
                 "ilai n\r\n\tjoin kategori_nilai k on k.id = n.kategori\r\nwhere n.id_skripsi = @id_sk" +
                 "ripsi and k.tipe= \'penguji2\'\r\n\r\n";
             // 
             // crosstab5
             // 
-            this.crosstab5.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Cm(1.1906251907348633D)));
-            this.crosstab5.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Cm(1.455208420753479D)));
+            this.crosstab5.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Inch(0.46875005960464478D)));
+            this.crosstab5.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Inch(0.57291680574417114D)));
             this.crosstab5.Body.Rows.Add(new Telerik.Reporting.TableBodyRow(Telerik.Reporting.Drawing.Unit.Inch(0.21875D)));
             this.crosstab5.Body.Rows.Add(new Telerik.Reporting.TableBodyRow(Telerik.Reporting.Drawing.Unit.Inch(0.239583358168602D)));
             this.crosstab5.Body.Rows.Add(new Telerik.Reporting.TableBodyRow(Telerik.Reporting.Drawing.Unit.Inch(0.21875005960464478D)));
@@ -1024,76 +1145,86 @@ namespace Proyek_Informatika.Report
             // 
             this.textBox62.Name = "textBox62";
             this.textBox62.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(0.46875011920928955D), Telerik.Reporting.Drawing.Unit.Inch(0.21875D));
+            this.textBox62.Style.BorderColor.Default = System.Drawing.Color.FromArgb(((int)(((byte)(93)))), ((int)(((byte)(140)))), ((int)(((byte)(201)))));
+            this.textBox62.Style.BorderStyle.Default = Telerik.Reporting.Drawing.BorderType.Solid;
             this.textBox62.Value = "= Fields.angka";
             // 
             // textBox63
             // 
             this.textBox63.Name = "textBox63";
             this.textBox63.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(0.57291674613952637D), Telerik.Reporting.Drawing.Unit.Inch(0.21875D));
-            this.textBox63.StyleName = "";
+            this.textBox63.Style.BorderColor.Default = System.Drawing.Color.FromArgb(((int)(((byte)(93)))), ((int)(((byte)(140)))), ((int)(((byte)(201)))));
+            this.textBox63.Style.BorderStyle.Default = Telerik.Reporting.Drawing.BorderType.Solid;
             this.textBox63.Value = "= Fields.subtotal";
             // 
             // textBox64
             // 
             this.textBox64.Name = "textBox64";
             this.textBox64.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(0.46875005960464478D), Telerik.Reporting.Drawing.Unit.Inch(0.2395833432674408D));
-            this.textBox64.StyleName = "";
+            this.textBox64.Style.BorderColor.Default = System.Drawing.Color.FromArgb(((int)(((byte)(93)))), ((int)(((byte)(140)))), ((int)(((byte)(201)))));
+            this.textBox64.Style.BorderStyle.Default = Telerik.Reporting.Drawing.BorderType.Solid;
             this.textBox64.Value = "Angka";
             // 
             // textBox65
             // 
             this.textBox65.Name = "textBox65";
             this.textBox65.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(0.57291674613952637D), Telerik.Reporting.Drawing.Unit.Inch(0.2395833432674408D));
-            this.textBox65.StyleName = "";
+            this.textBox65.Style.BorderColor.Default = System.Drawing.Color.FromArgb(((int)(((byte)(93)))), ((int)(((byte)(140)))), ((int)(((byte)(201)))));
+            this.textBox65.Style.BorderStyle.Default = Telerik.Reporting.Drawing.BorderType.Solid;
             this.textBox65.Value = "Subtotal";
             // 
             // textBox66
             // 
             this.textBox66.Name = "textBox66";
             this.textBox66.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(0.46875011920928955D), Telerik.Reporting.Drawing.Unit.Inch(0.20833341777324677D));
-            this.textBox66.StyleName = "";
-            this.textBox66.Value = "total";
+            this.textBox66.Style.BorderColor.Default = System.Drawing.Color.FromArgb(((int)(((byte)(93)))), ((int)(((byte)(140)))), ((int)(((byte)(201)))));
+            this.textBox66.Style.BorderStyle.Default = Telerik.Reporting.Drawing.BorderType.Solid;
+            this.textBox66.Style.Font.Bold = true;
+            this.textBox66.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Right;
+            this.textBox66.Style.VerticalAlign = Telerik.Reporting.Drawing.VerticalAlign.Middle;
+            this.textBox66.Value = "Total";
             // 
             // textBox67
             // 
             this.textBox67.Name = "textBox67";
             this.textBox67.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(0.57291674613952637D), Telerik.Reporting.Drawing.Unit.Inch(0.20833341777324677D));
-            this.textBox67.StyleName = "";
+            this.textBox67.Style.BorderColor.Default = System.Drawing.Color.FromArgb(((int)(((byte)(93)))), ((int)(((byte)(140)))), ((int)(((byte)(201)))));
+            this.textBox67.Style.BorderStyle.Default = Telerik.Reporting.Drawing.BorderType.Solid;
+            this.textBox67.Style.Font.Bold = true;
+            this.textBox67.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Right;
+            this.textBox67.Style.VerticalAlign = Telerik.Reporting.Drawing.VerticalAlign.Middle;
             this.textBox67.Value = "= Sum(Fields.subtotal)";
             // 
             // textBox68
             // 
             this.textBox68.Name = "textBox68";
             this.textBox68.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Inch(1.0416668653488159D), Telerik.Reporting.Drawing.Unit.Inch(0.21875D));
-            this.textBox68.StyleName = "";
+            this.textBox68.Style.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(214)))), ((int)(((byte)(229)))), ((int)(((byte)(243)))));
+            this.textBox68.Style.BorderColor.Default = System.Drawing.Color.FromArgb(((int)(((byte)(93)))), ((int)(((byte)(140)))), ((int)(((byte)(201)))));
+            this.textBox68.Style.BorderStyle.Default = Telerik.Reporting.Drawing.BorderType.Solid;
+            this.textBox68.Style.Font.Bold = true;
+            this.textBox68.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Center;
+            this.textBox68.Style.VerticalAlign = Telerik.Reporting.Drawing.VerticalAlign.Middle;
             // 
             // nilaitotal_datasource
             // 
-            this.nilaitotal_datasource.ConnectionString = "Data Source=RAY\\SQLEXPRESS;Initial Catalog=skripsi_automation;Integrated Security" +
-                "=True;MultipleActiveResultSets=True";
+            this.nilaitotal_datasource.ConnectionString = "skripsiautomationReport";
             this.nilaitotal_datasource.Name = "nilaitotal_datasource";
             this.nilaitotal_datasource.Parameters.AddRange(new Telerik.Reporting.SqlDataSourceParameter[] {
             new Telerik.Reporting.SqlDataSourceParameter("@id_skripsi", System.Data.DbType.Int32, "=Parameters.id_skripsi.Value")});
-            this.nilaitotal_datasource.ProviderName = "System.Data.SqlClient";
             this.nilaitotal_datasource.SelectCommand = "select n.angka, k.bobot, k.kategori, (n.angka * k.bobot /100) as subtotal\r\nfrom n" +
                 "ilai n\r\n\tjoin kategori_nilai k on k.id = n.kategori\r\nwhere n.id_skripsi = @id_sk" +
                 "ripsi and k.tipe= \'general\'";
             // 
             // sqlDataSource1
             // 
-            this.sqlDataSource1.ConnectionString = "Data Source=HANS-LAPTOP\\HANZSQL;Initial Catalog=skripsi_automation;Integrated Sec" +
-                "urity=True";
+            this.sqlDataSource1.ConnectionString = "skripsiautomationReport";
             this.sqlDataSource1.Name = "sqlDataSource1";
             this.sqlDataSource1.Parameters.AddRange(new Telerik.Reporting.SqlDataSourceParameter[] {
             new Telerik.Reporting.SqlDataSourceParameter("@id_skripsi", System.Data.DbType.Int32, "=Parameters.id_skripsi.Value")});
-            this.sqlDataSource1.ProviderName = "System.Data.SqlClient";
             this.sqlDataSource1.SelectCommand = "select n.angka, k.bobot, k.kategori, (n.angka * k.bobot /100) as subtotal\r\nfrom n" +
                 "ilai n\r\n\tjoin kategori_nilai k on k.id = n.kategori\r\nwhere n.id_skripsi = @id_sk" +
                 "ripsi and k.tipe= \'penguji2\'\r\n\r\n";
-            // 
-            // sqlDataSource2
-            // 
-            this.sqlDataSource2.Name = "sqlDataSource2";
             // 
             // NilaiSkripsi2
             // 
@@ -1106,7 +1237,6 @@ namespace Proyek_Informatika.Report
             reportParameter1.AutoRefresh = true;
             reportParameter1.Name = "id_skripsi";
             reportParameter1.Type = Telerik.Reporting.ReportParameterType.Integer;
-            reportParameter1.Value = "";
             this.ReportParameters.Add(reportParameter1);
             this.Style.BackgroundColor = System.Drawing.Color.White;
             styleRule1.Selectors.AddRange(new Telerik.Reporting.Drawing.ISelector[] {
@@ -1209,6 +1339,5 @@ namespace Proyek_Informatika.Report
         private Telerik.Reporting.TextBox textBox73;
         private Telerik.Reporting.TextBox textBox74;
         private Telerik.Reporting.SqlDataSource sqlDataSource1;
-        private Telerik.Reporting.SqlDataSource sqlDataSource2;
     }
 }

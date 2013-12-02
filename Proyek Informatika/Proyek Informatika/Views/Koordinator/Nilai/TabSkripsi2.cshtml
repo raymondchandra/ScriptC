@@ -1,5 +1,4 @@
-﻿
-<script type="text/javascript">
+﻿<script type="text/javascript">
     $(document).ready(function () {
     var values = {id: @(ViewBag.id)};
         $.post("Nilai/NilaiSkripsi2?id="+@(ViewBag.id), function(data){
@@ -25,7 +24,9 @@
         });                
     }
 </script>
-<span id = "contentLaporan">
-</span>
-    <input type = "button" id="accept" value="Accept"/>
-    <input type = "button" id= "reopen" value="Reopen" />
+<div class="container_15">
+    <span id="contentLaporan"></span>
+    <div class="button-block grid_15 txtcenter">
+        <input type="button" id="accept" value="Accept" class="t-button" />
+        <input type="button" id="reopen" value="Reopen" class="t-button" /></div>
+</div>

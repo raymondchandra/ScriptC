@@ -19,6 +19,11 @@
               
     }
 </script>
+<script>
+    $(document).ready(function () {
+        $(".Disabled").hide();
+    });
+</script>
 <%--<html>
     <head title="Availibility" id="Head1" runat="server"></head>
     <body>--%>

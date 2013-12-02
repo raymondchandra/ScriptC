@@ -1,29 +1,55 @@
-﻿
-<div class="layer">
-    <h1>Murid Bimbingan</h1>
-        <table>
-            <tr>
-                <td>Nama</td>
-                <td>:</td>
-                <td>@(ViewBag.nama)</td>
-            </tr>
-            <tr>
-                <td>NPM</td>
-                <td>:</td>
-                <td>@(ViewBag.npm)</td>
-            </tr>
-            <tr>
-                <td>Judul</td>
-                <td>:</td>
-                <td>@(ViewBag.judul)</td>
-            </tr>
-            <tr>
-                <td>Jumlah Bimbingan</td>
-                <td>:</td>
-                <td>@(ViewBag.jumlahBimbingan)</td>
-            </tr>
-        </table><br/><br />
- @(Html.Telerik().Grid<Proyek_Informatika.Models.bimbingan>()
+﻿<div class="container_15">
+    <div class="grid_5">
+        <!---------------------------------------->
+        <div class="editor-label grid_15">
+            <label>
+                Nama
+            </label>
+        </div>
+        <br class="clear" />
+        <div class="editor-field grid_15">
+            @(ViewBag.nama)
+        </div>
+        <br class="clear" />
+        <!---------------------------------------->
+        <div class="editor-label grid_15">
+            <label>
+                NPM
+            </label>
+        </div>
+        <br class="clear" />
+        <div class="editor-field grid_15">
+            @(ViewBag.npm)
+        </div>
+        <br class="clear" />
+    </div>
+    <div class="grid_10">
+        <!---------------------------------------->
+        <div class="editor-label grid_15">
+            <label>
+                Judul
+            </label>
+        </div>
+        <br class="clear" />
+        <div class="editor-field grid_15">
+            @(ViewBag.judul)
+        </div>
+        <br class="clear" />
+        <!---------------------------------------->
+        <div class="editor-label grid_15">
+            <label>
+                Jumlah Bimbingan
+            </label>
+        </div>
+        <br class="clear" />
+        <div class="editor-field grid_15">
+            <span id="jumlah">@(ViewBag.jumlahBimbingan)</span>
+        </div>
+        <br class="clear" />
+    </div>
+    <br class="clear" />
+    <br />
+    @(Html.Telerik().Grid<Proyek_Informatika.Models.bimbingan>()
         .HtmlAttributes(new { style = "width:100%" })
         .Name("KartuBimbinganMahasiswa")
         .DataKeys(keys =>
@@ -36,32 +62,30 @@
             columns.Bound(o => o.isi).Width(150).Title("Bahasan");
         })
         .BindTo(ViewData["kartu"] as IEnumerable<Proyek_Informatika.Models.bimbingan>)
-               //.DataBinding(dat => 
-               //{
-               //    dat.Ajax().Select("_SelectKartu", "BimbinganKoordinator", new {id_skripsi = ViewBag.id});
-                   
+            //.DataBinding(dat => 
+            //{
+            //    dat.Ajax().Select("_SelectKartu", "BimbinganKoordinator", new {id_skripsi = ViewBag.id});
+
                //})
-             .DetailView(det => det.ClientTemplate(
-                   "<fieldset>" +
-                       "<legend>Detail Bahasan</legend>" +
-                           "<div class = 'deskripsi'><#=deskripsi#>" +
-                           "</div>" +
-                   "</fieldset>"
-                 ))
-        .Editable(c=>c.Mode(GridEditMode.PopUp))
+                  .DetailView(det => det.ClientTemplate(
+                        "<fieldset class='detail'>" +
+                        "<legend>Detail Bahasan</legend>" +
+                        "<#= deskripsi #>" +
+                        "</fieldset>"
+                ))   
+        .Editable(c => c.Mode(GridEditMode.PopUp))
         .Sortable()
         .Filterable()
-        .Scrollable()
+                  .Pageable(p => p.PageSize(5))
+                .Scrollable(c => c.Enabled(true).Height(250))
         .Selectable()
         .Groupable()
 )
-
-
-
-@(  Html.Telerik().Window()
+    @(  Html.Telerik().Window()
         .Name("formBimbingans")
         .Title("Bimbingan")
-        .Content(@<text><div id= "container"></div></text>)
+        .Content(@<text><div id="container">
+        </div></text>)
         .Width(800)
         .Height(600)
         .Draggable(true)
