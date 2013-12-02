@@ -1,17 +1,4 @@
 ﻿
-<script type = "text/javascript">
-
-    function detilBimbingan2(e) {
-        alert("kartu bimbingan");
-        var windowZ;
-        if (e.name == "showDetilBimbingan") {
-            $("#container").html(e.dataItem.deskripsi);
-            windowZ = $("#formBimbingans").data("tWindow");
-            windowZ.center().open();
-        }
-        }
-    
-</script>
 <div class="layer">
     <h1>Murid Bimbingan</h1>
         <table>
@@ -47,30 +34,20 @@
         {
             columns.Bound(o => o.tanggal).Width(75).Title("Tanggal");
             columns.Bound(o => o.isi).Width(150).Title("Bahasan");
-            columns.Command(com =>
-            {
-                com.Edit().ButtonType(GridButtonType.Image);
-                com.Delete().ButtonType(GridButtonType.Image);
-                //com.Custom("showDetil").Text("Tampilkan").Ajax(true).ButtonType(GridButtonType.Image);
-            }).Width(50).Title("Aksi");
         })
-             .ToolBar(t => t.Custom().Name("addBimbingan").Ajax(true).Text("Tambah Bimbingan"))
-               .DataBinding(dat => 
-               {
-                   dat.Ajax().Select("_SelectKartu", "BimbinganDosen", new {id_skripsi = ViewBag.id});
-                   dat.Ajax().Update("EditBimbingan", "BimbinganDosen");
-                   dat.Ajax().Delete("DeleteBimbingan", "BimbinganDosen");
+        .BindTo(ViewData["kartu"] as IEnumerable<Proyek_Informatika.Models.bimbingan>)
+               //.DataBinding(dat => 
+               //{
+               //    dat.Ajax().Select("_SelectKartu", "BimbinganKoordinator", new {id_skripsi = ViewBag.id});
                    
-               })
-        .DetailView(det=>det.ClientTemplate(
-              "<fieldset>" +
-                  "<legend>Detail Bahasan</legend>" +
-                      "<div class = 'deskripsi'><#= deskripsi #>" +
-                      "</div>" +
-              "</fieldset>"
-            ))
-        
-        .ClientEvents(ev => ev.OnCommand("detilBimbingan"))
+               //})
+             .DetailView(det => det.ClientTemplate(
+                   "<fieldset>" +
+                       "<legend>Detail Bahasan</legend>" +
+                           "<div class = 'deskripsi'><#=deskripsi#>" +
+                           "</div>" +
+                   "</fieldset>"
+                 ))
         .Editable(c=>c.Mode(GridEditMode.PopUp))
         .Sortable()
         .Filterable()

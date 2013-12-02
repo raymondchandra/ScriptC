@@ -103,10 +103,36 @@ namespace Proyek_Informatika.Controllers.Koordinator
             ViewBag.npm = result.npm;
             ViewBag.judul = result.judul;
             ViewBag.id = result.id;
+
+            ViewData["kartu"] = db.bimbingans.Where(x => x.id_skripsi == id_skripsi).ToList<bimbingan>();
             return PartialView();
         }
-        
 
+        [GridAction]
+        public ActionResult _SelectKartu(int id_skripsi)
+        {
+            return bindingKartu(id_skripsi);
+        }
+        public ViewResult bindingKartu(int id_skripsi)
+        {
+            var result = from bm in db.bimbingans
+                         where bm.id_skripsi == id_skripsi
+                         select new { id = bm.id, id_skripsi = bm.id_skripsi, isi = bm.isi, deskripsi = bm.deskripsi, tanggal = bm.tanggal };
+            List<bimbingan> temp = new List<bimbingan>();
+            foreach (var i in result)
+            {
+                temp.Add(new bimbingan()
+                {
+                    id = i.id,
+                    isi = i.isi,
+                    tanggal = i.tanggal,
+                    id_skripsi = i.id_skripsi,
+                    deskripsi = i.deskripsi
+                });
+            }
+            return View(new GridModel<bimbingan>() { Data = temp });
+
+        }
 
         #endregion
 

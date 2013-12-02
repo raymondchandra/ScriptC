@@ -1,5 +1,6 @@
 ﻿<script type="text/javascript">
     function viewKartuBimbingan(e) {
+        
         var values = { id_skripsi: e.dataItem.id };
         $.post("BimbinganKoordinator/KartuBimbingan", values, function (data) {
             var detailWindow = $("#DetailBimbingan").data("tWindow");
@@ -55,7 +56,7 @@
         @(Html.Telerik().Window()
                 .Name("DetailBimbingan")
                 .Visible(false)
-                .Title("Detail Nilai")
+                .Title("Detail Bimbingan")
                 .Modal(true)
                 .Width(950)
                 .Height(600)
