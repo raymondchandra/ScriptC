@@ -166,7 +166,12 @@ namespace Proyek_Informatika.Controllers
 
             //create new skripsi entry
             skripsi lanjutan = new skripsi();
-            if (skripsi.jenis == 1) lanjutan.jenis = 2;
+            if (skripsi.jenis == 1)
+            {
+                lanjutan.jenis = 2;
+                //activate mahasiswa
+                mhs.status = "aktif";
+            }
             else if (skripsi.jenis == 2) lanjutan.jenis = 3;
             lanjutan.pengambilan_ke = 1;
             lanjutan.NIK_dosen_pembimbing = skripsi.NIK_dosen_pembimbing;
@@ -176,8 +181,7 @@ namespace Proyek_Informatika.Controllers
             
             db.skripsis.Add(lanjutan);
 
-            //activate mahasiswa
-            mhs.status = "aktif";
+            
             try
             {
                 db.Entry(mhs).State = System.Data.EntityState.Modified;

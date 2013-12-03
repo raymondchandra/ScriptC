@@ -109,26 +109,42 @@
             var npm = $("#npm_aktivasi").text();
             $.post("User/Aktivasi_Melanjutkan", { npm: npm }, function (success) {
                 alert((success == "True" ? "Berhasil" : "Gagal"));
+                updateDetail();
+                var popup = $("#Window_Aktivasi_Mahasiswa").data("tWindow");
+                popup.center().close();
+                $("#GridMahasiswa .t-refresh").trigger("click");
             });
         } else if (action == "mengulang") {
             var npm = $("#npm_aktivasi").text();
             $.post("User/Aktivasi_Mengulang", { npm: npm }, function (success) {
                 alert((success == "True" ? "Berhasil" : "Gagal"));
+                updateDetail();
+                var popup = $("#Window_Aktivasi_Mahasiswa").data("tWindow");
+                popup.center().close();
+                $("#GridMahasiswa .t-refresh").trigger("click");
             });
         } else if (action == "mengganti_topik") {
             var npm = $("#npm_aktivasi").text();
             var id_topik = $("#form_ganti_topik select option:selected").val();
             $.post("User/Aktivasi_Melanjutkan", { npm: npm, id_topik: id_topik }, function (success) {
                 alert((success == "True" ? "Berhasil" : "Gagal"));
+                updateDetail();
+                var popup = $("#Window_Aktivasi_Mahasiswa").data("tWindow");
+                popup.center().close();
+                $("#GridMahasiswa .t-refresh").trigger("click");
             });
         }
 
+
+    });
+
+    function updateDetail() {
         //update data displayed in popup
         var npm = $("#npm_aktivasi").text();
         $.get("User/LihatDetail", { npm: npm }, function (json) {
             Set_Detail_In_Aktivasi(json);
         });
-    });
+    }
 </script>
 <!--GRID MAHASISWA-->
 @(Html.Telerik().Grid<Proyek_Informatika.Models.AlbertContainer.MahasiswaForGrid>()
